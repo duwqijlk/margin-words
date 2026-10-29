@@ -1,5 +1,5 @@
 import { Heart, Image as ImageIcon, Sparkles, X } from "lucide-react";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef } from "react";
 import merriamWebsterLogo from "@/assets/merriam-webster-logo.png";
 import { countSurface, type OtherMeaning } from "@/lib/glossary-format";
 import { useT, type Key } from "@/lib/i18n";
@@ -8,38 +8,10 @@ import { surfaceOffset } from "@/lib/text";
 import { FloatingAside } from "@/components/floating-card";
 import { SentenceHint } from "@/components/help-panels";
 import { SIDE_PANEL } from "@/components/side-panel";
-import { btn, cn, Highlighted, SpeakButton } from "@/components/ui";
-import { WordExplanationFeedback } from "@/components/word-feedback";
-import { CreditLine } from "@/components/credit-line";
+import { cn, SpeakButton } from "@/components/ui";
+import { WordMeaning } from "@/components/word-feedback";
 import { WordIpa } from "@/components/word-ipa";
 import { version as localIpaVersion } from "virtual:local-ipa-data";
-
-/** One quiet quote: a small optional label and a serif line with a thin left rule. */
-export function CardQuote({
-  label,
-  part,
-  children,
-}: {
-  label?: string;
-  part?: string;
-  children: ReactNode;
-}) {
-  return (
-    <figure
-      className="grid gap-0.5 border-l-2 border-line pl-3"
-      {...(part ? { "data-part": part } : {})}
-    >
-      {label ? (
-        <figcaption className="text-xs text-muted">
-          {label}
-        </figcaption>
-      ) : null}
-      <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/85">
-        {children}
-      </blockquote>
-    </figure>
-  );
-}
 
 export type CardState = {
   surface: string;
@@ -98,24 +70,6 @@ export type PhraseHit = {
   matched: string;
 };
 
-export function wordPosClass() {
-  return "inline-flex max-w-full items-center leading-none text-sm font-medium text-muted";
-}
-
-export function SceneLine({ text }: { text: string }) {
-  const { t } = useT();
-  return (
-    <section className="grid gap-1 py-1" data-part="word-here">
-      <h3 className="text-xs font-medium text-accent">
-        {t("card.here")}
-      </h3>
-      <p className="text-[0.98rem] leading-snug" lang="en">
-        {text}
-      </p>
-    </section>
-  );
-}
-
 const LOOKUP_LABEL = {
   longman: "card.look.longman",
   webster: "card.look.webster",
@@ -166,7 +120,7 @@ export function CoinedBadge() {
   const { t } = useT();
   return (
     <p
-      className="inline-flex items-center gap-1.5 self-start rounded-full bg-mark/60 px-2.5 py-0.5 text-xs font-semibold text-ink"
+      className="inline-flex items-center gap-1.5 self-start rounded-sm bg-mark px-2 py-0.5 text-xs font-bold text-ink"
       data-coined
     >
       <Sparkles className="size-3" aria-hidden />
@@ -223,61 +177,34 @@ export function WordCard({
   const bodyRef = useRef<HTMLDivElement | null>(null);
   const activePhrase = targetMode === "phrase" ? phrase : null;
   const target = activePhrase?.key ?? state.key;
-  const targetSurface = activePhrase?.matched ?? state.surface;
-  const targetPos = activePhrase ? activePhrase.entry.pos : state.pos;
-  const targetHere = activePhrase ? activePhrase.entry.here : state.here;
   const targetMeaning = activePhrase ? activePhrase.entry.meaning : state.meaning;
   // A sentence note belongs to a chapter, or to a recovered extra by its id. The tapped place's
   // own chapter is the reader's edition index; for an extra, that id is the only usable key.
   const sentenceChapter =
     typeof noteChapter === "string" ? noteChapter : (state.chapter ?? noteChapter ?? chapter);
-  const targetForm = activePhrase
-    ? activePhrase.matched.toLowerCase() !== activePhrase.key.toLowerCase() ? activePhrase.matched : ""
-    : state.key !== state.surface.toLowerCase()
-      ? state.surface
-      : "";
   useEffect(() => {
     const body = bodyRef.current;
     if (!body) return;
     for (const details of body.querySelectorAll("details")) details.open = false;
     body.scrollTop = 0;
   }, [selectionId, targetMode, target]);
-  const noMeaning =
-    !activePhrase && state.status === "unknown" ? (
-      <p
-        className="rounded-lg bg-accent-soft px-3 py-2.5 text-[0.95rem] leading-snug"
-        role="status"
-        data-part="no-meaning"
-      >
-        {t("card.noMeaning")}
-        {noList ? <span className="mt-1 block text-muted">{t("card.noList")}</span> : null}
-      </p>
-    ) : null;
-
-  const heroMeaning = noMeaning ?? (
-    <p
-      className="text-[1.3rem] leading-snug font-medium text-ink"
-      lang="en"
-      data-part="word-meaning"
-    >
-      {targetMeaning}
-    </p>
-  );
-
-  const inBook = (word: string) =>
-    t("common.inBook", { word: "\u0001" })
-      .split("\u0001")
-      .flatMap((piece, i) =>
-        i === 0
-          ? [piece]
-          : [
-              <span key="m" className="font-semibold text-ink" lang="en">
-                {word}
-              </span>,
-              piece,
-            ],
-      );
-  const formLine = targetForm;
+  const report = {
+    bookId,
+    bookTitle,
+    word: target,
+    form: activePhrase ? activePhrase.matched.toLowerCase() : countSurface(state.surface),
+    chapter: state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter),
+    chapters,
+    catalogId,
+    occurrence: state.occurrence ?? 1,
+    paragraph: state.paragraph ?? 0,
+    context: state.context ?? "",
+    sentence: state.fullSentence ?? state.sentence,
+    senseIndex: activePhrase ? -1 : state.senseIndex ?? -1,
+    senseMeaning: targetMeaning,
+    glossaryRev: state.glossaryRev,
+  };
+  const missing = !activePhrase && state.status === "unknown";
   return (
     <FloatingAside
       anchor={anchor}
@@ -286,9 +213,9 @@ export function WordCard({
       kind="word"
       desktopWidth={24 * 16}
       className={cn(
-        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop glass",
-        targetHere ? "word-sheet-context" : "word-sheet-plain",
-        "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3.5 pb-5 md:pb-6",
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop ",
+        "word-sheet-plain",
+        "inset-x-0 bottom-0 rounded-t-sheet border-t pt-3.5 pb-5 md:pb-6",
         SIDE_PANEL,
       )}
     >
@@ -301,8 +228,12 @@ export function WordCard({
           data-word-head
         >
           <div className="min-w-0" data-word-title>
+            {/* Literata, bold; a word over 14 letters steps down so it stays on one line. */}
             <h2
-              className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words text-ink"
+              className={cn(
+                "min-w-0 font-display leading-tight font-bold tracking-[-0.025em] break-words text-ink",
+                target.length > 14 ? "text-[1.6rem]" : "text-[1.85rem]",
+              )}
               lang="en"
             >
               {target}
@@ -312,9 +243,8 @@ export function WordCard({
             <button
               type="button"
               className={cn(
-                btn.icon,
-                "transition-transform duration-150 active:scale-90 disabled:cursor-not-allowed",
-                saved ? "text-warn" : "text-ink/80 hover:text-ink",
+                "inline-flex size-11 shrink-0 items-center justify-center rounded transition-colors duration-100 hover:bg-sheet disabled:cursor-not-allowed disabled:opacity-40",
+                saved ? "text-accent" : "text-ink/80 hover:text-ink",
               )}
               disabled={!saved && !canSave}
               onClick={onToggle}
@@ -323,23 +253,23 @@ export function WordCard({
               title={t(saved ? "card.savedTarget" : "card.addTarget", { word: target })}
               data-word-save
             >
-              {/* A heart: outline to save, filled once the word is in the notebook. */}
+              {/* A heart: outline to save, filled brand once the word is in the notebook. */}
               <Heart className={cn("size-5 stroke-[1.8]", saved && "fill-current")} aria-hidden />
             </button>
             <button
               type="button"
-              className={cn(btn.icon, "shrink-0")}
+              className="inline-flex size-11 shrink-0 items-center justify-center rounded text-faint transition-colors duration-100 hover:bg-sheet hover:text-ink"
               onClick={() => onClose(true)}
               aria-label={t("card.close")}
               data-panel-close
             >
-              <X className="size-5" aria-hidden />
+              <X className="size-5 stroke-2" aria-hidden />
             </button>
           </div>
         </div>
         {phrase ? (
           <div
-            className="mt-2 inline-flex w-fit max-w-full items-center rounded-lg border border-line/60 bg-paper p-0.5 text-xs"
+            className="mt-2 inline-flex w-fit max-w-full items-center divide-x divide-line overflow-hidden rounded border border-edge text-xs"
             role="group"
             aria-label={t("card.lookTargetAria")}
             data-look-target-group
@@ -349,10 +279,8 @@ export function WordCard({
               onClick={() => onTargetChange("phrase")}
               aria-pressed={targetMode === "phrase"}
               className={cn(
-                "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
-                targetMode === "phrase"
-                  ? "bg-card text-ink font-semibold shadow-xs"
-                  : "text-muted hover:text-ink",
+                "px-2.5 py-1 text-[0.75rem] transition-colors duration-100",
+                targetMode === "phrase" ? "bg-accent-soft font-bold text-accent" : "text-muted hover:bg-sheet hover:text-ink",
               )}
               data-look-target="phrase"
             >
@@ -363,10 +291,8 @@ export function WordCard({
               onClick={() => onTargetChange("word")}
               aria-pressed={targetMode === "word"}
               className={cn(
-                "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
-                targetMode === "word"
-                  ? "bg-card text-ink font-semibold shadow-xs"
-                  : "text-muted hover:text-ink",
+                "px-2.5 py-1 text-[0.75rem] transition-colors duration-100",
+                targetMode === "word" ? "bg-accent-soft font-bold text-accent" : "text-muted hover:bg-sheet hover:text-ink",
               )}
               data-look-target="word"
               lang="en"
@@ -375,62 +301,35 @@ export function WordCard({
             </button>
           </div>
         ) : null}
-        <div className="mt-2 flex min-w-0 items-center gap-3" data-word-tools>
-          <div className="grid min-w-0 gap-0.5" data-word-meta>
-            {activePhrase ? (
-              <span className={wordPosClass()} data-phrase-pos data-word-pos>
-                {activePhrase.entry.pos ? (
-                  <span lang="en">{activePhrase.entry.pos}</span>
-                ) : (
-                  t("card.phraseFallback")
-                )}
-              </span>
-            ) : targetPos ? (
-              <span className={wordPosClass()} data-word-pos>
-                <span lang="en">{targetPos}</span>
-              </span>
-            ) : null}
-            {formLine ? <p className="text-xs text-muted">{inBook(formLine)}</p> : null}
+        {!localIpaVersion && !activePhrase ? (
+          <div className="mt-2 flex min-w-0 items-center gap-3" data-word-tools>
+            <SpeakButton text={target} compact className="shrink-0" />
           </div>
-          {!localIpaVersion && !activePhrase ? <SpeakButton text={target} compact className="shrink-0" /> : null}
-        </div>
+        ) : null}
       </div>
-      <div ref={bodyRef} className="scroll-thin my-3.5" data-word-body>
-        <div className="grid gap-3.5" data-word-content>
+      <div ref={bodyRef} className="scroll-thin mt-2.5 mb-4" data-word-body>
+        <div className="grid gap-3" data-word-content>
           {activePhrase ? (
-            <div className="flex flex-wrap items-start gap-x-5 text-sm leading-relaxed" data-phrase-audio>
-              {(["UK", "US"] as const).map(accent => (
-                <div key={accent} className="inline-flex items-center gap-1.5" data-phrase-accent={accent}>
-                  <span className="text-xs font-semibold text-muted">{t(accent === "UK" ? "ipa.uk" : "ipa.us")}</span>
-                  <SpeakButton text={target} accent={accent} compact />
-                </div>
-              ))}
-            </div>
+            <WordIpa key={`${selectionId}:${target}`} word={target} phrase />
           ) : localIpaVersion ? (
             // Drawn from the first frame, also while the phrase check runs, so the card keeps its
             // height: the IPA used to appear a beat later and push the meaning down under the finger.
             <WordIpa key={`${selectionId}:${state.key}`} word={state.key} surface={state.surface} pending={phrasePending} />
           ) : null}
-          <div className="grid gap-2" data-word-primary>
-            {!activePhrase && state.status === "ready" && state.credit ? <CreditLine id={state.credit} /> : null}
-            {activePhrase?.entry.credit ? <CreditLine id={activePhrase.entry.credit} /> : null}
-            {activePhrase ? (
-              <p
-                className="text-[1.25rem] leading-snug font-medium text-ink"
-                lang="en"
-                data-part="phrase-meaning"
-              >
-                {activePhrase.entry.meaning}
-              </p>
-            ) : heroMeaning}
-            {targetHere ? <SceneLine text={targetHere} /> : null}
-            {activePhrase?.entry.example ? (
-              <CardQuote label={t("card.example")} part="example">
-                <Highlighted sentence={activePhrase.entry.example} surface={targetSurface} />
-              </CardQuote>
-            ) : null}
+          {/* The meaning, its credit and the feedback around it (word-feedback.tsx). Only the
+              headword, the IPA, the meaning and its credit are shown: no part of speech, no
+              "in this sentence" or second example (design system WordCard). */}
+          <WordMeaning
+            key={`${bookId}:${selectionId}:${targetMode}:${target}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
+            meaning={targetMeaning}
+            credit={activePhrase ? activePhrase.entry.credit : state.status === "ready" ? state.credit : undefined}
+            missing={missing}
+            noList={noList}
+            part={activePhrase ? "phrase-meaning" : "word-meaning"}
+            target={report}
+          >
             {!activePhrase && state.coined ? <CoinedBadge /> : null}
-          </div>
+          </WordMeaning>
           {/* One small line when the word list has a note for this sentence; the note opens in
               the paragraph panel. It shows nothing when there is none. */}
           {onSentenceHelp ? (
@@ -443,37 +342,9 @@ export function WordCard({
           ) : null}
         </div>
       </div>
-      <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
-        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2" data-feedback-row>
-          <span className="text-xs whitespace-nowrap text-muted">
-            {t("card.lookTitle")}
-          </span>
-          {/* A word with no meaning here can still be reported, as a missing meaning. The
-              feedback choices and the reader's own meaning open below this row, the full width
-              of the card (word-feedback.tsx). */}
-          <WordExplanationFeedback
-            key={`${bookId}:${selectionId}:${targetMode}:${target}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
-            bookId={bookId}
-            bookTitle={bookTitle}
-            word={target}
-            form={activePhrase ? activePhrase.matched.toLowerCase() : countSurface(state.surface)}
-            chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
-            chapters={chapters}
-            catalogId={catalogId}
-            occurrence={state.occurrence ?? 1}
-            paragraph={state.paragraph ?? 0}
-            context={state.context ?? ""}
-            sentence={state.fullSentence ?? state.sentence}
-            senseIndex={activePhrase ? -1 : state.senseIndex ?? -1}
-            senseMeaning={targetMeaning}
-            glossaryRev={state.glossaryRev}
-            missing={!activePhrase && state.status === "unknown"}
-          />
-          {/* The dictionaries stay right under their label; the feedback box opens below them. */}
-          <div className="order-2 basis-full">
-            <LookupLinks word={target} />
-          </div>
-        </div>
+      <div className="grid gap-2 border-t border-line pt-3" data-word-footer>
+        <span className="text-xs text-faint">{t("card.lookTitle")}</span>
+        <LookupLinks word={target} />
       </div>
     </FloatingAside>
   );

@@ -359,14 +359,14 @@ async function collapsedDetails(card, isPhrase) {
 async function targetContent(card, mode) {
   const isPhrase = mode === 'phrase';
   assert.equal(await card.locator('h2').innerText(), isPhrase ? phrase : 'odds', 'target changes card title');
-  assert.equal(await card.locator('[data-word-pos]').innerText(), isPhrase ? 'idiom' : 'plural noun', 'target changes POS');
+  // The design system card has no part of speech line (WordCard: headword, IPA, meaning, credit).
+  assert.equal(await card.locator('[data-word-pos]').count(), 0, 'no part of speech on the card');
   await pronunciationControls(card);
   assert.equal(await card.locator(`[data-part="${isPhrase ? 'phrase' : 'word'}-meaning"]`).innerText(),
     isPhrase ? fixture.phraseMeaning : fixture.wordMeaning, 'target changes primary meaning');
   assert.equal(await card.locator(`[data-part="${isPhrase ? 'word' : 'phrase'}-meaning"]`).count(), 0,
     'other target meaning is unmounted, not just hidden');
-  assert.equal(await card.locator('[data-part="word-here"] p').innerText(), isPhrase ? fixture.phraseHere : fixture.wordHere,
-    'target changes here text');
+  assert.equal(await card.locator('[data-part="word-here"]').count(), 0, 'no "in this sentence" block on the card');
   assert.equal(await card.locator('[data-part="word-alone"]').count(), 0);
   const text = await card.innerText();
   if (isPhrase) {
@@ -418,7 +418,8 @@ async function targetRoundTrip(page, card) {
   await switchTarget(page, card, 'phrase');
   // Reveal the supplied phrase example without assuming whether it is a direct quote or in More.
   const example = card.locator('[data-part="example"]');
-  assert.equal(await example.count(), 1, 'phrase has exactly its own example');
+  assert.equal(await example.count(), 0, 'the card shows no second example');
+  if (!(await example.count())) return;
   const exampleDetails = example.locator('xpath=ancestor::details[1]');
   if (await exampleDetails.count()) {
     const summary = exampleDetails.locator(':scope > summary');
@@ -1812,7 +1813,7 @@ try {
         assert.equal(await card.locator("h2").innerText(), word === "odds" ? phrase : word);
         await links(card, word === "odds" ? phrase : word);
         if (word === "odds") {
-          assert.ok((await card.locator('[data-part="word-here"]').innerText()).includes("flooded streets"));
+          assert.equal(await card.locator('[data-part="word-here"]').count(), 0);
           await lookupTarget(card, 'phrase');
           await targetRoundTrip(page, card);
           await switchTarget(page, card, 'word');

@@ -1,26 +1,28 @@
-import { BookMarked, Check, ChevronDown, Layers, RotateCcw, Search, Trash2 } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, Flame, Layers, RotateCcw, Search, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useT, type Key } from "@/lib/i18n";
-import { dueLabel, INTERVALS_DAYS, summarize } from "@/lib/srs";
+import { dueLabel, streakOf, summarize } from "@/lib/srs";
+import { modeLabel, savedReviewMode, saveReviewMode, usableMode, type ReviewMode, type ReviewPool } from "@/lib/review-mode";
 import { bookSyncKey } from "@/lib/sync-merge";
-import { isDue, isMastered, MASTERED_STAGE, type Book, type VocabEntry } from "@/lib/vocab-model";
+import { isDue, isMastered, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
 import { focusSentence } from "@/lib/text";
 import { hasSourceFrom } from "@/lib/wordbook";
 import { useGlossFiles, usePresentedWord } from "@/components/presented-word";
 import { presentWord } from "@/lib/gloss-ref";
 import { WordSources } from "@/components/word-sources";
+import { WordIpa } from "@/components/word-ipa";
+import { MemoryLadder, ModeCards, WeekChart } from "@/components/review-parts";
 import {
   btn,
-  chip,
   cn,
   ConfirmDialog,
   field,
   Highlighted,
-  Segmented,
   selectCls,
-  SpeakButton,
   StatRow,
+  subTabs,
+  TabInk,
 } from "@/components/ui";
 
 type Filter = "all" | "due" | "learning" | "mastered";
@@ -33,32 +35,32 @@ const FILTERS: Array<{ value: Filter; label: Key }> = [
   { value: "mastered", label: "nb.filter.mastered" },
 ];
 
-const PAGE = 40;
+const PAGE = 30;
 
-/** Six dots = the 1/2/4/7/15/30-day ladder. Filled dots are reviews already passed. */
-function Ladder({ stage }: { stage: number }) {
-  const { t } = useT();
-  const mastered = stage >= MASTERED_STAGE;
+/** "Review today" in warn, "In 4 days" quiet, "Mastered" on a highlighter (design system WordRow). */
+function DueText({ word }: { word: VocabEntry }) {
+  const mastered = isMastered(word);
+  const due = !mastered && isDue(word);
   return (
     <span
-      className="inline-flex items-center gap-1"
-      role="img"
-      aria-label={
-        mastered ? t("ladder.done") : t("ladder.passed", { n: stage, total: INTERVALS_DAYS.length })
-      }
-      title={t("ladder.title", { days: INTERVALS_DAYS.join(" / ") })}
+      className={cn(
+        "text-[13px] leading-snug whitespace-nowrap",
+        mastered ? "rounded-sm bg-mark px-1 text-ink" : due ? "font-bold text-warn" : "text-faint",
+      )}
+      data-due={mastered ? "done" : due ? "warn" : "plain"}
     >
-      {INTERVALS_DAYS.map((days, index) => (
-        <span
-          key={days}
-          className={cn("size-1.5 rounded-full", index < stage ? "bg-accent" : "bg-line")}
-          aria-hidden
-        />
-      ))}
+      {dueLabel(word)}
     </span>
   );
 }
 
+/**
+ * One saved word as a dictionary line (design system WordRow), rows split by rules, no card: the
+ * headword in Literata with the form met in the book, the UK / US rows with their own speakers,
+ * the meaning, the sentence from the book and where it was met. On the right the memory ladder,
+ * when it is due, and Mastered / Relearn and Delete (shown on hover on a wide screen, always on
+ * touch). A mastered word has a highlighter under its headword.
+ */
 function WordRow({
   word,
   books,
@@ -72,17 +74,24 @@ function WordRow({
   const markMastered = useVocab((state) => state.markMastered);
   const relearn = useVocab((state) => state.relearn);
   const mastered = isMastered(word);
-  const due = isDue(word);
   const shown = usePresentedWord(word, books) ?? word;
+  const bookCount = new Set(word.sources.map((source) => source.book)).size;
+  const note = [bookCount > 1 ? tn("nb.inBooks", bookCount) : "", word.seen ? tn("row.seenPlain", word.seen) : ""]
+    .filter(Boolean)
+    .join(" · ");
   return (
-    <li className="grid gap-3 rounded-2xl bg-card p-3 sm:p-5">
-      <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
-        <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="w-full font-display text-xl font-semibold wrap-any sm:w-auto sm:text-2xl" lang="en">
-            {word.lemma}
+    <li
+      className="nb-row grid grid-cols-1 gap-x-8 gap-y-3 border-b border-line py-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:py-5"
+      data-word-row
+      data-mastered={mastered || undefined}
+    >
+      <div className="grid min-w-0 gap-1.5">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h3 className="m-0 font-display text-2xl leading-tight font-semibold tracking-[-0.01em] wrap-any" lang="en">
+            <span className={mastered ? "head-mark" : undefined}>{word.lemma}</span>
           </h3>
           {word.surface.toLowerCase() !== word.lemma.toLowerCase() ? (
-            <span className="text-sm text-muted">
+            <span className="text-[13px] text-faint">
               {t("common.inBook", { word: "\u0001" })
                 .split("\u0001")
                 .flatMap((piece, i) =>
@@ -98,81 +107,47 @@ function WordRow({
             </span>
           ) : null}
         </div>
-        <div className="flex items-center gap-2">
-          <Ladder stage={word.stage} />
-          <span
-            className={cn(
-              chip,
-              mastered
-                ? "bg-accent-soft text-accent"
-                : due
-                  ? "bg-warn-soft text-warn"
-                  : "bg-line text-muted",
-            )}
-          >
-            {dueLabel(word)}
-          </span>
-        </div>
+        <WordIpa word={word.lemma} surface={word.surface} phrase={/\s/.test(word.lemma)} />
+        {shown.sources.length > 0 ? (
+          <WordSources word={shown} books={books} note={note || undefined} />
+        ) : (
+          <>
+            {shown.meaning ? (
+              <p className="m-0 text-base leading-normal wrap-any" lang="en" data-source-meaning>
+                {shown.pos ? <span className="mr-1.5 text-[13px] text-faint">{shown.pos}</span> : null}
+                {shown.meaning}
+              </p>
+            ) : null}
+            {shown.sentence ? (
+              <p className="source-sentence m-0 font-display text-[15px] leading-relaxed text-muted italic wrap-any" data-source-sentence>
+                <Highlighted sentence={focusSentence(shown.sentence, shown.surface || shown.lemma)} surface={shown.surface || shown.lemma} />
+              </p>
+            ) : null}
+            {note ? <p className="m-0 text-[13px] text-faint">{note}</p> : null}
+          </>
+        )}
       </div>
 
-      {shown.sources.length > 0 ? (
-        <WordSources word={shown} books={books} />
-      ) : (
-        <div className="grid gap-1.5">
-          {shown.sentence ? (
-            <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed wrap-any text-ink">
-              <Highlighted sentence={focusSentence(shown.sentence, shown.surface || shown.lemma)} surface={shown.surface || shown.lemma} />
-            </p>
-          ) : null}
-          {shown.pos ? (
-            <div className={shown.sentence ? "pl-3" : undefined}>
-              <span className={cn(chip, "bg-accent-soft text-accent")}>
-                <span lang="en">{shown.pos}</span>
-              </span>
-            </div>
-          ) : null}
-          {shown.meaning ? (
-            <p
-              className={cn("text-[1.02rem] leading-relaxed wrap-any", shown.sentence && "pl-3")}
-              lang="en"
-              data-source-meaning
-            >
-              {shown.meaning}
-            </p>
-          ) : null}
+      <div className="flex items-center justify-between gap-3 sm:grid sm:content-between sm:justify-items-end">
+        <div className="flex items-center gap-2.5">
+          <MemoryLadder stage={word.stage} />
+          <DueText word={word} />
         </div>
-      )}
-
-      <div className="flex flex-col gap-1 border-t border-line pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-        <p className="flex min-w-0 flex-wrap items-center gap-1.5 text-xs text-muted">
-          <BookMarked className="size-3.5 shrink-0" aria-hidden />
-          <span>{tn("nb.inBooks", new Set(word.sources.map((source) => source.book)).size)}</span>
-          {word.seen ? <span className="shrink-0">{tn("row.seen", word.seen)}</span> : null}
-        </p>
-        <div className="-mr-2 flex flex-wrap items-center">
-          <SpeakButton text={word.lemma} className="min-h-10" />
+        <div className="nb-actions -mr-2 flex items-center gap-1">
           {mastered ? (
-            <button
-              type="button"
-              className={cn(btn.ghost, "min-h-10 px-3 text-sm text-accent")}
-              onClick={() => relearn(word.id)}
-            >
+            <button type="button" className={cn(btn.bare, "min-h-10 px-2.5 text-sm text-accent")} onClick={() => relearn(word.id)}>
               <RotateCcw className="size-4" aria-hidden />
               {t("row.relearn")}
             </button>
           ) : (
-            <button
-              type="button"
-              className={cn(btn.ghost, "min-h-10 px-3 text-sm text-accent")}
-              onClick={() => markMastered(word.id)}
-            >
+            <button type="button" className={cn(btn.bare, "min-h-10 px-2.5 text-sm text-accent")} onClick={() => markMastered(word.id)}>
               <Check className="size-4" aria-hidden />
               {t("row.mastered")}
             </button>
           )}
           <button
             type="button"
-            className={cn(btn.ghost, "min-h-10 px-3 text-sm text-muted hover:text-warn")}
+            className={cn(btn.bare, "min-h-10 px-2.5 text-faint hover:text-warn")}
             onClick={onAskDelete}
             aria-label={t("row.deleteAria", { word: word.lemma })}
           >
@@ -184,23 +159,108 @@ function WordRow({
   );
 }
 
+/**
+ * The review launcher (design system ReviewLauncher), right under the notebook's header, so every
+ * review passes through it: how many words are due and the streak, the three ways to review (the
+ * last one remembered), the start button with the chosen way under it, the next 7 days and a link
+ * to the review data page. With nothing due the button practises the words still being learnt.
+ */
+function ReviewLauncher({
+  stats,
+  words,
+  streak,
+  onStart,
+  onData,
+}: {
+  stats: ReturnType<typeof summarize>;
+  words: number;
+  streak: number;
+  onStart: (pool: ReviewPool, mode: ReviewMode) => void;
+  onData: () => void;
+}) {
+  const { t, tn } = useT();
+  const [picked, setPicked] = useState<ReviewMode>(() => savedReviewMode());
+  const mode = usableMode(picked, words);
+  const pool: ReviewPool = stats.due > 0 ? "due" : stats.learning > 0 ? "learning" : "all";
+  const count = pool === "due" ? stats.due : pool === "learning" ? stats.learning : stats.total;
+  const label =
+    pool === "due" ? t("nb.startReview", { n: count }) : pool === "learning" ? t("rv.practiceLearning", { n: count }) : t("rv.practiceAll", { n: count });
+  return (
+    <section
+      className="launcher grid grid-cols-1 items-center gap-3.5 rounded-2xl bg-sheet p-4 lg:grid-cols-[9rem_minmax(0,1fr)_14rem] lg:gap-x-7 lg:gap-y-5 lg:px-6 lg:py-5"
+      aria-label={t("rv.title")}
+      data-review-launcher
+    >
+      <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 lg:grid lg:gap-0.5">
+        {stats.due > 0 ? (
+          <>
+            <b className="font-display text-[40px] leading-none font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] lg:text-5xl" data-launch-due>
+              {stats.due}
+            </b>
+            <span className="text-sm text-muted">{tn("rv.dueText", stats.due)}</span>
+          </>
+        ) : (
+          <b className="text-xl leading-snug font-bold tracking-[-0.02em]" data-launch-done>
+            {t("nb.allDone")}
+          </b>
+        )}
+        <small className="inline-flex basis-full items-center gap-1.5 text-[13px] text-muted lg:mt-1.5">
+          <Flame className="size-4 text-warn" aria-hidden />
+          {streak > 0 ? tn("nb.streak", streak) : t("rv.streakStart")}
+        </small>
+      </div>
+
+      <ModeCards
+        compact
+        value={mode}
+        words={words}
+        onChange={(next) => {
+          setPicked(next);
+          saveReviewMode(next);
+        }}
+      />
+
+      <div className="grid gap-1.5 text-center">
+        <button type="button" className={cn(btn.primary, "min-h-12 w-full")} onClick={() => onStart(pool, mode)} data-review-start>
+          <Layers className="size-4" aria-hidden />
+          {label}
+        </button>
+        <span className="text-[13px] text-faint">{t("nb.withMode", { mode: t(modeLabel(mode)) })}</span>
+      </div>
+
+      <div className="grid grid-cols-1 items-end gap-0.5 border-t border-line pt-3 lg:col-span-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-5 lg:pt-3.5">
+        <div className="sm:max-w-[26rem]">
+          <WeekChart upcoming={stats.upcoming} mini />
+        </div>
+        <button type="button" className={cn(btn.bare, "-ml-2 min-h-10 justify-self-start px-2 text-sm text-accent lg:ml-0")} onClick={onData} data-review-data>
+          {t("nb.reviewData")}
+          <ChevronRight className="size-4" aria-hidden />
+        </button>
+      </div>
+    </section>
+  );
+}
+
 export function Notebook({
   books,
   words,
   bookId,
   onBookChange,
   onReview,
+  onReviewData,
   onOpenBook,
 }: {
   books: Book[];
   words: VocabEntry[];
   bookId: string | null;
   onBookChange: (bookId: string | null) => void;
-  onReview: (bookId: string | null) => void;
+  onReview: (bookId: string | null, pool: ReviewPool, mode: ReviewMode) => void;
+  onReviewData: (bookId: string | null) => void;
   onOpenBook: (bookId: string) => void;
 }) {
   const { t } = useT();
   const removeWord = useVocab((state) => state.removeWord);
+  const log = useVocab((state) => state.log);
   const glossFiles = useGlossFiles();
   const [filter, setFilter] = useState<Filter>("all");
   const [order, setOrder] = useState<Order>("new");
@@ -229,6 +289,7 @@ export function Notebook({
     [books, words],
   );
   const stats = useMemo(() => summarize(scoped), [scoped]);
+  const streak = useMemo(() => streakOf(log), [log]);
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -260,59 +321,35 @@ export function Notebook({
   };
 
   return (
-    <div className="mx-auto grid w-full max-w-3xl grid-cols-[minmax(0,1fr)] gap-6 px-4 py-6 sm:px-6 sm:py-10">
-      <header className="grid gap-3 sm:flex sm:flex-wrap sm:items-end sm:justify-between">
-        <div className="grid gap-1">
-          <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("nb.title")}</h1>
-          <p className="text-sm text-muted">
-            {activeBook ? (
-              <>
-                {t("nb.fromBook", { title: "\u0001" })
-                  .split("\u0001")
-                  .flatMap((piece, i) =>
-                    i === 0
-                      ? [piece]
-                      : [
-                          <span key="b" lang="en">
-                            {activeBook.title}
-                          </span>,
-                          piece,
-                        ],
-                  )}
-              </>
-            ) : (
-              t("nb.allWords")
-            )}
-          </p>
-        </div>
-        <button
-          type="button"
-          className={cn(btn.primary, "w-full sm:w-auto")}
-          disabled={stats.due === 0}
-          onClick={() => onReview(bookId)}
-          title={stats.due === 0 ? t("nb.noReview") : undefined}
-        >
-          <Layers className="size-4" aria-hidden />
-          {stats.due > 0 ? t("nb.startReview", { n: stats.due }) : t("nb.allDone")}
-        </button>
+    <div className="mx-auto grid w-full max-w-[52rem] grid-cols-[minmax(0,1fr)] gap-5 px-4 pt-4 pb-8 sm:gap-6 sm:px-6 sm:pt-8 sm:pb-16" data-notebook>
+      <header className="grid gap-1">
+        <h1 className="m-0 text-2xl leading-tight font-bold tracking-[-0.02em] sm:text-[28px]">{t("nb.title")}</h1>
+        <p className="m-0 text-[13px] text-muted sm:text-sm">
+          {activeBook ? (
+            <>
+              {t("nb.fromBook", { title: "\u0001" })
+                .split("\u0001")
+                .flatMap((piece, i) =>
+                  i === 0
+                    ? [piece]
+                    : [
+                        <span key="b" lang="en">
+                          {activeBook.title}
+                        </span>,
+                        piece,
+                      ],
+                )}
+            </>
+          ) : (
+            t("nb.allWords")
+          )}
+        </p>
       </header>
 
-      <StatRow
-        items={[
-          { label: t("stat.all"), value: stats.total },
-          { label: t("stat.due"), value: stats.due, tone: stats.due > 0 ? "warn" : "plain" },
-          { label: t("stat.learning"), value: stats.learning },
-          { label: t("stat.mastered"), value: stats.mastered, tone: "good" },
-        ]}
-      />
-
       {scoped.length === 0 ? (
-        <div className="grid justify-items-center gap-3 rounded-3xl bg-card px-6 py-14 text-center">
-          <span className="flex size-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-            <BookMarked className="size-7" aria-hidden />
-          </span>
-          <h2 className="font-display text-xl font-semibold">{t("nb.emptyTitle")}</h2>
-          <p className="max-w-sm text-muted">{t("nb.emptyBody")}</p>
+        <div className="grid justify-items-start gap-3 border-t border-line pt-6" data-notebook-empty>
+          <h2 className="m-0 text-lg font-bold tracking-[-0.02em]">{t("nb.emptyTitle")}</h2>
+          <p className="m-0 max-w-md text-muted">{t("nb.emptyBody")}</p>
           {activeBook?.source === "epub" ? (
             <button type="button" className={btn.primary} onClick={() => onOpenBook(activeBook.id)}>
               {t("nb.backToBook")}
@@ -321,12 +358,29 @@ export function Notebook({
         </div>
       ) : (
         <>
+          <ReviewLauncher
+            stats={stats}
+            words={scoped.length}
+            streak={streak}
+            onStart={(pool, mode) => onReview(bookId, pool, mode)}
+            onData={() => onReviewData(bookId)}
+          />
+
+          <StatRow
+            items={[
+              { label: t("stat.all"), value: stats.total },
+              { label: t("stat.due"), value: stats.due, tone: stats.due > 0 ? "warn" : "plain" },
+              { label: t("stat.learning"), value: stats.learning },
+              { label: t("stat.mastered"), value: stats.mastered, tone: "mark" },
+            ]}
+          />
+
           <div className="grid gap-3">
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <label className="relative flex-1">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-[minmax(0,1fr)_auto_auto]">
+              <label className="relative col-span-2 sm:col-span-1">
                 <span className="sr-only">{t("nb.searchAria")}</span>
                 <Search
-                  className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted"
+                  className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-faint"
                   aria-hidden
                 />
                 <input
@@ -345,7 +399,7 @@ export function Notebook({
               </label>
               <select
                 id="word-book"
-                className={cn(selectCls, "w-full min-w-0 sm:w-auto sm:max-w-56")}
+                className={cn(selectCls, "w-full min-w-0 sm:w-auto sm:max-w-56 sm:min-w-32")}
                 value={bookId ?? ""}
                 onChange={(event) => {
                   onBookChange(event.target.value || null);
@@ -364,7 +418,7 @@ export function Notebook({
               </label>
               <select
                 id="word-order"
-                className={cn(selectCls, "w-full min-w-0 sm:w-auto")}
+                className={cn(selectCls, "w-full min-w-0 sm:w-auto sm:min-w-32")}
                 value={order}
                 onChange={(event) => setOrder(event.target.value as Order)}
               >
@@ -373,33 +427,41 @@ export function Notebook({
                 <option value="az">{t("nb.order.az")}</option>
               </select>
             </div>
-            <Segmented
-              layout="wrap"
-              label={t("nb.status")}
-              value={filter}
-              onChange={(value) => {
-                setFilter(value);
-                setShown(PAGE);
-              }}
-              options={FILTERS.map((item) => ({
-                value: item.value,
-                label: (
-                  <>
+            <div
+              role="tablist"
+              aria-label={t("nb.status")}
+              className="no-scrollbar relative flex gap-[18px] overflow-x-auto overflow-y-hidden border-b border-line whitespace-nowrap sm:gap-6"
+              data-notebook-status
+            >
+              <TabInk selected={filter} />
+              {FILTERS.map((item) => {
+                const on = filter === item.value;
+                return (
+                  <button
+                    key={item.value}
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    data-status-tab={item.value}
+                    className={cn(subTabs.tab, on ? subTabs.on : subTabs.off)}
+                    onClick={() => {
+                      setFilter(item.value);
+                      setShown(PAGE);
+                    }}
+                  >
                     {t(item.label)}
-                    <span className="ml-1 text-xs tabular-nums opacity-60">
-                      {counts[item.value]}
-                    </span>
-                  </>
-                ),
-              }))}
-            />
+                    <small className="ml-1 text-xs font-normal text-faint [font-variant-numeric:tabular-nums]">{counts[item.value]}</small>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {visible.length === 0 ? (
             <p className="py-10 text-center text-muted">{t("nb.noMatch")}</p>
           ) : (
             <>
-              <ul className="grid gap-3">
+              <ul className="m-0 -mt-2 list-none border-t border-line p-0" data-word-list>
                 {visible.slice(0, shown).map((word) => (
                   <WordRow
                     key={word.id}

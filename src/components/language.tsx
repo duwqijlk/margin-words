@@ -2,11 +2,12 @@ import { LOCALES, useLocale, useT } from "@/lib/i18n";
 import { Segmented } from "@/components/ui";
 
 /** Language choice lives in Settings, not in the header. */
-export function LanguageSwitch() {
+export function LanguageSwitch({ compact = false }: { compact?: boolean } = {}) {
   const { t, locale } = useT();
   const setLocale = useLocale((state) => state.setLocale);
   return (
     <Segmented
+      compact={compact}
       label={t("lang.groupAria")}
       value={locale}
       onChange={setLocale}

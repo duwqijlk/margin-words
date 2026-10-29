@@ -10,7 +10,7 @@ import {
   ListFilters,
   type SeriesChoice,
 } from "@/components/list-filters";
-import { btn, cn, field, subTabs } from "@/components/ui";
+import { btn, cn, field, subTabs, TabInk } from "@/components/ui";
 import { listPackRecords, loadBookExtras, type PackRecord } from "@/lib/book-db";
 import { coverAddress } from "@/lib/covers";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst } from "@/lib/packs";
@@ -57,7 +57,7 @@ const DISCOVER_PAGE = 12;
 const discoverGrid =
   "grid grid-cols-3 items-stretch gap-x-3 gap-y-6 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-8 lg:grid-cols-5 xl:grid-cols-6";
 const discoverTitle =
-  "overflow-hidden font-display text-[0.8rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.92rem]";
+  "overflow-hidden font-display text-[0.84rem] leading-[1.28] font-semibold text-ink transition-colors group-hover:text-accent [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.96rem]";
 
 /** Pack records plus the shelf book ids whose list the reader added or edited by hand. */
 type DiscoverRecord = PackRecord & { catalog?: CatalogName; listSource?: string };
@@ -544,8 +544,26 @@ export function DiscoverScreen({
     add(row, m.book, m.updateReady);
   }
 
+  /** The add-to-shelf button on a cover's corner, in the grid and in the rows. */
+  function renderAdd(row: Row) {
+    const { book, ambiguous, item, busy, updateReady, state } = cardModel(row);
+    return (
+      <fieldset disabled={ambiguous} className="contents" data-identity-ambiguous={ambiguous ? "" : undefined}>
+        <AddToShelfButton
+          state={state}
+          fraction={busy && item ? item.fraction : undefined}
+          title={row.title}
+          signedOut={!canAdd}
+          onAdd={() => add(row, book, updateReady)}
+          onOpen={() => book && onOpen(book.id)}
+          onRemove={() => remove(row, book)}
+        />
+      </fieldset>
+    );
+  }
+
   function renderCard(row: Row) {
-    const { book, ambiguous, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state } = cardModel(row);
+    const { needs, item, busy, cardError, why, note, reason, lexile, state } = cardModel(row);
     return (
       <li
         key={row.key}
@@ -565,36 +583,17 @@ export function DiscoverScreen({
           <button
             type="button"
             onClick={() => setDetailId(row.key)}
-            className="block w-full rounded-md text-left"
+            className="block w-full rounded-cover text-left"
             aria-label={t("browse.openAria", { title: row.title })}
             data-card-detail
+            data-tilt
           >
             <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
           </button>
           {/* Who maintains the word list, on the cover's top-left: the same place on every card,
               whatever the title's length or the tags below. The add button keeps the bottom-right. */}
           <BookMaintainers bookRef={rowCatalogRef(row)} />
-          <div className="absolute right-1.5 bottom-1.5 z-[2]">
-            <fieldset disabled={ambiguous} className="contents" data-identity-ambiguous={ambiguous ? "" : undefined}>
-              <AddToShelfButton
-              state={state}
-              fraction={busy && item ? item.fraction : undefined}
-              title={row.title}
-              signedOut={!canAdd}
-              onAdd={() => add(row, book, updateReady)}
-              onOpen={() => book && onOpen(book.id)}
-              onRemove={() => remove(row, book)}
-            />
-            </fieldset>
-          </div>
-          {busy && item?.fraction != null ? (
-            <span
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-1 bg-accent-soft"
-              aria-hidden
-            >
-              <span className="block h-full bg-accent transition-[width] duration-200" style={{ width: `${Math.round(Math.min(1, Math.max(0, item.fraction)) * 100)}%` }} />
-            </span>
-          ) : null}
+          <div className="absolute right-1.5 bottom-1.5 z-[2]">{renderAdd(row)}</div>
         </div>
         <div className="grid min-w-0 flex-1 content-start gap-0.5">
           <h3 className={discoverTitle} lang="en" title={row.title}>
@@ -606,33 +605,20 @@ export function DiscoverScreen({
               {row.title}
             </button>
           </h3>
-          <p className="flex min-w-0 items-baseline gap-2 text-xs leading-5 text-muted">
-            <span className="min-w-0 flex-1 truncate" lang="en">
-              {row.author}
-            </span>
-            {lexile ? (
-              <span
-                className="shrink-0 tabular-nums max-sm:hidden"
-                data-lexile={lexile}
-                aria-label={t("lexile.aria", { measure: lexile })}
-              >
-                {lexile}
-              </span>
-            ) : null}
+          {/* Cover, title and author only: the Lexile measure and the kind of book are in the detail. */}
+          <p className="truncate text-[0.8125rem] leading-5 text-faint" lang="en">
+            {row.author}
           </p>
-          {/* What the book is, under the author: tags on the cover covered the art. */}
-          <BookTags>
-            {needs ? (
-              <BookTag tone="warn" data-needs-epub="">
-                {t("shelf.needsEpub")}
-              </BookTag>
-            ) : (
-              <BookTag data-kind={row.kind}>
-                {row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
-              </BookTag>
-            )}
-            {row.oldFashioned ? <OldFashionedTag reason={row.oldFashionedReason} /> : null}
-          </BookTags>
+          {needs || row.oldFashioned ? (
+            <BookTags>
+              {needs ? (
+                <BookTag tone="warn" data-needs-epub="">
+                  {t("shelf.needsEpub")}
+                </BookTag>
+              ) : null}
+              {row.oldFashioned ? <OldFashionedTag reason={row.oldFashionedReason} /> : null}
+            </BookTags>
+          ) : null}
         </div>
         {busy || cardError || reason || note ? (
           <div className="mt-auto pt-1">
@@ -678,13 +664,15 @@ export function DiscoverScreen({
       data-discover-category={category}
       data-discover-matches={ready ? shown.length : undefined}
     >
-      <div className="grid gap-3">
+      {/* Novels / Speeches with this week's add quota on the same line (design system DiscoverScreen). */}
+      <div className="flex items-end gap-3 border-b border-line">
         <div
           role="tablist"
           aria-label={t("discover.cat.list")}
-          className={subTabs.row}
+          className={cn(subTabs.row, "relative min-w-0 flex-1 border-b-0")}
           data-discover-categories
         >
+          <TabInk selected={category} />
           {CONTENT_CATEGORIES.map((id) => {
             const on = category === id;
             return (
@@ -710,7 +698,9 @@ export function DiscoverScreen({
             );
           })}
         </div>
-        <WeeklyQuota />
+        <div className="shrink-0 pb-2.5">
+          <WeeklyQuota />
+        </div>
       </div>
       {!ready || inCategory.length > 0 ? (
         <div className="flex items-center gap-2">
@@ -753,6 +743,7 @@ export function DiscoverScreen({
                 rows={newest}
                 onOpen={(row) => setDetailId(row.key)}
                 onSeeAll={() => openCollection("new")}
+                action={(row) => renderAdd(row as Row)}
               />
             ) : null}
             {rails.map((rail) => (
@@ -763,9 +754,10 @@ export function DiscoverScreen({
                 rows={rail.rows}
                 onOpen={(row) => setDetailId(row.key)}
                 onSeeAll={rail.all.length > rail.rows.length ? () => openCollection(rail.id) : undefined}
+                action={(row) => renderAdd(row as Row)}
               />
             ))}
-            <h2 className="pt-2 font-display text-[1.15rem] leading-tight font-semibold sm:text-[1.3rem]" data-discover-all>
+            <h2 className="pt-2 font-bold tracking-[-0.02em] text-[1.15rem] leading-tight sm:text-[1.3rem]" data-discover-all>
               {t("browse.all")}
             </h2>
           </>
@@ -783,7 +775,7 @@ export function DiscoverScreen({
               </button>
             ) : null}
             <h2
-              className="min-w-0 truncate font-display text-[1.15rem] font-semibold sm:text-[1.3rem]"
+              className="min-w-0 truncate font-bold tracking-[-0.02em] text-[1.15rem] sm:text-[1.3rem]"
               lang={collection.startsWith("series:") || collection.startsWith("curated:") ? "en" : undefined}
             >
               {collection ? railTitle(collection) : t("browse.results")}
@@ -819,7 +811,7 @@ export function DiscoverScreen({
           <div className="grid gap-8">
             {visibleGroups.map((group) => (
               <div key={group.key} className="grid gap-4" data-series-group={group.key}>
-                <h2 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
+                <h2 className="font-bold tracking-[-0.02em] text-lg" lang={group.title ? "en" : undefined}>
                   {group.title || t("shelf.series.none")}
                 </h2>
                 <ul className={discoverGrid}>{group.rows.map(renderCard)}</ul>

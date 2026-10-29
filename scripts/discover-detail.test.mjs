@@ -6,7 +6,8 @@ import ts from "typescript";
 
 const discover = readFileSync(new URL("../src/components/discover.tsx", import.meta.url), "utf8");
 const browse = readFileSync(new URL("../src/components/discover-browse.tsx", import.meta.url), "utf8");
-const card = discover.slice(discover.indexOf("  function renderCard("), discover.indexOf("  const browsing ="));
+// The card and the add button it shares with the rows (renderAdd).
+const card = discover.slice(discover.indexOf("  function renderAdd("), discover.indexOf("  const browsing ="));
 
 test("grid covers and titles open details regardless of shelf ownership", () => {
   const cover = card.match(/<button\b[^>]*onClick=\{\(\) => setDetailId\(row\.key\)\}[^]*?data-card-detail[^]*?<\/button>/)?.[0];

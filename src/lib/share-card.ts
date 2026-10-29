@@ -1,85 +1,54 @@
 /**
- * Share images, drawn on the reader's own device (no server, no upload). 1080 x 1440 (3:4), which
- * WeChat, QQ, Telegram and X all show whole.
+ * Share images, drawn on the reader's own device (no server, no upload), as in the design system
+ * ShareCard: 1080 x 1512 (3:4.2), which WeChat, QQ, Telegram and X all show whole.
  *
- * Two cards, both built on things that belong to books rather than to dashboards:
- *   - "I finished a book" is a bookplate: the real cover, large, on a field tinted with the cover's
- *     own colour, with a square seal stamped on its corner (the word "finished" and the date), the
- *     way a reader stamps a collector's seal into a book they own.
- *   - "My reading" is a library card: a short shelf of the finished books' spines, then the totals
- *     as a ledger with dotted leaders.
- * Three fixed styles. Every card ends with the site name and a QR code to https://inputread.site,
- * dark on a white tile in every style so a phone camera reads it.
+ *   - "I finished a book": the real cover, large and lifted, with a round highlighter-yellow
+ *     "Finished" seal on its corner; the title in Literata, the author, the words saved from it.
+ *   - "My reading": the finished books' covers fanned out, three big numbers (books finished,
+ *     days of reading, words saved) and the words mastered.
+ * Three styles: paper (a ground in the book's own colour, from its cover), forest (deep green,
+ * white type) and night (dark). Every card ends with the wordmark inputread, a line about the site
+ * and a QR code to https://inputread.site, dark on a white tile in every style so a camera reads it.
  *
  * The words come in from the caller (i18n), so this file has no language of its own. Everything
- * that decides a layout (wrapping, the QR grid, spine sizes, colour maths) is a plain function and
- * tested; the drawing is checked in a browser.
+ * that decides a layout (wrapping, the QR grid, the colour maths) is a plain function and tested;
+ * the drawing is checked in a browser.
  */
 import qrcode from "qrcode-generator";
 
 export const CARD_W = 1080;
-export const CARD_H = 1440;
+export const CARD_H = 1512;
 export const SHARE_URL = "https://inputread.site/";
 
 export type ShareTheme = "paper" | "forest" | "night";
 export const SHARE_THEMES: readonly ShareTheme[] = ["paper", "forest", "night"];
 
 type Palette = {
-  bg: string;
+  /** The ground: a radial wash from the top-left corner. */
+  from: string;
+  to: string;
   ink: string;
-  muted: string;
-  accent: string;
-  rule: string;
-  /** The seal: its ink, and the colour its characters are cut in. */
-  seal: string;
-  sealCut: string;
-  shelf: string;
-  /** Book-cloth colours for spines and a book with no cover. */
-  cloths: readonly string[];
+  ink2: string;
+  line: string;
+  /** The little round swatch in the style picker. */
+  swatch: string;
 };
 
+/** Paper's ground is replaced by the book's own colour when there is one (`ground` in the data). */
 export const PALETTES: Record<ShareTheme, Palette> = {
-  paper: {
-    bg: "#f6f2e9",
-    ink: "#1d1b18",
-    muted: "#756e64",
-    accent: "#235948",
-    rule: "#d8d0c1",
-    seal: "#b23a2b",
-    sealCut: "#f6f2e9",
-    shelf: "#8a6a4a",
-    cloths: ["#235948", "#7b4b24", "#2f4a6d", "#8c3b3b", "#5b6b3a", "#4a3f63"],
-  },
-  forest: {
-    bg: "#173a2f",
-    ink: "#f2ead6",
-    muted: "#a7bbaf",
-    accent: "#e0b96c",
-    rule: "#2e5848",
-    seal: "#c8432f",
-    sealCut: "#f2ead6",
-    shelf: "#0e2a21",
-    cloths: ["#e0b96c", "#a8462f", "#6f8f5b", "#d9cfb4", "#3f6f8a", "#8a5a3b"],
-  },
-  night: {
-    bg: "#11162a",
-    ink: "#eceff7",
-    muted: "#959fb8",
-    accent: "#9fb9ff",
-    rule: "#283152",
-    seal: "#e0563f",
-    sealCut: "#11162a",
-    shelf: "#070a16",
-    cloths: ["#9fb9ff", "#e0563f", "#d8b46a", "#6fb3a3", "#b48ad8", "#e8e3d6"],
-  },
+  paper: { from: "#e6efe9", to: "#f6f9f7", ink: "#111513", ink2: "#4a524e", line: "rgba(17,21,19,0.14)", swatch: "linear-gradient(135deg, #ffffff, #dfe8e2)" },
+  forest: { from: "#1f6b47", to: "#0e3a27", ink: "#f4f7f5", ink2: "#bcd4c6", line: "rgba(255,255,255,0.18)", swatch: "#0e3a27" },
+  night: { from: "#23282a", to: "#0f1211", ink: "#eef2f0", ink2: "#a9b2ad", line: "rgba(255,255,255,0.14)", swatch: "#0f1211" },
 };
 
 const SERIF = '"Literata", Georgia, "Times New Roman", serif';
-/** Chinese in a Song face where the device has one (iOS, Windows, most Android), English in Literata. */
-const SERIF_ZH = '"Literata", "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif';
-const SANS = '"Inter", -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif';
+const SANS = '"Atkinson Hyperlegible", -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif';
+/** The seal is the one highlighter yellow on the card. */
+const SEAL = "#ffe14d";
 
 export type Footer = { brand: string; tagline: string; site: string; scan: string };
+/** The book's own colour for the paper style: tint at the top-left corner, wash further out. */
+export type Ground = { from: string; to: string };
 
 export type BookCardData = {
   kind: "book";
@@ -87,26 +56,26 @@ export type BookCardData = {
   headline: string;
   title: string;
   author: string;
-  /** "24 words saved from this book", or "" */
+  /** "24 words saved from this book", or "" (the number is drawn bold) */
   wordsLine: string;
-  /** The seal: one or two short words ("finished"), and the date as digits (2026.10.28). */
+  /** The seal's word ("Finished"). */
   seal: string;
-  sealDate: string;
   cover: CanvasImageSource | null;
+  ground?: Ground;
   footer: Footer;
 };
 
 export type OverviewCardData = {
   kind: "overview";
+  /** "My English reading · As of 29 October 2026" */
   headline: string;
-  /** "As of 29 October 2026" */
-  asOf: string;
-  /** The ledger: "Books finished ...... 6 books". */
-  rows: Array<{ label: string; value: number; unit: string }>;
-  /** "120 words mastered", or "" */
+  /** Three numbers with a small unit after them and a label under. */
+  nums: Array<{ label: string; value: number; unit: string }>;
+  /** "642 words mastered", or "" (the number is drawn bold) */
   note: string;
-  /** Finished books, latest first: their spines stand on the shelf. */
-  shelf: Array<{ title: string }>;
+  /** Up to three finished books, latest first; a missing picture is drawn as a plain cover. */
+  covers: Array<{ title: string; image: CanvasImageSource | null }>;
+  ground?: Ground;
   footer: Footer;
 };
 
@@ -195,16 +164,6 @@ function font(ctx: CanvasRenderingContext2D, weight: number, size: number, famil
   ctx.font = `${weight} ${size}px ${family}`;
 }
 
-function centred(ctx: CanvasRenderingContext2D, lines: string[], y: number, lineHeight: number): number {
-  ctx.textAlign = "center";
-  for (const line of lines) {
-    ctx.fillText(line, CARD_W / 2, y);
-    y += lineHeight;
-  }
-  return y;
-}
-
-
 /** A stable number from a text, for sizes and colours that must not change between draws. */
 export function textHash(text: string): number {
   let h = 2166136261;
@@ -213,30 +172,6 @@ export function textHash(text: string): number {
     h = Math.imul(h, 16777619);
   }
   return h >>> 0;
-}
-
-export type Spine = { x: number; width: number; height: number; cloth: number; title: string };
-
-/**
- * The spines on the shelf, left to right, inside `width`. Real books first (latest finished on the
- * left); a short shelf is filled with plain spines so it never looks empty. Sizes come from the
- * title, so the same books always stand the same way.
- */
-export function shelfSpines(titles: readonly string[], width: number, minBooks = 7): Spine[] {
-  const gap = 8;
-  const spines: Spine[] = [];
-  let x = 0;
-  const all = [...titles];
-  while (all.length < minBooks) all.push("");
-  for (let i = 0; i < all.length; i += 1) {
-    const title = all[i];
-    const h = textHash(title || `plain-${i}`);
-    const w = 58 + (h % 26);
-    if (x + w > width) break;
-    spines.push({ x, width: w, height: 236 + ((h >>> 8) % 100), cloth: (h >>> 16) % 6, title });
-    x += w + gap;
-  }
-  return spines;
 }
 
 /** "#rrggbb" or "rgb(r,g,b)" to [r, g, b]. */
@@ -258,309 +193,268 @@ export function mix(a: string, b: string, t: number): string {
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
 
-/** The average colour of a cover, or null when it cannot be read. */
-function coverTone(image: CanvasImageSource): string | null {
-  try {
-    const canvas = document.createElement("canvas");
-    canvas.width = 6;
-    canvas.height = 9;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return null;
-    ctx.drawImage(image, 0, 0, 6, 9);
-    const data = ctx.getImageData(0, 0, 6, 9).data;
-    let r = 0;
-    let g = 0;
-    let b = 0;
-    for (let i = 0; i < data.length; i += 4) {
-      r += data[i];
-      g += data[i + 1];
-      b += data[i + 2];
-    }
-    const n = data.length / 4;
-    return `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(b / n)})`;
-  } catch {
-    return null;
+const PAD = 82;
+
+/** Draw text centred on the card, one line per entry. */
+function centred(ctx: CanvasRenderingContext2D, lines: string[], y: number, lineHeight: number): number {
+  ctx.textAlign = "center";
+  for (const line of lines) {
+    ctx.fillText(line, CARD_W / 2, y);
+    y += lineHeight;
   }
+  return y;
 }
 
-/** A faint paper grain, the same on every draw. */
-function grain(ctx: CanvasRenderingContext2D, color: string, seed: number) {
-  let s = seed || 1;
-  const next = () => {
-    s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
-    return s / 4294967296;
-  };
-  ctx.save();
-  ctx.fillStyle = color;
-  for (let i = 0; i < 3200; i += 1) {
-    ctx.globalAlpha = 0.025 + next() * 0.04;
-    ctx.fillRect(next() * CARD_W, next() * CARD_H, 1 + next() * 1.6, 1 + next() * 1.6);
+/** A line with one number in it ("64 words saved from this book"): the number bold and larger, all centred. */
+function lineWithNumber(ctx: CanvasRenderingContext2D, text: string, y: number, p: Palette) {
+  const match = text.match(/^(.*?)(\d[\d,]*)(.*)$/);
+  ctx.textAlign = "left";
+  if (!match) {
+    font(ctx, 400, 46, SANS);
+    ctx.fillStyle = p.ink2;
+    ctx.textAlign = "center";
+    ctx.fillText(text, CARD_W / 2, y);
+    return;
   }
+  const [, before, number, after] = match;
+  font(ctx, 400, 46, SANS);
+  const wBefore = ctx.measureText(before ?? "").width;
+  const wAfter = ctx.measureText(after ?? "").width;
+  font(ctx, 700, 56, SERIF);
+  const wNum = ctx.measureText(number ?? "").width;
+  let x = (CARD_W - wBefore - wNum - wAfter) / 2;
+  font(ctx, 400, 46, SANS);
+  ctx.fillStyle = p.ink2;
+  ctx.fillText(before ?? "", x, y);
+  x += wBefore;
+  font(ctx, 700, 56, SERIF);
+  ctx.fillStyle = p.ink;
+  ctx.fillText(number ?? "", x, y);
+  x += wNum;
+  font(ctx, 400, 46, SANS);
+  ctx.fillStyle = p.ink2;
+  ctx.fillText(after ?? "", x, y);
+}
+
+/** A cover: the picture, or a plain board with the title when it could not be read. */
+function drawCover(ctx: CanvasRenderingContext2D, image: CanvasImageSource | null, title: string, x: number, y: number, w: number, h: number, shadow: number) {
+  ctx.save();
+  ctx.shadowColor = "rgba(0,0,0,0.5)";
+  ctx.shadowBlur = shadow;
+  ctx.shadowOffsetY = shadow * 0.5;
+  roundRect(ctx, x, y, w, h, 18);
+  ctx.fillStyle = "#ebe5d8";
+  ctx.fill();
+  ctx.restore();
+  ctx.save();
+  roundRect(ctx, x, y, w, h, 18);
+  ctx.clip();
+  if (image) {
+    ctx.drawImage(image, x, y, w, h);
+  } else {
+    ctx.fillStyle = "#1e4a3a";
+    ctx.fillRect(x, y + h * 0.84, w, h * 0.16);
+    ctx.strokeStyle = "rgba(27,26,23,0.35)";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x + w * 0.06, y + w * 0.06, w * 0.88, h * 0.84 - w * 0.12);
+    ctx.fillStyle = "#1b1a17";
+    font(ctx, 700, Math.round(w * 0.11), SERIF);
+    const lines = wrapLines((text) => ctx.measureText(text).width, title, w * 0.76, 4);
+    ctx.textAlign = "center";
+    let ty = y + h * 0.36;
+    for (const line of lines) {
+      ctx.fillText(line, x + w / 2, ty);
+      ty += w * 0.14;
+    }
+  }
+  // The spine: a soft fold of light down the left edge.
+  const fold = ctx.createLinearGradient(x, 0, x + w * 0.07, 0);
+  fold.addColorStop(0, "rgba(0,0,0,0.22)");
+  fold.addColorStop(0.4, "rgba(255,255,255,0.14)");
+  fold.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = fold;
+  ctx.fillRect(x, y, w * 0.07, h);
   ctx.restore();
 }
 
-const MARGIN = 96;
-const FOOTER_TOP = CARD_H - 236;
-
 function drawFooter(ctx: CanvasRenderingContext2D, footer: Footer, p: Palette) {
-  ctx.fillStyle = p.rule;
-  ctx.fillRect(MARGIN, FOOTER_TOP, CARD_W - MARGIN * 2, 2);
-  const box = 156;
-  const bx = CARD_W - MARGIN - box;
-  const by = FOOTER_TOP + 40;
+  const top = CARD_H - 300;
+  ctx.fillStyle = p.line;
+  ctx.fillRect(PAD, top, CARD_W - PAD * 2, 3);
+  // The QR tile, bottom right, with its line under it; both end at the right margin.
+  const box = 165;
+  font(ctx, 400, 32, SANS);
+  const scanWidth = ctx.measureText(footer.scan).width;
+  const column = Math.max(box, scanWidth);
+  const centre = CARD_W - PAD - column / 2;
+  const bx = centre - box / 2;
+  const by = top + 36;
   ctx.fillStyle = "#ffffff";
   roundRect(ctx, bx, by, box, box, 14);
   ctx.fill();
   const modules = qrModules(SHARE_URL);
-  const inner = box - 24;
+  const inner = box - 22;
   const cell = inner / modules.length;
-  ctx.fillStyle = "#16151a";
+  ctx.fillStyle = "#111513";
   modules.forEach((row, r) =>
     row.forEach((dark, c) => {
-      if (dark) ctx.fillRect(bx + 12 + c * cell, by + 12 + r * cell, Math.ceil(cell), Math.ceil(cell));
+      if (dark) ctx.fillRect(bx + 11 + c * cell, by + 11 + r * cell, Math.ceil(cell), Math.ceil(cell));
     }),
   );
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = p.ink2;
+  ctx.textAlign = "center";
+  ctx.fillText(footer.scan, centre, by + box + 42);
+  // The wordmark and the line about the site, bottom left.
+  ctx.textAlign = "left";
+  ctx.fillStyle = p.ink;
+  font(ctx, 600, 64, SERIF);
+  ctx.fillText(footer.brand, PAD, by + box - 30);
+  ctx.fillStyle = p.ink2;
+  font(ctx, 400, 36, SANS);
+  ctx.fillText(wrapLines((t) => ctx.measureText(t).width, footer.tagline, CARD_W - PAD * 2 - column - 32, 1)[0] ?? "", PAD, by + box + 20);
+}
+
+function drawGround(ctx: CanvasRenderingContext2D, p: Palette, ground: Ground | undefined) {
+  const from = ground?.from ?? p.from;
+  const to = ground?.to ?? p.to;
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.hypot(CARD_W, CARD_H) * 0.85);
+  g.addColorStop(0, from);
+  g.addColorStop(0.7, to);
+  g.addColorStop(1, to);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, CARD_W, CARD_H);
+}
+
+function drawOver(ctx: CanvasRenderingContext2D, text: string, p: Palette) {
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = p.ink;
-  font(ctx, 700, 46, SERIF);
-  ctx.fillText(footer.brand, MARGIN, FOOTER_TOP + 92);
-  ctx.fillStyle = p.muted;
-  font(ctx, 500, 27, SANS);
-  ctx.fillText(footer.tagline, MARGIN, FOOTER_TOP + 136);
-  ctx.fillStyle = p.accent;
-  font(ctx, 600, 27, SANS);
-  ctx.fillText(`${footer.site}  ${footer.scan}`, MARGIN, FOOTER_TOP + 178);
-}
-
-/** A cover drawn as cloth: for a book whose picture could not be read. */
-function drawClothCover(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, title: string, cloth: string) {
-  ctx.fillStyle = cloth;
-  ctx.fillRect(x, y, w, h);
-  ctx.strokeStyle = "rgba(255,255,255,0.4)";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(x + 22, y + 22, w - 44, h - 44);
-  ctx.fillStyle = "#ffffff";
-  font(ctx, 700, 44, SERIF);
-  const lines = wrapLines((text) => ctx.measureText(text).width, title, w - 96, 5);
-  let ty = y + h / 2 - ((lines.length - 1) * 56) / 2 + 14;
-  ctx.textAlign = "center";
-  for (const line of lines) {
-    ctx.fillText(line, x + w / 2, ty);
-    ty += 56;
+  ctx.fillStyle = p.ink2;
+  // A long line gets smaller type before it is cut.
+  let size = 45;
+  font(ctx, 700, size, SANS);
+  while (ctx.measureText(text).width > CARD_W - PAD * 2 && size > 34) {
+    size -= 2;
+    font(ctx, 700, size, SANS);
   }
-}
-
-/** The square seal, stamped a little crooked, with the ink a little uneven. */
-function drawSeal(ctx: CanvasRenderingContext2D, cx: number, cy: number, word: string, date: string, p: Palette, seed: number) {
-  const size = 188;
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(-0.12);
-  ctx.globalAlpha = 0.93;
-  ctx.fillStyle = p.seal;
-  roundRect(ctx, -size / 2, -size / 2, size, size, 12);
-  ctx.fill();
-  ctx.strokeStyle = p.sealCut;
-  ctx.lineWidth = 4;
-  roundRect(ctx, -size / 2 + 12, -size / 2 + 12, size - 24, size - 24, 6);
-  ctx.stroke();
-  ctx.fillStyle = p.sealCut;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
-  let wordSize = 76;
-  font(ctx, 900, wordSize, SERIF_ZH);
-  while (ctx.measureText(word).width > size - 44 && wordSize > 30) {
-    wordSize -= 4;
-    font(ctx, 900, wordSize, SERIF_ZH);
-  }
-  ctx.fillText(word, 0, 16);
-  font(ctx, 700, 25, SANS);
-  ctx.fillText(date, 0, 62);
-  // Ink that did not take: a few pale flecks.
-  let s = seed || 7;
-  const next = () => {
-    s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
-    return s / 4294967296;
-  };
-  ctx.globalAlpha = 0.35;
-  for (let i = 0; i < 70; i += 1) {
-    ctx.beginPath();
-    ctx.arc((next() - 0.5) * size, (next() - 0.5) * size, 0.8 + next() * 2.2, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.restore();
+  ctx.fillText(wrapLines((t) => ctx.measureText(t).width, text, CARD_W - PAD * 2, 1)[0] ?? "", PAD, PAD + 40);
 }
 
 function drawBook(ctx: CanvasRenderingContext2D, data: BookCardData, p: Palette) {
-  const seed = textHash(data.title);
-  // A field in the cover's own colour, darkened toward the ink so white type and the seal read on it.
-  const tone = data.cover ? coverTone(data.cover) : null;
-  const base = tone ?? p.cloths[seed % p.cloths.length];
-  const field = { x: 64, y: 64, w: CARD_W - 128, h: 760 };
-  const gradient = ctx.createLinearGradient(0, field.y, 0, field.y + field.h);
-  gradient.addColorStop(0, mix(base, p.bg, 0.22));
-  gradient.addColorStop(1, mix(base, "#000000", 0.48));
-  ctx.fillStyle = gradient;
-  roundRect(ctx, field.x, field.y, field.w, field.h, 36);
-  ctx.fill();
-  grain(ctx, "#ffffff", seed);
-
-  // The book, standing in the field.
-  const cw = 380;
-  const ch = 570;
+  drawOver(ctx, data.headline, p);
+  const cw = 372;
+  const ch = Math.round(cw * 1.5);
   const cx = (CARD_W - cw) / 2;
-  const cy = 138;
+  const cy = 236;
+  drawCover(ctx, data.cover, data.title, cx, cy, cw, ch, 70);
+  // The seal: a round highlighter-yellow stamp on the top-right corner, a little turned.
   ctx.save();
-  ctx.shadowColor = "rgba(0,0,0,0.42)";
-  ctx.shadowBlur = 56;
-  ctx.shadowOffsetY = 28;
-  ctx.fillStyle = base;
-  ctx.fillRect(cx, cy, cw, ch);
+  ctx.translate(cx + cw + 68 - 98, cy - 52 + 98);
+  ctx.rotate((12 * Math.PI) / 180);
+  ctx.shadowColor = "rgba(0,0,0,0.25)";
+  ctx.shadowBlur = 36;
+  ctx.shadowOffsetY = 14;
+  ctx.beginPath();
+  ctx.arc(0, 0, 98, 0, Math.PI * 2);
+  ctx.fillStyle = SEAL;
+  ctx.fill();
+  ctx.shadowColor = "transparent";
+  ctx.fillStyle = "#111513";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  let size = 56;
+  font(ctx, 800, size, SANS);
+  while (ctx.measureText(data.seal).width > 160 && size > 30) {
+    size -= 4;
+    font(ctx, 800, size, SANS);
+  }
+  ctx.fillText(data.seal, 0, 2);
   ctx.restore();
-  if (data.cover) ctx.drawImage(data.cover, cx, cy, cw, ch);
-  else drawClothCover(ctx, cx, cy, cw, ch, data.title, base);
-  // The spine edge: a soft fold of light down the left of the cover.
-  const fold = ctx.createLinearGradient(cx, 0, cx + 28, 0);
-  fold.addColorStop(0, "rgba(0,0,0,0.28)");
-  fold.addColorStop(0.35, "rgba(255,255,255,0.18)");
-  fold.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = fold;
-  ctx.fillRect(cx, cy, 28, ch);
-
-  // Half on the cover, half off it: the cover's own title stays readable.
-  drawSeal(ctx, cx + cw + 40, cy + ch - 70, data.seal, data.sealDate, p, seed);
-
-  // The words under the field.
   ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = p.muted;
-  font(ctx, 500, 32, SERIF_ZH);
-  centred(ctx, [data.headline], field.y + field.h + 68, 0);
-  // One line at 64px; a long title gets two lines at 54px, so the block keeps one height.
+
+  // Title (one line, two when long), author, the words saved.
+  let y = cy + ch + 118;
   ctx.fillStyle = p.ink;
-  font(ctx, 700, 64, SERIF);
-  const width = CARD_W - MARGIN * 2;
-  let titleLines = wrapLines((text) => ctx.measureText(text).width, data.title, width, 1);
-  let lineHeight = 0;
-  if (titleLines[0]?.endsWith("\u2026")) {
-    font(ctx, 700, 54, SERIF);
-    titleLines = wrapLines((text) => ctx.measureText(text).width, data.title, width, 2);
-    lineHeight = 64;
+  font(ctx, 700, 82, SERIF);
+  const width = CARD_W - PAD * 2;
+  let lines = wrapLines((text) => ctx.measureText(text).width, data.title, width, 1);
+  let lh = 0;
+  if (lines[0]?.endsWith("\u2026")) {
+    font(ctx, 700, 66, SERIF);
+    lines = wrapLines((text) => ctx.measureText(text).width, data.title, width, 2);
+    lh = 76;
+    y -= 22;
   }
-  const titleTop = field.y + field.h + (titleLines.length > 1 ? 142 : 152);
-  centred(ctx, titleLines, titleTop, lineHeight);
-  const below = titleTop + (titleLines.length - 1) * lineHeight;
-  ctx.fillStyle = p.muted;
-  ctx.font = `italic 400 34px ${SERIF}`;
-  centred(ctx, wrapLines((text) => ctx.measureText(text).width, data.author, width, 1), below + 54, 0);
-  if (data.wordsLine) {
-    ctx.fillStyle = p.accent;
-    font(ctx, 600, 30, SANS);
-    centred(ctx, [data.wordsLine], below + 108, 0);
-  }
+  centred(ctx, lines, y, lh);
+  y += (lines.length - 1) * lh + 66;
+  ctx.fillStyle = p.ink2;
+  font(ctx, 400, 46, SANS);
+  centred(ctx, wrapLines((text) => ctx.measureText(text).width, data.author, width, 1), y, 0);
+  if (data.wordsLine) lineWithNumber(ctx, data.wordsLine, y + 76, p);
 }
 
 function drawOverview(ctx: CanvasRenderingContext2D, data: OverviewCardData, p: Palette) {
-  const seed = textHash(data.shelf.map((book) => book.title).join("|") || data.headline);
-  grain(ctx, p.ink, seed);
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-  ctx.fillStyle = p.ink;
-  font(ctx, 700, 76, SERIF_ZH);
-  ctx.fillText(wrapLines((text) => ctx.measureText(text).width, data.headline, CARD_W - MARGIN * 2, 1)[0] ?? "", MARGIN, 182);
-  ctx.fillStyle = p.muted;
-  font(ctx, 500, 29, SANS);
-  ctx.fillText(data.asOf, MARGIN, 236);
+  drawOver(ctx, data.headline, p);
+  // The fan: three covers, the middle one in front, the outer two turned out from the bottom.
+  const w = 276;
+  const h = Math.round(w * 1.5);
+  const fanW = 660;
+  const left = (CARD_W - fanW) / 2;
+  const bottom = 236 + 444;
+  const slots = [
+    { x: left, turn: -10, ox: w, z: 0 },
+    { x: CARD_W - (CARD_W - fanW) / 2 - w, turn: 10, ox: 0, z: 1 },
+    { x: left + 192, turn: 0, ox: w / 2, z: 2 },
+  ];
+  const books = data.covers.slice(0, 3);
+  // Order: second and third books behind, the latest in the middle in front.
+  const placed = [books[1], books[2], books[0]];
+  slots.forEach((slot, i) => {
+    const book = placed[i];
+    if (!book) return;
+    ctx.save();
+    ctx.translate(slot.x + slot.ox, bottom);
+    ctx.rotate((slot.turn * Math.PI) / 180);
+    drawCover(ctx, book.image, book.title, -slot.ox, -h, w, h, 40);
+    ctx.restore();
+  });
 
-  // The shelf: finished books' spines, plain ones to fill it out.
-  const boardY = 640;
-  const spines = shelfSpines(
-    data.shelf.map((book) => book.title),
-    CARD_W - MARGIN * 2 - 16,
-  );
-  // The row of books stands in the middle of the board.
-  const last = spines[spines.length - 1];
-  const used = last ? last.x + last.width : 0;
-  const offset = MARGIN + 8 + Math.max(0, (CARD_W - MARGIN * 2 - 16 - used) / 2);
-  for (const spine of spines) {
-    const x = offset + spine.x;
-    const y = boardY - spine.height;
-    const plain = !spine.title;
-    const cloth = plain ? mix(p.rule, p.bg, 0.15) : p.cloths[spine.cloth];
-    ctx.fillStyle = cloth;
-    roundRect(ctx, x, y, spine.width, spine.height + 6, 5);
-    ctx.fill();
-    // Two bands across the spine, as on a cloth binding.
-    ctx.fillStyle = plain ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.22)";
-    ctx.fillRect(x, y + 22, spine.width, 4);
-    ctx.fillRect(x, y + spine.height - 30, spine.width, 4);
-    if (!plain) {
-      ctx.save();
-      ctx.translate(x + spine.width / 2 + 9, boardY - 44);
-      ctx.rotate(-Math.PI / 2);
-      const light = rgbOf(cloth).reduce((sum, v) => sum + v, 0) > 360;
-      ctx.fillStyle = light ? "rgba(20,18,16,0.85)" : "rgba(255,255,255,0.92)";
-      font(ctx, 700, 24, SERIF);
-      ctx.textAlign = "left";
-      const room = spine.height - 92;
-      const label = wrapLines((text) => ctx.measureText(text).width, spine.title, room, 1)[0] ?? "";
-      ctx.fillText(label, 0, 0);
-      ctx.restore();
-    }
-  }
-  ctx.fillStyle = p.shelf;
-  ctx.fillRect(MARGIN - 16, boardY + 6, CARD_W - MARGIN * 2 + 32, 18);
-  ctx.fillStyle = "rgba(0,0,0,0.18)";
-  ctx.fillRect(MARGIN - 16, boardY + 24, CARD_W - MARGIN * 2 + 32, 8);
-
-  // The ledger.
-  let y = 800;
-  for (const row of data.rows) {
+  // Three numbers.
+  const top = bottom + 150;
+  const col = (CARD_W - PAD * 2) / 3;
+  data.nums.slice(0, 3).forEach((num, i) => {
+    const cxCol = PAD + col * i + col / 2;
+    ctx.textBaseline = "alphabetic";
+    font(ctx, 700, 98, SERIF);
+    const value = num.value.toLocaleString("en-US");
+    const wValue = ctx.measureText(value).width;
+    font(ctx, 700, 45, SANS);
+    // Latin units get a space after the number ("6 books"); Chinese ones sit right on the number.
+    const unit = num.unit && /^[A-Za-z]/.test(num.unit) ? ` ${num.unit}` : num.unit;
+    const wUnit = unit ? ctx.measureText(unit).width + 4 : 0;
+    let x = cxCol - (wValue + wUnit) / 2;
     ctx.textAlign = "left";
     ctx.fillStyle = p.ink;
-    font(ctx, 500, 38, SERIF_ZH);
-    const label = wrapLines((text) => ctx.measureText(text).width, row.label, 420, 1)[0] ?? "";
-    ctx.fillText(label, MARGIN, y);
-    const labelEnd = MARGIN + ctx.measureText(label).width;
-    font(ctx, 500, 30, SANS);
-    const unitWidth = row.unit ? ctx.measureText(row.unit).width : 0;
-    const unitX = CARD_W - MARGIN - unitWidth;
-    ctx.fillStyle = p.muted;
-    if (row.unit) ctx.fillText(row.unit, unitX, y);
-    let size = 92;
-    font(ctx, 700, size, SERIF);
-    const value = String(row.value);
-    while (ctx.measureText(value).width > 360 && size > 48) {
-      size -= 6;
-      font(ctx, 700, size, SERIF);
+    font(ctx, 700, 98, SERIF);
+    ctx.fillText(value, x, top);
+    x += wValue + 4;
+    if (unit) {
+      font(ctx, 700, 45, SANS);
+      ctx.fillText(unit, x, top);
     }
-    const valueWidth = ctx.measureText(value).width;
-    const valueX = unitX - (row.unit ? 14 : 0) - valueWidth;
-    ctx.fillStyle = p.accent;
-    ctx.fillText(value, valueX, y);
-    // Dotted leader from the label to the number, as in a ledger.
-    ctx.fillStyle = p.rule;
-    for (let dx = labelEnd + 24; dx < valueX - 20; dx += 16) {
-      ctx.beginPath();
-      ctx.arc(dx, y - 10, 2.6, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    y += 116;
-  }
-  if (data.note && y < FOOTER_TOP - 30) {
-    ctx.textAlign = "left";
-    ctx.fillStyle = p.muted;
-    font(ctx, 500, 28, SANS);
-    ctx.fillText(data.note, MARGIN, y - 30);
-  }
+    ctx.textAlign = "center";
+    ctx.fillStyle = p.ink2;
+    font(ctx, 400, 41, SANS);
+    ctx.fillText(num.label, cxCol, top + 62);
+  });
+  if (data.note) lineWithNumber(ctx, data.note, top + 168, p);
 }
 
 /** Draw one card on a CARD_W x CARD_H context. */
 export function drawShareCard(ctx: CanvasRenderingContext2D, data: ShareCardData, theme: ShareTheme): void {
   const p = PALETTES[theme];
   ctx.clearRect(0, 0, CARD_W, CARD_H);
-  ctx.fillStyle = p.bg;
-  ctx.fillRect(0, 0, CARD_W, CARD_H);
+  drawGround(ctx, p, theme === "paper" ? data.ground : undefined);
   if (data.kind === "book") drawBook(ctx, data, p);
   else drawOverview(ctx, data, p);
   drawFooter(ctx, data.footer, p);
@@ -570,7 +464,7 @@ export function drawShareCard(ctx: CanvasRenderingContext2D, data: ShareCardData
 export async function loadCardFonts(): Promise<void> {
   if (typeof document === "undefined" || !document.fonts?.load) return;
   await Promise.all(
-    ["700 64px Literata", "italic 400 34px Literata", "500 32px Literata", "600 30px Inter", "500 27px Inter"].map((spec) =>
+    ["700 82px Literata", "600 64px Literata", '700 45px "Atkinson Hyperlegible"', '400 46px "Atkinson Hyperlegible"'].map((spec) =>
       document.fonts.load(spec).catch(() => []),
     ),
   );

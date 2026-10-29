@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { CARD_H, CARD_W, mix, PALETTES, qrModules, SHARE_THEMES, SHARE_URL, shelfSpines, textHash, wrapLines } from "../src/lib/share-card.ts";
+import { CARD_H, CARD_W, mix, PALETTES, qrModules, SHARE_THEMES, SHARE_URL, textHash, wrapLines } from "../src/lib/share-card.ts";
 
 // Every character is 10 units wide.
 const measure = (text) => [...text].length * 10;
@@ -42,28 +42,14 @@ test("the QR code is a square grid with the three finder patterns of a real code
   assert.ok(finder(0, 0) && finder(0, n - 7) && finder(n - 7, 0));
 });
 
-test("three styles, a 3:4 card, and the QR code always points at the site", () => {
+test("three styles, a 3:4.2 card, and the QR code always points at the site", () => {
   assert.deepEqual([...SHARE_THEMES], ["paper", "forest", "night"]);
-  for (const theme of SHARE_THEMES) assert.ok(PALETTES[theme].bg && PALETTES[theme].accent);
-  assert.equal(CARD_W * 4, CARD_H * 3);
+  for (const theme of SHARE_THEMES) assert.ok(PALETTES[theme].from && PALETTES[theme].to && PALETTES[theme].ink && PALETTES[theme].swatch);
+  assert.equal(Math.round(CARD_W * 4.2), CARD_H * 3);
   assert.equal(SHARE_URL, "https://inputread.site/");
   // The dialog is loaded on the first tap, so the canvas code and the QR encoder stay out of the start.
   const button = readFileSync(new URL("../src/components/share-button.tsx", import.meta.url), "utf8");
   assert.match(button, /lazy\(\(\) => import\("@\/components\/share-dialog"\)\)/);
-});
-
-test("the shelf: real spines first, filled out with plain ones, never wider than the shelf", () => {
-  const spines = shelfSpines(["Alice", "Peter Pan"], 880);
-  assert.equal(spines[0].title, "Alice");
-  assert.equal(spines[1].title, "Peter Pan");
-  assert.ok(spines.length >= 7, `${spines.length} spines`);
-  assert.ok(spines.slice(2).every((spine) => spine.title === ""));
-  const last = spines.at(-1);
-  assert.ok(last.x + last.width <= 880);
-  // The same books stand the same way on every draw.
-  assert.deepEqual(shelfSpines(["Alice", "Peter Pan"], 880), spines);
-  const many = shelfSpines(Array.from({ length: 30 }, (_, i) => `Book ${i}`), 880);
-  assert.ok(many.length < 30 && many.at(-1).x + many.at(-1).width <= 880, "a full shelf stops at its end");
 });
 
 test("colour maths and the title hash are stable", () => {
@@ -71,5 +57,4 @@ test("colour maths and the title hash are stable", () => {
   assert.equal(mix("rgb(10,20,30)", "#000000", 0), "rgb(10,20,30)");
   assert.equal(textHash("Alice"), textHash("Alice"));
   assert.notEqual(textHash("Alice"), textHash("Alicf"));
-  for (const theme of SHARE_THEMES) assert.equal(PALETTES[theme].cloths.length, 6);
 });

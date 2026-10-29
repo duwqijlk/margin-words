@@ -64,13 +64,13 @@ export function ListFilters({
 }
 
 export const bookCardGrid =
-  "grid grid-cols-2 min-[360px]:grid-cols-3 items-stretch gap-x-2.5 gap-y-4 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5";
+  "grid grid-cols-2 min-[360px]:grid-cols-3 items-stretch gap-x-2.5 gap-y-4 sm:gap-x-6 sm:gap-y-7 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6";
 
 /** Same title and author slots on every card, so the action row lines up. */
 export const cardTitleClass =
   "min-h-[2.5em] overflow-hidden font-display text-[0.84rem] leading-[1.28] font-semibold tracking-tight text-ink group-hover:text-accent transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.96rem] break-words";
 
-export const cardAuthorClass = "min-h-4 truncate text-xs leading-4 text-muted/80";
+export const cardAuthorClass = "min-h-4 truncate text-[0.8125rem] leading-4 text-muted";
 
 export const bookCardShell = "book-card group flex h-full min-h-full flex-col gap-2 sm:gap-3";
 
@@ -98,10 +98,10 @@ export function FilterMenu({
         {active ? <span className="size-2 rounded-full bg-accent" data-filter-on="" /> : null}
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45" />
-        <Dialog.Content className="anim-pop fixed inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 grid max-h-[70dvh] gap-3 overflow-y-auto rounded-2xl border border-line bg-card p-4 text-ink shadow-pop glass sm:inset-x-auto sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:w-[min(24rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
+        <Dialog.Content className="anim-pop fixed inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 grid max-h-[70dvh] gap-3 overflow-y-auto rounded-2xl border border-line bg-paper p-4 text-ink shadow-lift sm:inset-x-auto sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:w-[min(24rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2">
           <div className="flex items-center justify-between gap-3">
-            <Dialog.Title className="font-display text-xl font-semibold">{t("list.filter")}</Dialog.Title>
+            <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">{t("list.filter")}</Dialog.Title>
             <Dialog.Close className={btn.primary}>{t("common.done")}</Dialog.Close>
           </div>
           <Dialog.Description className="sr-only">{t("list.filter")}</Dialog.Description>

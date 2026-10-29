@@ -50,16 +50,19 @@ test("every animated picture has a still last frame with reduced motion", () => 
   const css = read("src/styles.css");
   assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{\s*\.tut-art \* \{ animation: none !important; \}/);
   const art = read("src/components/tutorial-art.tsx");
-  for (const name of [...art.matchAll(/className="[^"]*\b(tut-[a-z0-9]+)/g)].map((m) => m[1])) {
-    if (name === "tut-art") continue;
-    assert.match(css, new RegExp(`\\.tut-art \\.${name} \\{`), `${name} has a rule`);
+  const named = [...art.matchAll(/className="[^"]*?\b(art-[a-z0-9]+)/g)].map((m) => m[1]);
+  assert.ok(named.length > 5, "the pictures use the art-* classes");
+  for (const name of named) {
+    assert.match(css, new RegExp(`\\.tut-art \\.${name}\\b`), `${name} has a rule`);
   }
+  // The brand's own shapes (design system TutorialDialog): no mascot any more.
+  assert.doesNotMatch(art, /Owl|owl/);
 });
 
 test("both dialogs share one frame whose height and buttons do not move from step to step", () => {
   const frame = read("src/components/step-dialog.tsx");
   // Every step's text sits in the same grid cell; only the current one is visible.
-  assert.match(frame, /col-start-1 row-start-1 grid content-start gap-1\.5", index !== step && "invisible"/);
+  assert.match(frame, /"step-text col-start-1 row-start-1 grid content-start gap-1",\s*index !== step && "invisible opacity-0"/);
   // One button row on every step: a square Back (kept, invisible, on the first) and one main button.
   assert.match(frame, /grid-cols-\[2\.75rem_1fr\]/);
   assert.match(frame, /step === 0 && "invisible"/);
@@ -73,7 +76,7 @@ test("both dialogs share one frame whose height and buttons do not move from ste
 test("the second tip says a missing word can be reported directly or with the reader's own meaning", () => {
   const en = read("src/lib/i18n-en.ts");
   const line = en.split("\n").find((item) => item.includes('"tip.s2Body"'));
-  assert.match(line, /Meaning missing/);
+  assert.match(line, /Tell us it's missing/);
   assert.match(line, /add the meaning you understand/);
   assert.match(read("src/components/feedback-tip-dialog.tsx"), /ArtFeedbackMissing[\s\S]{0,200}addMine=/);
 });

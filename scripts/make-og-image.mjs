@@ -24,31 +24,39 @@ const sentence = escapeHtml(words.sentence).replace(
   `<span class="hit">${escapeHtml(words.word)}</span>`,
 );
 
+const mark = readFileSync(new URL("public/brand/inputread-mark.svg", root)).toString("base64");
+
+// The design system "Keep reading": white paper, the brand green, the interface face (Atkinson
+// Hyperlegible) for the words about the site and Literata for the book's own words; the tapped word
+// is lit by the highlighter and its card shows the meaning, as in the app.
 const html = `<!doctype html><meta charset="utf-8"><style>
 @font-face { font-family: Literata; font-weight: 200 900; src: url(data:font/woff2;base64,${font("literata-normal.woff2")}) format("woff2"); }
+@font-face { font-family: Atkinson; font-weight: 400; src: url(data:font/woff2;base64,${font("atkinson-hyperlegible-normal-400.woff2")}) format("woff2"); }
+@font-face { font-family: Atkinson; font-weight: 700; src: url(data:font/woff2;base64,${font("atkinson-hyperlegible-normal-700.woff2")}) format("woff2"); }
 @font-face { font-family: Inter; font-weight: 100 900; src: url(data:font/woff2;base64,${font("inter-normal.woff2")}) format("woff2"); }
 * { box-sizing: border-box; margin: 0; }
-body { width: 1200px; height: 630px; background: #f8f6f0; color: #181715; font-family: Inter, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; position: relative; overflow: hidden; }
-.band { position: absolute; inset: 0 0 auto 0; height: 14px; background: #235948; }
-.left { position: absolute; left: 80px; top: 92px; width: 560px; }
-.brand { font-family: Literata, Georgia, serif; font-size: 44px; font-weight: 700; color: #235948; letter-spacing: -0.5px; }
-.headline { margin-top: 18px; font-size: 92px; font-weight: 800; line-height: 1.05; }
-.sub { margin-top: 22px; font-size: 36px; font-weight: 600; color: #235948; }
-.line { margin-top: 26px; font-size: 28px; line-height: 1.5; color: #4d4a44; }
-.site { position: absolute; left: 80px; bottom: 64px; font-size: 26px; font-weight: 600; color: #6b665e; }
-.right { position: absolute; right: 72px; top: 96px; width: 470px; }
-.page { background: #fff; border: 1px solid #e3ded2; border-radius: 22px; padding: 30px 32px 26px; box-shadow: 0 18px 50px rgba(24,23,21,.10); }
-.text { font-family: Literata, Georgia, serif; font-size: 30px; line-height: 1.6; }
-.hit { border-bottom: 3px solid #235948; background: #e3efe9; border-radius: 4px; padding: 0 2px; }
-.card { margin: 22px -12px 0; background: #fdfcf9; border: 1px solid #e3ded2; border-radius: 18px; padding: 20px 24px; }
-.word { font-family: Literata, Georgia, serif; font-size: 40px; font-weight: 700; }
-.ipa { margin-left: 12px; font-size: 24px; color: #6b665e; }
-.meaning { margin-top: 10px; font-size: 25px; line-height: 1.45; }
-</style><body><div class="band"></div>
-<div class="left"><div class="brand">inputread</div><div class="headline">${escapeHtml(words.headline)}</div>
+body { width: 1200px; height: 630px; background: #ffffff; color: #111513; font-family: Atkinson, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; position: relative; overflow: hidden; }
+.left { position: absolute; left: 80px; top: 84px; width: 540px; }
+.brand { display: flex; align-items: center; gap: 16px; font-family: Literata, Georgia, serif; font-size: 44px; font-weight: 600; letter-spacing: -0.02em; }
+.brand img { width: 52px; height: 52px; }
+.headline { margin-top: 30px; font-size: 92px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+.sub { margin-top: 22px; font-size: 36px; font-weight: 700; color: #17804f; }
+.line { margin-top: 22px; font-size: 28px; line-height: 1.5; color: #4a524e; }
+.site { position: absolute; left: 80px; bottom: 60px; font-size: 26px; font-weight: 700; color: #6b726e; }
+.right { position: absolute; right: 64px; top: 0; bottom: 0; width: 500px; display: grid; align-content: center; }
+.sheet { background: #f3f5f4; border-radius: 28px; padding: 40px 36px 36px; }
+.text { font-family: Literata, Georgia, serif; font-size: 31px; line-height: 1.6; }
+.hit { background: #ffe14d; border-radius: 3px; padding: 0 3px; font-weight: 600; }
+.card { margin-top: 24px; background: #ffffff; border-radius: 20px; padding: 22px 26px 24px; box-shadow: 0 2px 6px rgba(0,0,0,.06), 0 24px 48px -16px rgba(0,0,0,.25); }
+.word { font-family: Literata, Georgia, serif; font-size: 42px; font-weight: 700; }
+.ipa { margin-top: 4px; font-family: Inter, sans-serif; font-size: 23px; color: #4a524e; }
+.ipa b { font-family: Atkinson, sans-serif; font-size: 16px; color: #6b726e; margin-right: 8px; }
+.meaning { margin-top: 12px; font-family: Literata, Georgia, serif; font-size: 26px; line-height: 1.45; }
+</style><body>
+<div class="left"><div class="brand"><img src="data:image/svg+xml;base64,${mark}" alt="">inputread</div><div class="headline">${escapeHtml(words.headline)}</div>
 <div class="sub">${escapeHtml(words.sub)}</div><div class="line">${escapeHtml(words.line)}</div></div>
-<div class="right"><div class="page"><p class="text" lang="en">${sentence}</p>
-<div class="card"><span class="word" lang="en">${escapeHtml(words.word)}</span><span class="ipa">${escapeHtml(words.ipa)}</span>
+<div class="right"><div class="sheet"><p class="text" lang="en">${sentence}</p>
+<div class="card"><div class="word" lang="en">${escapeHtml(words.word)}</div><div class="ipa"><b>UK</b>${escapeHtml(words.ipa)}</div>
 <p class="meaning" lang="en">${escapeHtml(words.meaning)}</p></div></div></div>
 <div class="site">inputread.site</div></body>`;
 

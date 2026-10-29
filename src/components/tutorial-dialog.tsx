@@ -62,10 +62,10 @@ export default function TutorialDialog() {
       {(starters.length ? starters : [null, null, null]).map((book, index) => (
         <div
           key={book?.id ?? index}
-          className={cn("w-[28%] shrink-0", index === 1 ? "z-[1] -mx-3 mb-3 w-[32%]" : "opacity-95")}
-          style={{ transform: `rotate(${(index - 1) * 6}deg)` }}
+          className={cn("w-[28%] shrink-0", index === 1 ? "z-[1] -mx-3 mb-3 w-[32%]" : "opacity-95", index === 0 && "tut-fan1", index === 2 && "tut-fan3")}
+          style={index === 1 ? undefined : { transform: index === 0 ? "rotate(-10deg) translateX(-6px)" : "rotate(10deg) translateX(6px)" }}
         >
-          <div className="tut-float" style={{ animationDelay: `${index * 0.35}s` }}>
+          <div>
             {book ? (
               <BookCover title={book.title} author={book.author} cover={book.cover || undefined} />
             ) : (

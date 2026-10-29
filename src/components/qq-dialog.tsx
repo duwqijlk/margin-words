@@ -33,10 +33,10 @@ export function QqDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
-        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 max-h-[90dvh] w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-line bg-card p-5 text-ink shadow-pop glass sm:p-6">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
+        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 max-h-[90dvh] w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift sm:p-6">
           <div className="flex items-start justify-between gap-3">
-            <Dialog.Title className="font-display text-2xl font-semibold">{t("dashboard.qqTitle")}</Dialog.Title>
+            <Dialog.Title className="font-bold tracking-[-0.02em] text-2xl">{t("dashboard.qqTitle")}</Dialog.Title>
             <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>
               <X className="size-5" aria-hidden />
             </Dialog.Close>

@@ -80,7 +80,7 @@ export function Avatar({
         backgroundImage: `linear-gradient(145deg, ${from}, ${to})`,
       }}
       className={cn(
-        "inline-grid shrink-0 place-items-center rounded-full font-display font-semibold text-white/95 shadow-[inset_0_0_0_1px_rgb(255_255_255/0.12)]",
+        "inline-grid shrink-0 place-items-center rounded-full font-bold tracking-[-0.02em] text-white/95 shadow-[inset_0_0_0_1px_rgb(255_255_255/0.12)]",
         className,
       )}
       data-avatar={id}

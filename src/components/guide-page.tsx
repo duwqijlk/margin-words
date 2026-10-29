@@ -113,7 +113,7 @@ export function GuideScreen() {
     <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-6 sm:px-6 sm:py-10" data-guide-page>
       <div className="grid gap-1.5">
         <div className="flex items-center justify-between gap-3">
-          <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("guide.title")}</h1>
+          <h1 className="font-bold tracking-[-0.02em] text-3xl sm:text-4xl">{t("guide.title")}</h1>
           <a
             className={cn(btn.icon, "text-muted hover:text-ink")}
             href={REPO_URL}
@@ -142,7 +142,7 @@ export function GuideScreen() {
               <section.Icon className="size-5" />
             </span>
             <div className="grid min-w-0 gap-1.5">
-              <h2 className="font-display text-lg leading-snug font-semibold">
+              <h2 className="font-bold tracking-[-0.02em] text-lg leading-snug">
                 <span className="sr-only">{index + 1}. </span>
                 {t(section.title)}
               </h2>

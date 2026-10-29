@@ -96,6 +96,15 @@ const COVER_PALETTES: ReadonlyArray<readonly [string, string, string]> = [
 
 export type CoverLook = "book" | "talk";
 
+/**
+ * The ground colour of a speech's generated cover (the same pick as the cover itself): that book's
+ * own colour (src/lib/cover-tone.ts), since a generated cover has no picture to take it from.
+ */
+export function talkCoverTone(title: string, author: string): string {
+  const pair = COVER_PALETTES[hashOf(`${title}|${author}`) % COVER_PALETTES.length] ?? COVER_PALETTES[0];
+  return (pair as readonly string[])[0] ?? "";
+}
+
 function hashOf(text: string): number {
   let h = 2166136261;
   for (let i = 0; i < text.length; i += 1) {
@@ -170,13 +179,13 @@ export function BookCover({
     <span
       ref={frame}
       className={cn(
-        "cover-frame relative block aspect-cover w-full shrink-0 overflow-hidden rounded-md bg-line shadow-cover ring-1 ring-ink/10 transition-[transform,box-shadow] duration-200 [container-type:inline-size]",
+        "cover-frame relative block aspect-cover w-full shrink-0 overflow-hidden rounded-cover bg-line shadow-cover transition-[transform,box-shadow] duration-[280ms] [container-type:inline-size]",
         className,
       )}
       {...(showGenerated ? { "data-generated-cover": "" } : {})}
     >
       {pending || (showImage && loaded !== cover) ? (
-        <span className="absolute inset-0 animate-pulse bg-line" data-cover-pending="" aria-hidden />
+        <span className="cover-shimmer absolute inset-0" data-cover-pending="" aria-hidden />
       ) : null}
       {showImage ? (
         <img
@@ -184,7 +193,7 @@ export function BookCover({
           src={cover}
           alt=""
           crossOrigin={coverCrossOrigin(cover)}
-          className={cn("absolute inset-0 h-full w-full object-cover", loaded !== cover && "opacity-0")}
+          className={cn("absolute inset-0 h-full w-full object-cover transition-opacity duration-[280ms]", loaded !== cover && "opacity-0")}
           loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(cover ?? null)}
@@ -278,7 +287,7 @@ export function BookCover({
         aria-hidden
       />
       <span
-        className="pointer-events-none absolute inset-0 rounded-[0.3rem] ring-1 ring-inset ring-black/10"
+        className="pointer-events-none absolute inset-0 rounded-cover ring-1 ring-inset ring-black/10"
         aria-hidden
       />
     </span>

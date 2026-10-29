@@ -16,7 +16,7 @@ import { btn, cn } from "@/components/ui";
 /* ------------------------------------------------------------------ shared bits */
 
 const panel =
-  "anim-pop fixed top-1/2 left-1/2 z-50 flex max-h-[min(88dvh,46rem)] w-[min(38rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl border border-line bg-card text-ink shadow-pop glass";
+  "anim-pop fixed top-1/2 left-1/2 z-50 flex max-h-[min(88dvh,46rem)] w-[min(38rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-line bg-paper text-ink shadow-lift ";
 
 function Frame({
   open,
@@ -37,11 +37,11 @@ function Frame({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content className={panel}>
           <div className="flex items-start justify-between gap-3 border-b border-line px-5 pt-4 pb-3">
             <div className="grid gap-0.5">
-              <Dialog.Title className="font-display text-xl font-semibold">{title}</Dialog.Title>
+              <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">{title}</Dialog.Title>
               <Dialog.Description className="text-sm text-muted">{description}</Dialog.Description>
             </div>
             <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>

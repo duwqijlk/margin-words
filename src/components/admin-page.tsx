@@ -36,7 +36,7 @@ export function AdminPage() {
             {t("admin.title")}
           </h1>
           {admin ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent-soft px-3 py-0.5 text-xs font-semibold text-accent shadow-2xs">
+            <span className="inline-flex items-center gap-1.5 rounded border border-accent/25 bg-accent-soft px-3 py-0.5 text-xs font-semibold text-accent shadow-2xs">
               <span className="size-1.5 rounded-full bg-accent" />
               Admin
             </span>
@@ -74,7 +74,7 @@ export function AdminPage() {
           <div
             role="group"
             aria-label={t("admin.title")}
-            className="flex flex-wrap items-center gap-1.5 rounded-2xl border border-line/60 bg-line/35 p-1.5 backdrop-blur-xs sm:flex-nowrap"
+            className="flex flex-wrap items-center gap-1.5 rounded-2xl border border-line/60 bg-line/35 p-1.5 sm:flex-nowrap"
           >
             {[
               { value: "thanks" as const, label: t("admin.tab.thanks") },

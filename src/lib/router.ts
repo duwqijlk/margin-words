@@ -151,7 +151,7 @@ function subscribe(onChange: () => void): () => void {
 
 /**
  * Go to a page. `replace` swaps the current history entry (used for redirects).
- * `state` stays on that entry. Starting a review stores `{ review: "due" }` so a refresh
+ * `state` stays on that entry. Starting a review stores `{ review: "due", mode }` so a refresh
  * of that visit opens the cards again. Every other visit clears the state.
  */
 export function navigate(route: Route, options: { replace?: boolean; state?: unknown } = {}): void {
@@ -166,10 +166,22 @@ export function navigate(route: Route, options: { replace?: boolean; state?: unk
   window.dispatchEvent(new Event(CHANGED));
 }
 
-/** True when this history entry was opened by "Start review" and should show the cards. */
-export function reviewDueIntent(): boolean {
-  const state = window.history.state as { review?: unknown } | null;
-  return Boolean(state && typeof state === "object" && state.review === "due");
+/**
+ * What this review visit was opened for (design system ReviewLauncher): a round of the due words,
+ * of the words still being learnt or of all of them, in the way the reader chose; or the review
+ * data page ("overview"). A bare /review visit has none and goes back to the notebook.
+ */
+export type ReviewIntent =
+  | { pool: "due" | "learning" | "all"; mode: "cards" | "cloze" | "spell" }
+  | { pool: "overview" };
+
+export function reviewIntent(): ReviewIntent | null {
+  const state = window.history.state as { review?: unknown; mode?: unknown } | null;
+  if (!state || typeof state !== "object") return null;
+  const mode = state.mode === "cloze" || state.mode === "spell" ? state.mode : "cards";
+  if (state.review === "due" || state.review === "learning" || state.review === "all") return { pool: state.review, mode };
+  if (state.review === "overview") return { pool: "overview" };
+  return null;
 }
 
 /** The route of the address bar. An address that is not a page of the app reads as the shelf. */

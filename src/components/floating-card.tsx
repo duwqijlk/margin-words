@@ -106,6 +106,9 @@ export function useFloatingCard(
         viewportWidth: vw,
         viewportHeight: vh,
       });
+      // The card grows out of the tapped word (design system TapWord): its scale origin is the
+      // word's centre, in the card's own coordinates.
+      const word = anchorEl.getBoundingClientRect();
       const next: CSSProperties = {
         top: Math.round(placed.top),
         left: Math.round(placed.left),
@@ -113,6 +116,7 @@ export function useFloatingCard(
         bottom: "auto",
         width: Math.round(placed.width),
         maxHeight: Math.round(placed.maxHeight),
+        transformOrigin: `${Math.round(word.left + word.width / 2 - placed.left)}px ${Math.round(word.top + word.height / 2 - placed.top)}px`,
       };
       setStyle((prev) => (sameBox(prev, next) ? prev : next));
     };

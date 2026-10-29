@@ -1,6 +1,6 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { Volume2 } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { useT } from "@/lib/i18n";
 import { usePrefs } from "@/lib/reader-prefs";
 
@@ -8,26 +8,33 @@ export function cn(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
 
+// Buttons (design system "Keep reading"): 44px high, 4px corners, 15px bold labels. One primary per
+// screen; secondary is a 1px edge outline; disabled is 40% opacity.
 const btnBase =
-  "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-xl px-4 text-[0.92rem] font-semibold transition-all duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100";
+  "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded px-4 text-[0.9375rem] leading-tight font-bold transition-[background-color,border-color,color,transform] duration-100 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100";
 
 export const btn = {
   primary: cn(btnBase, "bg-accent text-accent-ink hover:bg-accent/90"),
-  // A filled tint, not a white box with a border.
-  quiet: cn(btnBase, "bg-ink/[0.06] text-ink hover:bg-ink/10"),
-  ghost: cn(btnBase, "text-ink hover:bg-accent-soft/60"),
-  danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90"),
-  icon: "inline-flex size-11 shrink-0 items-center justify-center rounded-xl text-ink transition-colors hover:bg-black/5 disabled:opacity-45",
+  /** Secondary: transparent with a 1px edge border; the sheet ground on hover. */
+  quiet: cn(btnBase, "border border-edge text-ink hover:bg-sheet"),
+  ghost: cn(btnBase, "text-ink hover:bg-sheet"),
+  /** A ghost button that takes its colour from the caller (text-accent, text-muted, text-faint). */
+  bare: cn(btnBase, "hover:bg-sheet"),
+  danger: cn(btnBase, "bg-warn text-accent-ink hover:bg-warn/90"),
+  /** 44×44, ink-2; the current one turns brand (aria-current / text-accent), never filled. */
+  icon: "inline-flex size-11 shrink-0 items-center justify-center rounded text-muted transition-colors duration-100 hover:bg-sheet hover:text-ink disabled:opacity-40",
 } as const;
 
+// Inputs, selects and search fields look the same: paper ground, 1px edge border, 4px corners.
+// Focused, the border and an inner ring turn brand (2px of brand in all).
 export const field =
-  "min-h-11 w-full rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink placeholder:text-muted/60 transition-all focus:border-accent focus:outline-none";
+  "min-h-11 w-full rounded border border-edge bg-paper px-3 text-base text-ink placeholder:text-faint transition-[border-color,box-shadow] duration-100 focus:border-accent focus:shadow-[inset_0_0_0_1px_rgb(var(--accent-rgb))] focus:outline-none";
 
 export const selectCls =
-  "min-h-11 rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink transition-all focus:border-accent focus:outline-none";
+  "min-h-11 rounded border border-edge bg-paper px-3 text-base text-ink transition-[border-color,box-shadow] duration-100 focus:border-accent focus:shadow-[inset_0_0_0_1px_rgb(var(--accent-rgb))] focus:outline-none";
 
 export const chip =
-  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5";
+  "inline-flex items-center rounded px-2 py-0.5 text-xs font-bold leading-5";
 
 /**
  * Second-level tabs as plain text (Discover's Novels / Speeches, Overview's sections): the row has a
@@ -35,11 +42,47 @@ export const chip =
  */
 export const subTabs = {
   // No scrolling: two or three short words always fit, and a scroll box showed a scrollbar for the 1px overlap.
-  row: "flex gap-5 border-b border-line/60",
-  tab: "-mb-px inline-flex min-h-10 shrink-0 items-center border-b-2 text-[0.9rem] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-  on: "border-ink font-semibold text-ink",
-  off: "border-transparent font-medium text-muted hover:text-ink",
+  row: "flex gap-6 border-b border-line",
+  tab: "-mb-px inline-flex min-h-11 shrink-0 items-center border-b-2 text-[0.9375rem] transition-colors duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+  on: "border-accent font-bold text-ink",
+  off: "border-transparent text-muted hover:text-ink",
 } as const;
+
+/**
+ * The line under the selected sub-tab, sliding to a new tab with a little spring (design system Tabs /
+ * PressFeedback). Put it inside a `relative` tab row; it finds the `[aria-selected="true"]` tab.
+ * While it is there the tabs' own 2px line is hidden (`[data-tab-ink]` in styles.css), so an engine
+ * that cannot run it still shows the plain line.
+ */
+export function TabInk({ selected }: { selected: string }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const [box, setBox] = useState<{ left: number; width: number } | null>(null);
+  useEffect(() => {
+    const ink = ref.current;
+    const row = ink?.parentElement;
+    if (!ink || !row) return;
+    row.setAttribute("data-tab-ink", "");
+    const measure = () => {
+      const tab = row.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+      if (tab) setBox({ left: tab.offsetLeft, width: tab.offsetWidth });
+    };
+    measure();
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : null;
+    observer?.observe(row);
+    return () => {
+      observer?.disconnect();
+      row.removeAttribute("data-tab-ink");
+    };
+  }, [selected]);
+  return (
+    <span
+      ref={ref}
+      aria-hidden
+      className="tab-ink pointer-events-none absolute bottom-0 left-0 h-0.5 bg-accent"
+      style={box ? { width: box.width, transform: `translateX(${box.left}px)` } : { width: 0 }}
+    />
+  );
+}
 
 /* ---------------------------------------------------------------- pronunciation */
 
@@ -489,10 +532,16 @@ export function SpeakButton({
   compact = false,
   accent,
   onOutcome,
+  children,
 }: {
   text: string;
   label?: string;
   className?: string;
+  /**
+   * With an accent: the whole row is the button (design system SpeakButton / WordCard): the accent
+   * label and the reading come in as children, the speaker icon follows. 36px drawn, 44px to tap.
+   */
+  children?: ReactNode;
   /** Icon only: accents use a text-sized icon; generic controls keep the round button. */
   compact?: boolean;
   accent?: PronunciationAccent;
@@ -512,6 +561,7 @@ export function SpeakButton({
   const failure = accent
     ? t(accent === "UK" ? "ipa.audioFailedUk" : "ipa.audioFailedUs")
     : t("common.noSound");
+  const row = Boolean(children && accent);
   const button = (
     <button
       type="button"
@@ -519,20 +569,29 @@ export function SpeakButton({
       aria-label={`${name}: ${text}`}
       title={failed ? failure : name}
       className={cn(
-        compact
+        row
+          ? "relative inline-flex h-9 max-w-full items-center gap-1.5 rounded px-2 text-left text-ink transition-colors duration-100 after:absolute after:inset-x-0 after:-inset-y-1 after:content-[''] hover:bg-accent-soft"
+          : compact
           ? accent
             ? "grid size-11 place-items-center rounded transition-colors hover:bg-accent-soft"
             : "grid size-10 place-items-center rounded-full border border-accent/25 bg-accent-soft transition-colors hover:bg-accent hover:text-accent-ink shadow-2xs"
           : "inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-line/60 px-3 text-sm font-semibold transition-colors hover:bg-accent-soft",
-        failed ? "text-warn" : "text-accent",
+        row ? failed && "text-warn" : failed ? "text-warn" : "text-accent",
         className,
       )}
       data-speak
       data-speak-accent={accent}
       data-speak-status={outcome}
     >
-      <Volume2 className={compact ? accent ? "size-[1em]" : "size-5" : "size-[1.1rem]"} aria-hidden />
-      {compact ? null : failed ? failure : name}
+      {row ? children : null}
+      <Volume2
+        className={cn(
+          row ? "size-4 shrink-0 stroke-2" : compact ? accent ? "size-[1em]" : "size-5" : "size-[1.1rem]",
+          row && (failed ? "text-warn" : "text-accent"),
+        )}
+        aria-hidden
+      />
+      {row || compact ? null : failed ? failure : name}
     </button>
   );
   if (!accent) return button;
@@ -579,6 +638,37 @@ export function Highlighted({ sentence, surface }: { sentence: string; surface: 
   );
 }
 
+/**
+ * A 48px reading ring (design system ContinueReading): brand on a faint track, the percent in the
+ * middle. It draws itself once (off with reduced motion and on e-ink).
+ */
+export function ProgressRing({ value, label }: { value: number; label: string }) {
+  const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
+  const length = 2 * Math.PI * 20;
+  return (
+    <span className="relative grid size-12 shrink-0 place-items-center" role="img" aria-label={label} data-progress-ring>
+      <svg viewBox="0 0 48 48" className="absolute inset-0 size-12 -rotate-90" aria-hidden>
+        <circle cx="24" cy="24" r="20" fill="none" strokeWidth="4" className="stroke-ink/10" />
+        <circle
+          cx="24"
+          cy="24"
+          r="20"
+          fill="none"
+          strokeWidth="4"
+          strokeLinecap="round"
+          className="ring-draw stroke-accent"
+          strokeDasharray={`${((length * pct) / 100).toFixed(1)} ${length.toFixed(1)}`}
+          style={{ ["--ring-length" as string]: length.toFixed(1) }}
+        />
+      </svg>
+      <b className="relative text-[0.8125rem] font-bold tabular-nums">
+        {pct}
+        <small className="text-[0.625rem]">%</small>
+      </b>
+    </span>
+  );
+}
+
 export function ProgressBar({
   value,
   className,
@@ -596,10 +686,10 @@ export function ProgressBar({
       aria-valuemax={100}
       aria-valuenow={pct}
       aria-label={label}
-      className={cn("h-1.5 overflow-hidden rounded-full bg-line", className)}
+      className={cn("h-0.5 overflow-hidden bg-line", className)}
     >
       <div
-        className="h-full rounded-full bg-accent transition-[width] duration-300"
+        className="h-full bg-accent transition-[width] duration-300"
         style={{ width: `${pct}%` }}
       />
     </div>
@@ -607,34 +697,173 @@ export function ProgressBar({
 }
 
 /** A quiet row of numbers (notebook, review). One card, thin dividers; two columns on a phone. */
+/**
+ * A row of numbers (design system Stats): each on a soft `sheet` tile, the label small above, the
+ * number in Literata bold with lining figures. The "understood" number (mastered) gets a highlighter
+ * under it, a number that needs the reader is `warn`, everything else ink. `pair` lays them two by
+ * two (the review data column); otherwise four in a row on every screen, smaller on a phone.
+ */
 export function StatRow({
   items,
+  pair = false,
 }: {
   items: ReadonlyArray<{
     label: string;
     value: number | string;
-    tone?: "plain" | "warn" | "good";
+    tone?: "plain" | "warn" | "mark";
     hint?: string;
   }>;
+  pair?: boolean;
 }) {
   return (
-    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl bg-card sm:grid-cols-4 [&>div]:border-line/60 max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
+    <dl className={cn("m-0 grid gap-1.5", pair ? "grid-cols-2" : "grid-cols-4")} data-stat-row>
       {items.map((item) => (
-        <div key={item.label} className="grid content-start gap-1 p-4 sm:p-5">
-          <dt className="text-xs text-muted">{item.label}</dt>
+        <div
+          key={item.label}
+          className={cn("stat-tile grid min-w-0 content-start rounded-2xl bg-sheet", pair ? "px-3.5 pt-3 pb-3.5" : "px-2 pt-2.5 pb-3 sm:px-5 sm:pt-4 sm:pb-[18px]")}
+        >
+          <dt className="truncate text-xs text-faint sm:text-[13px]">{item.label}</dt>
           <dd
             className={cn(
-              "text-2xl leading-none font-semibold tabular-nums tracking-tight sm:text-3xl",
+              "m-0 mt-1.5 font-display leading-none font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] sm:mt-2",
+              pair ? "text-[28px]" : "text-[22px] sm:text-4xl",
               item.tone === "warn" && "text-warn",
-              item.tone === "good" && "text-accent",
             )}
+            data-stat-tone={item.tone ?? "plain"}
           >
-            {item.value}
+            {item.tone === "mark" ? <span className="num-mark">{item.value}</span> : item.value}
           </dd>
-          {item.hint ? <dd className="text-xs text-muted/80">{item.hint}</dd> : null}
+          {item.hint ? <dd className="m-0 mt-1.5 text-xs text-faint">{item.hint}</dd> : null}
         </div>
       ))}
     </dl>
+  );
+}
+
+/**
+ * Settings and the account (design system SettingsDialog, AccountDialog): a centred panel on a wide
+ * screen, a bottom sheet with a drag bar on a phone. Settings sit in groups: a small label over a
+ * soft `sheet` box of 52px rows split by hairlines, with a note under it.
+ */
+export const panel = {
+  overlay: "fixed inset-0 z-50 bg-black/[0.32]",
+  content:
+    "panel-in fixed z-50 grid content-start gap-4 overflow-y-auto overscroll-contain bg-paper text-ink max-sm:inset-x-0 max-sm:bottom-0 max-sm:max-h-[92dvh] max-sm:rounded-t-sheet max-sm:border-t max-sm:border-line max-sm:px-4 max-sm:pb-[calc(20px+env(safe-area-inset-bottom))] max-sm:shadow-[0_-8px_32px_-12px_rgb(0_0_0/0.25)] sm:top-1/2 sm:left-1/2 sm:max-h-[90dvh] sm:w-[min(30rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:gap-5 sm:rounded-2xl sm:border sm:border-line sm:px-6 sm:pt-5 sm:pb-6 sm:shadow-lift",
+  head: "flex items-center justify-between gap-3",
+  title: "m-0 text-2xl leading-tight font-bold tracking-[-0.02em]",
+  desc: "-mt-2 text-sm leading-relaxed text-muted",
+  group: "grid gap-2",
+  groupTitle: "m-0 px-1 text-[13px] font-bold text-faint",
+  box: "grid rounded-2xl bg-sheet px-4 py-1 [&>*+*]:border-t [&>*+*]:border-line",
+  note: "m-0 px-1 text-[13px] leading-relaxed text-faint",
+  row: "group/row flex min-h-[52px] w-full items-center justify-between gap-3 text-left text-[15px] text-ink",
+  rowLabel: "min-w-0 group-hover/row:text-accent",
+  rowIcon: "size-[18px] shrink-0 text-faint",
+} as const;
+
+/** The drag bar at the top of a phone sheet; hidden on a wide screen. */
+export function PanelHandle() {
+  return (
+    <div className="-mb-2 flex h-7 items-center justify-center sm:hidden" aria-hidden>
+      <i className="block h-1 w-10 rounded-full bg-line" />
+    </div>
+  );
+}
+
+/** Each theme's own paper, ink and brand green, for the theme tiles. */
+export const THEME_SAMPLES = [
+  { value: "light", bg: "#ffffff", fg: "#111513", brand: "#17804f" },
+  { value: "sepia", bg: "#f4ecdc", fg: "#2c2318", brand: "#146f45" },
+  { value: "dark", bg: "#0f1211", fg: "#eef2f0", brand: "#4cc98b" },
+  { value: "eink", bg: "#ffffff", fg: "#000000", brand: "#000000" },
+] as const;
+
+/**
+ * The four reading themes as small pages ("Aa" and a brand line in that theme's own colours), so
+ * the reader sees what each looks like; the chosen one gets a brand ring (design system
+ * SettingsDialog, ReaderSettings).
+ */
+export function ThemeTiles<T extends string>({
+  value,
+  onChange,
+  labels,
+  label,
+  small = false,
+}: {
+  value: T;
+  onChange: (value: T) => void;
+  labels: Record<string, string>;
+  label: string;
+  small?: boolean;
+}) {
+  return (
+    <div role="group" aria-label={label} className={cn("grid grid-cols-4", small ? "gap-2" : "gap-2.5")} data-theme-tiles>
+      {THEME_SAMPLES.map((theme) => {
+        const on = value === theme.value;
+        return (
+          <button
+            key={theme.value}
+            type="button"
+            aria-pressed={on}
+            onClick={() => onChange(theme.value as T)}
+            data-theme-tile={theme.value}
+            className={cn("grid min-w-0 justify-items-center gap-1.5 text-[13px] transition-transform duration-100 active:scale-[0.96]", on ? "font-bold text-accent" : "text-muted")}
+          >
+            <span
+              className={cn(
+                "grid w-full content-center justify-items-center gap-1.5 font-display leading-none font-bold",
+                // min-h for engines without aspect-ratio (Chrome 69).
+                small ? "aspect-[5/4] min-h-[3.25rem] rounded text-lg" : "aspect-[4/3] min-h-[3.75rem] rounded-xl text-xl",
+              )}
+              style={{
+                background: theme.bg,
+                color: theme.fg,
+                boxShadow: on ? "0 0 0 2px var(--paper), 0 0 0 4px var(--accent)" : "inset 0 0 0 1px rgb(0 0 0 / 0.1)",
+              }}
+            >
+              Aa
+              <i className="block h-[3px] w-1/2 rounded-sm" style={{ background: theme.brand }} />
+            </span>
+            {labels[theme.value]}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** An on / off switch (design system Toggle): 40×24, brand when on. */
+export function Switch({
+  checked,
+  onChange,
+  label,
+  ...rest
+}: {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label: string;
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange">) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={() => onChange(!checked)}
+      className={cn(
+        "switch relative h-6 w-10 shrink-0 rounded-full border p-0",
+        checked ? "border-accent bg-accent" : "border-edge bg-paper",
+      )}
+      {...rest}
+    >
+      <span
+        aria-hidden
+        className={cn(
+          "switch-knob absolute top-[3px] left-[3px] size-4 rounded-full",
+          checked ? "translate-x-4 bg-accent-ink" : "bg-muted",
+        )}
+      />
+    </button>
   );
 }
 
@@ -644,11 +873,14 @@ export function Segmented<T extends string | number>({
   onChange,
   label,
   layout = "bar",
+  compact = false,
 }: {
   value: T;
   options: ReadonlyArray<{ value: T; label: ReactNode }>;
   onChange: (value: T) => void;
   label: string;
+  /** The smaller one that sits at the right end of a settings row, on paper. */
+  compact?: boolean;
   /** `wrap` gives each option its own cell on a phone, so four labels are not squeezed onto one line. */
   layout?: "bar" | "wrap";
 }) {
@@ -659,8 +891,9 @@ export function Segmented<T extends string | number>({
       aria-label={label}
       className={cn(
         wrap
-          ? "grid grid-cols-2 gap-1.5 sm:flex sm:rounded-xl sm:bg-line/40 sm:p-1"
-          : "flex rounded-xl bg-ink/[0.06] p-1",
+          ? "grid grid-cols-2 gap-1.5 sm:flex sm:gap-0 sm:divide-x sm:divide-line sm:overflow-hidden sm:rounded sm:border sm:border-edge"
+          : "flex divide-x divide-line overflow-hidden rounded border border-edge",
+        compact && "shrink-0 bg-paper",
       )}
     >
       {options.map((option) => (
@@ -670,14 +903,11 @@ export function Segmented<T extends string | number>({
           aria-pressed={option.value === value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "min-h-10 rounded-lg px-3 text-sm font-medium transition-all duration-150",
+            compact ? "min-h-9 px-3.5 text-sm transition-colors duration-100" : "min-h-10 min-w-16 px-3 text-sm transition-colors duration-100",
             wrap
-              ? "border border-line/60 whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap"
+              ? "rounded border border-edge whitespace-normal sm:flex-1 sm:rounded-none sm:border-0 sm:whitespace-nowrap"
               : "flex-1 whitespace-nowrap",
-            option.value === value
-              ? "bg-card text-ink shadow-2xs font-semibold"
-              : "text-muted hover:text-ink",
-            wrap && option.value !== value && "bg-card/40 sm:bg-transparent",
+            option.value === value ? "bg-accent-soft font-bold text-accent" : "text-muted hover:bg-sheet hover:text-ink",
           )}
         >
           {option.label}
@@ -706,8 +936,8 @@ export function ConfirmDialog({
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
-        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-card p-5 text-ink shadow-pop glass">
+        <AlertDialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
+        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-paper p-5 text-ink shadow-lift ">
           <AlertDialog.Title className="text-lg font-semibold">
             {title}
           </AlertDialog.Title>

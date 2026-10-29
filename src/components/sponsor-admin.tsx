@@ -128,17 +128,17 @@ export function SponsorTab() {
                     <span className="text-xs text-muted">{formatShanghaiDate(row.createdAt)}</span>
                     {listed && row.amountCents ? (
                       <span
-                        className="inline-flex items-center gap-1 rounded-full border border-accent/20 bg-accent-soft px-2.5 py-0.5 text-xs font-semibold text-accent"
+                        className="inline-flex items-center gap-1 rounded border border-accent/20 bg-accent-soft px-2.5 py-0.5 text-xs font-semibold text-accent"
                         data-sponsor-listed
                       >
                         {t("admin.listed")} · {t("thanks.amount", { amount: formatSponsorUsd(row.amountCents) })}
                       </span>
                     ) : closed ? (
-                      <span className="inline-flex items-center rounded-full border border-line/80 bg-line/40 px-2.5 py-0.5 text-xs font-medium text-muted">
+                      <span className="inline-flex items-center rounded border border-line/80 bg-line/40 px-2.5 py-0.5 text-xs font-medium text-muted">
                         {t("admin.closed")}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-700 dark:text-amber-300">
+                      <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-700 dark:text-amber-300">
                         <span className="size-1.5 rounded-full bg-amber-500" />
                         {row.emailSentAt ? t("admin.sent") : t("admin.pending")}
                       </span>

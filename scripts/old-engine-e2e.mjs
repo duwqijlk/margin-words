@@ -42,6 +42,12 @@ const page = await browser.newPage({ viewport: { width: 900, height: 1200 } });
 const errors = [];
 page.on("pageerror", (error) => errors.push(error.message));
 
+// The first-run tutorial and the reading tip are dialogs of their own; keep them out of this run.
+await page.addInitScript(() => {
+  localStorage.setItem("cibian-tutorial-v1", "seen");
+  localStorage.setItem("cibian-feedback-tip-v1", "seen");
+});
+
 /** Everything the app may meet on Chrome 69..91, taken away before it runs. */
 await page.addInitScript(() => {
   const drop = (object, keys) => {

@@ -138,7 +138,8 @@ const { BookCard } = loadComponent(`${shelfSource}\nexport { BookCard };`, {
   "@/lib/speech-books": { useSpeechBookIds: () => new Set() }, "@/lib/router": inert,
   "@/lib/lexile": inert, "@/lib/discover-rails": inert, "@/components/lexile-ui": inert,
   "@/components/list-filters": { bookCardShell: "card", cardTitleClass: "title", cardAuthorClass: "author" },
-  "@/components/book-cover": { BookCover: () => React.createElement("span", { "data-cover": "" }) },
+  "@/components/book-cover": { BookCover: () => React.createElement("span", { "data-cover": "" }), talkCoverTone: () => "" },
+  "@/lib/cover-tone": { useBookTone: () => ({}) },
   "@/components/shelf-book-info": { ShelfBookInfo: () => null },
   "@/components/cover-marks": { BookTags: fragment, BookTag: element("span"), OldFashionedTag: () => React.createElement("span", null, "old-warning") },
   "@/lib/reading-stats": {

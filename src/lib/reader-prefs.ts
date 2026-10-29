@@ -1,14 +1,16 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 
-export type Theme = "light" | "sepia" | "dark" | "clear";
+/** Paper ("light"), sepia, dark, e-ink. "clear" was retired: it reads as paper. */
+export type Theme = "light" | "sepia" | "dark" | "eink";
 export type FontKey = "literata" | "lora" | "sans";
 export type WidthKey = "narrow" | "medium" | "wide";
 
 export const FONT_STACKS: Record<FontKey, { label: string; css: string }> = {
   literata: { label: "Literata", css: '"Literata", "Iowan Old Style", Georgia, serif' },
   lora: { label: "Lora", css: '"Lora", Georgia, "Times New Roman", serif' },
-  sans: { label: "Inter", css: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif' },
+  // The sans choice is the interface face, Atkinson Hyperlegible (design system ReaderSettings); it used to be Inter.
+  sans: { label: "Atkinson", css: '"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif' },
 };
 
 export const WIDTHS: Record<WidthKey, { label: string; rem: number }> = {
@@ -125,6 +127,8 @@ export const usePrefs = create<PrefsState>()(
         return {
           ...current,
           ...saved,
+          // The Clear theme was retired: a reader who had it reads on paper.
+          theme: saved.theme === "sepia" || saved.theme === "dark" || saved.theme === "eink" ? saved.theme : "light",
           column: columnRem({ column: saved.column, width: saved.width ?? current.width }),
           paging: Boolean(saved.paging),
           pronunciationAccent: saved.pronunciationAccent === "UK" ? "UK" : "US",
@@ -136,15 +140,18 @@ export const usePrefs = create<PrefsState>()(
 );
 
 /** Runs before first paint (inlined in <head>) so a dark/sepia reader never flashes white. */
-export const THEME_BOOT_SCRIPT = `try{var p=JSON.parse(localStorage.getItem("${PREFS_KEY}")||"{}");var t=p.state&&p.state.theme;if(t==="dark"||t==="sepia"||t==="light"||t==="clear")document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
+export const THEME_BOOT_SCRIPT = `try{var p=JSON.parse(localStorage.getItem("${PREFS_KEY}")||"{}");var t=p.state&&p.state.theme;if(t==="dark"||t==="sepia"||t==="light"||t==="eink")document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
 
 export function applyTheme(theme: Theme) {
   if (typeof document === "undefined") return;
   document.documentElement.setAttribute("data-theme", theme);
   const meta = document.querySelector('meta[name="theme-color"]');
   const color =
-    theme === "dark" ? "#14161a" : theme === "sepia" ? "#f7f1e5" : theme === "clear" ? "#ffffff" : "#f6f4ee";
+    theme === "dark" ? "#0f1211" : theme === "sepia" ? "#f4ecdc" : "#ffffff";
   meta?.setAttribute("content", color);
+  // The tab icon: the green mark everywhere (it brings its own dark ground), the one-colour mark on e-ink.
+  const icon = document.querySelector('link[rel="icon"]');
+  icon?.setAttribute("href", theme === "eink" ? "/brand/inputread-mark-mono.svg" : "/favicon.svg");
 }
 
 /** CSS variables the reading surface reads (see `.book-body` in styles.css). */

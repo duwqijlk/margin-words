@@ -19,22 +19,28 @@ export function ReadingOverviewPanel() {
     { value: overview.readDays, label: t("share.statDays") },
     { value: overview.words, label: t("share.statWords") },
   ];
+  const mastered = t("account.mastered", { n: "\u0001" }).split("\u0001");
   return (
-    <section className="mt-5 rounded-xl border border-line px-4 py-3" aria-labelledby="account-reading-title" data-reading-overview>
+    <section className="grid gap-3 rounded-2xl bg-sheet px-4 pt-3.5 pb-4" aria-labelledby="account-reading-title" data-reading-overview>
       <div className="flex items-center justify-between gap-2">
-        <h3 id="account-reading-title" className="text-sm font-semibold">
+        <h3 id="account-reading-title" className="m-0 text-[15px] font-bold">
           {t("overview.title")}
         </h3>
-        <ShareButton what={{ kind: "overview" }} quiet className="min-h-9 px-3 text-xs" />
+        <ShareButton what={{ kind: "overview" }} quiet className="min-h-9 bg-paper px-3 text-sm" />
       </div>
-      <dl className="mt-2 grid grid-cols-3 gap-2">
+      <dl className="m-0 grid grid-cols-3 gap-1.5">
         {facts.map((fact, index) => (
-          <div key={fact.label} className="grid gap-0.5" data-overview-part={index}>
-            <dd className="font-display text-xl font-semibold tabular-nums text-ink">{fact.value}</dd>
-            <dt className="order-first text-xs text-muted">{fact.label}</dt>
+          <div key={fact.label} className="stat-tile grid min-w-0 content-start rounded-2xl bg-paper px-3 pt-2.5 pb-3" data-overview-part={index}>
+            <dt className="truncate text-xs text-faint">{fact.label}</dt>
+            <dd className="m-0 mt-1.5 font-display text-[26px] leading-none font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] text-ink">{fact.value.toLocaleString()}</dd>
           </div>
         ))}
       </dl>
+      <p className="m-0 text-sm text-muted" data-overview-mastered>
+        {mastered[0]}
+        <b className="text-ink">{overview.mastered.toLocaleString()}</b>
+        {mastered[1]}
+      </p>
     </section>
   );
 }

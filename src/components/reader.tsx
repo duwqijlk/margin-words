@@ -26,6 +26,7 @@ import {
   type Gloss,
   type StoredBook,
 } from "@/lib/book-db";
+import { celebrateSave } from "@/lib/motion";
 import { readingSlots } from "@/lib/epub";
 import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
 import { linkChapterHtml, peekChapterHtml, rememberChapterHtml } from "@/lib/chapter-link";
@@ -1692,7 +1693,8 @@ export function ReaderScreen({
         ref={headerRef}
         data-reader-bar={barHidden ? "hidden" : "shown"}
         className={cn(
-          "glass sticky top-0 z-30 border-b border-line/60 bg-paper/80 backdrop-blur-xl transition-transform duration-300",
+          // No frosted glass: paper, and the full-width reading progress line is the bar's lower edge.
+          "sticky top-0 z-30 bg-paper transition-transform duration-300",
           (focus || barHidden) && "-translate-y-full",
         )}
       >
@@ -1715,7 +1717,7 @@ export function ReaderScreen({
           />
           <div className="min-w-0 flex-1 px-1 text-center leading-tight sm:px-2">
             <p className="truncate font-display text-[0.95rem] font-semibold">{book.title}</p>
-            <p className="truncate text-xs text-muted" lang="en">
+            <p className="truncate text-xs text-faint" lang="en">
               {activeExtra ? activeExtra.title || t("reader.extra") : chapter.title}
             </p>
           </div>
@@ -1725,6 +1727,7 @@ export function ReaderScreen({
             className={btn.icon}
             onClick={onNotebook}
             aria-label={t("reader.openNotebook")}
+            data-reader-notebook
           >
             <BookMarked className="size-5" aria-hidden />
           </button>
@@ -1736,7 +1739,7 @@ export function ReaderScreen({
         <button
           type="button"
           onClick={() => prefs.set({ focus: false })}
-          className="fixed top-3 right-3 z-30 inline-flex min-h-10 items-center gap-1.5 rounded-full border border-line bg-card/90 px-3 text-xs font-semibold text-muted opacity-60 shadow-sm backdrop-blur transition-opacity hover:opacity-100 focus-visible:opacity-100"
+          className="fixed top-3 right-3 z-30 inline-flex min-h-10 items-center gap-1.5 rounded border border-line bg-card/90 px-3 text-xs font-semibold text-muted opacity-60 shadow-sm transition-opacity hover:opacity-100 focus-visible:opacity-100"
         >
           <Focus className="size-3.5" aria-hidden />
           {t("reader.exitFocus")}
@@ -1747,7 +1750,7 @@ export function ReaderScreen({
         <p
           role="tooltip"
           data-word-hover={hover.word}
-          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-card px-3 py-1.5 text-sm leading-snug text-ink shadow-pop glass"
+          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-paper px-3 py-1.5 text-sm leading-snug text-ink shadow-lift "
           style={{ left: Math.min(Math.max(hover.left, 180), window.innerWidth - 180), top: hover.top - 8 }}
           lang="en"
         >
@@ -1968,6 +1971,12 @@ export function ReaderScreen({
               },
               source,
             );
+            // The heart bumps, the word gets its highlighter, and "+1" flies to the notebook icon.
+            celebrateSave({
+              heart: document.querySelector("[data-word-card] [data-word-save]"),
+              word: anchor,
+              notebook: document.querySelector("[data-reader-notebook]"),
+            });
           }}
         />
       ) : null}

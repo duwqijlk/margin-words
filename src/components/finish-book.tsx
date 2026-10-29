@@ -41,7 +41,7 @@ export function FinishBook({ bookId }: { bookId: string }) {
         </>
       ) : (
         <>
-          <p className="font-display text-base font-semibold text-ink">{t("finished.endTitle")}</p>
+          <p className="font-bold tracking-[-0.02em] text-base text-ink">{t("finished.endTitle")}</p>
           <p className="text-xs text-muted">{t("finished.endBody")}</p>
           <div className="flex justify-center">
             <button

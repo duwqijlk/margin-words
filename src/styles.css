@@ -4,8 +4,9 @@
 
 /*
  * Fonts are self-hosted (public/fonts) so the app looks the same offline and in
- * regions where Google Fonts is slow or blocked. Latin subset only: the book text
- * is English; Chinese UI labels fall back to the system CJK font.
+ * regions where Google Fonts is slow or blocked. Latin subsets: the book text is English.
+ * Chinese titles in the book voice use a small self-hosted Noto Serif SC subset
+ * (src/fonts-zh-serif.css, scripts/subset-zh-serif.py); other Chinese labels use the system sans.
  */
 @font-face {
   font-family: "Literata";
@@ -35,6 +36,30 @@
   font-display: swap;
   src: url("/fonts/lora-italic.woff2") format("woff2");
 }
+/* The interface face: built for legibility (I / l / 1 and O / 0 are easy to tell apart), which suits
+   readers who are still learning English. Chinese labels fall back to the system sans. */
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-normal-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-normal-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-italic-400.woff2") format("woff2");
+}
+/* Inter is kept for IPA only: it has every IPA letter, Atkinson does not. */
 @font-face {
   font-family: "Inter";
   font-style: normal;
@@ -43,156 +68,174 @@
   src: url("/fonts/inter-normal.woff2") format("woff2");
 }
 
-/* IPA remains in the card's scrolling body, never the fixed metadata header. */
+/* IPA remains in the card's scrolling body, never the fixed metadata header. The readings are in Inter,
+   which has every IPA letter; each accent row is one button (WordIpa, SpeakButton with children). */
 .word-ipa {
   font-family: "Inter", "Segoe UI", "Arial", sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
   overflow-wrap: anywhere;
   word-wrap: break-word;
 }
 .word-ipa-values {
   display: flex;
   flex-wrap: wrap;
-  margin-top: -0.375rem;
+  align-items: center;
+  column-gap: 8px;
+  margin: 0 -8px;
 }
 .word-ipa-locale {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
-  margin-top: 0.375rem;
-  padding-right: 1rem;
 }
-.word-ipa-locale > span {
-  margin-right: 0.35rem;
+.word-ipa-locale small {
+  font-family: var(--font-sans);
 }
 .word-ipa-locale [data-speak-control] {
-  display: contents;
-}
-.word-ipa-locale [data-speak] {
-  width: 44px;
-  height: 44px;
-  margin-left: 8px;
+  display: inline-flex;
 }
 /* The speaker's place while the card is still deciding word or phrase: same size, so nothing moves. */
 .word-ipa-locale .word-ipa-speak-slot {
-  display: block;
-  width: 44px;
-  height: 44px;
-  margin-left: 8px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
 }
 .word-ipa-locale [data-speak-error] {
-  grid-column: 1 / -1;
-  margin-top: 0.25rem;
+  padding-left: 8px;
 }
 
-/* Theme tokens. The reader themes (light / sepia / dark) restyle the whole app. */
+/*
+ * Theme tokens, from the design system "Keep reading". Four reading themes restyle the whole
+ * app: paper (the default, data-theme="light"), sepia, dark and e-ink.
+ * Only paper and ink change between themes; the brand green stays (a little deeper on sepia,
+ * lighter at night, black on e-ink). Paper is pure white; only sepia keeps a warm page. App names → design names: muted = ink-2, faint = ink-3, line = rule, accent = brand,
+ * accent-ink = brand-ink, accent-soft = brand-tint, warn-soft = warn-tint. `card` is for the word
+ * card; `sheet` is the layer laid on the page. Each colour has an -rgb twin for Tailwind opacity.
+ */
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --paper: #f8f6f0;
-  --paper-rgb: 248 246 240;
+  --paper: #ffffff;
+  --paper-rgb: 255 255 255;
+  --sheet: #f3f5f4;
+  --sheet-rgb: 243 245 244;
   --card: #ffffff;
   --card-rgb: 255 255 255;
-  --ink: #181715;
-  --ink-rgb: 24 23 21;
-  --muted: #6b655c;
-  --muted-rgb: 107 101 92;
-  --line: #e8e3d8;
-  --line-rgb: 232 227 216;
-  --accent: #235948;
-  --accent-rgb: 35 89 72;
+  --ink: #111513;
+  --ink-rgb: 17 21 19;
+  --muted: #4a524e;
+  --muted-rgb: 74 82 78;
+  --faint: #6b726e;
+  --faint-rgb: 107 114 110;
+  --line: #e5e8e6;
+  --line-rgb: 229 232 230;
+  --edge: #c9cfcc;
+  --edge-rgb: 201 207 204;
+  --accent: #17804f;
+  --accent-rgb: 23 128 79;
   --accent-ink: #ffffff;
   --accent-ink-rgb: 255 255 255;
-  --accent-soft: #e6f0ea;
-  --accent-soft-rgb: 230 240 234;
-  --warn: #a9481f;
-  --warn-rgb: 169 72 31;
-  --warn-soft: #f8e7dd;
-  --warn-soft-rgb: 248 231 221;
-  --mark: #f6d860;
-  --mark-rgb: 246 216 96;
+  --accent-soft: #e2f3e9;
+  --accent-soft-rgb: 226 243 233;
+  --mark: #ffe14d;
+  --mark-rgb: 255 225 77;
+  --warn: #b42318;
+  --warn-rgb: 180 35 24;
+  --warn-soft: #fbe8e5;
+  --warn-soft-rgb: 251 232 229;
 }
 [data-theme="sepia"] {
   color-scheme: light;
-  --paper: #f7f1e5;
-  --paper-rgb: 247 241 229;
+  --paper: #f4ecdc;
+  --paper-rgb: 244 236 220;
+  --sheet: #ebe1cc;
+  --sheet-rgb: 235 225 204;
   --card: #fdfaf3;
   --card-rgb: 253 250 243;
-  --ink: #332517;
-  --ink-rgb: 51 37 23;
-  --muted: #756550;
-  --muted-rgb: 117 101 80;
-  --line: #e6dbcb;
-  --line-rgb: 230 219 203;
-  --accent: #7b4b24;
-  --accent-rgb: 123 75 36;
-  --accent-ink: #fdf8ee;
-  --accent-ink-rgb: 253 248 238;
-  --accent-soft: #efe4cf;
-  --accent-soft-rgb: 239 228 207;
-  --warn: #9c3f26;
-  --warn-rgb: 156 63 38;
-  --warn-soft: #f5dfcf;
-  --warn-soft-rgb: 245 223 207;
-  --mark: #f3dd94;
-  --mark-rgb: 243 221 148;
+  --ink: #2c2318;
+  --ink-rgb: 44 35 24;
+  --muted: #5e5040;
+  --muted-rgb: 94 80 64;
+  --faint: #685a45;
+  --faint-rgb: 104 90 69;
+  --line: #d8cab0;
+  --line-rgb: 216 202 176;
+  --edge: #8c7b60;
+  --edge-rgb: 140 123 96;
+  --accent: #146f45;
+  --accent-rgb: 20 111 69;
+  --accent-ink: #ffffff;
+  --accent-ink-rgb: 255 255 255;
+  --accent-soft: #dde3d0;
+  --accent-soft-rgb: 221 227 208;
+  --mark: #efcd62;
+  --mark-rgb: 239 205 98;
+  --warn: #a3261c;
+  --warn-rgb: 163 38 28;
+  --warn-soft: #f3dccf;
+  --warn-soft-rgb: 243 220 207;
 }
 [data-theme="dark"] {
+  --paper: #0f1211;
+  --paper-rgb: 15 18 17;
+  --sheet: #181c1a;
+  --sheet-rgb: 24 28 26;
+  --card: #1c211f;
+  --card-rgb: 28 33 31;
+  --ink: #eef2f0;
+  --ink-rgb: 238 242 240;
+  --muted: #b2bab6;
+  --muted-rgb: 178 186 182;
+  --faint: #8a938f;
+  --faint-rgb: 138 147 143;
+  --line: #29302d;
+  --line-rgb: 41 48 45;
+  --edge: #3d4541;
+  --edge-rgb: 61 69 65;
+  --accent: #4cc98b;
+  --accent-rgb: 76 201 139;
+  --accent-ink: #06140d;
+  --accent-ink-rgb: 6 20 13;
+  --accent-soft: #15301f;
+  --accent-soft-rgb: 21 48 31;
+  --mark: #6e5c1a;
+  --mark-rgb: 110 92 26;
+  --warn: #f28b7c;
+  --warn-rgb: 242 139 124;
+  --warn-soft: #3b1e1a;
+  --warn-soft-rgb: 59 30 26;
   color-scheme: dark;
-  --paper: #14161a;
-  --paper-rgb: 20 22 26;
-  --card: #1d2025;
-  --card-rgb: 29 32 37;
-  --ink: #e9e6df;
-  --ink-rgb: 233 230 223;
-  --muted: #9b9a94;
-  --muted-rgb: 155 154 148;
-  --line: #2d3137;
-  --line-rgb: 45 49 55;
-  --accent: #74c4a2;
-  --accent-rgb: 116 196 162;
-  --accent-ink: #0d1f18;
-  --accent-ink-rgb: 13 31 24;
-  --accent-soft: #1e3a30;
-  --accent-soft-rgb: 30 58 48;
-  --warn: #e69069;
-  --warn-rgb: 230 144 105;
-  --warn-soft: #3a2519;
-  --warn-soft-rgb: 58 37 25;
-  --mark: #5b4a17;
-  --mark-rgb: 91 74 23;
 }
-/*
- * Clear: black, white and glass, after Apple's current look. White pages, near-black text, black
- * for what can be tapped, and floating layers (bars, cards, menus, dialogs) in frosted glass; see
- * `.glass` below. The three themes above stay as they are.
- */
-[data-theme="clear"] {
+[data-theme="eink"] {
   color-scheme: light;
   --paper: #ffffff;
   --paper-rgb: 255 255 255;
-  --card: #f5f5f7;
-  --card-rgb: 245 245 247;
-  --ink: #1d1d1f;
-  --ink-rgb: 29 29 31;
-  --muted: #6e6e73;
-  --muted-rgb: 110 110 115;
-  --line: #e5e5ea;
-  --line-rgb: 229 229 234;
-  --accent: #1d1d1f;
-  --accent-rgb: 29 29 31;
+  --sheet: #f2f2f2;
+  --sheet-rgb: 242 242 242;
+  --card: #ffffff;
+  --card-rgb: 255 255 255;
+  --ink: #000000;
+  --ink-rgb: 0 0 0;
+  --muted: #333333;
+  --muted-rgb: 51 51 51;
+  --faint: #555555;
+  --faint-rgb: 85 85 85;
+  --line: #8c8c8c;
+  --line-rgb: 140 140 140;
+  --edge: #555555;
+  --edge-rgb: 85 85 85;
+  --accent: #000000;
+  --accent-rgb: 0 0 0;
   --accent-ink: #ffffff;
   --accent-ink-rgb: 255 255 255;
-  --accent-soft: #ededf0;
-  --accent-soft-rgb: 237 237 240;
-  --warn: #ff3b30;
-  --warn-rgb: 255 59 48;
-  --warn-soft: #ffe9e7;
-  --warn-soft-rgb: 255 233 231;
-  --mark: #fff3b0;
-  --mark-rgb: 255 243 176;
+  --accent-soft: #e6e6e6;
+  --accent-soft-rgb: 230 230 230;
+  --mark: #d0d0d0;
+  --mark-rgb: 208 208 208;
+  --warn: #000000;
+  --warn-rgb: 0 0 0;
+  --warn-soft: #e6e6e6;
+  --warn-soft-rgb: 230 230 230;
 }
 
 /*
@@ -202,17 +245,12 @@
  * live here.
  */
 :root {
-  --font-display: "Literata", "Iowan Old Style", Georgia, "Noto Serif SC", serif;
+  /* The book voice: book text, chapter and page titles, book titles, the word card's headword, big numbers. */
+  --font-display: "Literata", "inputread Serif SC", "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
+  /* The interface. */
   --font-sans:
-    "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
-}
-/* Clear uses the system face first: SF on Apple devices, Segoe UI Variable on Windows. */
-[data-theme="clear"] {
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Inter", system-ui,
-    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC",
-    sans-serif;
+    "Atkinson Hyperlegible", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @layer base {
@@ -315,12 +353,15 @@
      nothing is measured on scroll. The tap area grows through ::after, which takes no room. */
   .book-body [data-para-marker] {
     position: relative;
-    margin-left: 0.2em;
+    display: inline-block;
+    margin-left: 0.25em;
     padding: 0 0.15em;
-    border-radius: 0.3em;
+    border-radius: 2px;
     color: var(--accent);
     font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", "Apple Symbols", "DejaVu Sans", sans-serif;
-    font-size: 0.78em;
+    font-size: 0.72em;
+    vertical-align: 0.12em;
+    transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
     font-style: normal;
     font-weight: 400;
     line-height: 1;
@@ -348,26 +389,20 @@
     outline: 2px solid var(--accent);
     outline-offset: 1px;
   }
-  /* Help open: colour only, the same size, so the line does not move. */
+  /* Help open: the ✦ stays green with no ground and grows a little (a transform: it takes no room,
+     so the line does not move). */
   .book-body [data-para-marker][data-active] {
-    background: var(--accent);
-    color: var(--accent-ink);
+    background: none;
+    transform: scale(1.25);
   }
-  /* The paragraph the open help is about: a thin bar in its left margin. Absolutely placed against
-     the paragraph (position: relative moves nothing), so it takes no room and needs no measuring. */
+  /* The paragraph the open help is about: a faint brand-tint wash that reaches 0.45em past the text
+     (a box-shadow, so it takes no room and needs no measuring). Word marks show on top of it. */
   .book-body [data-para-active] {
     position: relative;
-  }
-  .book-body [data-para-active]::before {
-    content: "";
-    position: absolute;
-    top: 0.15em;
-    bottom: 0.15em;
-    left: -10px;
-    width: 3px;
-    border-radius: 3px;
-    background: var(--accent);
-    pointer-events: none;
+    border-radius: 10px;
+    background: rgb(var(--accent-soft-rgb) / 0.6);
+    box-shadow: 0 0 0 0.45em rgb(var(--accent-soft-rgb) / 0.6);
+    transition: background-color 180ms, box-shadow 180ms;
   }
 
   /* Phone novel pages, the way Kindle and Apple Books set them: full lines share
@@ -452,10 +487,12 @@
     margin: 0;
   }
 
+  /* Word marks (design system WordMarks): only colour and lines change, never size, weight or spacing,
+     so the text never moves. Four line styles tell the marks apart without colour (e-ink). */
   .book-body .book-tap {
-    border-radius: 0.2em;
+    border-radius: 2px;
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.12s ease;
+    transition: background-color 100ms cubic-bezier(0.2, 0, 0, 1);
     hyphens: auto;
     -webkit-hyphens: auto;
   }
@@ -463,10 +500,10 @@
   /* Hard word whose meaning is ready: a crisp, clear underline. */
   .book-body [role="button"][data-word].book-hard .book-tap {
     text-decoration: underline;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 1.5px;
     text-decoration-skip-ink: none;
-    text-underline-offset: 0.24em;
+    text-underline-offset: 0.22em;
   }
 
   .book-body [role="button"][data-word].book-hard:hover .book-tap,
@@ -478,9 +515,10 @@
      and tricky wavy line, and clearly legible on both LCD and e-ink. */
   .book-body [role="button"][data-word].book-phrase .book-tap {
     text-decoration: underline dashed;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 1.5px;
-    text-underline-offset: 0.24em;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
   }
 
   .book-body [role="button"][data-word].book-phrase:hover .book-tap,
@@ -492,10 +530,10 @@
      accent line, different from the straight underline of a hard word and from the phrase underline. */
   .book-body [role="button"][data-word].book-tricky .book-tap {
     text-decoration: underline wavy;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.9);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 1.5px;
     text-decoration-skip-ink: none;
-    text-underline-offset: 0.28em;
+    text-underline-offset: 0.26em;
   }
 
   .book-body [role="button"][data-word].book-tricky:hover .book-tap,
@@ -530,26 +568,57 @@
   /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
   .book-body [role="button"][data-word].book-wait .book-tap {
     text-decoration: underline dotted;
-    text-decoration-color: rgb(var(--muted-rgb) / 0.6);
-    text-decoration-thickness: 1.2px;
-    text-underline-offset: 0.24em;
-  }
-
-  /* Already in the notebook: marker highlight with a distinct accent underline so it stays clear on e-ink. */
-  .book-body [role="button"][data-word].book-saved .book-tap {
-    background: rgb(var(--mark-rgb) / 0.65);
-    text-decoration: underline;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
+    text-decoration-color: var(--faint);
     text-decoration-thickness: 1.5px;
-    text-underline-offset: 0.24em;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
   }
 
+  /* Saved: a solid highlighter. Yellow means "saved / understood" everywhere in the app. */
+  .book-body [role="button"][data-word].book-saved .book-tap {
+    background: var(--mark);
+    box-shadow: 0 0 0 1px var(--mark);
+    text-decoration: none;
+  }
+  .book-body [role="button"][data-word].book-saved:hover .book-tap {
+    background: var(--mark);
+  }
+
+  /* The open word: a brand-tint highlighter swept in from the left, and a 3px brand underline. */
   .book-body [role="button"][data-word].book-on .book-tap {
-    background: var(--accent-soft);
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-    border-radius: 0.2em;
-    text-decoration-color: var(--accent);
+    background: linear-gradient(var(--accent-soft), var(--accent-soft)) no-repeat;
+    background-size: 100% 100%;
+    box-shadow: 0 0 0 2px var(--accent-soft);
+    text-decoration: underline solid var(--accent);
+    text-decoration-thickness: 3px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
+    animation: book-sweep 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .book-body [role="button"][data-word].book-saved.book-on .book-tap {
+    background: var(--mark);
+    box-shadow: 0 0 0 2px var(--mark);
+    animation: none;
+  }
+  /* Saving: a yellow highlighter stroke across the word (added for a moment by src/lib/motion.ts). */
+  .book-body .book-tap.book-sweep-save {
+    background: linear-gradient(var(--mark), var(--mark)) no-repeat !important;
+    background-size: 100% 100%;
+    animation: book-sweep 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes book-sweep {
+    from {
+      background-size: 0% 100%;
+    }
+    to {
+      background-size: 100% 100%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .book-body [role="button"][data-word].book-on .book-tap,
+    .book-body .book-tap.book-sweep-save {
+      animation: none;
+    }
   }
 
   .book-body [role="button"][data-word].book-saved.book-on .book-tap {
@@ -678,8 +747,34 @@
     }
   }
 
+  @keyframes card-pop {
+    from {
+      transform: scale(0.92);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  /* A box that opens inside a card (the meaning feedback): it rises a little into place. */
+  @keyframes rise-in {
+    from {
+      transform: translateY(6px);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  .anim-rise {
+    animation: rise-in 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   .anim-sheet {
-    animation: sheet-up 0.2s ease-out;
+    animation: sheet-up 280ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .anim-sheet-top {
@@ -725,9 +820,6 @@
   [data-word-card] [data-look-target] {
     min-width: 0;
     overflow-wrap: anywhere;
-  }
-  [data-word-card] [data-word-footer] > div {
-    flex-wrap: wrap;
   }
   /* The selection card floats over the article: a touch on it must not scroll the book. */
   [data-passage-ui],
@@ -815,22 +907,6 @@
     [data-word-card] [data-look-target] {
       min-height: 32px;
     }
-    [data-word-card] [data-word-footer] > div {
-      flex-wrap: nowrap;
-    }
-    /* The feedback choices open on a row of their own, the full width of the card. The label
-       and the toggle fit on one line, so this row always wraps (no :has(), which Chrome 69 lacks). */
-    [data-word-card] [data-word-footer] > [data-feedback-row] {
-      flex-wrap: wrap;
-    }
-    [data-word-card] [data-word-footer] > div > span {
-      min-width: 0;
-    }
-    [data-word-card] [data-feedback-toggle] {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-    }
   }
   /* Short phones need the same definition budget as landscape at large text sizes. */
   @media (max-width: 767px) and (max-height: 600px) {
@@ -882,10 +958,14 @@
       left: auto;
       width: min(21rem, calc(100vw - 1.5rem));
       /* A hairline, not a frame: the shadow already lifts the card off the page. */
-      border: 1px solid rgb(var(--line-rgb) / 0.6);
+      border: 1px solid var(--line);
       border-radius: 1.25rem;
       padding-top: 1.25rem;
-      animation: pop-in 0.16s ease-out;
+    }
+    /* Placed: it pops out of the tapped word (transform-origin is set with the placement), with a
+       little spring. Only once placed, so the animation never runs while the card is hidden. */
+    [data-float][data-placed] {
+      animation: card-pop 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     /* Match WordCard's desktopWidth before its first placement measurement. */
@@ -1063,22 +1143,6 @@
 }
 
 /*
- * Floating layers in the Clear theme are frosted glass: the page shows through, blurred. Other
- * themes ignore the class and keep their solid card colour. Browsers without backdrop-filter (the
- * old e-ink WebView) keep the solid colour too, so text never sits on a see-through panel.
- */
-[data-theme="clear"] .glass {
-  border-color: rgb(0 0 0 / 0.08);
-}
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  [data-theme="clear"] .glass {
-    background-color: rgb(255 255 255 / 0.72);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    backdrop-filter: blur(28px) saturate(180%);
-  }
-}
-
-/*
  * Overview. One signature: the highlighter stroke a reader uses in a book, under the current tab
  * and behind the big numbers, in each theme's own --mark colour. The rest is quiet: content rises
  * in once when a tab opens. Every motion here is off under prefers-reduced-motion.
@@ -1134,7 +1198,10 @@
 .credit-face-lead::after {
   content: "";
   position: absolute;
-  inset: -4px;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  left: -4px;
   border-radius: 9999px;
   border: 2px solid rgb(var(--mark-rgb));
   pointer-events: none;
@@ -1256,98 +1323,439 @@
   overflow-wrap: anywhere;
 }
 
-/* ---- First-run tutorial pictures (src/components/tutorial-art.tsx).
-   Every element is drawn in its finished place; these keyframes only bring it in, so with
-   reduced motion each picture shows its last frame. One loop is 4.5s. */
+/* ---- Tutorial and reading-tip pictures (src/components/tutorial-art.tsx, design system TutorialDialog).
+   The brand's own shapes, each picture looping every 4.8s. Every element is drawn in its finished
+   place; these keyframes only bring it in, so with reduced motion or on e-ink each picture shows its
+   last frame (the plus, the ring and the finger are hidden then: they are only steps on the way). */
 .tut-art * {
   transform-box: fill-box;
   transform-origin: center;
 }
-.tut-art .tut-bob { animation: tut-bob 2.4s ease-in-out infinite; }
-.tut-art .tut-blink { transform: scaleY(0); transform-origin: 50% 0; animation: tut-blink 3.6s linear infinite; }
-.tut-art .tut-wave { transform-origin: 0% 60%; animation: tut-wave 1.6s ease-in-out infinite; }
-.tut-art .tut-pulse { animation: tut-pulse 1.5s ease-in-out infinite alternate; }
-.tut-art .tut-slide { animation: tut-slide 4.5s ease-out infinite; }
-.tut-art .tut-pop { animation: tut-pop 4.5s ease-out infinite; }
-.tut-art .tut-finger { animation: tut-finger 4.5s ease-in-out infinite; }
-.tut-art .tut-plus { opacity: 0; animation: tut-plus 4.5s linear infinite; }
-.tut-art .tut-check { animation: tut-check 4.5s ease-out infinite; }
-.tut-art .tut-tag { animation: tut-tag 4.5s ease-out infinite; }
-.tut-art .tut-fly { animation: tut-fly 4.5s ease-in-out infinite; }
-.tut-art .tut-ring { stroke-dashoffset: 0; animation: tut-ring 4.5s ease-in-out infinite; }
-.tut-art .tut-tick { animation: tut-tick 4.5s ease-out infinite; }
-.tut-art .tut-finger2 { opacity: 0; animation: tut-finger2 4.5s ease-in-out infinite; }
-.tut-art .tut-sheet { animation: tut-sheet 4.5s ease-out infinite; }
-@keyframes tut-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-@keyframes tut-blink { 0%, 90% { transform: scaleY(0); } 94% { transform: scaleY(1); } 98%, 100% { transform: scaleY(0); } }
-@keyframes tut-wave { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(18deg); } }
-@keyframes tut-pulse { from { opacity: 0.18; } to { opacity: 0.55; } }
-@keyframes tut-slide {
-  0%, 12% { transform: translateX(70px); opacity: 0; }
-  32%, 100% { transform: translateX(0); opacity: 1; }
+.tut-art .art-ui {
+  font-family: var(--font-sans);
+  font-weight: 700;
 }
-@keyframes tut-pop {
-  0%, 40% { transform: scale(0.6); opacity: 0; }
-  50% { transform: scale(1.06); opacity: 1; }
-  56%, 100% { transform: scale(1); opacity: 1; }
+.tut-art .art-read {
+  font-family: var(--font-display);
+  font-weight: 600;
 }
-@keyframes tut-finger {
-  0% { transform: translate(70px, 50px); opacity: 0; }
-  25% { transform: translate(0, 0); opacity: 1; }
-  33% { transform: translate(0, 0) scale(0.88); }
-  40%, 85% { transform: translate(0, 0) scale(1); opacity: 1; }
-  100% { transform: translate(30px, 30px); opacity: 0; }
+.tut-art .art-shadow {
+  filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.14));
 }
-@keyframes tut-plus { 0%, 34% { opacity: 1; } 38%, 100% { opacity: 0; } }
-@keyframes tut-check {
-  0%, 34% { transform: scale(0.4); opacity: 0; }
-  44% { transform: scale(1.2); opacity: 1; }
-  50%, 100% { transform: scale(1); opacity: 1; }
+.tut-art .art-plus,
+.tut-art .art-ring,
+.tut-art .art-tap {
+  opacity: 0;
 }
-@keyframes tut-tag {
-  0%, 48% { transform: translateX(-10px); opacity: 0; }
-  58%, 100% { transform: translateX(0); opacity: 1; }
+.tut-art .art-ring {
+  stroke-dasharray: 57;
 }
-@keyframes tut-fly {
-  0%, 8% { transform: translate(0, 0) rotate(0); opacity: 1; }
-  42% { transform: translate(-120px, 44px) rotate(-14deg) scale(0.45); opacity: 1; }
-  48%, 92% { transform: translate(-120px, 44px) scale(0.3); opacity: 0; }
-  100% { transform: translate(0, 0); opacity: 0; }
-}
-@keyframes tut-ring { 0%, 42% { stroke-dashoffset: 107; } 78%, 100% { stroke-dashoffset: 0; } }
-@keyframes tut-tick { 0%, 78% { opacity: 0; } 86%, 100% { opacity: 1; } }
-@keyframes tut-finger2 {
-  0% { transform: translate(40px, 60px); opacity: 0; }
-  22% { transform: translate(0, 0); opacity: 1; }
-  30% { transform: translate(0, 0) scale(0.88); opacity: 1; }
-  36%, 52% { transform: translate(0, 0) scale(1); opacity: 1; }
-  62%, 100% { transform: translate(0, 0); opacity: 0; }
-}
-@keyframes tut-sheet {
-  0%, 36% { transform: translateY(90px); opacity: 0; }
-  50%, 100% { transform: translateY(0); opacity: 1; }
-}
-.tut-art .tut-float { animation: tut-float 3.2s ease-in-out infinite; }
-.tut-art .tut-late { animation: tut-late 4.5s ease-out infinite; }
-.tut-art .tut-thanks { animation: tut-thanks 4.5s ease-out infinite; }
-.tut-art .tut-finger3 { opacity: 0; animation: tut-finger3 4.5s ease-in-out infinite; }
-@keyframes tut-late {
-  0%, 60% { transform: scale(0.7); opacity: 0; }
-  68% { transform: scale(1.12); opacity: 1; }
-  74%, 100% { transform: scale(1); opacity: 1; }
-}
-@keyframes tut-thanks {
-  0%, 72% { transform: translateY(8px); opacity: 0; }
-  82%, 100% { transform: translateY(0); opacity: 1; }
-}
-@keyframes tut-finger3 {
-  0%, 44% { transform: translate(50px, 40px); opacity: 0; }
-  56% { transform: translate(0, 0); opacity: 1; }
-  62% { transform: translate(0, 0) scale(0.88); opacity: 1; }
-  68%, 80% { transform: translate(0, 0) scale(1); opacity: 1; }
-  90%, 100% { transform: translate(0, 0); opacity: 0; }
-}
-@keyframes tut-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.tut-art .art-slide { animation: art-slide 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.tut-art .art-pop { animation: art-pop 4.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+.tut-art .art-pop2 { animation: art-pop2 4.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+.tut-art .art-tag { animation: art-tag 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.tut-art .art-tap { animation: art-tap 4.8s ease-in-out infinite; }
+.tut-art .art-plus { animation: art-plus 4.8s linear infinite; }
+.tut-art .art-ring { animation: art-ring 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.tut-art .art-check { animation: art-check 4.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+.tut-art .art-fly { animation: art-fly 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.tut-art .art-sweep { transform-origin: left center; animation: art-sweep 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.tut-art .art-type { transform-origin: left center; animation: art-type 4.8s steps(12, end) infinite; }
+.tut-art .tut-fan1 { transform-origin: 50% 100%; animation: art-fan1 4.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+.tut-art .tut-fan3 { transform-origin: 50% 100%; animation: art-fan3 4.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+@keyframes art-slide { 0%, 12% { transform: translateX(-26px); opacity: 0; } 30%, 100% { transform: none; opacity: 1; } }
+@keyframes art-pop { 0%, 30% { transform: scale(0.6); opacity: 0; } 42%, 100% { transform: none; opacity: 1; } }
+@keyframes art-pop2 { 0%, 52% { transform: scale(0.6); opacity: 0; } 64%, 100% { transform: none; opacity: 1; } }
+@keyframes art-tag { 0%, 62% { transform: translateY(8px); opacity: 0; } 72%, 100% { transform: none; opacity: 1; } }
+@keyframes art-tap { 0%, 8% { transform: translate(30px, 40px); opacity: 0; } 20% { transform: none; opacity: 1; } 26% { transform: scale(0.88); } 32%, 46% { transform: none; opacity: 1; } 56%, 100% { transform: translate(30px, 40px); opacity: 0; } }
+@keyframes art-plus { 0%, 26% { opacity: 1; } 28%, 100% { opacity: 0; } }
+@keyframes art-ring { 0%, 26% { stroke-dashoffset: 57; opacity: 0; } 28% { opacity: 1; } 50% { stroke-dashoffset: 0; opacity: 1; } 54%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes art-check { 0%, 52% { transform: scale(0.4); opacity: 0; } 62%, 100% { transform: none; opacity: 1; } }
+@keyframes art-fly { 0%, 10% { transform: translate(-90px, -30px) rotate(-12deg); opacity: 0; } 34%, 100% { transform: none; opacity: 1; } }
+@keyframes art-sweep { 0%, 24% { transform: scaleX(0); } 34%, 100% { transform: scaleX(1); } }
+@keyframes art-type { 0%, 40% { transform: scaleX(0); } 70%, 100% { transform: scaleX(1); } }
+@keyframes art-fan1 { 0%, 10% { transform: rotate(0); } 30%, 100% { transform: rotate(-10deg) translateX(-6px); } }
+@keyframes art-fan3 { 0%, 10% { transform: rotate(0); } 30%, 100% { transform: rotate(10deg) translateX(6px); } }
 @media (prefers-reduced-motion: reduce) {
   .tut-art * { animation: none !important; }
+}
+
+/*
+ * Design system "Keep reading", shared rules.
+ * Icons: Lucide, one stroke width (1.5) everywhere. In the components layer, so a utility such as
+ * stroke-[2.5] on one icon still wins.
+ */
+@layer components {
+  .lucide {
+    stroke-width: 1.5;
+  }
+}
+
+/*
+ * E-ink: the screen redraws slowly and ghosts, so nothing moves. Every animation and transition is
+ * off and only the end state shows (a saved word still turns into a saved word; a number shows its
+ * value). Book covers keep their shadow; nothing else floats.
+ */
+[data-theme="eink"] *,
+[data-theme="eink"] *::before,
+[data-theme="eink"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+/* Night: every book cover is dimmed a little, so a bright cover does not glare. */
+[data-theme="dark"] .cover-frame > img {
+  filter: brightness(0.82);
+}
+
+/* E-ink: every word mark in the text colour (the line style tells them apart); a saved word is a
+   double underline instead of a highlighter, which an e-ink screen shows as a grey block. */
+[data-theme="eink"] .book-body [role="button"][data-word].book-hard .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-phrase .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-tricky .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-on .book-tap {
+  text-decoration-color: currentColor;
+}
+[data-theme="eink"] .book-body [role="button"][data-word].book-saved .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-saved:hover .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-saved.book-on .book-tap {
+  background: none;
+  box-shadow: none;
+  text-decoration: underline double currentColor;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+}
+
+/* ---- Covers (design system BookCover / BookOpen) */
+/* Loading: a soft light sweeps right to left over the rule ground. */
+.cover-shimmer {
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%) var(--line);
+  background-size: 220% 100%;
+  animation: cover-shimmer 1.4s linear infinite;
+}
+@keyframes cover-shimmer {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+/* A cover that leans towards the pointer (installCoverTilt in src/lib/motion.ts): quick to follow, with a sheen. */
+.cover-frame[data-tilting] {
+  transition-duration: 100ms;
+}
+.cover-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--sx, 50%) var(--sy, 50%), rgb(255 255 255 / 0.28), transparent 55%);
+  opacity: 0;
+  transition: opacity 180ms;
+}
+.cover-frame[data-tilting]::after {
+  opacity: 1;
+}
+/* Opening a book: the cover grows into the page while the page fades in (openFromCover). */
+::view-transition-old(book-cover) {
+  animation: cover-grow 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+::view-transition-new(root) {
+  animation: page-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes cover-grow {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-shimmer {
+    animation: none;
+  }
+}
+/* The reading ring draws its arc once. */
+.ring-draw {
+  animation: ring-draw 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes ring-draw {
+  from {
+    stroke-dasharray: 0 var(--ring-length, 126);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring-draw {
+    animation: none;
+  }
+}
+/* A book's own colour (src/lib/cover-tone.ts): the ground of the parts that belong to one book. */
+.tone-ground {
+  background: radial-gradient(120% 140% at 0% 0%, var(--book-tint, var(--sheet)), var(--book-wash, var(--sheet)) 62%);
+}
+.tone-cover .cover-frame {
+  box-shadow:
+    0 2px 4px rgb(var(--book-shadow-rgb, 0 0 0) / 0.3),
+    0 24px 40px -16px rgb(var(--book-shadow-rgb, 0 0 0) / 0.75);
+}
+/* The page edges of a standing book, on the right of the cover. */
+.tone-cover::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  right: -6px;
+  width: 6px;
+  border-radius: 0 2px 2px 0;
+  background: repeating-linear-gradient(to right, var(--card) 0 1px, rgb(var(--ink-rgb) / 0.14) 1px 2px);
+}
+/* The empty shelf's arrow: a small push to the right every few seconds. */
+.nudge-x {
+  animation: nudge-x 3.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+@keyframes nudge-x {
+  0%,
+  80%,
+  100% {
+    transform: none;
+  }
+  88% {
+    transform: translateX(5px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nudge-x {
+    animation: none;
+  }
+}
+/* The sliding line under the selected sub-tab (TabInk in ui.tsx). */
+[data-tab-ink] [role="tab"] {
+  border-bottom-color: transparent;
+}
+.tab-ink {
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* A row's page dashes: the current one widens with a spring. */
+.rail-dash {
+  transition: width 280ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 100ms;
+}
+/* Discover's new book: its cover rises in once. */
+.cover-rise {
+  animation: cover-rise 420ms cubic-bezier(0.34, 1.56, 0.64, 1) 120ms both;
+}
+@keyframes cover-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-rise,
+  .tab-ink,
+  .rail-dash {
+    animation: none;
+    transition: none;
+  }
+}
+
+/*
+ * Notebook and review (design system NotebookScreen, WordRow, Stats, ReviewFlip, RoundComplete).
+ */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* A highlighter under a number or a headword: yellow = understood. */
+.num-mark,
+.head-mark {
+  padding: 0 2px;
+  background: linear-gradient(transparent 60%, var(--mark) 60%, var(--mark) 92%, transparent 92%);
+}
+/* The italic sentence of a notebook row keeps its marked word upright. */
+.source-sentence mark {
+  font-style: normal;
+}
+[data-theme="eink"] .stat-tile {
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+/* Mastered / Relearn / Delete appear on hover or focus where there is a mouse; always on touch. */
+@media (hover: hover) and (pointer: fine) {
+  .nb-actions {
+    opacity: 0;
+    transition: opacity 100ms;
+  }
+  .nb-row:hover .nb-actions,
+  .nb-row:focus-within .nb-actions {
+    opacity: 1;
+  }
+}
+/* The spelling picture's caret blinks. */
+.mode-caret {
+  animation: mode-caret 1s steps(1) infinite;
+}
+@keyframes mode-caret {
+  50% {
+    opacity: 0;
+  }
+}
+.mode-word {
+  font-size: 17px;
+}
+.mode-cloze {
+  font-size: 11px;
+}
+@media (min-width: 640px) {
+  .mode-word {
+    font-size: 20px;
+  }
+  .mode-cloze {
+    font-size: 13px;
+  }
+}
+.review-ipa .word-ipa-values {
+  justify-content: center;
+}
+/* The flash card turns over in 3D; its size stays the same because both faces share one cell. */
+.review-flip {
+  perspective: 1200px;
+}
+.review-flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.review-flip-inner > .review-face {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.review-flip-inner > .review-back {
+  transform: rotateY(180deg);
+}
+.review-flip.is-flipped .review-flip-inner {
+  transform: rotateY(180deg);
+}
+/* The next card rises in; the check stamp lands with a spring; progress moves on with a spring. */
+.review-enter {
+  animation: review-enter 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes review-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+.review-stamp > i {
+  animation: review-stamp 280ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes review-stamp {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+.review-progress > div {
+  transition: width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* Round complete: the highlighter is drawn under "Known" once the number has counted up. */
+.num-grow {
+  position: relative;
+  display: inline-block;
+  padding: 0 2px;
+}
+.num-grow > span {
+  position: relative;
+  z-index: 1;
+}
+.num-grow > i {
+  position: absolute;
+  left: 0;
+  bottom: 6%;
+  height: 34%;
+  width: 0;
+  background: var(--mark);
+  transition: width 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.num-grow[data-on] > i {
+  width: 100%;
+}
+.streak-pop {
+  animation: streak-pop 280ms cubic-bezier(0.34, 1.56, 0.64, 1) 600ms both;
+}
+@keyframes streak-pop {
+  50% {
+    transform: scale(1.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .review-flip-inner,
+  .review-progress > div,
+  .num-grow > i,
+  .nb-actions {
+    transition: none;
+  }
+  .review-enter,
+  .review-stamp > i,
+  .streak-pop,
+  .mode-caret {
+    animation: none;
+  }
+}
+
+/* Settings and account panels: a bottom sheet rises on a phone, the centred panel pops on a wide screen. */
+.panel-in {
+  animation: pop-in 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (max-width: 639px) {
+  .panel-in {
+    animation: sheet-up 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+.switch-knob {
+  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 100ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel-in {
+    animation: none;
+  }
+  .switch-knob {
+    transition: none;
+  }
+}
+
+/* Step dialog (design system TutorialDialog): the text fades and slides in from the side it comes
+   from, the current dot stretches into a 20px brand bar, the last step's button gives a small hop. */
+.step-text {
+  transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1), visibility 280ms;
+}
+.step-dot {
+  transition: width 280ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 280ms;
+}
+.step-finish {
+  animation: step-hop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) 120ms both;
+}
+@keyframes step-hop {
+  40% {
+    transform: scale(1.04);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step-text,
+  .step-dot {
+    transition: none;
+  }
+  .step-finish {
+    animation: none;
+  }
 }

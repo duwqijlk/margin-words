@@ -464,7 +464,7 @@ export function WordListAdmin() {
             ) : (
               <div className="max-h-[32rem] overflow-auto rounded-xl border border-line/80 shadow-2xs">
                 <table className="w-full border-collapse text-left text-xs">
-                  <thead className="sticky top-0 z-10 border-b border-line/80 bg-paper/95 text-[0.7rem] font-bold uppercase tracking-wider text-muted backdrop-blur-xs">
+                  <thead className="sticky top-0 z-10 border-b border-line/80 bg-paper/95 text-[0.7rem] font-bold uppercase tracking-wider text-muted">
                     <tr>
                       <th className="px-3.5 py-2.5 font-bold" scope="col">
                         {t("admin.lists.colBook")}

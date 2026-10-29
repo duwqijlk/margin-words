@@ -1,5 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import {
+  ArrowRight,
   BookOpen,
   Check,
   ChevronLeft,
@@ -12,12 +13,13 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { BookCover } from "@/components/book-cover";
-import { BookTag, BookTags } from "@/components/cover-marks";
+import { BookCover, talkCoverTone } from "@/components/book-cover";
+import { LexileBadge } from "@/components/lexile-ui";
+import { useBookTone } from "@/lib/cover-tone";
+import { bump } from "@/lib/motion";
 import type { ShelfState } from "@/components/shelf-actions";
 import { btn, cn } from "@/components/ui";
 import type { ContentCategory } from "@/lib/content-category";
-import { coverCrossOrigin } from "@/lib/cover-request";
 import { groupDigits } from "@/lib/library-totals";
 import type { CatalogPack } from "@/lib/packs";
 import type { WordListPack } from "@/lib/word-list-catalog";
@@ -136,12 +138,15 @@ export function BookRail({
   onOpen,
   onSeeAll,
   rail,
+  action,
 }: {
   title: string;
   rows: readonly DiscoverRow[];
   onOpen: (row: DiscoverRow) => void;
   onSeeAll?: () => void;
   rail: string;
+  /** The add-to-shelf button on a cover's bottom-right (design system BookRail / AddToShelf). */
+  action?: (row: DiscoverRow) => React.ReactNode;
 }) {
   const { t } = useT();
   const strip = useRef<HTMLUListElement | null>(null);
@@ -156,7 +161,7 @@ export function BookRail({
     <section className="grid min-w-0 gap-3" aria-label={title} data-discover-rail={rail}>
       <div className="flex items-end justify-between gap-3">
         <h2
-          className="font-display text-[1.15rem] leading-tight font-semibold sm:text-[1.3rem]"
+          className="text-[1.125rem] leading-tight font-bold tracking-[-0.02em] sm:text-[1.3125rem]"
           lang={rail.startsWith("series:") || rail.startsWith("curated:") ? "en" : undefined}
         >
           {title}
@@ -165,7 +170,7 @@ export function BookRail({
           {onSeeAll ? (
             <button
               type="button"
-              className="inline-flex min-h-10 items-center gap-0.5 rounded-lg px-2 text-sm font-semibold text-accent hover:bg-accent-soft"
+              className="inline-flex min-h-10 items-center gap-0.5 px-1.5 text-[0.9375rem] font-bold text-accent hover:underline hover:underline-offset-4"
               onClick={onSeeAll}
               data-rail-all={rail}
             >
@@ -197,50 +202,58 @@ export function BookRail({
       </div>
       <ul
         ref={strip}
-        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:gap-4 sm:px-0 [&::-webkit-scrollbar]:hidden"
+        // A phone row runs off the screen edge and shows part of the next book; no arrows, no dashes.
+        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pt-1 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:gap-5 sm:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {rows.map((row) => (
-          <li key={row.key} className="w-[6.75rem] shrink-0 snap-start sm:w-32 lg:w-[8.6rem]">
+          <li key={row.key} className="relative w-[6.6rem] shrink-0 snap-start sm:w-32 lg:w-[8.6rem]">
             <button
               type="button"
-              className="group grid w-full gap-1.5 rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="group grid w-full gap-1.5 rounded-cover text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               onClick={() => onOpen(row)}
               aria-label={t("browse.openAria", { title: row.title })}
               data-rail-book={row.id}
             >
-              <span className="relative block transition-transform duration-200 group-hover:-translate-y-1">
+              <span className="relative block" data-tilt>
                 <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
                 <BookMaintainers bookRef={rowCatalogRef(row)} />
               </span>
               <span
-                className="overflow-hidden font-display text-[0.82rem] leading-snug font-semibold text-ink group-hover:text-accent transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.92rem]"
+                className="overflow-hidden font-display text-[0.84rem] leading-[1.28] font-semibold text-ink transition-colors group-hover:text-accent [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.96rem]"
                 lang="en"
               >
                 {row.title}
               </span>
-              <span className="-mt-0.5 truncate text-xs text-muted/80" lang="en">
+              <span className="-mt-0.5 truncate text-[0.8125rem] text-faint" lang="en">
                 {row.author}
               </span>
             </button>
+            {action ? (
+              // Over the cover's bottom-right corner; the cover is 2:3 of the item width.
+              <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] aspect-[2/3]">
+                <div className="pointer-events-auto absolute right-1.5 bottom-1.5">{action(row)}</div>
+              </div>
+            ) : null}
           </li>
         ))}
       </ul>
       {pages > 1 ? (
-        <div className="flex items-center justify-center gap-0.5" role="group" aria-label={t("browse.pages", { title })} data-rail-dots={pages}>
+        <div className="hidden items-center justify-center gap-0.5 sm:flex" role="group" aria-label={t("browse.pages", { title })} data-rail-dots={pages}>
           {Array.from({ length: pages }, (_, index) => (
             <button
               key={index}
               type="button"
-              className="grid h-6 min-w-5 place-items-center rounded-full"
+              className="grid h-6 min-w-4 place-items-center"
               onClick={() => goPage(index)}
               aria-label={t("browse.page", { n: index + 1, total: pages })}
               aria-current={index === page ? "true" : undefined}
               data-rail-dot={index}
             >
               <span
+                // The current page is an 18px brand dash, the others 6px hairline dashes.
                 className={cn(
-                  "block h-1.5 rounded-full transition-all duration-300",
-                  index === page ? "w-5 bg-accent" : "w-1.5 bg-muted/30 hover:bg-muted/60",
+                  "rail-dash block h-[3px] rounded-full",
+                  index === page ? "w-[18px] bg-accent" : "w-1.5 bg-line hover:bg-edge",
                 )}
               />
             </button>
@@ -284,7 +297,13 @@ function useRailPages(ref: React.RefObject<HTMLElement | null>, count: number): 
   return state;
 }
 
-/** The newest book, large, over a soft copy of its own cover. */
+/**
+ * Discover's newest book (design system FeaturedBook): a set page, not a dark banner. The cover on
+ * the left (rising in once), then "New on inputread", the title in Literata, the author, two lines
+ * of the story, three numbers and "See this book". On the book's own colour (src/lib/cover-tone.ts).
+ * The whole block opens the detail. On a phone the cover sits beside the title and the rest runs
+ * the full width under them.
+ */
 export function FeaturedBook({
   row,
   onOpen,
@@ -292,55 +311,59 @@ export function FeaturedBook({
   row: DiscoverRow;
   onOpen: (row: DiscoverRow) => void;
 }) {
-  const { t } = useT();
-  const { words } = counts(row);
+  const { t, locale } = useT();
+  const { words, phrases, notes } = counts(row);
+  const speech = row.category === "speech";
+  const tone = useBookTone(row.coverUrl, speech && !row.coverUrl ? talkCoverTone(row.title, row.author) : undefined);
+  const blurb = useBookBlurb({ kind: row.kind === "classic" ? "public" : "lists", id: row.id }, locale);
+  const facts = [
+    words > 0 ? t("browse.wordsMarked", { n: groupDigits(words) }) : "",
+    notes > 0 ? t("browse.notesCount", { n: groupDigits(notes) }) : "",
+    phrases > 0 ? t("browse.phrasesCount", { n: groupDigits(phrases) }) : "",
+  ].filter(Boolean);
   return (
-    <section
-      className="group relative isolate overflow-hidden rounded-3xl bg-neutral-900 text-paper shadow-md transition-shadow hover:shadow-lg"
-      aria-label={t("browse.featured")}
-      data-discover-featured={row.id}
-    >
-      {row.coverUrl ? (
-        <img
-          src={row.coverUrl}
-          crossOrigin={coverCrossOrigin(row.coverUrl)}
-          alt=""
-          aria-hidden
-          className="absolute inset-0 -z-10 size-full scale-125 object-cover opacity-45 blur-2xl saturate-150 transition-opacity duration-300 group-hover:opacity-55"
-        />
-      ) : null}
-      <div
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/55 to-black/25 backdrop-blur-[1px]"
-        aria-hidden
-      />
+    <section className="group" aria-label={t("browse.featured")} data-discover-featured={row.id}>
       <button
         type="button"
-        className="flex w-full items-center gap-4 p-5 text-left sm:gap-8 sm:p-8"
+        className="tone-ground grid w-full grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-3 rounded-2xl p-4 text-left sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-x-10 sm:gap-y-2.5 sm:px-10 sm:py-8"
+        style={tone}
         onClick={() => onOpen(row)}
         aria-label={t("browse.openAria", { title: row.title })}
       >
-        <span className="w-24 shrink-0 shadow-pop transition-transform duration-300 group-hover:scale-[1.03] sm:w-36">
-          <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={row.category === "speech" ? "talk" : "book"} />
+        <span className="cover-rise tone-cover relative block w-full sm:row-span-2 sm:mx-auto sm:w-[10.5rem]">
+          <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={speech ? "talk" : "book"} />
         </span>
-        <span className="grid min-w-0 gap-1.5 sm:gap-2.5">
-          <span className="text-sm font-medium text-white/70">{t("browse.featured")}</span>
+        <span className="grid min-w-0 content-end gap-1.5 sm:gap-2.5">
+          <span className="flex items-center gap-2 text-[0.8125rem] font-bold text-accent">
+            <span className="size-1.5 rounded-full bg-current" aria-hidden />
+            {t("browse.featured")}
+          </span>
           <span
-            className="overflow-hidden font-display text-[1.4rem] leading-tight font-semibold tracking-tight text-white [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[2.2rem]"
+            className="overflow-hidden font-display text-[1.875rem] leading-[1.05] font-bold tracking-[-0.02em] text-ink transition-colors duration-100 group-hover:text-accent [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[2.5rem]"
             lang="en"
           >
             {row.title}
           </span>
-          <span className="truncate text-sm font-medium text-white/80 sm:text-base" lang="en">
+          <span className="truncate text-[0.9375rem] text-muted" lang="en">
             {row.author}
           </span>
-          <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/75 sm:text-sm">
-            {row.lexile ? <span className="tabular-nums">{row.lexile}</span> : null}
-            {words > 0 ? <span>{t("browse.wordsMarked", { n: groupDigits(words) })}</span> : null}
-            <span>{row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}</span>
-          </span>
-          <span className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-900 shadow-sm transition-all group-hover:bg-white group-hover:shadow-md max-sm:hidden">
+        </span>
+        <span className="col-span-2 grid min-w-0 gap-2.5 sm:col-span-1 sm:col-start-2">
+          {blurb ? (
+            <span className="max-w-[34rem] overflow-hidden text-[0.9375rem] leading-[1.65] text-muted [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] sm:[-webkit-line-clamp:2]" lang={locale === "zh" ? "zh-CN" : "en"}>
+              {blurb}
+            </span>
+          ) : null}
+          {facts.length ? (
+            <span className="flex flex-wrap gap-x-4 gap-y-1 text-[0.8125rem] text-faint">
+              {facts.map((fact) => (
+                <span key={fact}>{fact}</span>
+              ))}
+            </span>
+          ) : null}
+          <span className={cn(btn.primary, "mt-1 w-full sm:w-fit")}>
             {t("browse.view")}
-            <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-[3px]" aria-hidden />
           </span>
         </span>
       </button>
@@ -386,6 +409,15 @@ export function BookDetail({
   const { t, locale } = useT();
   const open = row !== null && model !== null;
   const facts = row ? counts(row) : { words: 0, phrases: 0, notes: 0 };
+  const speech = row?.category === "speech";
+  const tone = useBookTone(row?.coverUrl, row && speech && !row.coverUrl ? talkCoverTone(row.title, row.author) : undefined);
+  // Adding (busy -> on): the main button turns into "Open this book" with a small spring.
+  const actionRef = useRef<HTMLButtonElement | null>(null);
+  const wasBusy = useRef(false);
+  useEffect(() => {
+    if (wasBusy.current && model?.state === "on") bump(actionRef.current, 1.06);
+    wasBusy.current = model?.state === "busy";
+  }, [model?.state]);
   // What the book is about, in the interface language. "" while it loads, or when none is written yet.
   const blurb = useBookBlurb(row ? { kind: row.kind === "classic" ? "public" : "lists", id: row.id } : null, locale);
   const Icon =
@@ -399,26 +431,34 @@ export function BookDetail({
   return (
     <Dialog.Root open={open} onOpenChange={(next) => !next && onClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
           className={cn(
-            "fixed z-50 grid max-h-[calc(100dvh-1rem)] gap-5 overflow-y-auto border border-line bg-card p-5 text-ink shadow-pop glass",
-            "inset-x-0 bottom-0 rounded-t-3xl pb-[max(1.25rem,env(safe-area-inset-bottom))]",
-            "anim-pop sm:inset-auto sm:top-1/2 sm:left-1/2 sm:w-[min(36rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:p-6",
+            // A phone gets a bottom sheet (rounded top, a drag bar, at most 88% high); wider screens a centred panel.
+            "fixed z-50 grid max-h-[88dvh] gap-5 overflow-y-auto border border-line bg-paper p-5 pt-0 text-ink shadow-lift",
+            "inset-x-0 bottom-0 rounded-t-sheet pb-[max(1.25rem,env(safe-area-inset-bottom))] anim-sheet",
+            "sm:inset-auto sm:top-1/2 sm:left-1/2 sm:max-h-[calc(100dvh-2rem)] sm:w-[min(36rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:p-6 sm:anim-pop",
           )}
           data-book-detail={row?.id}
         >
           {row && model ? (
             <>
-              <div className="flex items-start gap-4 sm:gap-6">
-                <div className="relative w-28 shrink-0 sm:w-40">
-                  <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={row.category === "speech" ? "talk" : "book"} />
+              <div className="-mx-5 -mb-3 flex h-6 items-center justify-center sm:hidden" aria-hidden>
+                <span className="h-1 w-10 rounded-full bg-line" />
+              </div>
+              {/* The top on the book's own colour (CoverTone). */}
+              <div
+                className="tone-ground -mx-5 flex items-start gap-4 px-5 py-5 sm:-mx-6 sm:-mt-6 sm:gap-6 sm:rounded-t-2xl sm:px-6 sm:py-6"
+                style={tone}
+              >
+                <div className="tone-cover relative w-28 shrink-0 sm:w-36" data-tilt>
+                  <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={speech ? "talk" : "book"} />
                 </div>
                 <div className="grid min-w-0 flex-1 content-start gap-1.5">
                   <div className="flex items-start justify-between gap-2">
-                    <BookTags>
-                      <BookTag>{row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}</BookTag>
-                    </BookTags>
+                    <span className="pt-1 text-[0.8125rem] font-bold text-[var(--book-deep)]">
+                      {row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
+                    </span>
                     <Dialog.Close
                       className={cn(btn.icon, "-mt-2 -mr-2")}
                       aria-label={t("common.close")}
@@ -427,12 +467,12 @@ export function BookDetail({
                     </Dialog.Close>
                   </div>
                   <Dialog.Title
-                    className="font-display text-[1.35rem] leading-tight font-semibold sm:text-[1.6rem]"
+                    className="font-display text-[1.6rem] leading-tight font-bold tracking-[-0.015em] sm:text-[1.875rem]"
                     lang="en"
                   >
                     {row.title}
                   </Dialog.Title>
-                  <p className="text-sm text-muted" lang="en">
+                  <p className="text-[0.9375rem] text-muted" lang="en">
                     {row.author}
                   </p>
                   <BookMaintainerList bookRef={rowCatalogRef(row)} />
@@ -452,24 +492,23 @@ export function BookDetail({
                   <h3 id="book-blurb-title" className="text-sm font-semibold">
                     {t("browse.blurbTitle")}
                   </h3>
-                  <p className="text-[0.95rem] leading-7 whitespace-pre-line" lang={locale === "zh" ? "zh-CN" : "en"}>
+                  <p className="text-[0.9375rem] leading-[1.75] whitespace-pre-line" lang={locale === "zh" ? "zh-CN" : "en"}>
                     {blurb}
                   </p>
                 </section>
               ) : null}
 
-              <dl className="grid grid-cols-2 gap-2.5 rounded-2xl bg-accent-soft/35 p-3.5 sm:grid-cols-4 sm:gap-3 sm:p-4">
+              {/* Numbers in soft tiles. The Lexile measure shows here and nowhere else; none, no tile. */}
+              <dl className={cn("grid gap-1.5", model.lexile ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3")} data-detail-facts>
                 {[
-                  { label: t("browse.fact.level"), value: model.lexile || t("lexile.unrated") },
-                  { label: t("dashboard.words"), value: groupDigits(facts.words) },
-                  { label: t("dashboard.phrases"), value: groupDigits(facts.phrases) },
-                  { label: t("browse.fact.notes"), value: groupDigits(facts.notes) },
+                  ...(model.lexile ? [{ label: t("browse.fact.level"), value: <LexileBadge measure={model.lexile} />, lexile: true }] : []),
+                  { label: t("dashboard.words"), value: groupDigits(facts.words), lexile: false },
+                  { label: t("dashboard.phrases"), value: groupDigits(facts.phrases), lexile: false },
+                  { label: t("browse.fact.notes"), value: groupDigits(facts.notes), lexile: false },
                 ].map((fact) => (
-                  <div key={fact.label} className="grid gap-0.5">
-                    <dt className="text-xs text-muted">
-                      {fact.label}
-                    </dt>
-                    <dd className="font-display text-lg font-semibold tabular-nums text-ink">
+                  <div key={fact.label} className="grid content-start gap-2 rounded-2xl bg-sheet px-4 pt-3 pb-3.5">
+                    <dt className="text-[0.8125rem] whitespace-nowrap text-faint">{fact.label}</dt>
+                    <dd className={cn("text-[1.75rem] leading-none font-display font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] tabular-nums text-ink", fact.lexile && "flex h-7 items-center")}>
                       {fact.value}
                     </dd>
                   </div>
@@ -497,17 +536,29 @@ export function BookDetail({
 
               <div className="grid gap-2 sm:flex sm:items-center">
                 <button
+                  ref={actionRef}
                   type="button"
-                  className={cn(btn.primary, "w-full sm:w-auto sm:min-w-48 sm:px-6")}
+                  className={cn(
+                    btn.primary,
+                    "relative w-full overflow-hidden sm:w-auto sm:min-w-48 sm:px-6",
+                    // Adding: the progress shows inside the button, with a line along its bottom edge.
+                    model.state === "busy" && "disabled:opacity-100 bg-accent-soft text-accent",
+                  )}
                   onClick={onAction}
                   disabled={model.blocked || model.state === "busy"}
+                  aria-busy={model.state === "busy" || undefined}
                   data-detail-action={model.state}
                 >
-                  <Icon
-                    className={cn("size-4", model.state === "busy" && "animate-spin")}
-                    aria-hidden
-                  />
+                  {model.state === "busy" ? null : <Icon className="size-5" aria-hidden />}
                   {actionLabel(model, canAdd, t)}
+                  {model.state === "busy" ? (
+                    <span className="absolute inset-x-0 bottom-0 h-[3px] bg-accent/20" aria-hidden>
+                      <span
+                        className={cn("block h-full bg-accent transition-[width] duration-200", model.fraction == null && "w-1/3 animate-pulse")}
+                        style={model.fraction == null ? undefined : { width: `${Math.round(Math.min(1, Math.max(0, model.fraction)) * 100)}%` }}
+                      />
+                    </span>
+                  ) : null}
                 </button>
                 {model.held && model.state !== "on" ? (
                   <button
@@ -523,7 +574,7 @@ export function BookDetail({
                 {model.held ? (
                   <button
                     type="button"
-                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold text-warn hover:bg-warn-soft"
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded px-3 text-[0.9375rem] font-bold text-warn hover:underline hover:underline-offset-4"
                     onClick={onRemove}
                   >
                     <Trash2 className="size-4" aria-hidden />
