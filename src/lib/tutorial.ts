@@ -63,32 +63,19 @@ export const useDiscoverIntent = create<DiscoverIntent>((set, get) => ({
 }));
 
 /**
- * The feedback tip: after the reader's first word list is paired with their own EPUB, the book opens
- * and a short animated tip shows how to tell us a meaning is too hard, or that a hard word is not
- * marked (src/components/feedback-tip-dialog.tsx). Once per device.
+ * The feedback tip: the first time a book is open in the reader on this device, whatever the book
+ * (paired with the reader's own EPUB or public domain), a short animated tip shows how to tell us
+ * a meaning is too hard, or that a hard word is not marked (src/components/feedback-tip-dialog.tsx).
  */
 export const FEEDBACK_TIP_KEY = "cibian-feedback-tip-v1";
 
-function readTip(): string {
+/** Seen on this device. Without storage it counts as seen, so it does not show on every book. */
+export function feedbackTipSeen(): boolean {
   try {
-    return localStorage.getItem(FEEDBACK_TIP_KEY) ?? "";
+    return localStorage.getItem(FEEDBACK_TIP_KEY) === "seen";
   } catch {
-    return "seen";
+    return true;
   }
-}
-
-/** Call when a pairing has just succeeded. Does nothing once the tip has been seen. */
-export function queueFeedbackTip(): void {
-  if (readTip() === "seen") return;
-  try {
-    localStorage.setItem(FEEDBACK_TIP_KEY, "pending");
-  } catch {
-    // No storage: no tip.
-  }
-}
-
-export function feedbackTipPending(): boolean {
-  return readTip() === "pending";
 }
 
 export const useFeedbackTip = create<TutorialState>((set) => ({
