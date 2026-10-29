@@ -7,7 +7,28 @@ import type { ShareWhat } from "@/components/share-dialog";
 // The dialog brings the canvas drawing and the QR encoder: loaded on the first tap only.
 const ShareDialog = lazy(() => import("@/components/share-dialog"));
 
-export function ShareButton({ what, className, quiet = false }: { what: ShareWhat; className?: string; quiet?: boolean }) {
+/** The share dialog, loaded when it first opens. For a menu item or any other opener. */
+export function LazyShareDialog({ what, open, onOpenChange }: { what: ShareWhat; open: boolean; onOpenChange: (open: boolean) => void }) {
+  if (!open) return null;
+  return (
+    <Suspense fallback={null}>
+      <ShareDialog what={what} open={open} onOpenChange={onOpenChange} />
+    </Suspense>
+  );
+}
+
+export function ShareButton({
+  what,
+  className,
+  quiet = false,
+  label,
+}: {
+  what: ShareWhat;
+  className?: string;
+  quiet?: boolean;
+  /** Defaults to "Share". */
+  label?: string;
+}) {
   const { t } = useT();
   const [open, setOpen] = useState(false);
   return (
@@ -19,13 +40,9 @@ export function ShareButton({ what, className, quiet = false }: { what: ShareWha
         data-share-open={what.kind}
       >
         <Share2 className="size-4" aria-hidden />
-        {t("share.button")}
+        {label ?? t("share.button")}
       </button>
-      {open ? (
-        <Suspense fallback={null}>
-          <ShareDialog what={what} open={open} onOpenChange={setOpen} />
-        </Suspense>
-      ) : null}
+      <LazyShareDialog what={what} open={open} onOpenChange={setOpen} />
     </>
   );
 }
