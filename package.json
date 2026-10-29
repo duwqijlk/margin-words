@@ -71,6 +71,7 @@
     "jszip": "^3.10.2",
     "lightningcss": "^1.28.0",
     "lucide-react": "^0.510.0",
+    "qrcode-generator": "^2.0.4",
     "react": "^19.2.0",
     "react-day-picker": "^9.14.0",
     "react-dom": "^19.2.0",
