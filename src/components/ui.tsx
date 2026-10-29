@@ -494,10 +494,16 @@ export function SpeakButton({
   compact = false,
   accent,
   onOutcome,
+  children,
 }: {
   text: string;
   label?: string;
   className?: string;
+  /**
+   * With an accent: the whole row is the button (design system SpeakButton / WordCard): the accent
+   * label and the reading come in as children, the speaker icon follows. 36px drawn, 44px to tap.
+   */
+  children?: ReactNode;
   /** Icon only: accents use a text-sized icon; generic controls keep the round button. */
   compact?: boolean;
   accent?: PronunciationAccent;
@@ -517,6 +523,7 @@ export function SpeakButton({
   const failure = accent
     ? t(accent === "UK" ? "ipa.audioFailedUk" : "ipa.audioFailedUs")
     : t("common.noSound");
+  const row = Boolean(children && accent);
   const button = (
     <button
       type="button"
@@ -524,20 +531,29 @@ export function SpeakButton({
       aria-label={`${name}: ${text}`}
       title={failed ? failure : name}
       className={cn(
-        compact
+        row
+          ? "relative inline-flex h-9 max-w-full items-center gap-1.5 rounded px-2 text-left text-ink transition-colors duration-100 after:absolute after:inset-x-0 after:-inset-y-1 after:content-[''] hover:bg-accent-soft"
+          : compact
           ? accent
             ? "grid size-11 place-items-center rounded transition-colors hover:bg-accent-soft"
             : "grid size-10 place-items-center rounded-full border border-accent/25 bg-accent-soft transition-colors hover:bg-accent hover:text-accent-ink shadow-2xs"
           : "inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-line/60 px-3 text-sm font-semibold transition-colors hover:bg-accent-soft",
-        failed ? "text-warn" : "text-accent",
+        row ? failed && "text-warn" : failed ? "text-warn" : "text-accent",
         className,
       )}
       data-speak
       data-speak-accent={accent}
       data-speak-status={outcome}
     >
-      <Volume2 className={compact ? accent ? "size-[1em]" : "size-5" : "size-[1.1rem]"} aria-hidden />
-      {compact ? null : failed ? failure : name}
+      {row ? children : null}
+      <Volume2
+        className={cn(
+          row ? "size-4 shrink-0 stroke-2" : compact ? accent ? "size-[1em]" : "size-5" : "size-[1.1rem]",
+          row && (failed ? "text-warn" : "text-accent"),
+        )}
+        aria-hidden
+      />
+      {row || compact ? null : failed ? failure : name}
     </button>
   );
   if (!accent) return button;

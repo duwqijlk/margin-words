@@ -98,7 +98,7 @@ test("interface titles and numbers use the bold interface font; the book's own w
     assert.doesNotMatch(line, /font-display/, `${file}: ${text}`);
   }
   // Book titles and headwords keep Literata.
-  assert.match(read("src/components/word-card.tsx"), /font-display text-\[1\.85rem\] leading-tight font-bold/);
+  assert.match(read("src/components/word-card.tsx"), /font-display leading-tight font-bold/);
   assert.match(read("src/components/shelf-book-info.tsx"), /font-display text-lg leading-snug font-semibold" lang="en"/);
   assert.match(read("src/components/book-cover.tsx"), /rounded-cover/);
 });

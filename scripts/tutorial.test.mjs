@@ -73,7 +73,7 @@ test("both dialogs share one frame whose height and buttons do not move from ste
 test("the second tip says a missing word can be reported directly or with the reader's own meaning", () => {
   const en = read("src/lib/i18n-en.ts");
   const line = en.split("\n").find((item) => item.includes('"tip.s2Body"'));
-  assert.match(line, /Meaning missing/);
+  assert.match(line, /Tell us it's missing/);
   assert.match(line, /add the meaning you understand/);
   assert.match(read("src/components/feedback-tip-dialog.tsx"), /ArtFeedbackMissing[\s\S]{0,200}addMine=/);
 });

@@ -26,6 +26,7 @@ import {
   type Gloss,
   type StoredBook,
 } from "@/lib/book-db";
+import { celebrateSave } from "@/lib/motion";
 import { readingSlots } from "@/lib/epub";
 import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
 import { linkChapterHtml, peekChapterHtml, rememberChapterHtml } from "@/lib/chapter-link";
@@ -1692,7 +1693,8 @@ export function ReaderScreen({
         ref={headerRef}
         data-reader-bar={barHidden ? "hidden" : "shown"}
         className={cn(
-          "sticky top-0 z-30 border-b border-line/60 bg-paper transition-transform duration-300",
+          // No frosted glass: paper, and the full-width reading progress line is the bar's lower edge.
+          "sticky top-0 z-30 bg-paper transition-transform duration-300",
           (focus || barHidden) && "-translate-y-full",
         )}
       >
@@ -1715,7 +1717,7 @@ export function ReaderScreen({
           />
           <div className="min-w-0 flex-1 px-1 text-center leading-tight sm:px-2">
             <p className="truncate font-display text-[0.95rem] font-semibold">{book.title}</p>
-            <p className="truncate text-xs text-muted" lang="en">
+            <p className="truncate text-xs text-faint" lang="en">
               {activeExtra ? activeExtra.title || t("reader.extra") : chapter.title}
             </p>
           </div>
@@ -1725,6 +1727,7 @@ export function ReaderScreen({
             className={btn.icon}
             onClick={onNotebook}
             aria-label={t("reader.openNotebook")}
+            data-reader-notebook
           >
             <BookMarked className="size-5" aria-hidden />
           </button>
@@ -1968,6 +1971,12 @@ export function ReaderScreen({
               },
               source,
             );
+            // The heart bumps, the word gets its highlighter, and "+1" flies to the notebook icon.
+            celebrateSave({
+              heart: document.querySelector("[data-word-card] [data-word-save]"),
+              word: anchor,
+              notebook: document.querySelector("[data-reader-notebook]"),
+            });
           }}
         />
       ) : null}

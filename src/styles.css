@@ -68,48 +68,40 @@
   src: url("/fonts/inter-normal.woff2") format("woff2");
 }
 
-/* IPA remains in the card's scrolling body, never the fixed metadata header. */
+/* IPA remains in the card's scrolling body, never the fixed metadata header. The readings are in Inter,
+   which has every IPA letter; each accent row is one button (WordIpa, SpeakButton with children). */
 .word-ipa {
   font-family: "Inter", "Segoe UI", "Arial", sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
   overflow-wrap: anywhere;
   word-wrap: break-word;
 }
 .word-ipa-values {
   display: flex;
   flex-wrap: wrap;
-  margin-top: -0.375rem;
+  align-items: center;
+  column-gap: 8px;
+  margin: 0 -8px;
 }
 .word-ipa-locale {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
-  margin-top: 0.375rem;
-  padding-right: 1rem;
 }
-.word-ipa-locale > span {
-  margin-right: 0.35rem;
+.word-ipa-locale small {
+  font-family: var(--font-sans);
 }
 .word-ipa-locale [data-speak-control] {
-  display: contents;
-}
-.word-ipa-locale [data-speak] {
-  width: 44px;
-  height: 44px;
-  margin-left: 8px;
+  display: inline-flex;
 }
 /* The speaker's place while the card is still deciding word or phrase: same size, so nothing moves. */
 .word-ipa-locale .word-ipa-speak-slot {
-  display: block;
-  width: 44px;
-  height: 44px;
-  margin-left: 8px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
 }
 .word-ipa-locale [data-speak-error] {
-  grid-column: 1 / -1;
-  margin-top: 0.25rem;
+  padding-left: 8px;
 }
 
 /*
@@ -361,12 +353,15 @@
      nothing is measured on scroll. The tap area grows through ::after, which takes no room. */
   .book-body [data-para-marker] {
     position: relative;
-    margin-left: 0.2em;
+    display: inline-block;
+    margin-left: 0.25em;
     padding: 0 0.15em;
-    border-radius: 0.3em;
+    border-radius: 2px;
     color: var(--accent);
     font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", "Apple Symbols", "DejaVu Sans", sans-serif;
-    font-size: 0.78em;
+    font-size: 0.72em;
+    vertical-align: 0.12em;
+    transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
     font-style: normal;
     font-weight: 400;
     line-height: 1;
@@ -394,26 +389,20 @@
     outline: 2px solid var(--accent);
     outline-offset: 1px;
   }
-  /* Help open: colour only, the same size, so the line does not move. */
+  /* Help open: the ✦ stays green with no ground and grows a little (a transform: it takes no room,
+     so the line does not move). */
   .book-body [data-para-marker][data-active] {
-    background: var(--accent);
-    color: var(--accent-ink);
+    background: none;
+    transform: scale(1.25);
   }
-  /* The paragraph the open help is about: a thin bar in its left margin. Absolutely placed against
-     the paragraph (position: relative moves nothing), so it takes no room and needs no measuring. */
+  /* The paragraph the open help is about: a faint brand-tint wash that reaches 0.45em past the text
+     (a box-shadow, so it takes no room and needs no measuring). Word marks show on top of it. */
   .book-body [data-para-active] {
     position: relative;
-  }
-  .book-body [data-para-active]::before {
-    content: "";
-    position: absolute;
-    top: 0.15em;
-    bottom: 0.15em;
-    left: -10px;
-    width: 3px;
-    border-radius: 3px;
-    background: var(--accent);
-    pointer-events: none;
+    border-radius: 10px;
+    background: rgb(var(--accent-soft-rgb) / 0.6);
+    box-shadow: 0 0 0 0.45em rgb(var(--accent-soft-rgb) / 0.6);
+    transition: background-color 180ms, box-shadow 180ms;
   }
 
   /* Phone novel pages, the way Kindle and Apple Books set them: full lines share
@@ -498,10 +487,12 @@
     margin: 0;
   }
 
+  /* Word marks (design system WordMarks): only colour and lines change, never size, weight or spacing,
+     so the text never moves. Four line styles tell the marks apart without colour (e-ink). */
   .book-body .book-tap {
-    border-radius: 0.2em;
+    border-radius: 2px;
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.12s ease;
+    transition: background-color 100ms cubic-bezier(0.2, 0, 0, 1);
     hyphens: auto;
     -webkit-hyphens: auto;
   }
@@ -509,10 +500,10 @@
   /* Hard word whose meaning is ready: a crisp, clear underline. */
   .book-body [role="button"][data-word].book-hard .book-tap {
     text-decoration: underline;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 1.5px;
     text-decoration-skip-ink: none;
-    text-underline-offset: 0.24em;
+    text-underline-offset: 0.22em;
   }
 
   .book-body [role="button"][data-word].book-hard:hover .book-tap,
@@ -524,9 +515,10 @@
      and tricky wavy line, and clearly legible on both LCD and e-ink. */
   .book-body [role="button"][data-word].book-phrase .book-tap {
     text-decoration: underline dashed;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 1.5px;
-    text-underline-offset: 0.24em;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
   }
 
   .book-body [role="button"][data-word].book-phrase:hover .book-tap,
@@ -538,10 +530,10 @@
      accent line, different from the straight underline of a hard word and from the phrase underline. */
   .book-body [role="button"][data-word].book-tricky .book-tap {
     text-decoration: underline wavy;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.9);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 1.5px;
     text-decoration-skip-ink: none;
-    text-underline-offset: 0.28em;
+    text-underline-offset: 0.26em;
   }
 
   .book-body [role="button"][data-word].book-tricky:hover .book-tap,
@@ -576,26 +568,57 @@
   /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
   .book-body [role="button"][data-word].book-wait .book-tap {
     text-decoration: underline dotted;
-    text-decoration-color: rgb(var(--muted-rgb) / 0.6);
-    text-decoration-thickness: 1.2px;
-    text-underline-offset: 0.24em;
-  }
-
-  /* Already in the notebook: marker highlight with a distinct accent underline so it stays clear on e-ink. */
-  .book-body [role="button"][data-word].book-saved .book-tap {
-    background: rgb(var(--mark-rgb) / 0.65);
-    text-decoration: underline;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
+    text-decoration-color: var(--faint);
     text-decoration-thickness: 1.5px;
-    text-underline-offset: 0.24em;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
   }
 
+  /* Saved: a solid highlighter. Yellow means "saved / understood" everywhere in the app. */
+  .book-body [role="button"][data-word].book-saved .book-tap {
+    background: var(--mark);
+    box-shadow: 0 0 0 1px var(--mark);
+    text-decoration: none;
+  }
+  .book-body [role="button"][data-word].book-saved:hover .book-tap {
+    background: var(--mark);
+  }
+
+  /* The open word: a brand-tint highlighter swept in from the left, and a 3px brand underline. */
   .book-body [role="button"][data-word].book-on .book-tap {
-    background: var(--accent-soft);
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-    border-radius: 0.2em;
-    text-decoration-color: var(--accent);
+    background: linear-gradient(var(--accent-soft), var(--accent-soft)) no-repeat;
+    background-size: 100% 100%;
+    box-shadow: 0 0 0 2px var(--accent-soft);
+    text-decoration: underline solid var(--accent);
+    text-decoration-thickness: 3px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
+    animation: book-sweep 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .book-body [role="button"][data-word].book-saved.book-on .book-tap {
+    background: var(--mark);
+    box-shadow: 0 0 0 2px var(--mark);
+    animation: none;
+  }
+  /* Saving: a yellow highlighter stroke across the word (added for a moment by src/lib/motion.ts). */
+  .book-body .book-tap.book-sweep-save {
+    background: linear-gradient(var(--mark), var(--mark)) no-repeat !important;
+    background-size: 100% 100%;
+    animation: book-sweep 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes book-sweep {
+    from {
+      background-size: 0% 100%;
+    }
+    to {
+      background-size: 100% 100%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .book-body [role="button"][data-word].book-on .book-tap,
+    .book-body .book-tap.book-sweep-save {
+      animation: none;
+    }
   }
 
   .book-body [role="button"][data-word].book-saved.book-on .book-tap {
@@ -724,8 +747,34 @@
     }
   }
 
+  @keyframes card-pop {
+    from {
+      transform: scale(0.92);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  /* A box that opens inside a card (the meaning feedback): it rises a little into place. */
+  @keyframes rise-in {
+    from {
+      transform: translateY(6px);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  .anim-rise {
+    animation: rise-in 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   .anim-sheet {
-    animation: sheet-up 0.2s ease-out;
+    animation: sheet-up 280ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .anim-sheet-top {
@@ -771,9 +820,6 @@
   [data-word-card] [data-look-target] {
     min-width: 0;
     overflow-wrap: anywhere;
-  }
-  [data-word-card] [data-word-footer] > div {
-    flex-wrap: wrap;
   }
   /* The selection card floats over the article: a touch on it must not scroll the book. */
   [data-passage-ui],
@@ -861,22 +907,6 @@
     [data-word-card] [data-look-target] {
       min-height: 32px;
     }
-    [data-word-card] [data-word-footer] > div {
-      flex-wrap: nowrap;
-    }
-    /* The feedback choices open on a row of their own, the full width of the card. The label
-       and the toggle fit on one line, so this row always wraps (no :has(), which Chrome 69 lacks). */
-    [data-word-card] [data-word-footer] > [data-feedback-row] {
-      flex-wrap: wrap;
-    }
-    [data-word-card] [data-word-footer] > div > span {
-      min-width: 0;
-    }
-    [data-word-card] [data-feedback-toggle] {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-    }
   }
   /* Short phones need the same definition budget as landscape at large text sizes. */
   @media (max-width: 767px) and (max-height: 600px) {
@@ -928,10 +958,14 @@
       left: auto;
       width: min(21rem, calc(100vw - 1.5rem));
       /* A hairline, not a frame: the shadow already lifts the card off the page. */
-      border: 1px solid rgb(var(--line-rgb) / 0.6);
+      border: 1px solid var(--line);
       border-radius: 1.25rem;
       padding-top: 1.25rem;
-      animation: pop-in 0.16s ease-out;
+    }
+    /* Placed: it pops out of the tapped word (transform-origin is set with the placement), with a
+       little spring. Only once placed, so the animation never runs while the card is hidden. */
+    [data-float][data-placed] {
+      animation: card-pop 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     /* Match WordCard's desktopWidth before its first placement measurement. */
@@ -1408,4 +1442,22 @@
 /* Night: every book cover is dimmed a little, so a bright cover does not glare. */
 [data-theme="dark"] .cover-frame > img {
   filter: brightness(0.82);
+}
+
+/* E-ink: every word mark in the text colour (the line style tells them apart); a saved word is a
+   double underline instead of a highlighter, which an e-ink screen shows as a grey block. */
+[data-theme="eink"] .book-body [role="button"][data-word].book-hard .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-phrase .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-tricky .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-on .book-tap {
+  text-decoration-color: currentColor;
+}
+[data-theme="eink"] .book-body [role="button"][data-word].book-saved .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-saved:hover .book-tap,
+[data-theme="eink"] .book-body [role="button"][data-word].book-saved.book-on .book-tap {
+  background: none;
+  box-shadow: none;
+  text-decoration: underline double currentColor;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
 }
