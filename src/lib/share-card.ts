@@ -205,7 +205,7 @@ function centred(ctx: CanvasRenderingContext2D, lines: string[], y: number, line
   return y;
 }
 
-/** A line with one number in it ("在这本书里收藏了 64 个生词"): the number bold and larger, all centred. */
+/** A line with one number in it ("64 words saved from this book"): the number bold and larger, all centred. */
 function lineWithNumber(ctx: CanvasRenderingContext2D, text: string, y: number, p: Palette) {
   const match = text.match(/^(.*?)(\d[\d,]*)(.*)$/);
   ctx.textAlign = "left";
@@ -429,7 +429,7 @@ function drawOverview(ctx: CanvasRenderingContext2D, data: OverviewCardData, p: 
     const value = num.value.toLocaleString("en-US");
     const wValue = ctx.measureText(value).width;
     font(ctx, 700, 45, SANS);
-    // Latin units get a space after the number ("6 books"); Chinese ones sit right on it ("6本").
+    // Latin units get a space after the number ("6 books"); Chinese ones sit right on the number.
     const unit = num.unit && /^[A-Za-z]/.test(num.unit) ? ` ${num.unit}` : num.unit;
     const wUnit = unit ? ctx.measureText(unit).width + 4 : 0;
     let x = cxCol - (wValue + wUnit) / 2;

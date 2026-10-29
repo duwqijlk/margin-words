@@ -20,7 +20,6 @@ Needs fonttools and brotli (pip install fonttools brotli).
 """
 import os
 import re
-import shutil
 import sys
 
 from fontTools import subset
@@ -50,8 +49,11 @@ def main():
     wanted = {ord(c) for c in zh if ord(c) >= 0x2E80}
 
     out_dir = os.path.join(ROOT, "public/fonts/zh-serif")
-    shutil.rmtree(out_dir, ignore_errors=True)
-    os.makedirs(out_dir)
+    # Clear the old subsets, but keep the licence that travels with them.
+    os.makedirs(out_dir, exist_ok=True)
+    for name in os.listdir(out_dir):
+        if name.endswith(".woff2"):
+            os.remove(os.path.join(out_dir, name))
     faces = []
     for block in re.findall(r"@font-face\s*\{(.*?)\}", css, re.S):
         src = re.search(r"url\(\./files/([^)]+-%d-normal\.woff2)\)" % WEIGHT, block)

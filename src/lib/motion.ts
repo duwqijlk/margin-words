@@ -55,7 +55,8 @@ function center(el: Element): { x: number; y: number } {
 function layer(): HTMLElement {
   const host = document.createElement("div");
   host.setAttribute("aria-hidden", "true");
-  host.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden";
+  // Four sides rather than `inset`, which Chrome 69 (the e-ink readers) does not know.
+  host.style.cssText = "position:fixed;top:0;right:0;bottom:0;left:0;pointer-events:none;z-index:80;overflow:hidden";
   document.body.appendChild(host);
   return host;
 }

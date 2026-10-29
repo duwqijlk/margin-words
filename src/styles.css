@@ -1198,7 +1198,10 @@
 .credit-face-lead::after {
   content: "";
   position: absolute;
-  inset: -4px;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  left: -4px;
   border-radius: 9999px;
   border: 2px solid rgb(var(--mark-rgb));
   pointer-events: none;
@@ -1445,7 +1448,10 @@
 .cover-frame::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   pointer-events: none;
   background: radial-gradient(circle at var(--sx, 50%) var(--sy, 50%), rgb(255 255 255 / 0.28), transparent 55%);
   opacity: 0;

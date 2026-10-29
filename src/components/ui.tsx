@@ -812,7 +812,8 @@ export function ThemeTiles<T extends string>({
             <span
               className={cn(
                 "grid w-full content-center justify-items-center gap-1.5 font-display leading-none font-bold",
-                small ? "aspect-[5/4] rounded text-lg" : "aspect-[4/3] rounded-xl text-xl",
+                // min-h for engines without aspect-ratio (Chrome 69).
+                small ? "aspect-[5/4] min-h-[3.25rem] rounded text-lg" : "aspect-[4/3] min-h-[3.75rem] rounded-xl text-xl",
               )}
               style={{
                 background: theme.bg,

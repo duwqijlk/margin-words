@@ -592,7 +592,6 @@ export function AccountDialog() {
   const phase = useAccount((state) => state.phase);
   const role = useAccount((state) => state.role);
   const emailSaved = useAccount((state) => state.email);
-  const nicknameSaved = useAccount((state) => state.nickname);
   const nicknamePrompt = useAccount((state) => state.nicknamePrompt);
   const emailVerified = useAccount((state) => state.emailVerified);
   const sync = useAccount((state) => state.sync);
