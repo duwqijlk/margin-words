@@ -11,7 +11,7 @@ export function cn(...parts: Array<string | false | null | undefined>) {
 // Buttons (design system "Keep reading"): 44px high, 4px corners, 15px bold labels. One primary per
 // screen; secondary is a 1px edge outline; disabled is 40% opacity.
 const btnBase =
-  "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded px-4 text-[0.9375rem] leading-tight font-bold transition-[background-color,border-color,color,transform] duration-100 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100";
+  "inline-flex min-h-11 select-none items-center justify-center gap-2 whitespace-nowrap rounded px-4 text-[0.9375rem] leading-tight font-bold transition-[background-color,border-color,color,transform] duration-100 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100";
 
 export const btn = {
   primary: cn(btnBase, "bg-accent text-accent-ink hover:bg-accent/90"),

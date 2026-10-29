@@ -664,12 +664,14 @@ export function DiscoverScreen({
       data-discover-category={category}
       data-discover-matches={ready ? shown.length : undefined}
     >
-      {/* Novels / Speeches with this week's add quota on the same line (design system DiscoverScreen). */}
-      <div className="flex items-end gap-3 border-b border-line">
+      {/* Novels / Speeches with this week's add quota on the same line when both fit; otherwise the quota
+          wraps under the tabs, and on a phone it always has its own line (design system DiscoverScreen /
+          DiscoverPhone). The two never overlap or squeeze each other, in English too. */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-line max-sm:gap-0 max-sm:border-b-0" data-discover-tabsrow>
         <div
           role="tablist"
           aria-label={t("discover.cat.list")}
-          className={cn(subTabs.row, "relative min-w-0 flex-1 border-b-0")}
+          className={cn(subTabs.row, "relative flex-none border-b-0 max-sm:basis-full max-sm:border-b")}
           data-discover-categories
         >
           <TabInk selected={category} />
@@ -698,9 +700,7 @@ export function DiscoverScreen({
             );
           })}
         </div>
-        <div className="shrink-0 pb-2.5">
-          <WeeklyQuota />
-        </div>
+        <WeeklyQuota />
       </div>
       {!ready || inCategory.length > 0 ? (
         <div className="flex items-center gap-2">

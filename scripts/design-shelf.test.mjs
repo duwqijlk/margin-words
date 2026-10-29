@@ -45,7 +45,7 @@ test("the continue card shows on phones too and has no Lexile; list cards show n
   const discover = read("src/components/discover.tsx");
   const card = discover.slice(discover.indexOf("  function renderCard("), discover.indexOf("  const browsing ="));
   assert.doesNotMatch(card, /data-lexile=\{/);
-  assert.match(read("src/components/discover-browse.tsx"), /model\.lexile \? \[\{ label: t\("browse\.fact\.level"\)/, "Lexile tile only when there is a measure");
+  assert.match(read("src/components/discover-browse.tsx"), /\.\.\.\(lexile \? \[\{ label: t\("browse\.fact\.level"\)/, "Lexile tile only when there is a measure");
 });
 
 test("adding a book: a ring with the real progress, then a +1 to the Shelf tab and a short toast", () => {
