@@ -772,6 +772,9 @@
        really scroll (the title, the word body, a long suggestion box). */
     [data-word-card] {
       touch-action: none;
+      /* iOS 16+ and Chrome: a scroller inside the sheet that reaches its end does not hand the
+         rest of the swipe to the page. The pan guard in floating-card.tsx covers the rest. */
+      overscroll-behavior: contain;
     }
     [data-word-card] [data-word-title],
     [data-word-card] [data-word-body],
@@ -815,8 +818,9 @@
     [data-word-card] [data-word-footer] > div {
       flex-wrap: nowrap;
     }
-    /* The reader's own meaning box takes a row of its own, the full width of the card. */
-    [data-word-card] [data-word-footer] > div:has([data-feedback-suggestion]) {
+    /* The feedback choices open on a row of their own, the full width of the card. The label
+       and the toggle fit on one line, so this row always wraps (no :has(), which Chrome 69 lacks). */
+    [data-word-card] [data-word-footer] > [data-feedback-row] {
       flex-wrap: wrap;
     }
     [data-word-card] [data-word-footer] > div > span {
