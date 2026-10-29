@@ -4,6 +4,7 @@ import { useT } from "@/lib/i18n";
 import { readingOverview } from "@/lib/reading-stats";
 import { useVocab } from "@/lib/vocab-store";
 import { cn } from "@/components/ui";
+import { ShareButton } from "@/components/share-button";
 
 /** "Finished 3 books · 12 days of reading · 245 words saved" on the shelf. Hidden until there is something to count. */
 export function ReadingOverviewLine({ className }: { className?: string }) {
@@ -33,6 +34,7 @@ export function ReadingOverviewLine({ className }: { className?: string }) {
           {part}
         </span>
       ))}
+      <ShareButton what={{ kind: "overview" }} quiet className="ml-auto min-h-8 px-3 text-xs" />
     </section>
   );
 }

@@ -3,6 +3,7 @@ import { useT } from "@/lib/i18n";
 import { asFinishedAt, finishedDate } from "@/lib/reading-stats";
 import { useVocab } from "@/lib/vocab-store";
 import { btn, cn } from "@/components/ui";
+import { ShareButton } from "@/components/share-button";
 
 /**
  * Under the last chapter: mark the book as finished, or see when it was. The mark is the reader's
@@ -27,6 +28,7 @@ export function FinishBook({ bookId }: { bookId: string }) {
             {t("finished.doneOn", { date: finishedDate(finishedAt, locale) })}
           </p>
           <div className="flex flex-wrap justify-center gap-2">
+            <ShareButton what={{ kind: "book", bookId }} className="min-h-9 text-xs" />
             <button
               type="button"
               className={cn(btn.quiet, "min-h-9 text-xs")}
