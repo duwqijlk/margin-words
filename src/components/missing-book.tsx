@@ -87,7 +87,7 @@ export function MissingBook({
 
   return (
     <div className="mx-auto grid max-w-md gap-4 px-6 py-16 text-center" data-missing-book>
-      <p className="font-display text-2xl font-semibold">{t("reader.missingTitle")}</p>
+      <p className="font-bold tracking-[-0.02em] text-2xl">{t("reader.missingTitle")}</p>
       <p className="text-muted">{t("reader.missingBody")}</p>
       {offer?.kind === "download" ? (
         <button type="button" className={cn(btn.primary, "justify-self-center")} disabled={busy} onClick={download}>

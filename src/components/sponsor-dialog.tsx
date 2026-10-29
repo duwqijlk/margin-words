@@ -172,7 +172,7 @@ export function SponsorDialog({
           data-sponsor-dialog
         >
           <div className="flex items-start justify-between gap-3">
-            <Dialog.Title className="font-display text-xl font-semibold">{t("thanks.dialogTitle")}</Dialog.Title>
+            <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">{t("thanks.dialogTitle")}</Dialog.Title>
             <Dialog.Close className={btn.icon} aria-label={t("common.close")}>
               <X className="size-4" aria-hidden />
             </Dialog.Close>

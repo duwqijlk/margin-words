@@ -247,7 +247,7 @@ export function DashboardScreen() {
             <div className="grid gap-8">
               {/* The one large thing: how many words are explained, with the highlighter behind it. */}
               <div className="overview-rise grid gap-2 px-1" data-dashboard-hero>
-                <p className="font-display text-[3.4rem] leading-none font-semibold tracking-tight tabular-nums sm:text-[5.5rem]">
+                <p className="font-bold tracking-[-0.02em] text-[3.4rem] leading-none tabular-nums sm:text-[5.5rem]">
                   <span className="overview-mark">{state === "ready" && totals ? groupDigits(totals.words) : "…"}</span>
                 </p>
                 <p className="max-w-md text-[0.95rem] leading-7 text-muted sm:text-base">
@@ -268,7 +268,7 @@ export function DashboardScreen() {
                       data-dash-value={shown ? n : undefined}
                       aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
                     >
-                      <p className="font-display text-[1.6rem] leading-tight font-semibold tabular-nums sm:text-[1.9rem]" aria-hidden>
+                      <p className="font-bold tracking-[-0.02em] text-[1.6rem] leading-tight tabular-nums sm:text-[1.9rem]" aria-hidden>
                         {shown ? groupDigits(n) : "…"}
                       </p>
                       <p className="text-xs text-muted sm:text-sm" aria-hidden>
@@ -293,7 +293,7 @@ export function DashboardScreen() {
               <p className="overview-rise max-w-prose px-1 text-[0.95rem] leading-7 text-muted">{t("dashboard.supportersIntro")}</p>
               {names !== null && names.length > 0 ? (
                 <div className="grid gap-5">
-                  <p className="overview-rise px-1 font-display text-xl" data-supporter-count>
+                  <p className="overview-rise px-1 font-bold tracking-[-0.02em] text-xl" data-supporter-count>
                     <span className="overview-mark">{trn("count.supporter", names.length)}</span>
                   </p>
                   {/* No card around each person: a dense wall, so a long list of supporters stays short. */}
@@ -312,7 +312,7 @@ export function DashboardScreen() {
                   </ul>
                 </div>
               ) : names !== null ? (
-                <p className="px-1 py-10 text-center font-display text-lg text-muted">{t("dashboard.supportersEmpty")}</p>
+                <p className="px-1 py-10 text-center font-bold tracking-[-0.02em] text-lg text-muted">{t("dashboard.supportersEmpty")}</p>
               ) : null}
             </section>
           )}

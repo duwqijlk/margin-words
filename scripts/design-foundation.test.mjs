@@ -30,9 +30,11 @@ test("four reading themes, each with every colour and a matching -rgb twin", () 
   assert.doesNotMatch(css, /backdrop-filter/, "no frosted glass anywhere");
 });
 
-test("the brand green is the same on paper and sepia, and the theme picker offers e-ink", () => {
-  const accent = (selector) => block(selector).match(/--accent: (#[0-9a-f]{6});/)[1];
-  assert.equal(accent('[data-theme="light"]'), accent('[data-theme="sepia"]'));
+test("paper is pure white with a fresh brand green, and the theme picker offers e-ink", () => {
+  const token = (selector, name) => block(selector).match(new RegExp(`--${name}: (#[0-9a-f]{6});`))[1];
+  assert.equal(token('[data-theme="light"]', "paper"), "#ffffff");
+  assert.equal(token('[data-theme="light"]', "accent"), "#17804f");
+  assert.equal(token('[data-theme="eink"]', "accent"), "#000000");
   assert.match(read("src/components/reader-settings.tsx"), /value: "eink"/);
   assert.match(read("src/components/get-books.tsx"), /value: "eink" as const/);
 });
@@ -46,9 +48,9 @@ test("a reader who had the Clear theme reads on paper, also from an older device
   assert.doesNotMatch(prefs, /t==="clear"/);
 });
 
-test("three radii, and buttons, fields and chips are not pills", () => {
+test("radii 2 / 10 / 16 and 6 for covers, and buttons, fields and chips are not pills", () => {
   const config = read("tailwind.config.js");
-  for (const [key, value] of [["sm", "2px"], ["DEFAULT", "4px"], ["md", "4px"], ["lg", "4px"], ["xl", "4px"], ['"2xl"', "8px"], ['"3xl"', "8px"], ["card", "1.25rem"], ["sheet", "1.5rem"]]) {
+  for (const [key, value] of [["sm", "2px"], ["DEFAULT", "10px"], ["md", "10px"], ["lg", "10px"], ["xl", "10px"], ['"2xl"', "16px"], ['"3xl"', "16px"], ["cover", "6px"], ["card", "1.25rem"], ["sheet", "1.5rem"]]) {
     assert.match(config, new RegExp(`${key}: "${value.replace(".", "\\.")}"`), `${key} is ${value}`);
   }
   const ui = read("src/components/ui.tsx");
@@ -58,7 +60,7 @@ test("three radii, and buttons, fields and chips are not pills", () => {
   assert.match(presets, /border border-edge/, "secondary buttons and fields have an edge border");
 });
 
-test("floating layers share one look: paper, 8px, the lift shadow, a 32% overlay", () => {
+test("floating layers share one look: paper, 16px, the lift shadow, a 32% overlay", () => {
   const files = ["account-dialog", "own-epub-dialog", "shelf-book-info", "sponsor-dialog", "step-dialog", "share-dialog", "qq-dialog"];
   for (const name of files) {
     const body = read(`src/components/${name}.tsx`);
@@ -84,4 +86,19 @@ test("the interface font and the self-hosted Chinese serif are wired in", () => 
 test("one icon stroke, and nothing moves on e-ink", () => {
   assert.match(css, /\.lucide \{\s*stroke-width: 1\.5;/);
   assert.match(css, /\[data-theme="eink"\] \*,[\s\S]{0,80}animation: none !important;\s*transition: none !important;/);
+});
+
+test("interface titles and numbers use the bold interface font; the book's own words stay in Literata", () => {
+  // Dialog and page titles: the interface face, bold, -0.02em.
+  for (const [file, text] of [["get-books", '{t("settings.title")}'], ["step-dialog", 'data("heading") : {})}>'], ["shelf-book-info", '{t("shelf.info")}']]) {
+    const body = read(`src/components/${file}.tsx`);
+    const at = body.indexOf(text);
+    const line = body.slice(body.lastIndexOf("\n", body.lastIndexOf("className", at)), at);
+    assert.match(line, /font-bold tracking-\[-0\.02em\]/, `${file}: ${text}`);
+    assert.doesNotMatch(line, /font-display/, `${file}: ${text}`);
+  }
+  // Book titles and headwords keep Literata.
+  assert.match(read("src/components/word-card.tsx"), /font-display text-\[1\.85rem\] leading-tight font-bold/);
+  assert.match(read("src/components/shelf-book-info.tsx"), /font-display text-lg leading-snug font-semibold" lang="en"/);
+  assert.match(read("src/components/book-cover.tsx"), /rounded-cover/);
 });

@@ -684,7 +684,7 @@ export function AccountDialog() {
           data-account-dialog
         >
           <div className="flex items-start justify-between gap-3">
-            <Dialog.Title className="font-display text-2xl font-semibold">
+            <Dialog.Title className="font-bold tracking-[-0.02em] text-2xl">
               {mode === "reset"
                 ? t("account.resetTitle")
                 : mode === "forgot"

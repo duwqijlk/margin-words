@@ -30,7 +30,7 @@ export function ReadingOverviewPanel() {
       <dl className="mt-2 grid grid-cols-3 gap-2">
         {facts.map((fact, index) => (
           <div key={fact.label} className="grid gap-0.5" data-overview-part={index}>
-            <dd className="font-display text-xl font-semibold tabular-nums text-ink">{fact.value}</dd>
+            <dd className="font-bold tracking-[-0.02em] text-xl tabular-nums text-ink">{fact.value}</dd>
             <dt className="order-first text-xs text-muted">{fact.label}</dt>
           </div>
         ))}

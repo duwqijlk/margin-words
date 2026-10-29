@@ -38,7 +38,7 @@ export function SettingsDialog({
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 max-h-[90dvh] w-[min(30rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift sm:p-6">
           <div className="flex items-start justify-between gap-3">
-            <Dialog.Title className="font-display text-2xl font-semibold">
+            <Dialog.Title className="font-bold tracking-[-0.02em] text-2xl">
               {t("settings.title")}
             </Dialog.Title>
             <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>

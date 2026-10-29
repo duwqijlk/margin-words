@@ -263,7 +263,7 @@ export function Notebook({
     <div className="mx-auto grid w-full max-w-3xl grid-cols-[minmax(0,1fr)] gap-6 px-4 py-6 sm:px-6 sm:py-10">
       <header className="grid gap-3 sm:flex sm:flex-wrap sm:items-end sm:justify-between">
         <div className="grid gap-1">
-          <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("nb.title")}</h1>
+          <h1 className="font-bold tracking-[-0.02em] text-3xl sm:text-4xl">{t("nb.title")}</h1>
           <p className="text-sm text-muted">
             {activeBook ? (
               <>
@@ -311,7 +311,7 @@ export function Notebook({
           <span className="flex size-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
             <BookMarked className="size-7" aria-hidden />
           </span>
-          <h2 className="font-display text-xl font-semibold">{t("nb.emptyTitle")}</h2>
+          <h2 className="font-bold tracking-[-0.02em] text-xl">{t("nb.emptyTitle")}</h2>
           <p className="max-w-sm text-muted">{t("nb.emptyBody")}</p>
           {activeBook?.source === "epub" ? (
             <button type="button" className={btn.primary} onClick={() => onOpenBook(activeBook.id)}>

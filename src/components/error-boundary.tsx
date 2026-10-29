@@ -30,7 +30,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (!this.state.failed) return this.props.children;
     return (
       <div className="grid min-h-dvh place-content-center gap-3 bg-paper px-6 text-center text-ink">
-        <h1 className="font-display text-xl font-semibold">{tr("error.title")}</h1>
+        <h1 className="font-bold tracking-[-0.02em] text-xl">{tr("error.title")}</h1>
         <p className="mx-auto max-w-sm text-[0.95rem] leading-relaxed text-muted">{tr("error.body")}</p>
         <button
           type="button"

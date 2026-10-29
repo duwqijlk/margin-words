@@ -15,9 +15,9 @@ import {
 import { btn, cn, Segmented } from "@/components/ui";
 
 const THEMES: Array<{ value: Theme; label: Key; bg: string; fg: string }> = [
-  { value: "light", label: "rs.theme.light", bg: "#faf8f3", fg: "#1b1a17" },
+  { value: "light", label: "rs.theme.light", bg: "#ffffff", fg: "#111513" },
   { value: "sepia", label: "rs.theme.sepia", bg: "#f4ecdc", fg: "#2c2318" },
-  { value: "dark", label: "rs.theme.dark", bg: "#121412", fg: "#e7e4dc" },
+  { value: "dark", label: "rs.theme.dark", bg: "#0f1211", fg: "#eef2f0" },
   { value: "eink", label: "rs.theme.eink", bg: "#ffffff", fg: "#000000" },
 ];
 

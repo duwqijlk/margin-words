@@ -115,38 +115,38 @@
 /*
  * Theme tokens, from the design system "Keep reading". Four reading themes restyle the whole
  * app: paper (the default, data-theme="light"), sepia, dark and e-ink.
- * Only paper and ink change between themes; the brand green stays (lighter at night, black on
- * e-ink). App names → design names: muted = ink-2, faint = ink-3, line = rule, accent = brand,
+ * Only paper and ink change between themes; the brand green stays (a little deeper on sepia,
+ * lighter at night, black on e-ink). Paper is pure white; only sepia keeps a warm page. App names → design names: muted = ink-2, faint = ink-3, line = rule, accent = brand,
  * accent-ink = brand-ink, accent-soft = brand-tint, warn-soft = warn-tint. `card` is for the word
  * card; `sheet` is the layer laid on the page. Each colour has an -rgb twin for Tailwind opacity.
  */
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --paper: #faf8f3;
-  --paper-rgb: 250 248 243;
-  --sheet: #f2eee5;
-  --sheet-rgb: 242 238 229;
+  --paper: #ffffff;
+  --paper-rgb: 255 255 255;
+  --sheet: #f3f5f4;
+  --sheet-rgb: 243 245 244;
   --card: #ffffff;
   --card-rgb: 255 255 255;
-  --ink: #1b1a17;
-  --ink-rgb: 27 26 23;
-  --muted: #5c574d;
-  --muted-rgb: 92 87 77;
-  --faint: #6c665a;
-  --faint-rgb: 108 102 90;
-  --line: #ddd7ca;
-  --line-rgb: 221 215 202;
-  --edge: #8f887a;
-  --edge-rgb: 143 136 122;
-  --accent: #1e4a3a;
-  --accent-rgb: 30 74 58;
+  --ink: #111513;
+  --ink-rgb: 17 21 19;
+  --muted: #4a524e;
+  --muted-rgb: 74 82 78;
+  --faint: #6b726e;
+  --faint-rgb: 107 114 110;
+  --line: #e5e8e6;
+  --line-rgb: 229 232 230;
+  --edge: #c9cfcc;
+  --edge-rgb: 201 207 204;
+  --accent: #17804f;
+  --accent-rgb: 23 128 79;
   --accent-ink: #ffffff;
   --accent-ink-rgb: 255 255 255;
-  --accent-soft: #e2ebe5;
-  --accent-soft-rgb: 226 235 229;
-  --mark: #f6d54e;
-  --mark-rgb: 246 213 78;
+  --accent-soft: #e2f3e9;
+  --accent-soft-rgb: 226 243 233;
+  --mark: #ffe14d;
+  --mark-rgb: 255 225 77;
   --warn: #b42318;
   --warn-rgb: 180 35 24;
   --warn-soft: #fbe8e5;
@@ -170,8 +170,8 @@
   --line-rgb: 216 202 176;
   --edge: #8c7b60;
   --edge-rgb: 140 123 96;
-  --accent: #1e4a3a;
-  --accent-rgb: 30 74 58;
+  --accent: #146f45;
+  --accent-rgb: 20 111 69;
   --accent-ink: #ffffff;
   --accent-ink-rgb: 255 255 255;
   --accent-soft: #dde3d0;
@@ -184,28 +184,28 @@
   --warn-soft-rgb: 243 220 207;
 }
 [data-theme="dark"] {
-  --paper: #121412;
-  --paper-rgb: 18 20 18;
-  --sheet: #1b1e1b;
-  --sheet-rgb: 27 30 27;
-  --card: #1d2025;
-  --card-rgb: 29 32 37;
-  --ink: #e7e4dc;
-  --ink-rgb: 231 228 220;
-  --muted: #a6a298;
-  --muted-rgb: 166 162 152;
-  --faint: #8d897f;
-  --faint-rgb: 141 137 127;
-  --line: #2f332f;
-  --line-rgb: 47 51 47;
-  --edge: #6b716b;
-  --edge-rgb: 107 113 107;
-  --accent: #86c9aa;
-  --accent-rgb: 134 201 170;
-  --accent-ink: #0b1d15;
-  --accent-ink-rgb: 11 29 21;
-  --accent-soft: #1d3329;
-  --accent-soft-rgb: 29 51 41;
+  --paper: #0f1211;
+  --paper-rgb: 15 18 17;
+  --sheet: #181c1a;
+  --sheet-rgb: 24 28 26;
+  --card: #1c211f;
+  --card-rgb: 28 33 31;
+  --ink: #eef2f0;
+  --ink-rgb: 238 242 240;
+  --muted: #b2bab6;
+  --muted-rgb: 178 186 182;
+  --faint: #8a938f;
+  --faint-rgb: 138 147 143;
+  --line: #29302d;
+  --line-rgb: 41 48 45;
+  --edge: #3d4541;
+  --edge-rgb: 61 69 65;
+  --accent: #4cc98b;
+  --accent-rgb: 76 201 139;
+  --accent-ink: #06140d;
+  --accent-ink-rgb: 6 20 13;
+  --accent-soft: #15301f;
+  --accent-soft-rgb: 21 48 31;
   --mark: #6e5c1a;
   --mark-rgb: 110 92 26;
   --warn: #f28b7c;

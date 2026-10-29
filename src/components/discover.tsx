@@ -765,7 +765,7 @@ export function DiscoverScreen({
                 onSeeAll={rail.all.length > rail.rows.length ? () => openCollection(rail.id) : undefined}
               />
             ))}
-            <h2 className="pt-2 font-display text-[1.15rem] leading-tight font-semibold sm:text-[1.3rem]" data-discover-all>
+            <h2 className="pt-2 font-bold tracking-[-0.02em] text-[1.15rem] leading-tight sm:text-[1.3rem]" data-discover-all>
               {t("browse.all")}
             </h2>
           </>
@@ -783,7 +783,7 @@ export function DiscoverScreen({
               </button>
             ) : null}
             <h2
-              className="min-w-0 truncate font-display text-[1.15rem] font-semibold sm:text-[1.3rem]"
+              className="min-w-0 truncate font-bold tracking-[-0.02em] text-[1.15rem] sm:text-[1.3rem]"
               lang={collection.startsWith("series:") || collection.startsWith("curated:") ? "en" : undefined}
             >
               {collection ? railTitle(collection) : t("browse.results")}
@@ -819,7 +819,7 @@ export function DiscoverScreen({
           <div className="grid gap-8">
             {visibleGroups.map((group) => (
               <div key={group.key} className="grid gap-4" data-series-group={group.key}>
-                <h2 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
+                <h2 className="font-bold tracking-[-0.02em] text-lg" lang={group.title ? "en" : undefined}>
                   {group.title || t("shelf.series.none")}
                 </h2>
                 <ul className={discoverGrid}>{group.rows.map(renderCard)}</ul>

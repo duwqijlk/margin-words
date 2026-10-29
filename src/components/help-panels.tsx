@@ -264,7 +264,7 @@ export function ParagraphPanel({
       ) : null}
       <div className="grid gap-4">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="flex min-w-0 items-center gap-2 font-display text-lg leading-tight font-semibold">
+          <h2 className="flex min-w-0 items-center gap-2 font-bold tracking-[-0.02em] text-lg leading-tight">
             <span className="text-accent" aria-hidden>
               ✦
             </span>

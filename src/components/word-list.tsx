@@ -41,7 +41,7 @@ function Frame({
         <Dialog.Content className={panel}>
           <div className="flex items-start justify-between gap-3 border-b border-line px-5 pt-4 pb-3">
             <div className="grid gap-0.5">
-              <Dialog.Title className="font-display text-xl font-semibold">{title}</Dialog.Title>
+              <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">{title}</Dialog.Title>
               <Dialog.Description className="text-sm text-muted">{description}</Dialog.Description>
             </div>
             <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>

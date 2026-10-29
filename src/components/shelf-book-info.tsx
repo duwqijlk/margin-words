@@ -46,7 +46,7 @@ export function ShelfBookInfo({
           data-shelf-book-info=""
         >
           <div className="flex items-start justify-between gap-3">
-            <Dialog.Title className="font-display text-xl font-semibold">{t("shelf.info")}</Dialog.Title>
+            <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">{t("shelf.info")}</Dialog.Title>
             <Dialog.Close type="button" className={btn.quiet}>{t("common.close")}</Dialog.Close>
           </div>
           <Dialog.Description className="mt-1 text-xs leading-relaxed text-muted">

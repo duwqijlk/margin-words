@@ -11,18 +11,21 @@ from 2026-10-29): it changes how things look, not where they are. Being rolled o
 (foundation) is in. Its rules, in the code:
 - Four reading themes on `<html data-theme>`: `light` (paper, default), `sepia`, `dark`, `eink`. The Clear
   theme was retired and reads as `light` (prefs merge, boot script, `asSettings`). Only paper and ink change
-  between themes; the brand green (`accent`) is the same on paper and sepia, lighter at night, black on e-ink.
+  between themes. Paper is pure white (only sepia keeps a warm page); the brand green (`accent`, #17804f on
+  paper) is a little deeper on sepia, lighter at night, black on e-ink.
 - Token names in the app vs the design: `muted` = ink-2 (secondary text), `faint` = ink-3 (meta only),
   `line` = rule (hairlines), `edge` (control borders, 3:1), `sheet` (the layer laid on the page), `card`
   (the word card), `accent` = brand, `accent-soft` = brand-tint, `mark` = saved / understood (never a
   selection colour), `warn` only for what needs the reader.
-- Radii: `rounded-sm` 2px (marks on text), `rounded`/`md`/`lg`/`xl` 4px (buttons, fields, covers, chips,
-  notices), `rounded-2xl`/`3xl` 8px (dialogs, popovers), `rounded-card` / `rounded-t-sheet` for the word
-  card only. No pills: `rounded-full` is for dots, switches, avatars and the spinner.
+- Radii: `rounded-sm` 2px (marks on text), `rounded`/`md`/`lg`/`xl` 10px (buttons, fields, chips, notices),
+  `rounded-2xl`/`3xl` 16px (cards, dialogs, popovers), `rounded-cover` 6px (book covers), `rounded-card` /
+  `rounded-t-sheet` for the word card only. No pills: `rounded-full` is for dots, switches, avatars and the spinner.
 - Floating layers (dialogs, popovers, drawers): `bg-paper`, `rounded-2xl`, 1px `border-line`, `shadow-lift`,
-  overlay `bg-black/[0.32]`. The word card keeps `shadow-pop`. No frosted glass anywhere.
-- Fonts: interface Atkinson Hyperlegible (400/700; `font-medium` renders 400, `font-semibold` 700), book
-  voice Literata with a self-hosted Noto Serif SC subset for Chinese titles (`src/fonts-zh-serif.css`, made by
+  overlay `bg-black/[0.32]`. The word card has its own soft, wide `shadow-pop`. No frosted glass anywhere.
+- Fonts: the book's own words (book titles, text, headwords, meanings, example sentences) are Literata
+  (`font-display`); the interface, including page, section and dialog titles and numbers, is Atkinson
+  Hyperlegible, titles and numbers `font-bold tracking-[-0.02em]` (400/700 only: `font-medium` renders 400,
+  `font-semibold` 700). Literata falls back to a self-hosted Noto Serif SC subset for any Chinese (`src/fonts-zh-serif.css`, made by
   `scripts/subset-zh-serif.py` from the characters in `i18n-zh.ts`; characters added later fall back to the
   system serif until it is run again). Inter stays for IPA only.
 - Icons: Lucide, stroke 1.5 everywhere (`.lucide` in styles.css). Current items turn `accent`, never filled.

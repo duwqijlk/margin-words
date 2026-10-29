@@ -94,7 +94,7 @@ export function StepDialog({
                 className={cn("col-start-1 row-start-1 grid content-start gap-1.5", index !== step && "invisible")}
                 aria-hidden={index !== step}
               >
-                <h2 className="font-display text-xl font-semibold leading-snug" {...(index === step ? data("heading") : {})}>
+                <h2 className="font-bold tracking-[-0.02em] text-xl leading-snug" {...(index === step ? data("heading") : {})}>
                   {item.heading}
                 </h2>
                 <p className="text-sm leading-relaxed text-muted">{item.body}</p>

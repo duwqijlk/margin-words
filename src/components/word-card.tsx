@@ -302,7 +302,7 @@ export function WordCard({
         >
           <div className="min-w-0" data-word-title>
             <h2
-              className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words text-ink"
+              className="min-w-0 font-display text-[1.85rem] leading-tight font-bold tracking-tight break-words text-ink"
               lang="en"
             >
               {target}

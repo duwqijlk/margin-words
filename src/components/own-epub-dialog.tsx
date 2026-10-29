@@ -169,7 +169,7 @@ function OwnEpubSession({ bookId, onClose, onSaved }: Props & { bookId: string }
           onEscapeKeyDown={(event) => { if (saving) event.preventDefault(); }}
           onInteractOutside={(event) => { if (saving) event.preventDefault(); }}
         >
-          <Dialog.Title className="font-display text-xl font-semibold">{t("discover.promptTitle")}</Dialog.Title>
+          <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">{t("discover.promptTitle")}</Dialog.Title>
           <Dialog.Description
             className={cn("mt-3 text-sm", low ? "text-warn" : "text-ink")}
             data-match-rate={pending ? pending.match.kind === "none" ? "none" : pending.percent : undefined}

@@ -108,7 +108,7 @@ export function ContributorsPanel({
     <section className="grid gap-9" aria-label={t("dashboard.rankTitle")} data-contributor-rank>
       {people.length > 0 ? (
         <div className="overview-rise grid gap-2 px-1" data-rank-hero>
-          <p className="font-display text-[3.4rem] leading-none font-semibold tracking-tight tabular-nums sm:text-[5rem]">
+          <p className="font-bold tracking-[-0.02em] text-[3.4rem] leading-none tabular-nums sm:text-[5rem]">
             <span className="overview-mark" aria-hidden>{groupDigits(counted)}</span>
             <span className="sr-only">{groupDigits(total)}</span>
           </p>
@@ -117,7 +117,7 @@ export function ContributorsPanel({
           </p>
         </div>
       ) : (
-        <p className="overview-rise px-1 pt-4 font-display text-2xl leading-snug sm:text-3xl" data-rank-empty>
+        <p className="overview-rise px-1 pt-4 font-bold tracking-[-0.02em] text-2xl leading-snug sm:text-3xl" data-rank-empty>
           {t("dashboard.rankEmpty")}
         </p>
       )}
@@ -155,7 +155,7 @@ export function ContributorsPanel({
               >
                 <span
                   className={cn(
-                    "text-right font-display tabular-nums leading-none",
+                    "text-right font-bold tracking-[-0.02em] tabular-nums leading-none",
                     first ? "text-2xl font-semibold sm:text-3xl" : "text-lg text-muted sm:text-xl",
                   )}
                 >
@@ -272,7 +272,7 @@ function HowToHelp({ delay }: { delay: number }) {
         </div>
       </div>
       <figcaption className="grid gap-3">
-        <p className="font-display text-xl leading-snug">{t("dashboard.howTitle")}</p>
+        <p className="font-bold tracking-[-0.02em] text-xl leading-snug">{t("dashboard.howTitle")}</p>
         <ol className="grid gap-2 text-sm leading-6 text-muted">
           {(["dashboard.howStep1", "dashboard.howStep2", "dashboard.howStep3"] as const).map((key, index) => (
             <li key={key} className="flex gap-2.5">

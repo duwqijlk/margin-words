@@ -183,7 +183,7 @@ function RenameDialog({ book, onClose }: { book: Book | null; onClose: () => voi
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift ">
-          <Dialog.Title className="font-display text-xl font-semibold">
+          <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">
             {t("rename.title")}
           </Dialog.Title>
           <Dialog.Description className="sr-only">{t("rename.desc")}</Dialog.Description>
@@ -899,7 +899,7 @@ export function Shelf({
           <section className="grid gap-4" aria-label={t("shelf.all")}>
             <div className="grid gap-3">
               {hero && !q && !filtering ? (
-                <h2 className="hidden font-display text-xl font-semibold sm:block">{t("shelf.all")}</h2>
+                <h2 className="hidden font-bold tracking-[-0.02em] text-xl sm:block">{t("shelf.all")}</h2>
               ) : null}
               {liveBooks.length >= 2 ? (
                 <div className="flex items-center gap-2">
@@ -966,7 +966,7 @@ export function Shelf({
                 <div className="grid gap-8">
                   {groups.map((group) => (
                     <div key={group.key} className="grid gap-4" data-series-group={group.key}>
-                      <h3 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
+                      <h3 className="font-bold tracking-[-0.02em] text-lg" lang={group.title ? "en" : undefined}>
                         {group.title || t("shelf.series.none")}
                       </h3>
                       <ul className={bookCardGrid}>

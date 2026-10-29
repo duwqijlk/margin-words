@@ -170,7 +170,7 @@ export function BookCover({
     <span
       ref={frame}
       className={cn(
-        "cover-frame relative block aspect-cover w-full shrink-0 overflow-hidden rounded-md bg-line shadow-cover ring-1 ring-ink/10 transition-[transform,box-shadow] duration-200 [container-type:inline-size]",
+        "cover-frame relative block aspect-cover w-full shrink-0 overflow-hidden rounded-cover bg-line shadow-cover ring-1 ring-ink/10 transition-[transform,box-shadow] duration-200 [container-type:inline-size]",
         className,
       )}
       {...(showGenerated ? { "data-generated-cover": "" } : {})}

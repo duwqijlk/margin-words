@@ -183,7 +183,7 @@ function Overview({
         {t("nav.notebook")}
       </button>
       <header className="grid gap-1">
-        <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("rv.title")}</h1>
+        <h1 className="font-bold tracking-[-0.02em] text-3xl sm:text-4xl">{t("rv.title")}</h1>
         <p className="text-sm text-muted" lang="en">
           {title}
         </p>
@@ -300,7 +300,7 @@ function Summary({
         <PartyPopper className="size-8" aria-hidden />
       </span>
       <div className="grid gap-1">
-        <h1 className="font-display text-3xl font-semibold">{t("rv.roundDone")}</h1>
+        <h1 className="font-bold tracking-[-0.02em] text-3xl">{t("rv.roundDone")}</h1>
         <p className="text-muted">
           {t("rv.summary", {
             words: tn("count.word", answers.length),

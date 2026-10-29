@@ -156,7 +156,7 @@ export function BookRail({
     <section className="grid min-w-0 gap-3" aria-label={title} data-discover-rail={rail}>
       <div className="flex items-end justify-between gap-3">
         <h2
-          className="font-display text-[1.15rem] leading-tight font-semibold sm:text-[1.3rem]"
+          className="font-bold tracking-[-0.02em] text-[1.15rem] leading-tight sm:text-[1.3rem]"
           lang={rail.startsWith("series:") || rail.startsWith("curated:") ? "en" : undefined}
         >
           {title}
@@ -469,7 +469,7 @@ export function BookDetail({
                     <dt className="text-xs text-muted">
                       {fact.label}
                     </dt>
-                    <dd className="font-display text-lg font-semibold tabular-nums text-ink">
+                    <dd className="font-bold tracking-[-0.02em] text-lg tabular-nums text-ink">
                       {fact.value}
                     </dd>
                   </div>

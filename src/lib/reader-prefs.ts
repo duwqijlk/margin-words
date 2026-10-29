@@ -146,7 +146,7 @@ export function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   const meta = document.querySelector('meta[name="theme-color"]');
   const color =
-    theme === "dark" ? "#121412" : theme === "sepia" ? "#f4ecdc" : theme === "eink" ? "#ffffff" : "#faf8f3";
+    theme === "dark" ? "#0f1211" : theme === "sepia" ? "#f4ecdc" : "#ffffff";
   meta?.setAttribute("content", color);
 }
 
