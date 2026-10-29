@@ -444,12 +444,13 @@ export function WordCard({
         </div>
       </div>
       <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
-        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2">
-          <span className="text-xs text-muted">
+        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2" data-feedback-row>
+          <span className="text-xs whitespace-nowrap text-muted">
             {t("card.lookTitle")}
           </span>
           {/* A word with no meaning here can still be reported, as a missing meaning. The
-              reader's own meaning opens below this row, the full width of the card. */}
+              feedback choices and the reader's own meaning open below this row, the full width
+              of the card (word-feedback.tsx). */}
           <WordExplanationFeedback
             key={`${bookId}:${selectionId}:${targetMode}:${target}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
             bookId={bookId}
@@ -468,8 +469,11 @@ export function WordCard({
             glossaryRev={state.glossaryRev}
             missing={!activePhrase && state.status === "unknown"}
           />
+          {/* The dictionaries stay right under their label; the feedback box opens below them. */}
+          <div className="order-2 basis-full">
+            <LookupLinks word={target} />
+          </div>
         </div>
-        <LookupLinks word={target} />
       </div>
     </FloatingAside>
   );

@@ -35,3 +35,32 @@ test("a touch on the selection card or its ask button cannot scroll the article"
   assert.match(css, /\[data-passage-ui\],\s*\[data-passage-card\] \{\s*touch-action: none;/);
   assert.match(css, /\[data-passage-card\] textarea \{\s*touch-action: pan-y;/);
 });
+
+// The pan guard (src/lib/sheet-pan.ts, src/components/floating-card.tsx). iOS Safari and the
+// WeChat / QQ browsers do not fully honour touch-action, so CSS alone let a swipe on the sheet
+// scroll the article. Every move nothing in the sheet can scroll is cancelled in code.
+import { panConsumed } from "../src/lib/sheet-pan.ts";
+
+const box = (scrollTop, scrollHeight, clientHeight = 200, scrolls = true) => ({ scrolls, scrollTop, scrollHeight, clientHeight });
+
+test("a swipe nothing in the sheet can scroll is not handed to the page", () => {
+  assert.equal(panConsumed([], -20), false, "a plain part of the sheet");
+  assert.equal(panConsumed([box(0, 200)], -20), false, "a box that does not overflow");
+  assert.equal(panConsumed([box(0, 600, 200, false)], -20), false, "overflow that is not a scroller");
+  assert.equal(panConsumed([box(400, 600)], -20), false, "a box already at its end, finger moving up");
+  assert.equal(panConsumed([box(0, 600)], 20), false, "a box already at its top, finger moving down");
+});
+
+test("a swipe a box inside the sheet can scroll keeps native scrolling", () => {
+  assert.equal(panConsumed([box(0, 600)], -20), true, "content below: the finger moves up");
+  assert.equal(panConsumed([box(120, 600)], 20), true, "content above: the finger moves down");
+  assert.equal(panConsumed([box(0, 200), box(50, 900)], 20), true, "an outer scroller can take it");
+  assert.equal(panConsumed([box(0, 200)], 0), true, "no vertical move");
+});
+
+test("the sheet wires the guard on a non-passive touchmove and contains overscroll", () => {
+  const card = readFileSync(new URL("../src/components/floating-card.tsx", import.meta.url), "utf8");
+  assert.match(card, /addEventListener\("touchmove", onTouchMove, \{ passive: false \}\)/);
+  assert.match(card, /if \(!panConsumed\(panBoxes\(guardFrom, el\), dy\)\) event\.preventDefault\(\);/);
+  assert.match(phone, /\[data-word-card\] \{\s*touch-action: none;[^}]*overscroll-behavior: contain;/);
+});

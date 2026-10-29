@@ -7,6 +7,7 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
+import { panConsumed, type PanBox } from "@/lib/sheet-pan";
 import { anchorBox, anchorOffscreen, placeFloatingPanel } from "@/lib/floating-panel";
 import { cn } from "@/components/ui";
 
@@ -219,6 +220,24 @@ export function phoneSheet(): boolean {
  * A gesture that starts scrolled belongs to the content until the finger lifts.
  * Touch and mouse are handled apart, so a phone tap is not also read as a mouse drag.
  */
+/** The boxes from `node` up to `root`, for panConsumed. */
+function panBoxes(node: Element | null, root: HTMLElement): PanBox[] {
+  const boxes: PanBox[] = [];
+  let at: Element | null = node;
+  while (at && root.contains(at)) {
+    const style = window.getComputedStyle(at);
+    boxes.push({
+      scrolls: /(auto|scroll)/.test(style.overflowY) || at instanceof HTMLTextAreaElement,
+      scrollTop: at.scrollTop,
+      scrollHeight: at.scrollHeight,
+      clientHeight: at.clientHeight,
+    });
+    if (at === root) break;
+    at = at.parentElement;
+  }
+  return boxes;
+}
+
 function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: () => void) {
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -339,6 +358,10 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         el.style.transition = "transform 0.18s ease-out";
         el.style.transform = "";
       };
+      // The pan guard: every move over the sheet that nothing inside it can scroll is cancelled,
+      // whatever the gesture is (a pull, a swipe on a button, a box that reached its end).
+      let guardY = 0;
+      let guardFrom: Element | null = null;
       const onTouchStart = (event: TouchEvent) => {
         if (event.touches.length !== 1) {
           cancel();
@@ -347,16 +370,23 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         const touch = event.touches[0];
         if (!touch) return;
         ignoreMouseUntil = Date.now() + 700;
+        guardY = touch.clientY;
+        guardFrom = event.target instanceof Element ? event.target : null;
         begin(touch.clientX, touch.clientY, event.target);
       };
       const onTouchMove = (event: TouchEvent) => {
-        if (event.touches.length !== 1) {
+        const touch = event.touches[0];
+        if (event.touches.length !== 1 || !touch) {
+          // Two fingers on the sheet: never zoom or move the page behind it either.
+          if (event.cancelable) event.preventDefault();
           cancel();
           return;
         }
-        const touch = event.touches[0];
-        if (!touch) return;
         move(touch.clientX, touch.clientY, event);
+        const dy = touch.clientY - guardY;
+        guardY = touch.clientY;
+        if (event.defaultPrevented || !event.cancelable) return;
+        if (!panConsumed(panBoxes(guardFrom, el), dy)) event.preventDefault();
       };
       const onClick = (event: MouseEvent) => {
         if (!suppressClick) return;

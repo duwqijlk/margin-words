@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { SUGGESTION_MAX } from "@/lib/limits";
 import { cn } from "@/components/ui";
-import { Check, HelpCircle } from "lucide-react";
+import { Check, HelpCircle, PenLine } from "lucide-react";
 
 export type FeedbackReason = "too_hard" | "wrong_meaning" | "missing_meaning" | "suggested";
 
@@ -59,7 +59,7 @@ export function WordExplanationFeedback({
     writing ? setPicked((now) => (now === reason && !missing ? null : reason)) : void sendFeedback(reason);
   const reasonClass = (reason: FeedbackReason) =>
     cn(
-      "inline-flex items-center rounded-lg border px-2 py-1 text-xs font-medium transition-colors active:scale-95 disabled:opacity-50",
+      "inline-flex min-h-9 items-center rounded-lg border px-3 text-sm font-medium transition-colors active:scale-95 disabled:opacity-50",
       writing && picked === reason
         ? "border-accent bg-accent text-accent-ink"
         : "border-line/60 bg-card text-ink/80 hover:border-line hover:bg-paper hover:text-ink",
@@ -118,129 +118,133 @@ export function WordExplanationFeedback({
     );
   }
 
+  // The toggle sits at the end of the footer row. Opened, the choices take a box of their own on
+  // the next line, the full width of the card: chips on one line, "Add my meaning" as one full-width
+  // button under them, and the meaning box in the same place. In English the labels are about twice
+  // as long as in Chinese; squeezed into the row they wrapped one by one and the button floated alone.
   return (
-    <div
-      className={cn(
-        "flex flex-wrap items-center justify-end gap-2 text-xs text-muted",
-        // While the reader writes a meaning, take the whole row so the box is full width.
-        writing && "order-first basis-full justify-start",
-        className,
-      )}
-      data-word-feedback
-    >
+    <>
       <button
         type="button"
         onClick={() => setExpanded((open) => !open)}
-        className="grid size-11 shrink-0 place-items-center rounded-lg text-muted transition-colors hover:bg-paper hover:text-ink md:size-8"
+        className={cn(
+          "grid size-11 shrink-0 place-items-center rounded-lg transition-colors hover:bg-paper hover:text-ink md:size-8",
+          expanded ? "bg-paper text-ink" : "text-muted",
+          className,
+        )}
         aria-label={t("card.feedbackPrompt")}
         title={t("card.feedbackPrompt")}
         aria-expanded={expanded}
         aria-controls={expanded ? optionsId : undefined}
         data-feedback-toggle
+        data-word-feedback
       >
         <HelpCircle className="size-4" aria-hidden />
       </button>
 
       {expanded ? (
-        <div id={optionsId} className="flex flex-wrap items-center gap-2" data-feedback-options>
-          {missing ? (
-            <button
-              type="button"
-              disabled={submitting}
-              onClick={() => choose("missing_meaning")}
-              className={reasonClass("missing_meaning")}
-              aria-pressed={writing ? picked === "missing_meaning" : undefined}
-              title={t("card.feedbackMissing")}
-              data-feedback-missing
-            >
-              {t("card.feedbackMissing")}
-            </button>
+        <div
+          id={optionsId}
+          className="order-3 grid basis-full gap-2.5 rounded-xl bg-paper/70 p-3 ring-1 ring-line/60"
+          data-feedback-options
+        >
+          <p className="text-xs font-medium text-muted">{t("card.feedbackPrompt")}</p>
+          <div className="flex flex-wrap gap-2">
+            {missing ? (
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => choose("missing_meaning")}
+                className={reasonClass("missing_meaning")}
+                aria-pressed={writing ? picked === "missing_meaning" : undefined}
+                data-feedback-missing
+              >
+                {t("card.feedbackMissing")}
+              </button>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  disabled={submitting}
+                  onClick={() => choose("too_hard")}
+                  className={reasonClass("too_hard")}
+                  aria-pressed={writing ? picked === "too_hard" : undefined}
+                  data-feedback-too-hard
+                >
+                  {t("card.feedbackTooHard")}
+                </button>
+                <button
+                  type="button"
+                  disabled={submitting}
+                  onClick={() => choose("wrong_meaning")}
+                  className={reasonClass("wrong_meaning")}
+                  aria-pressed={writing ? picked === "wrong_meaning" : undefined}
+                  data-feedback-wrong
+                >
+                  {t("card.feedbackWrong")}
+                </button>
+              </>
+            )}
+          </div>
+          {writing ? (
+            <div className="grid gap-1" data-feedback-suggestion>
+              <textarea
+                // 16px on phones: iOS Safari zooms the whole page into a smaller field and stays zoomed.
+                className="min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-base text-ink sm:text-sm placeholder:text-muted/60 focus:border-accent focus:outline-none"
+                value={suggestion}
+                maxLength={SUGGESTION_MAX}
+                rows={2}
+                autoFocus
+                placeholder={t("card.feedbackMeaningPlaceholder")}
+                aria-label={t("card.feedbackAddMeaning")}
+                onChange={(event) => setSuggestion(event.target.value.slice(0, SUGGESTION_MAX))}
+                data-feedback-suggestion-input
+              />
+              <p className="flex justify-between gap-2 text-[0.7rem] text-muted">
+                <span>{t(missing ? "card.feedbackMeaningHint" : "card.feedbackMeaningOptional")}</span>
+                <span className="tabular-nums" data-feedback-suggestion-count>
+                  {[...suggestion].length}/{SUGGESTION_MAX}
+                </span>
+              </p>
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  disabled={submitting}
+                  onClick={() => {
+                    setWriting(false);
+                    setSuggestion("");
+                    setPicked(missing ? "missing_meaning" : null);
+                  }}
+                  className="inline-flex min-h-10 items-center rounded-lg px-3 text-sm font-medium text-muted hover:text-ink"
+                  data-feedback-suggestion-cancel
+                >
+                  {t("common.cancel")}
+                </button>
+                <button
+                  type="button"
+                  disabled={!canSend}
+                  onClick={() => void sendFeedback(picked ?? "suggested")}
+                  className="inline-flex min-h-10 items-center rounded-lg bg-accent px-4 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90 disabled:opacity-40"
+                  data-feedback-suggestion-send
+                >
+                  {submitting ? t("account.working") : t("card.feedbackSend")}
+                </button>
+              </div>
+            </div>
           ) : (
-            <>
-              <button
-                type="button"
-                disabled={submitting}
-                onClick={() => choose("too_hard")}
-                className={reasonClass("too_hard")}
-                aria-pressed={writing ? picked === "too_hard" : undefined}
-                title={t("card.feedbackTooHard")}
-                data-feedback-too-hard
-              >
-                {t("card.feedbackTooHard")}
-              </button>
-
-              <button
-                type="button"
-                disabled={submitting}
-                onClick={() => choose("wrong_meaning")}
-                className={reasonClass("wrong_meaning")}
-                aria-pressed={writing ? picked === "wrong_meaning" : undefined}
-                title={t("card.feedbackWrong")}
-                data-feedback-wrong
-              >
-                {t("card.feedbackWrong")}
-              </button>
-            </>
-          )}
-          {writing ? null : (
             <button
               type="button"
               disabled={submitting}
               onClick={() => setWriting(true)}
-              className="inline-flex min-h-8 items-center px-1 text-xs font-medium text-accent hover:underline disabled:opacity-50"
+              className="inline-flex min-h-10 w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-accent/50 px-3 text-sm font-medium text-accent transition-colors hover:bg-accent-soft/50 disabled:opacity-50"
               data-feedback-add-meaning
             >
+              <PenLine className="size-4" aria-hidden />
               {t("card.feedbackAddMeaning")}
             </button>
           )}
         </div>
       ) : null}
-      {expanded && writing ? (
-        <div className="grid basis-full gap-1" data-feedback-suggestion>
-          <textarea
-            // 16px on phones: iOS Safari zooms the whole page into a smaller field and stays zoomed.
-            className="min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-base text-ink sm:text-sm placeholder:text-muted/60 focus:border-accent focus:outline-none"
-            value={suggestion}
-            maxLength={SUGGESTION_MAX}
-            rows={2}
-            autoFocus
-            placeholder={t("card.feedbackMeaningPlaceholder")}
-            aria-label={t("card.feedbackAddMeaning")}
-            onChange={(event) => setSuggestion(event.target.value.slice(0, SUGGESTION_MAX))}
-            data-feedback-suggestion-input
-          />
-          <p className="flex justify-between gap-2 text-[0.7rem] text-muted">
-            <span>{t(missing ? "card.feedbackMeaningHint" : "card.feedbackMeaningOptional")}</span>
-            <span className="tabular-nums" data-feedback-suggestion-count>
-              {[...suggestion].length}/{SUGGESTION_MAX}
-            </span>
-          </p>
-          <div className="flex justify-end gap-2">
-            <button
-              type="button"
-              disabled={submitting}
-              onClick={() => {
-                setWriting(false);
-                setSuggestion("");
-                setPicked(missing ? "missing_meaning" : null);
-              }}
-              className="inline-flex min-h-9 items-center rounded-lg px-3 text-sm font-medium text-muted hover:text-ink"
-              data-feedback-suggestion-cancel
-            >
-              {t("common.cancel")}
-            </button>
-            <button
-              type="button"
-              disabled={!canSend}
-              onClick={() => void sendFeedback(picked ?? "suggested")}
-              className="inline-flex min-h-9 items-center rounded-lg bg-accent px-4 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90 disabled:opacity-40"
-              data-feedback-suggestion-send
-            >
-              {submitting ? t("account.working") : t("card.feedbackSend")}
-            </button>
-          </div>
-        </div>
-      ) : null}
-    </div>
+    </>
   );
 }
