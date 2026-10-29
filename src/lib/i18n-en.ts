@@ -91,7 +91,6 @@ export const en = {
   "tutorial.s5Title": "Start with Magic Tree House",
   "tutorial.s5Body": "Short sentences and fun stories, in a long series you can read one book after another.",
   "tutorial.s5Go": "See Magic Tree House",
-  "tutorial.s5Later": "Look around first",
   "tutorial.tagList": "Word list",
   "tutorial.tagMatched": "Matched",
   "tutorial.tagAdded": "On shelf",
@@ -100,7 +99,7 @@ export const en = {
   "tip.s1Title": "Meaning still too hard? Tell us",
   "tip.s1Body": "Tap the ? button at the bottom of the word card and choose “Too difficult”. You can also add your own meaning in simple English; a good one goes into the word list after review.",
   "tip.s2Title": "A hard word is not marked?",
-  "tip.s2Body": "Every word in the book can be tapped. Tap it, then the ? button, and choose “Meaning missing”. Teachers see it and can add the word to the list.",
+  "tip.s2Body": "Every word in the book can be tapped. Tap it, then the ? button, and choose “Meaning missing” to report it. You can also add the meaning you understand and send it with the report. Teachers see it and add the word to the list.",
   "tip.done": "Start reading",
   "settings.tutorial": "How to use (animated)",
 

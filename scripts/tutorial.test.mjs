@@ -80,3 +80,25 @@ test("the feedback tip is queued when an EPUB is paired, opens over the book, an
   assert.match(tip, /card\.feedbackTooHard/, "uses the card's own button names");
   assert.match(tip, /card\.feedbackMissing/);
 });
+
+test("both dialogs share one frame whose height and buttons do not move from step to step", () => {
+  const frame = read("src/components/step-dialog.tsx");
+  // Every step's text sits in the same grid cell; only the current one is visible.
+  assert.match(frame, /col-start-1 row-start-1 grid content-start gap-1\.5", index !== step && "invisible"/);
+  // One button row on every step: a square Back (kept, invisible, on the first) and one main button.
+  assert.match(frame, /grid-cols-\[2\.75rem_1fr\]/);
+  assert.match(frame, /step === 0 && "invisible"/);
+  for (const file of ["src/components/tutorial-dialog.tsx", "src/components/feedback-tip-dialog.tsx"]) {
+    const body = read(file);
+    assert.match(body, /<StepDialog/, `${file} uses the shared frame`);
+    assert.doesNotMatch(body, /@radix-ui\/react-dialog/, `${file} has no frame of its own`);
+  }
+});
+
+test("the second tip says a missing word can be reported directly or with the reader's own meaning", () => {
+  const en = read("src/lib/i18n-en.ts");
+  const line = en.split("\n").find((item) => item.includes('"tip.s2Body"'));
+  assert.match(line, /Meaning missing/);
+  assert.match(line, /add the meaning you understand/);
+  assert.match(read("src/components/feedback-tip-dialog.tsx"), /ArtFeedbackMissing[\s\S]{0,200}addMine=/);
+});

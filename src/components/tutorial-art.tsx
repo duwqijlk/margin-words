@@ -243,33 +243,49 @@ export function ArtFeedbackHard({ label, tooHard, addMine, thanks }: { label: st
   );
 }
 
-/** Feedback tip, 2: an unmarked word is tapped, and the card offers "meaning missing". */
-export function ArtFeedbackMissing({ label, missing }: { label: string; missing: string }) {
+/**
+ * Feedback tip, 2: an unmarked word is tapped; on its card the ? button offers "meaning missing",
+ * which is pressed, with "add my meaning" under it, as on the real card (word-feedback.tsx).
+ */
+export function ArtFeedbackMissing({ label, missing, addMine, thanks }: { label: string; missing: string; addMine: string; thanks: string }) {
   return (
     <Frame label={label}>
       <rect x="70" y="8" width="180" height="186" rx="18" className="fill-card stroke-line" strokeWidth="2" />
-      <Lines x={86} y={30} widths={[148, 136, 148, 120, 140]} gap={11} />
+      <Lines x={86} y={26} widths={[148, 136, 148, 120]} gap={11} />
       {/* The word is not underlined: nobody marked it. */}
-      <rect x="128" y="51" width="44" height="11" rx="3" className="fill-none stroke-accent tut-pulse" strokeWidth="1.2" strokeDasharray="3 2" />
+      <rect x="128" y="47" width="44" height="11" rx="3" className="fill-none stroke-accent tut-pulse" strokeWidth="1.2" strokeDasharray="3 2" />
       <g className="tut-finger2">
-        <path d="M144 66 q0 -7 5 -7 q5 0 5 7 v13 q7 -2 9 3 q5 -1 7 4 q5 0 5 7 v10 q0 12 -14 15 h-10 q-10 0 -15 -10 l-9 -15 q-2 -5 3 -7 q4 -1 8 4 z" className="fill-amber-100 stroke-ink" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M144 62 q0 -7 5 -7 q5 0 5 7 v13 q7 -2 9 3 q5 -1 7 4 q5 0 5 7 v10 q0 12 -14 15 h-10 q-10 0 -15 -10 l-9 -15 q-2 -5 3 -7 q4 -1 8 4 z" className="fill-amber-100 stroke-ink" strokeWidth="1.5" strokeLinejoin="round" />
       </g>
       <g className="tut-sheet">
-        <path d="M72 120 q0 -14 14 -14 h148 q14 0 14 14 v56 q0 16 -16 16 h-144 q-16 0 -16 -16z" className="fill-paper stroke-line" strokeWidth="1.5" />
-        <rect x="146" y="112" width="28" height="4" rx="2" className="fill-line" />
-        <text x="88" y="138" className="fill-ink" style={{ font: "700 16px Literata, Georgia, serif" }}>
+        <path d="M72 106 q0 -14 14 -14 h148 q14 0 14 14 v72 q0 16 -16 16 h-144 q-16 0 -16 -16z" className="fill-paper stroke-line" strokeWidth="1.5" />
+        <rect x="146" y="98" width="28" height="4" rx="2" className="fill-line" />
+        <text x="88" y="122" className="fill-ink" style={{ font: "700 16px Literata, Georgia, serif" }}>
           harbor
         </text>
-        <rect x="88" y="146" width="120" height="3.5" rx="1.75" className="fill-ink" opacity="0.15" />
-        <circle cx="224" cy="133" r="8" className="fill-card stroke-accent" strokeWidth="1.6" />
-        <text x="224" y="137" textAnchor="middle" className="fill-accent" style={{ font: "700 10px Inter, sans-serif" }}>
+        <circle cx="224" cy="117" r="8" className="fill-card stroke-accent" strokeWidth="1.6" />
+        <text x="224" y="121" textAnchor="middle" className="fill-accent" style={{ font: "700 10px Inter, sans-serif" }}>
           ?
+        </text>
+        <rect x="86" y="134" width="86" height="20" rx="6" className="fill-card stroke-line" strokeWidth="1.2" />
+        <text x="129" y="148" textAnchor="middle" className="fill-ink" style={{ font: "600 9.5px Inter, sans-serif" }}>
+          {missing}
+        </text>
+        <rect x="86" y="160" width="148" height="18" rx="6" className="fill-none stroke-accent" strokeWidth="1.2" strokeDasharray="3 3" />
+        <text x="160" y="172.5" textAnchor="middle" className="fill-accent" style={{ font: "600 9px Inter, sans-serif" }}>
+          {addMine}
         </text>
       </g>
       <g className="tut-late">
-        <rect x="88" y="158" width="86" height="22" rx="7" className="fill-accent" />
-        <text x="131" y="173" textAnchor="middle" className="fill-paper" style={{ font: "600 10px Inter, sans-serif" }}>
+        <rect x="86" y="134" width="86" height="20" rx="6" className="fill-accent" />
+        <text x="129" y="148" textAnchor="middle" className="fill-paper" style={{ font: "600 9.5px Inter, sans-serif" }}>
           {missing}
+        </text>
+      </g>
+      <g className="tut-thanks">
+        <rect x="186" y="176" width="110" height="20" rx="10" className="fill-emerald-600" />
+        <text x="241" y="190" textAnchor="middle" className="fill-white" style={{ font: "600 9px Inter, sans-serif" }}>
+          {thanks}
         </text>
       </g>
       <Owl x={286} y={150} />

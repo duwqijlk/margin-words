@@ -93,7 +93,6 @@ export const zh: Record<Key, string> = {
   "tutorial.s5Title": "推荐从 Magic Tree House 开始",
   "tutorial.s5Body": "句子短、故事有趣，一整套可以一本接一本读下去，很适合刚开始读英文原著。",
   "tutorial.s5Go": "去看 Magic Tree House",
-  "tutorial.s5Later": "先随便逛逛",
   "tutorial.tagList": "专属词典",
   "tutorial.tagMatched": "已匹配",
   "tutorial.tagAdded": "已在书架",
@@ -102,7 +101,7 @@ export const zh: Record<Key, string> = {
   "tip.s1Title": "解释还是太难？告诉我们",
   "tip.s1Body": "在单词卡下方点问号按钮，选“解释太难”。也可以附上你自己用简单英文写的解释，审核通过后会更新到词表。",
   "tip.s2Title": "觉得难的词没有标出来？",
-  "tip.s2Body": "书里每个词都能点。点它，再点问号按钮，选“缺少释义”。老师看到后可以把它补进词表。",
+  "tip.s2Body": "书里每个词都能点。点它，再点问号按钮，选“缺少释义”就能直接反馈；也可以附上你自己理解的释义一起提交。老师看到后会把它补进词表。",
   "tip.done": "开始阅读",
   "settings.tutorial": "使用教程（动画）",
 
