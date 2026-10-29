@@ -1,12 +1,11 @@
 // The first-run tutorial (src/lib/tutorial.ts, src/components/tutorial-dialog.tsx): when it shows
 // by itself, that the empty shelf stays one line, and that the pictures have a still last frame.
-// Also the feedback tip shown once after the first word list is paired with the reader's EPUB.
+// Also the feedback tip shown once, the first time the reader is open on this device.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
-  feedbackTipPending,
-  queueFeedbackTip,
+  feedbackTipSeen,
   shouldOfferTutorial,
   STARTER_SERIES,
   useDiscoverIntent,
@@ -57,30 +56,6 @@ test("every animated picture has a still last frame with reduced motion", () => 
   }
 });
 
-test("the feedback tip is queued by a pairing, shown once, and never queued again after it is seen", () => {
-  const store = new Map();
-  globalThis.localStorage = { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, v), removeItem: (k) => store.delete(k) };
-  assert.equal(feedbackTipPending(), false, "nothing before a pairing");
-  queueFeedbackTip();
-  assert.equal(feedbackTipPending(), true);
-  useFeedbackTip.getState().show();
-  useFeedbackTip.getState().hide();
-  assert.equal(store.get("cibian-feedback-tip-v1"), "seen");
-  assert.equal(feedbackTipPending(), false);
-  queueFeedbackTip();
-  assert.equal(feedbackTipPending(), false, "a second pairing does not bring it back");
-});
-
-test("the feedback tip is queued when an EPUB is paired, opens over the book, and loads lazily", () => {
-  const app = read("src/components/margin-app.tsx");
-  assert.match(app, /onSaved=\{[\s\S]{0,400}queueFeedbackTip\(\)/, "queued by the pairing dialog");
-  assert.match(app, /screen\.kind !== "read" \|\| !feedbackTipPending\(\)/, "shown when the book is open");
-  assert.match(app, /lazy\(\(\) => import\("@\/components\/feedback-tip-dialog"\)\)/);
-  const tip = read("src/components/feedback-tip-dialog.tsx");
-  assert.match(tip, /card\.feedbackTooHard/, "uses the card's own button names");
-  assert.match(tip, /card\.feedbackMissing/);
-});
-
 test("both dialogs share one frame whose height and buttons do not move from step to step", () => {
   const frame = read("src/components/step-dialog.tsx");
   // Every step's text sits in the same grid cell; only the current one is visible.
@@ -101,4 +76,27 @@ test("the second tip says a missing word can be reported directly or with the re
   assert.match(line, /Meaning missing/);
   assert.match(line, /add the meaning you understand/);
   assert.match(read("src/components/feedback-tip-dialog.tsx"), /ArtFeedbackMissing[\s\S]{0,200}addMine=/);
+});
+
+test("the feedback tip shows until it is closed once, and counts as seen without storage", () => {
+  const store = new Map();
+  globalThis.localStorage = { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, v), removeItem: (k) => store.delete(k) };
+  assert.equal(feedbackTipSeen(), false, "a new device");
+  useFeedbackTip.getState().show();
+  useFeedbackTip.getState().hide();
+  assert.equal(store.get("cibian-feedback-tip-v1"), "seen");
+  assert.equal(feedbackTipSeen(), true);
+  globalThis.localStorage = { getItem: () => { throw new Error("blocked"); }, setItem: () => { throw new Error("blocked"); } };
+  assert.equal(feedbackTipSeen(), true, "no storage: not on every book");
+});
+
+test("the feedback tip opens over any book the first time the reader is open, not only a paired one", () => {
+  const app = read("src/components/margin-app.tsx");
+  assert.match(app, /screen\.kind !== "read" \|\| feedbackTipSeen\(\)/, "keyed on the reader screen, not on how the book came");
+  assert.doesNotMatch(app, /queueFeedbackTip/);
+  assert.doesNotMatch(read("src/lib/downloads.ts"), /FeedbackTip/);
+  assert.match(app, /lazy\(\(\) => import\("@\/components\/feedback-tip-dialog"\)\)/);
+  const tip = read("src/components/feedback-tip-dialog.tsx");
+  assert.match(tip, /card\.feedbackTooHard/, "uses the card's own button names");
+  assert.match(tip, /card\.feedbackMissing/);
 });

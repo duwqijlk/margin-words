@@ -30,7 +30,7 @@ import { SiteNotice } from "@/components/site-notice";
 import { canonicalPath, DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
 import { repairShelf } from "@/lib/shelf-repair";
 import { useAccount } from "@/lib/account-store";
-import { feedbackTipPending, queueFeedbackTip, shouldOfferTutorial, tutorialSeen, useFeedbackTip, useTutorial } from "@/lib/tutorial";
+import { feedbackTipSeen, shouldOfferTutorial, tutorialSeen, useFeedbackTip, useTutorial } from "@/lib/tutorial";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { takeLoginAfterWipe } from "@/lib/device-wipe";
 import { AccountDialog } from "@/components/account-dialog";
@@ -350,11 +350,12 @@ export function MarginApp() {
     if (!ready) return;
     if (shouldOfferTutorial(screen.kind, books.length, tutorialSeen(), signedIn)) useTutorial.getState().show();
   }, [ready, screen.kind, books.length, signedIn]);
-  // The feedback tip waits for the paired book to be on screen, then shows once.
+  // The feedback tip: the first time the reader is on screen on this device, after the book has
+  // drawn, whatever the book (paired EPUB or public domain).
   useEffect(() => {
-    if (screen.kind !== "read" || !feedbackTipPending()) return;
+    if (screen.kind !== "read" || feedbackTipSeen()) return;
     const timer = window.setTimeout(() => {
-      if (feedbackTipPending() && !useTutorial.getState().open) useFeedbackTip.getState().show();
+      if (!feedbackTipSeen() && !useTutorial.getState().open) useFeedbackTip.getState().show();
     }, 1500);
     return () => window.clearTimeout(timer);
   }, [screen.kind]);
@@ -607,9 +608,6 @@ export function MarginApp() {
             onClose={() => setEpubFor(null)}
             onSaved={(bookId, warnings) => {
               setEpubFor(null);
-              // The first pairing of a word list with the reader's own EPUB: the book opens, then
-              // a short tip shows how to report a hard meaning or an unmarked word.
-              queueFeedbackTip();
               if (warnings.length > 0) setSpineWarnings(warnings);
               openBook(bookId);
             }}
