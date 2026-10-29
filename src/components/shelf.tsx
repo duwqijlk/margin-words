@@ -3,6 +3,8 @@ import * as Menu from "@radix-ui/react-dropdown-menu";
 import {
   BookOpen,
   BookPlus,
+  Check,
+  CheckCircle2,
   FileJson,
   Info,
   MoreVertical,
@@ -36,9 +38,11 @@ import { ShelfBookInfo } from "@/components/shelf-book-info";
 import { useSpeechBookIds } from "@/lib/speech-books";
 import { navigate } from "@/lib/router";
 import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
-import { btn, cn, field, ProgressBar } from "@/components/ui";
+import { btn, cn, field, ProgressBar, selectCls } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
 import { compareSeriesPlace } from "@/lib/discover-rails";
+import { asFinishedAt, matchesFinished, type FinishedFilter } from "@/lib/reading-stats";
+import { ReadingOverviewLine } from "@/components/reading-overview";
 import {
   DifficultyControls,
   LexileBadge,
@@ -408,6 +412,8 @@ function BookCard({
   });
   useEffect(() => () => window.clearTimeout(press.current.timer), []);
   const pct = Math.round(row.fraction * 100);
+  const finished = asFinishedAt(book.finishedAt) !== undefined;
+  const setBookFinished = useVocab((state) => state.setBookFinished);
   return (
     <li className={bookCardShell}>
       <div className="relative">
@@ -419,6 +425,16 @@ function BookCard({
         >
           <BookCover title={book.title} author={book.author} cover={cover} look={lookOf(speeches, book.id)} />
         </button>
+        {finished ? (
+          // The reader's own mark. The progress bar below is the reading place and does not change.
+          <span
+            className="pointer-events-none absolute top-1.5 left-1.5 z-[1] inline-flex items-center gap-0.5 rounded-full bg-black/60 px-1.5 py-0.5 text-[0.62rem] leading-4 font-semibold text-white"
+            data-shelf-finished=""
+          >
+            <Check className="size-3 stroke-[3]" aria-hidden />
+            {t("finished.badge")}
+          </span>
+        ) : null}
         {book.source === "epub" ? (
           <div className="cover-progress pointer-events-none absolute inset-x-0 bottom-0 z-[1]">
             <p className="cover-progress-detail items-end justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent px-2 pt-4 pb-0.5 text-[0.68rem] leading-4 font-medium text-white">
@@ -574,6 +590,14 @@ function BookCard({
                     {t("shelf.menuAddList")}
                   </Menu.Item>
                 ) : null}
+                <Menu.Item
+                  className={menuItem}
+                  onSelect={() => setBookFinished(book.id, !finished)}
+                  data-shelf-finish-menu={finished ? "undo" : "mark"}
+                >
+                  <CheckCircle2 className="size-4" aria-hidden />
+                  {finished ? t("finished.unmark") : t("finished.mark")}
+                </Menu.Item>
                 <Menu.Item className={menuItem} onSelect={onRename}>
                   <Pencil className="size-4" aria-hidden />
                   {t("shelf.menuEdit")}
@@ -682,6 +706,7 @@ export function Shelf({
   const [band, setBand] = useState<BandChoice>("all");
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
+  const [finishedFilter, setFinishedFilter] = useState<FinishedFilter>("all");
   const [renaming, setRenaming] = useState<Book | null>(null);
   const [updatingId, setUpdatingId] = useState("");
   const [packRecords, setPackRecords] = useState<PackRecord[]>([]);
@@ -762,6 +787,7 @@ export function Shelf({
       : recent;
     let banded = searched.filter((row) => matchesBand(row.book.lexile ?? "", band));
     if (author !== "all") banded = banded.filter((row) => row.book.author === author);
+    if (finishedFilter !== "all") banded = banded.filter((row) => matchesFinished(row.book, finishedFilter));
     if (series === "none") banded = banded.filter((row) => !row.book.series);
     else if (series !== "all" && series !== "grouped") banded = banded.filter((row) => row.book.series === series);
     if (series === "grouped") {
@@ -776,7 +802,7 @@ export function Shelf({
     if (sort === "title") copy.sort((a, b) => a.book.title.localeCompare(b.book.title) || a.book.author.localeCompare(b.book.author));
     else copy.sort((a, b) => compareLexile(a.book.lexile ?? "", b.book.lexile ?? "", sort) || a.book.title.localeCompare(b.book.title));
     return copy;
-  }, [recent, q, band, sort, author, series]);
+  }, [recent, q, band, sort, author, series, finishedFilter]);
   const groups = useMemo(() => {
     if (series !== "grouped") return [];
     const names = [...new Set(visible.map((row) => row.book.series ?? "").filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -826,7 +852,13 @@ export function Shelf({
       setUpdatingId("");
     });
   }
-  const filtering = band !== "all" || author !== "all" || series !== "all" || (sort !== "recent" && sort !== "listed");
+  const filtering =
+    band !== "all" ||
+    author !== "all" ||
+    series !== "all" ||
+    finishedFilter !== "all" ||
+    (sort !== "recent" && sort !== "listed");
+  const anyFinished = useMemo(() => books.some((book) => asFinishedAt(book.finishedAt) !== undefined), [books]);
 
   return (
     <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-10">
@@ -855,6 +887,8 @@ export function Shelf({
             />
           ) : null}
 
+          {!q ? <ReadingOverviewLine /> : null}
+
           <section className="grid gap-4" aria-label={t("shelf.all")}>
             <div className="grid gap-3">
               {hero && !q && !filtering ? (
@@ -878,7 +912,7 @@ export function Shelf({
                     />
                   </label>
                   <FilterMenu
-                    active={sort !== "recent" || band !== "all" || author !== "all" || series !== "all"}
+                    active={sort !== "recent" || band !== "all" || author !== "all" || series !== "all" || finishedFilter !== "all"}
                     render={() => (
                       <>
                         <DifficultyControls
@@ -888,6 +922,19 @@ export function Shelf({
                           band={band}
                           onBand={setBand}
                         />
+                        {anyFinished || finishedFilter !== "all" ? (
+                          <select
+                            className={cn(selectCls, "w-auto max-w-full")}
+                            aria-label={t("finished.filterLabel")}
+                            data-finished-filter
+                            value={finishedFilter}
+                            onChange={(event) => setFinishedFilter(event.target.value as FinishedFilter)}
+                          >
+                            <option value="all">{t("finished.filter.all")}</option>
+                            <option value="finished">{t("finished.filter.finished")}</option>
+                            <option value="unfinished">{t("finished.filter.unfinished")}</option>
+                          </select>
+                        ) : null}
                         <ListFilters
                           authors={authors}
                           seriesNames={seriesNames}

@@ -113,6 +113,7 @@ function capture(): LocalSnapshot {
     ...prefsOf(),
     locale: useLocale.getState().locale,
     reviewLog: vocab.log,
+    readDays: vocab.readDays,
   };
   return captureSnapshot({
     books: vocab.books,
@@ -409,7 +410,13 @@ async function applyMerged(items: SyncItem[]) {
         continue;
       }
       const ids = new Set(matches.map((book) => book.id));
-      books = books.map((book) => (ids.has(book.id) ? { ...book, ...data, id: book.id, updatedAt: item.updatedAt } : book));
+      books = books.map((book) => {
+        if (!ids.has(book.id)) return book;
+        const next: Book = { ...book, ...data, id: book.id, updatedAt: item.updatedAt };
+        // Taking the mark away on another device must take it away here: a spread keeps the old one.
+        if (data.finishedAt === undefined) delete next.finishedAt;
+        return next;
+      });
     }
 
     const nextWords = mergeWordbook(useVocab.getState().words, items, books);
@@ -432,7 +439,7 @@ async function applyMerged(items: SyncItem[]) {
     useVocab.setState({
       books,
       words: nextWords,
-      ...(settings ? { log: settings.reviewLog } : {}),
+      ...(settings ? { log: settings.reviewLog, readDays: settings.readDays ?? [] } : {}),
     });
     useProgress.setState({ items: progress });
     if (settings) applySettings(settings);

@@ -138,6 +138,25 @@ export const zh: Record<Key, string> = {
   "dashboard.qqCopy": "复制",
   "dashboard.qqCopied": "已复制",
 
+  /* ---- finished books */
+  "finished.mark": "标记为已读完",
+  "finished.unmark": "取消已读完",
+  "finished.badge": "已读完",
+  "finished.filterLabel": "阅读状态",
+  "finished.filter.all": "全部图书",
+  "finished.filter.finished": "已读完",
+  "finished.filter.unfinished": "未读完",
+  "finished.endTitle": "读完这本书了吗？",
+  "finished.endBody": "标记为已读完，就会留下记录，也能在书架上筛出来。阅读位置不会变。",
+  "finished.doneOn": "{date} 读完",
+  "overview.title": "我的阅读",
+  "overview.finished.one": "读完 {n} 本书",
+  "overview.finished.other": "读完 {n} 本书",
+  "overview.days.one": "阅读 {n} 天",
+  "overview.days.other": "阅读 {n} 天",
+  "overview.words.one": "生词 {n} 个",
+  "overview.words.other": "生词 {n} 个",
+
   /* ---- shelf */
   "shelf.title": "书架",
   "shelf.search": "按书名或作者搜索",
