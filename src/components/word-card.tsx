@@ -307,7 +307,7 @@ export function WordCard({
           </div>
         ) : null}
       </div>
-      <div ref={bodyRef} className="scroll-thin mt-2.5 mb-4" data-word-body>
+      <div ref={bodyRef} className="mb-1.5" data-word-body>
         <div className="grid gap-3" data-word-content>
           {activePhrase ? (
             <WordIpa key={`${selectionId}:${target}`} word={target} phrase />
