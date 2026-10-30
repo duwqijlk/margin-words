@@ -18,6 +18,7 @@ export const PERSONAL_KEYS = [
   ...ACCOUNT_KEYS,
   "cibian-notebook-v1",
   "cibian-progress-v1",
+  "cibian-quotes-v1",
   "cibian-prefs-v1",
   "cibian-sync-meta-v1",
   "cibian-sync-dirty-v1",

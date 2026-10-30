@@ -1,5 +1,5 @@
 import { Check, ChevronDown, ChevronRight, Flame, Layers, RotateCcw, Search, Trash2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useT, type Key } from "@/lib/i18n";
 import { dueLabel, streakOf, summarize } from "@/lib/srs";
 import { modeLabel, savedReviewMode, saveReviewMode, usableMode, type ReviewMode, type ReviewPool } from "@/lib/review-mode";
@@ -11,6 +11,9 @@ import { hasSourceFrom } from "@/lib/wordbook";
 import { useGlossFiles, usePresentedWord } from "@/components/presented-word";
 import { presentWord } from "@/lib/gloss-ref";
 import { WordSources } from "@/components/word-sources";
+import { QuoteBook } from "@/components/quote-book";
+import { useQuotes } from "@/lib/quote-store";
+import { notebookTab, rememberNotebookTab } from "@/lib/router";
 import { WordIpa } from "@/components/word-ipa";
 import { MemoryLadder, ModeCards, WeekChart } from "@/components/review-parts";
 import {
@@ -267,6 +270,18 @@ export function Notebook({
   const [query, setQuery] = useState("");
   const [shown, setShown] = useState(PAGE);
   const [deleting, setDeleting] = useState<VocabEntry | null>(null);
+  // Words or quotes (design system QuoteBook): one page, two halves. The history entry keeps the half.
+  const [tab, setTab] = useState<"words" | "quotes">(() => notebookTab());
+  const quoteCount = useQuotes((state) => state.quotes.length);
+  useEffect(() => {
+    const back = () => setTab(notebookTab());
+    window.addEventListener("popstate", back);
+    return () => window.removeEventListener("popstate", back);
+  }, []);
+  const pickTab = (next: "words" | "quotes") => {
+    setTab(next);
+    rememberNotebookTab(next);
+  };
 
   const activeBook = bookId ? books.find((book) => book.id === bookId) : undefined;
   const activeKey = activeBook ? bookSyncKey(activeBook) : "";
@@ -322,31 +337,57 @@ export function Notebook({
 
   return (
     <div className="mx-auto grid w-full max-w-[52rem] grid-cols-[minmax(0,1fr)] gap-5 px-4 pt-4 pb-8 sm:gap-6 sm:px-6 sm:pt-8 sm:pb-16" data-notebook>
-      <header className="grid gap-1">
-        <h1 className="m-0 text-2xl leading-tight font-bold tracking-[-0.02em] sm:text-[28px]">{t("nb.title")}</h1>
-        <p className="m-0 text-[13px] text-muted sm:text-sm">
-          {activeBook ? (
-            <>
-              {t("nb.fromBook", { title: "\u0001" })
-                .split("\u0001")
-                .flatMap((piece, i) =>
-                  i === 0
-                    ? [piece]
-                    : [
-                        <span key="b" lang="en">
-                          {activeBook.title}
-                        </span>,
-                        piece,
-                      ],
-                )}
-            </>
-          ) : (
-            t("nb.allWords")
-          )}
-        </p>
+      <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+        <div className="grid min-w-0 gap-1">
+          <h1 className="m-0 text-2xl leading-tight font-bold tracking-[-0.02em] sm:text-[28px]">{t("nb.title")}</h1>
+          <p className="m-0 text-[13px] text-muted sm:text-sm" data-notebook-intro>
+            {tab === "quotes" ? (
+              t("qb.intro")
+            ) : activeBook ? (
+              <>
+                {t("nb.fromBook", { title: "\u0001" })
+                  .split("\u0001")
+                  .flatMap((piece, i) =>
+                    i === 0
+                      ? [piece]
+                      : [
+                          <span key="b" lang="en">
+                            {activeBook.title}
+                          </span>,
+                          piece,
+                        ],
+                  )}
+              </>
+            ) : (
+              t("nb.allWords")
+            )}
+          </p>
+        </div>
+        <div className="inline-flex rounded-full bg-sheet p-1" role="group" aria-label={t("nb.title")} data-notebook-kind>
+          {(["words", "quotes"] as const).map((kind) => (
+            <button
+              key={kind}
+              type="button"
+              aria-pressed={tab === kind}
+              onClick={() => pickTab(kind)}
+              data-kind={kind}
+              className={cn(
+                "inline-flex min-h-9 items-center gap-1.5 rounded-full px-4 text-sm font-bold transition-colors",
+                tab === kind ? "bg-paper text-ink shadow-[0_1px_3px_rgb(0_0_0/0.12)]" : "text-muted hover:text-ink",
+              )}
+            >
+              {kind === "words" ? t("nb.kindWords") : t("nb.kindQuotes")}
+              <small className="text-xs font-normal text-faint [font-variant-numeric:tabular-nums]">
+                {(kind === "words" ? words.length : quoteCount).toLocaleString()}
+              </small>
+            </button>
+          ))}
+        </div>
       </header>
 
-      {scoped.length === 0 ? (
+      {tab === "quotes" ? (
+        <QuoteBook books={books} bookKey={activeKey} onOpenBook={onOpenBook} />
+      ) : scoped.length === 0 ? (
         <div className="grid justify-items-start gap-3 border-t border-line pt-6" data-notebook-empty>
           <h2 className="m-0 text-lg font-bold tracking-[-0.02em]">{t("nb.emptyTitle")}</h2>
           <p className="m-0 max-w-md text-muted">{t("nb.emptyBody")}</p>

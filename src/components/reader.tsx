@@ -1,6 +1,5 @@
 import {
   ArrowLeft,
-  BookMarked,
   BookOpen,
   Check,
   ChevronLeft,
@@ -105,6 +104,10 @@ import {
 import { preloadContributors } from "@/lib/contributors";
 import { holdSyncPushes } from "@/lib/sync-engine";
 import { PassageFeedback } from "@/components/passage-feedback";
+import { QuoteTools, type QuoteToolsHandle } from "@/components/quote-tools";
+import { SaveMenu } from "@/components/save-menu";
+import { flashSpan, locateQuote } from "@/lib/quote-marks";
+import { useQuotes } from "@/lib/quote-store";
 import { FinishBook } from "@/components/finish-book";
 import { watchPageMoves, type PageMove } from "@/lib/page-guard";
 import { AUTO_HIDE_QUERY, barStart, nextBarState } from "@/lib/reader-bar";
@@ -123,12 +126,15 @@ export function ReaderScreen({
   bookId,
   onBack,
   onNotebook,
+  onQuotes,
   onAddEpub,
   onDiscover,
 }: {
   bookId: string;
   onBack: () => void;
   onNotebook: () => void;
+  /** The notebook, on its quotes tab. */
+  onQuotes: () => void;
   onAddEpub: () => void;
   onDiscover: () => void;
 }) {
@@ -139,6 +145,10 @@ export function ReaderScreen({
   // leaving the book, hiding the tab or closing the page uploads at once (sync-pace.ts).
   useEffect(() => holdSyncPushes({ reading: true }), []);
   const words = useVocab((state) => state.words);
+  const quoteCount = useQuotes((state) => state.quotes.length);
+  // Pick mode (design system SelectionBar): a tap picks a sentence to keep, not a word to look up.
+  const [picking, setPicking] = useState(false);
+  const quoteTools = useRef<QuoteToolsHandle | null>(null);
   const shelfBook = useVocab((state) => state.books.find((item) => item.id === bookId));
   const saveWord = useVocab((state) => state.saveWord);
   const removeWordFromBook = useVocab((state) => state.removeWordFromBook);
@@ -224,7 +234,8 @@ export function ReaderScreen({
   const spoken = useRef("");
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
-  const restoreAt = useRef<{ paragraph: number; offset: number; flash: boolean } | null>(null);
+  // `text`: a kept quote opened from the notebook; its own words light up, not the whole paragraph.
+  const restoreAt = useRef<{ paragraph: number; offset: number; flash: boolean; text?: string } | null>(null);
   // The page that was last placed, and the spot still held while late text (phrases, a list update) redraws it.
   const placed = useRef<{
     page: string;
@@ -273,6 +284,7 @@ export function ReaderScreen({
           paragraph: hit.paragraph,
           offset: hit.offset,
           flash: hit.via !== "nearest",
+          ...(jump.text ? { text: jump.text } : {}),
         };
         setChapterIndex(hit.chapter);
         setExtraId("");
@@ -609,7 +621,12 @@ export function ReaderScreen({
         pageGuard.current?.quiet();
         window.scrollTo({ top: Math.max(0, top) });
       };
-      if (mark?.flash) {
+      const quoteAt = mark?.flash && mark.text ? locateQuote(flowText(block), mark.text, mark.offset) : null;
+      if (quoteAt) {
+        // A kept quote: its own words light up once the page has settled under them.
+        const paragraph = mark?.paragraph ?? 0;
+        flashTimer = setTimeout(() => flashSpan(root, { paragraph, ...quoteAt }, 2600), 450);
+      } else if (mark?.flash) {
         block.classList.add("book-flash");
         flashTimer = setTimeout(() => block.classList.remove("book-flash"), 3000);
       }
@@ -1726,15 +1743,24 @@ export function ReaderScreen({
             </p>
           </div>
           <ReaderSettings />
-          <button
-            type="button"
-            className={btn.icon}
-            onClick={onNotebook}
-            aria-label={t("reader.openNotebook")}
-            data-reader-notebook
-          >
-            <BookMarked className="size-5" aria-hidden />
-          </button>
+          <SaveMenu
+            words={words.length}
+            quotes={quoteCount}
+            picking={picking}
+            canPick={viewChapter >= 0 && Boolean(shelfBook)}
+            onWords={onNotebook}
+            onQuotes={onQuotes}
+            onPick={() => {
+              if (picking) {
+                setPicking(false);
+                return;
+              }
+              closeWordCard(false);
+              closeHelp();
+              window.getSelection()?.removeAllRanges();
+              setPicking(true);
+            }}
+          />
         </div>
         <ProgressBar value={fraction} className="h-0.5 rounded-none" label={t("reader.progress")} />
       </header>
@@ -1817,8 +1843,22 @@ export function ReaderScreen({
           chapters={book?.chapters.length ?? 0}
           catalogId={catalogId}
           glossaryRev={glossaryRev}
-          // Not in an extra (it has no fixed chapter number) or over an open card.
-          enabled={viewChapter >= 0 && picked === null && help === null}
+          // Not in an extra (it has no fixed chapter number), over an open card, or in pick mode.
+          enabled={viewChapter >= 0 && picked === null && help === null && !picking}
+          onQuote={shelfBook ? (span) => quoteTools.current?.keep([span]) : undefined}
+          onCopied={() => quoteTools.current?.note(t("quote.copied"))}
+        />
+
+        <QuoteTools
+          ref={quoteTools}
+          rootRef={articleRef}
+          pageKey={chapterKey}
+          layoutKey={`${prefs.font}|${prefs.size}|${prefs.leading}|${prefs.width}|${prefs.column}`}
+          book={shelfBook ? { key: bookKey, title: shelfBook.title, author: shelfBook.author } : null}
+          chapter={viewChapter}
+          chapterTitle={chapter?.title ?? ""}
+          picking={picking}
+          onPickingChange={setPicking}
         />
 
         <nav
