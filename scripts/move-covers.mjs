@@ -5,8 +5,8 @@
  *   node scripts/move-covers.mjs             check only: what would be copied, shrunk, and rewritten
  *   node scripts/move-covers.mjs --upload    copy the covers, then rewrite the two catalogs
  *
- * Why: covers under word-lists/ and public-books/ go through the glossary-block Worker (it is bound to
- * those paths), so every cover load was a Worker request on the Free plan's daily allowance, and they
+ * Why: covers under word-lists/ and public-books/ went through the glossary-block Worker (it was bound
+ * to those paths; retired for a WAF rule, docs/MAINTENANCE.md), so every cover load was a Worker request on the Free plan's daily allowance, and they
  * were cached for 4 hours. Under covers/ no Worker runs, and `Cache-Control: immutable` lets the browser
  * and the CDN keep a cover for good: its address already carries its version (?v=<sha>), so a replaced
  * cover is a new address.

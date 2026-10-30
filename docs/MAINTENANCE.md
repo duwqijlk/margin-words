@@ -64,9 +64,24 @@ All paths below are **object keys**, not local directories to upload wholesale.
 D1 is the authority for private account/sync/feedback records; deliberately published contributor
 profiles and avatars are the R2 exception. Do not publish email addresses, tokens or private records.
 
-The separate worker in `workers/glossary-block/` blocks direct public-host glossary downloads.
-The app uses the authenticated Pages API instead. Deploying Pages does not deploy that worker or
-establish its routes, bucket policy, CORS or CDN rules; verify those separately when changing hosting.
+<a id="glossary-block"></a>
+**Direct word-list downloads** from the public books host are refused by a Cloudflare **WAF custom
+rule** on the `inputread.site` zone (Security → WAF → Custom rules), action **Block**:
+
+```
+(http.host eq "books.inputread.site" and (ends_with(lower(url_decode(http.request.uri.path)), "/glossary.json") or ends_with(lower(url_decode(raw.http.request.uri.path)), "/glossary.json")))
+```
+
+The app reads a list only through the authenticated Pages API (`/api/glossary/<id>`, sign-in, weekly
+places, rate limits). The rule decodes the path because R2 serves `glossary%2Ejson`, `glossar%79.json`
+or `<id>%2Fglossary.json` as the same file: the earlier `workers/glossary-block` Worker compared the
+raw path and let every such spelling through. That Worker is retired: it was routed to
+`/word-lists/*` and `/public-books/*`, so every catalog, summary and public EPUB request ran it and
+counted toward the Free plan's 100,000 Worker requests a day (up to 16,000 a day for nothing). A rule
+runs at the edge, costs no Worker request and is one of the five custom rules on the Free plan.
+`node scripts/check-glossary-block.mjs` checks the plain and encoded spellings and the catalog; run it
+after any change to the zone, the bucket or its domain. Deploying Pages does not create this rule,
+bucket policy, CORS or CDN rules; verify those separately when changing hosting.
 
 <a id="versions"></a>
 ## Versions, caches, and when readers see changes
@@ -238,7 +253,7 @@ npx wrangler pages deploy dist --project-name margin-words --branch main
    Check changed hosted documents against source bytes. Do not call a successful build a successful
    deploy, or a deploy response proof the custom domain is serving the expected version.
 
-D1 migrations, R2 data changes, Pages deployment and the glossary-block worker are separate actions.
+D1 migrations, R2 data changes, Pages deployment and the zone's WAF rule (word-list block) are separate actions.
 Do not bundle a frozen book-directory upload into a site deploy. Application rollback does not
 restore D1, R2, or device data; verify schema and data compatibility before selecting an older app.
 
