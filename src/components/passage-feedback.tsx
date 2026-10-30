@@ -21,7 +21,7 @@ function finePointer(): boolean {
 }
 
 /** What "keep" keeps for a selection: its whole sentences, or the whole paragraph when it is long. */
-export function quoteSpanOf(pick: Pick<PassagePick, "paragraph" | "start" | "end" | "text">): QuoteSpan & { whole: boolean } {
+function quoteSpanOf(pick: Pick<PassagePick, "paragraph" | "start" | "end" | "text">): QuoteSpan & { whole: boolean } {
   const span = sentencesOf(pick.text, pick.start, pick.end);
   const inside = sentenceSpans(pick.text).filter((item) => item.end > span.start && item.start < span.end).length;
   if (inside > WHOLE_SENTENCES || span.end - span.start > WHOLE_CHARS)
