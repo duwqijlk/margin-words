@@ -39,6 +39,16 @@ All of it is in (PR #249). Its rules, in the code:
   floats above the tab bar sits at `3.75rem` + the safe area. Sub-tabs: 2px accent line. Progress: a 2px
   line, square ends.
 - E-ink: every animation and transition is off (end states only). Night: covers dim to 82%.
+- Depth (design system v44): three levels, nothing in between. Flat: `sheet` (number tiles, setting
+  groups), no shadow. Raised: `shadow-hero` = `--elev-2` (continue card, Discover's newest book, the
+  review launcher). Floating: `bg-float` + `border-float-edge` + `shadow-lift` / `shadow-pop` =
+  `--surface-3` / `--edge-3` / `--elev-3` (word card, book detail, panels, dialogs, menus, popovers).
+  At night the higher layer is lighter with a faint light edge; on e-ink the levels are lines. Inside a
+  floating layer `bg-sheet` is `--float-sheet` (ink 5% over the layer, mixed by hand: no color-mix),
+  so a tile sits a step above its panel, never sunk into it. A new floating layer uses `bg-float`.
+- Cover glow (`CoverGlow`, `.glow` / `.cover-glow`): the book's cover blurred (56px) and enlarged behind
+  the continue card, the newest book and the top of the book detail. Dimmer at night, none on e-ink,
+  with reduced transparency or for a book with no cover image.
 - Settings, account, reading settings on a phone and the share dialog share one panel (`panel` and
   `PanelHandle` in `ui.tsx`): a centred panel on a wide screen, a bottom sheet with a drag bar on a phone.
   Settings sit in groups: a 13px label over a `sheet` box of 52px rows split by hairlines, a note under it.
@@ -57,9 +67,13 @@ All of it is in (PR #249). Its rules, in the code:
   the contributors as a ruled ranking (first place in highlighter) and supporters as an avatar grid.
   A ranking row keeps the reader's books on a phone too (`data-rank-books`: 3 covers then `+n`; 4 on a
   wide screen); the name column is `minmax(0,1fr)` so a long name cannot push them off the screen.
-- The share image (`share-card.ts`) is 1080 x 1512: a finished book's cover large with a round yellow
-  seal, or the finished covers fanned with three big numbers; paper (the book's own colour), forest and
-  night; the wordmark, a line about the site and the QR code at the foot.
+- The share image (`share-card.ts`) is 1080 x 1512: a finished book's cover large with an outlined yellow
+  seal (a double ring, the word and the month the book was finished, turned -12deg, half on the cover
+  and half on the card, with a thin dark halo), or the finished covers fanned with three big numbers;
+  paper (the book's own colour), forest and night. The footer is part of the card under one hairline:
+  the wordmark, the line about the site and "Scan to read with me →" (brand green; light green on the
+  dark styles) on the left, the QR on a small white tile on the right (`FOOTER`, 3.75x the design's
+  288px preview). Its lines never wrap: a long English one gets smaller type before it is cut.
 - The mark is three lines of text with one word lit by the highlighter, on dark green
   (`public/brand/`, `public/favicon.svg`; the one-colour mark is the tab icon on e-ink). The app header
   keeps the plain text wordmark. App icons are drawn by `scripts/make-app-icons.mjs`, the link picture by

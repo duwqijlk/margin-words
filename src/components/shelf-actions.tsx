@@ -219,7 +219,7 @@ export function AddToShelfButton({
             event.preventDefault();
             button.current?.focus();
           }}
-          className="anim-pop z-50 grid min-w-48 gap-0.5 rounded-2xl border border-line bg-paper p-1.5 text-ink shadow-lift "
+          className="anim-pop z-50 grid min-w-48 gap-0.5 rounded-2xl border border-float-edge bg-float p-1.5 text-ink shadow-lift "
         >
             <button
               type="button"

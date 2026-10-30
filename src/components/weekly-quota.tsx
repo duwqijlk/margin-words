@@ -58,7 +58,7 @@ export function WeeklyQuota() {
           align="start"
           sideOffset={6}
           collisionPadding={8}
-          className="anim-pop z-50 grid w-[min(22rem,calc(100vw-1rem))] gap-2 rounded-2xl border border-line bg-paper p-4 text-sm text-ink shadow-lift "
+          className="anim-pop z-50 grid w-[min(22rem,calc(100vw-1rem))] gap-2 rounded-2xl border border-float-edge bg-float p-4 text-sm text-ink shadow-lift "
         >
           <h3 className="font-semibold">{t("quota.rulesTitle")}</h3>
           <ul className="grid list-disc gap-1.5 pl-4 leading-snug text-muted">

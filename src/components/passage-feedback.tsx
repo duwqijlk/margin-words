@@ -197,7 +197,7 @@ export function PassageFeedback({
 
   return createPortal(
     <div
-      className="absolute z-40 -translate-x-1/2 rounded-2xl border border-line bg-paper p-4 text-ink shadow-lift"
+      className="absolute z-40 -translate-x-1/2 rounded-2xl border border-float-edge bg-float p-4 text-ink shadow-lift"
       style={style}
       role="dialog"
       aria-label={t("passage.title")}

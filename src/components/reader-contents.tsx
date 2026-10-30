@@ -34,7 +34,7 @@ export function ReaderContents({
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
-        <Dialog.Content className="anim-drawer fixed inset-y-0 left-0 z-50 flex w-[min(24rem,88vw)] flex-col border-r border-line bg-paper text-ink shadow-lift ">
+        <Dialog.Content className="anim-drawer fixed inset-y-0 left-0 z-50 flex w-[min(24rem,88vw)] flex-col border-r border-float-edge bg-float text-ink shadow-lift ">
           <div className="flex items-center justify-between gap-2 border-b border-line px-4 py-2">
             <Dialog.Title className="font-bold tracking-[-0.02em] text-lg">
               {t("contents.title")}

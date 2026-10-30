@@ -29,6 +29,11 @@ export default {
         edge: withAlpha("edge"),
         // sheet: the layer laid on the page (continue card, notices, hover ground). card: the word card.
         sheet: withAlpha("sheet"),
+        // Depth (design system v44): raised = surface-2 (hero cards), float = surface-3 (word card,
+        // book detail, panels, menus). float-edge is a floating layer's hairline (a light edge at night).
+        raised: withAlpha("surface-2"),
+        float: withAlpha("surface-3"),
+        "float-edge": "var(--edge-3)",
         accent: withAlpha("accent"),
         "accent-ink": withAlpha("accent-ink"),
         "accent-soft": withAlpha("accent-soft"),
@@ -63,12 +68,12 @@ export default {
         "2xs": "0 1px 2px rgb(0 0 0 / 0.05)",
         xs: "0 1px 2px rgb(0 0 0 / 0.05)",
         cover: "0 1px 2px rgb(0 0 0 / 0.14), 0 6px 14px -6px rgb(0 0 0 / 0.2)",
-        // The one shadow for things that float (dialogs, popovers, phone panels). The word card keeps pop.
-        lift: "0 1px 0 rgb(0 0 0 / 0.04), 0 12px 32px -12px rgb(0 0 0 / 0.24)",
-        // The few hero cards (continue reading, the review launcher): a soft drop.
-        hero: "0 1px 2px rgb(0 0 0 / 0.04), 0 16px 32px -20px rgb(0 0 0 / 0.35)",
-        // The word card: a soft, wide shadow.
-        pop: "0 2px 6px rgb(0 0 0 / 0.06), 0 24px 48px -16px rgb(0 0 0 / 0.22)",
+        // Depth (design system v44), per theme in styles.css. lift and pop: the floating level (elev-3:
+        // dialogs, popovers, phone panels, the word card). hero: the raised level (elev-2: continue
+        // reading, the newest book, the review launcher). At night both are light edges; on e-ink, lines.
+        lift: "var(--elev-3)",
+        hero: "var(--elev-2)",
+        pop: "var(--elev-3)",
       },
     },
   },

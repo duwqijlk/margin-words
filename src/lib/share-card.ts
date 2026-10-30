@@ -2,13 +2,15 @@
  * Share images, drawn on the reader's own device (no server, no upload), as in the design system
  * ShareCard: 1080 x 1512 (3:4.2), which WeChat, QQ, Telegram and X all show whole.
  *
- *   - "I finished a book": the real cover, large and lifted, with a round highlighter-yellow
- *     "Finished" seal on its corner; the title in Literata, the author, the words saved from it.
+ *   - "I finished a book": the real cover, large and lifted, with an outlined highlighter-yellow
+ *     "Finished" seal (a double ring and the month) half on its corner, half on the card; the title in Literata, the author, the words saved from it.
  *   - "My reading": the finished books' covers fanned out, three big numbers (books finished,
  *     days of reading, words saved) and the words mastered.
  * Three styles: paper (a ground in the book's own colour, from its cover), forest (deep green,
- * white type) and night (dark). Every card ends with the wordmark inputread, a line about the site
- * and a QR code to https://inputread.site, dark on a white tile in every style so a camera reads it.
+ * white type) and night (dark). Every card ends with a footer that is part of the card, under one
+ * hairline: the wordmark inputread, a line about the site and "Scan to read with me →" on the left, a
+ * QR code to https://inputread.site on the right, dark on a small white tile in every style so a
+ * camera reads it (design system ShareCard v44).
  *
  * The words come in from the caller (i18n), so this file has no language of its own. Everything
  * that decides a layout (wrapping, the QR grid, the colour maths) is a plain function and tested;
@@ -30,15 +32,17 @@ type Palette = {
   ink: string;
   ink2: string;
   line: string;
+  /** "Scan to read with me →": brand green on paper, a light green on the dark styles. */
+  cta: string;
   /** The little round swatch in the style picker. */
   swatch: string;
 };
 
 /** Paper's ground is replaced by the book's own colour when there is one (`ground` in the data). */
 export const PALETTES: Record<ShareTheme, Palette> = {
-  paper: { from: "#e6efe9", to: "#f6f9f7", ink: "#111513", ink2: "#4a524e", line: "rgba(17,21,19,0.14)", swatch: "linear-gradient(135deg, #ffffff, #dfe8e2)" },
-  forest: { from: "#1f6b47", to: "#0e3a27", ink: "#f4f7f5", ink2: "#bcd4c6", line: "rgba(255,255,255,0.18)", swatch: "#0e3a27" },
-  night: { from: "#23282a", to: "#0f1211", ink: "#eef2f0", ink2: "#a9b2ad", line: "rgba(255,255,255,0.14)", swatch: "#0f1211" },
+  paper: { from: "#e6efe9", to: "#f6f9f7", ink: "#111513", ink2: "#4a524e", line: "rgba(17,21,19,0.14)", cta: "#17804f", swatch: "linear-gradient(135deg, #ffffff, #dfe8e2)" },
+  forest: { from: "#1f6b47", to: "#0e3a27", ink: "#f4f7f5", ink2: "#bcd4c6", line: "rgba(255,255,255,0.18)", cta: "#8fe0b4", swatch: "#0e3a27" },
+  night: { from: "#23282a", to: "#0f1211", ink: "#eef2f0", ink2: "#a9b2ad", line: "rgba(255,255,255,0.14)", cta: "#8fe0b4", swatch: "#0f1211" },
 };
 
 const SERIF = '"Literata", Georgia, "Times New Roman", serif';
@@ -60,6 +64,8 @@ export type BookCardData = {
   wordsLine: string;
   /** The seal's word ("Finished"). */
   seal: string;
+  /** The month under the seal's word ("2026.10"), or "". */
+  sealDate?: string;
   cover: CanvasImageSource | null;
   ground?: Ground;
   footer: Footer;
@@ -277,42 +283,59 @@ function drawCover(ctx: CanvasRenderingContext2D, image: CanvasImageSource | nul
   ctx.restore();
 }
 
+/**
+ * The footer, part of the card under one hairline (design system ShareCard, at 3.75x the 288px
+ * preview): the wordmark, the line about the site and the call to scan on the left, the QR code
+ * on a small white tile on the right, both centred on one line.
+ */
+export const FOOTER = { qr: 218, padBottom: 68, gap: 52 } as const;
+
 function drawFooter(ctx: CanvasRenderingContext2D, footer: Footer, p: Palette) {
-  const top = CARD_H - 300;
+  const box = FOOTER.qr;
+  const by = CARD_H - FOOTER.padBottom - box;
+  const top = by - FOOTER.gap;
   ctx.fillStyle = p.line;
   ctx.fillRect(PAD, top, CARD_W - PAD * 2, 3);
-  // The QR tile, bottom right, with its line under it; both end at the right margin.
-  const box = 165;
-  font(ctx, 400, 32, SANS);
-  const scanWidth = ctx.measureText(footer.scan).width;
-  const column = Math.max(box, scanWidth);
-  const centre = CARD_W - PAD - column / 2;
-  const bx = centre - box / 2;
-  const by = top + 36;
+  // The QR on its white tile, at the right margin.
+  const bx = CARD_W - PAD - box;
   ctx.fillStyle = "#ffffff";
-  roundRect(ctx, bx, by, box, box, 14);
+  roundRect(ctx, bx, by, box, box, 22);
   ctx.fill();
   const modules = qrModules(SHARE_URL);
-  const inner = box - 22;
-  const cell = inner / modules.length;
+  const inset = 15;
+  const cell = (box - inset * 2) / modules.length;
   ctx.fillStyle = "#111513";
   modules.forEach((row, r) =>
     row.forEach((dark, c) => {
-      if (dark) ctx.fillRect(bx + 11 + c * cell, by + 11 + r * cell, Math.ceil(cell), Math.ceil(cell));
+      if (dark) ctx.fillRect(bx + inset + c * cell, by + inset + r * cell, Math.ceil(cell), Math.ceil(cell));
     }),
   );
-  ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = p.ink2;
-  ctx.textAlign = "center";
-  ctx.fillText(footer.scan, centre, by + box + 42);
-  // The wordmark and the line about the site, bottom left.
+  // Three lines on the left, centred against the tile; none of them wraps.
+  const width = bx - 45 - PAD;
+  // A long line (English runs about twice as long as Chinese) gets smaller type before it is cut.
+  const fit = (text: string) => {
+    let size = 41;
+    font(ctx, 700, size, SANS);
+    while (ctx.measureText(text).width > width && size > 32) {
+      size -= 1;
+      font(ctx, 700, size, SANS);
+    }
+    return wrapLines((t) => ctx.measureText(t).width, text, width, 1)[0] ?? "";
+  };
+  const blockHeight = 60 + 11 + 41 + 30 + 41;
+  let y = by + (box - blockHeight) / 2;
   ctx.textAlign = "left";
+  ctx.textBaseline = "top";
   ctx.fillStyle = p.ink;
-  font(ctx, 600, 64, SERIF);
-  ctx.fillText(footer.brand, PAD, by + box - 30);
+  font(ctx, 600, 68, SERIF);
+  ctx.fillText(footer.brand, PAD, y - 6);
+  y += 60 + 11;
   ctx.fillStyle = p.ink2;
-  font(ctx, 400, 36, SANS);
-  ctx.fillText(wrapLines((t) => ctx.measureText(t).width, footer.tagline, CARD_W - PAD * 2 - column - 32, 1)[0] ?? "", PAD, by + box + 20);
+  ctx.fillText(fit(footer.tagline), PAD, y);
+  y += 41 + 30;
+  ctx.fillStyle = p.cta;
+  ctx.fillText(fit(`${footer.scan} \u2192`), PAD, y);
+  ctx.textBaseline = "alphabetic";
 }
 
 function drawGround(ctx: CanvasRenderingContext2D, p: Palette, ground: Ground | undefined) {
@@ -347,28 +370,51 @@ function drawBook(ctx: CanvasRenderingContext2D, data: BookCardData, p: Palette)
   const cx = (CARD_W - cw) / 2;
   const cy = 236;
   drawCover(ctx, data.cover, data.title, cx, cy, cw, ch, 70);
-  // The seal: a round highlighter-yellow stamp on the top-right corner, a little turned.
+  // The seal: an outlined highlighter-yellow stamp (a ring, a finer ring inside, the word and the
+  // month), half on the cover's top-right corner and half on the card, turned a little. A thin dark
+  // halo keeps it readable on a light cover and on a light card alike.
+  const r = 97.5;
   ctx.save();
-  ctx.translate(cx + cw + 68 - 98, cy - 52 + 98);
-  ctx.rotate((12 * Math.PI) / 180);
-  ctx.shadowColor = "rgba(0,0,0,0.25)";
-  ctx.shadowBlur = 36;
-  ctx.shadowOffsetY = 14;
-  ctx.beginPath();
-  ctx.arc(0, 0, 98, 0, Math.PI * 2);
+  ctx.translate(cx + cw + 90 - r, cy - 67.5 + r);
+  ctx.rotate((-12 * Math.PI) / 180);
+  ctx.strokeStyle = SEAL;
   ctx.fillStyle = SEAL;
-  ctx.fill();
-  ctx.shadowColor = "transparent";
-  ctx.fillStyle = "#111513";
+  const halo = (draw: () => void) => {
+    ctx.shadowColor = "rgba(0,0,0,0.75)";
+    ctx.shadowBlur = 4;
+    draw();
+    ctx.shadowColor = "rgba(0,0,0,0.35)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 4;
+    draw();
+    ctx.shadowColor = "transparent";
+    ctx.shadowOffsetY = 0;
+  };
+  halo(() => {
+    ctx.lineWidth = 7.5;
+    ctx.beginPath();
+    ctx.arc(0, 0, r - 3.75, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.lineWidth = 3.75;
+    ctx.beginPath();
+    ctx.arc(0, 0, r - 7.5 - 11, 0, Math.PI * 2);
+    ctx.stroke();
+  });
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  let size = 56;
+  let size = 49;
   font(ctx, 800, size, SANS);
-  while (ctx.measureText(data.seal).width > 160 && size > 30) {
-    size -= 4;
+  while (ctx.measureText(data.seal).width > 118 && size > 26) {
+    size -= 3;
     font(ctx, 800, size, SANS);
   }
-  ctx.fillText(data.seal, 0, 2);
+  const month = data.sealDate ?? "";
+  const wordY = month ? -12 : 0;
+  halo(() => ctx.fillText(data.seal, 0, wordY));
+  if (month) {
+    font(ctx, 700, 26, SANS);
+    halo(() => ctx.fillText(month, 0, wordY + size / 2 + 22));
+  }
   ctx.restore();
   ctx.textBaseline = "alphabetic";
 

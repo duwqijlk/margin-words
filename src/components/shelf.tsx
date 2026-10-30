@@ -37,6 +37,7 @@ import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
 import { BookCover, talkCoverTone, type useCovers } from "@/components/book-cover";
+import { CoverGlow } from "@/components/cover-glow";
 import { useBookTone } from "@/lib/cover-tone";
 import { ShelfBookInfo } from "@/components/shelf-book-info";
 import { useSpeechBookIds } from "@/lib/speech-books";
@@ -184,7 +185,7 @@ function RenameDialog({ book, onClose }: { book: Book | null; onClose: () => voi
     <Dialog.Root open={book !== null} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
-        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift ">
+        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-float-edge bg-float p-5 text-ink shadow-lift ">
           <Dialog.Title className="font-bold tracking-[-0.02em] text-xl">
             {t("rename.title")}
           </Dialog.Title>
@@ -264,10 +265,11 @@ function ContinueCard({
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="tone-ground relative grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-6 gap-y-4 rounded-2xl p-5 shadow-hero sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-11 sm:gap-y-3 sm:px-11 sm:py-9"
+      className="glow tone-ground grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-6 gap-y-4 rounded-2xl p-5 shadow-hero sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-11 sm:gap-y-3 sm:px-11 sm:py-9"
       style={tone}
       data-continue-card
     >
+      <CoverGlow src={cover} />
       <div className="tone-cover relative sm:row-span-2" data-tilt>
         <button
           type="button"
@@ -584,7 +586,7 @@ function BookCard({
                 }}
                 align="end"
                 sideOffset={4}
-                className="anim-pop z-50 min-w-44 rounded-2xl border border-line bg-paper p-1.5 text-ink shadow-lift "
+                className="anim-pop z-50 min-w-44 rounded-2xl border border-float-edge bg-float p-1.5 text-ink shadow-lift "
               >
                 {offer ? (
                   <Menu.Item

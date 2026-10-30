@@ -141,6 +141,7 @@ const { BookCard } = loadComponent(`${shelfSource}\nexport { BookCard };`, {
   "@/components/book-cover": { BookCover: () => React.createElement("span", { "data-cover": "" }), talkCoverTone: () => "" },
   "@/lib/cover-tone": { useBookTone: () => ({}) },
   "@/components/shelf-book-info": { ShelfBookInfo: () => null },
+  "@/components/cover-glow": { CoverGlow: () => null },
   "@/components/cover-marks": { BookTags: fragment, BookTag: element("span"), OldFashionedTag: () => React.createElement("span", null, "old-warning") },
   "@/lib/reading-stats": {
     asFinishedAt: (value) => (typeof value === "number" && value > 0 ? value : undefined),
