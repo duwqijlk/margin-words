@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, Search } from "lucide-react";
 import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
-import { BookCover } from "@/components/book-cover";
+import { BookCover, coverLookOf } from "@/components/book-cover";
 import { AddToShelfButton, ShelfCardStatus, type ShelfState } from "@/components/shelf-actions";
 import { DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
 import {
@@ -588,7 +588,7 @@ export function DiscoverScreen({
             data-card-detail
             data-tilt
           >
-            <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
+            <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={coverLookOf(row.category, row.series)} />
           </button>
           {/* Who maintains the word list, on the cover's top-left: the same place on every card,
               whatever the title's length or the tags below. The add button keeps the bottom-right. */}

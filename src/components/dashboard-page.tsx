@@ -13,6 +13,7 @@ import { readSponsorLines } from "@/lib/sponsor";
 import { REPO_URL, TELEGRAM_URL } from "@/lib/site-info";
 import { useBookMaintainers, useContributors } from "@/lib/contributors";
 import { ContributorsPanel, HeroNumber, type BookFace } from "@/components/overview-people";
+import { coverLookOf } from "@/components/book-cover";
 import { coverAddress } from "@/lib/covers";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 
@@ -199,7 +200,7 @@ export function DashboardScreen() {
             title: pack.title,
             author: pack.author,
             coverUrl: pack.cover?.url ? coverAddress(resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url), pack.cover.sha256) : undefined,
-            look: pack.category === "speech" ? "talk" : "book",
+            look: coverLookOf(pack.category, pack.series),
           });
         }
         for (const pack of lists) {
@@ -207,7 +208,7 @@ export function DashboardScreen() {
             title: pack.title,
             author: pack.author,
             coverUrl: pack.cover?.url ? coverAddress(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url), pack.cover.sha256) : undefined,
-            look: pack.category === "speech" ? "talk" : "book",
+            look: coverLookOf(pack.category, pack.series),
           });
         }
         setFaces(next);

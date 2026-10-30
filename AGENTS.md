@@ -69,6 +69,12 @@ All of it is in (PR #249). Its rules, in the code:
   the contributors as a ruled ranking (first place in highlighter) and supporters as an avatar grid.
   A ranking row keeps the reader's books on a phone too (`data-rank-books`: 3 covers then `+n`; 4 on a
   wide screen); the name column is `minmax(0,1fr)` so a long name cannot push them off the screen.
+- A speech with no cover picture gets a drawn cover (`BookCover` "talk" / "ted", `.talk-cover` in
+  styles.css, design system BookCover v48): a microphone and SPEECH at the top left (a TED talk: a fine
+  outlined tag with our own stage drawing and "TALK · TED" in plain type, never TED's red, lettering or
+  logo), faint sound rings from the top-right corner, the title in the lower half, the speaker, and a
+  16-bar waveform worked out from the title (`talkWave`). The look comes from the catalog category and
+  series (`coverLookOf`; series "TED"); the shelf learns it with the speech ids (`isTedBook`).
 - The share image (`share-card.ts`) is 1080 x 1512: a finished book's cover large with an outlined yellow
   seal (a double ring, the word and the month the book was finished, turned -12deg, half on the cover
   and half on the card, with a thin dark halo), or the finished covers fanned with three big numbers;

@@ -36,11 +36,11 @@ import { bookSyncKey } from "@/lib/sync-merge";
 import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
-import { BookCover, talkCoverTone, type useCovers } from "@/components/book-cover";
+import { BookCover, talkCoverTone, type CoverLook, type useCovers } from "@/components/book-cover";
 import { CoverGlow } from "@/components/cover-glow";
 import { useBookTone } from "@/lib/cover-tone";
 import { ShelfBookInfo } from "@/components/shelf-book-info";
-import { useSpeechBookIds } from "@/lib/speech-books";
+import { isTedBook, useSpeechBookIds } from "@/lib/speech-books";
 import { navigate } from "@/lib/router";
 import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
 import { btn, cn, field, ProgressBar, ProgressRing, selectCls } from "@/components/ui";
@@ -115,8 +115,9 @@ function UpdateTag({
 }
 
 /** A speech's drawn cover is the talk look, as on Discover. */
-function lookOf(speeches: ReadonlySet<string>, bookId: string): "talk" | "book" {
-  return speeches.has(bookId) ? "talk" : "book";
+function lookOf(speeches: ReadonlySet<string>, bookId: string): CoverLook {
+  if (!speeches.has(bookId)) return "book";
+  return isTedBook(bookId) ? "ted" : "talk";
 }
 
 /**
@@ -258,7 +259,7 @@ function ContinueCard({
   const { t, tn } = useT();
   const { book, progress, fraction } = row;
   const look = lookOf(speeches, book.id);
-  const tone = useBookTone(cover, look === "talk" && !cover ? talkCoverTone(book.title, book.author) : undefined);
+  const tone = useBookTone(cover, look !== "book" && !cover ? talkCoverTone(book.title, book.author) : undefined);
   const started = Boolean(progress && progress.updatedAt > 0 && fraction > 0);
   const chapters = progress?.chapters ?? 0;
   const left = progress ? Math.max(0, chapters - (progress.chapter + 1)) : 0;

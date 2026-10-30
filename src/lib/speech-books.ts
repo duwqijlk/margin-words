@@ -6,15 +6,25 @@
 import { useEffect, useState } from "react";
 
 const speechBooks = new Set<string>();
+/** The speeches among them that are TED talks (their drawn cover carries the TED tag). */
+const tedBooks = new Set<string>();
 const listeners = new Set<() => void>();
 
-/** Replace the set. Listeners hear about it only when it really changed. */
-export function noteSpeechBooks(ids: readonly string[]): void {
-  const same = ids.length === speechBooks.size && ids.every((id) => speechBooks.has(id));
-  if (same) return;
+const sameSet = (set: ReadonlySet<string>, ids: readonly string[]) => ids.length === set.size && ids.every((id) => set.has(id));
+
+/** Replace the sets. Listeners hear about it only when one really changed. */
+export function noteSpeechBooks(ids: readonly string[], ted: readonly string[] = []): void {
+  if (sameSet(speechBooks, ids) && sameSet(tedBooks, ted)) return;
   speechBooks.clear();
   for (const id of ids) speechBooks.add(id);
+  tedBooks.clear();
+  for (const id of ted) tedBooks.add(id);
   for (const listener of listeners) listener();
+}
+
+/** True when a shelf speech is a TED talk. Read alongside useSpeechBookIds, which redraws on a change. */
+export function isTedBook(id: string): boolean {
+  return tedBooks.has(id);
 }
 
 /** Ids of shelf books that are speeches. The component redraws when the set changes. */
