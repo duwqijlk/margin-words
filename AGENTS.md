@@ -48,7 +48,9 @@ All of it is in (PR #249). Its rules, in the code:
   so a tile sits a step above its panel, never sunk into it. A new floating layer uses `bg-float`.
 - Cover glow (`CoverGlow`, `.glow` / `.cover-glow`): the book's cover blurred (56px) and enlarged behind
   the continue card, the newest book and the top of the book detail. Dimmer at night, none on e-ink,
-  with reduced transparency or for a book with no cover image.
+  with reduced transparency or for a book with no cover image. It loads the same request as the cover beside it
+  (same URL, `crossOrigin` from `coverCrossOrigin`): a plain <img> was a second download of every cover,
+  and its non-CORS cached copy can break the cover itself (cover-request.ts).
 - Settings, account, reading settings on a phone and the share dialog share one panel (`panel` and
   `PanelHandle` in `ui.tsx`): a centred panel on a wide screen, a bottom sheet with a drag bar on a phone.
   Settings sit in groups: a 13px label over a `sheet` box of 52px rows split by hairlines, a note under it.

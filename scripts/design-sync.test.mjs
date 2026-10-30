@@ -106,3 +106,9 @@ test("share card: outlined seal with the month, and the footer with the call to 
   assert.match(card, /cta: "#8fe0b4"/);
   assert.match(read("src/components/share-dialog.tsx"), /sealDate: sealMonth\(book\.finishedAt \|\| Date\.now\(\)\)/);
 });
+
+test("the cover glow reuses the cover's own request (same URL, same anonymous CORS), never a second download", () => {
+  const glow = read("src/components/cover-glow.tsx");
+  assert.match(glow, /crossOrigin=\{coverCrossOrigin\(src\)\}/);
+  assert.match(read("src/components/book-cover.tsx"), /crossOrigin=\{coverCrossOrigin\(cover\)\}/);
+});
