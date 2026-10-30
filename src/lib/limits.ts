@@ -49,3 +49,15 @@ export const PASSAGE_NOTE_MAX = 600;
 
 /** Taps one `POST /api/analytics/word-taps` may carry. */
 export const WORD_TAPS_MAX = 20;
+
+/**
+ * Longest quote kept, in characters: a sentence, a few sentences, or a paragraph. A longer
+ * paragraph is kept to this length with an ellipsis; "Back to the book" shows the rest.
+ */
+export const QUOTE_TEXT_MAX = 1000;
+
+/**
+ * Quotes one book may hold. One book is one sync row (src/lib/quote-model.ts), so this keeps that
+ * row well under SYNC_BODY_TARGET even when every quote is a long paragraph.
+ */
+export const QUOTES_PER_BOOK = 200;

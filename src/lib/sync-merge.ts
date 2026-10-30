@@ -6,13 +6,21 @@
  * two devices can each add a word without wiping the other, and the sources of a word (the books it was
  * met in) are unioned too. The second argument wins when updatedAt ties.
  *
+ * Kind `quotes` is one book's quotes (quote-model.ts), item id = bookSyncKey. Joined by quote id.
+ *
  * Kind `words` is the old per-book word list. New clients no longer write it; they read it once per pull
  * and fold it into the wordbook (`foldLegacyWords`), so an older client that still writes it is not lost.
  */
 import { asGlossPoint, type GlossPoint } from "./gloss-point.ts";
 import { asAnchor, normalizeQuote, type TextAnchor } from "./position.ts";
+import { asQuoteBlob, mergeQuoteBlobs, quoteBlobTime } from "./quote-model.ts";
 
-export const SYNC_KINDS = ["shelf", "progress", "words", "wordbook", "settings"] as const;
+export const SYNC_KINDS = ["shelf", "progress", "words", "wordbook", "settings", "quotes"] as const;
+
+/** Is this one of the item kinds this version reads? Older servers and clients skip the rest. */
+export function isSyncKind(kind: unknown): kind is SyncKind {
+  return typeof kind === "string" && (SYNC_KINDS as readonly string[]).includes(kind);
+}
 export type SyncKind = (typeof SYNC_KINDS)[number];
 
 export type SyncItem = {
@@ -759,6 +767,17 @@ export function mergeItem(base: SyncItem | undefined, preferred: SyncItem | unde
     };
   }
 
+  if (!base.deleted && !preferred.deleted && base.kind === "quotes") {
+    const blob = mergeQuoteBlobs(asQuoteBlob(base.data, base.itemId), asQuoteBlob(preferred.data, preferred.itemId));
+    return {
+      kind: "quotes",
+      itemId: base.itemId,
+      deleted: false,
+      data: blob,
+      updatedAt: Math.max(base.updatedAt, preferred.updatedAt, quoteBlobTime(blob)),
+    };
+  }
+
   if (!base.deleted && !preferred.deleted && base.kind === "progress") {
     const winner = preferred.updatedAt >= base.updatedAt ? preferred : base;
     const other = winner === preferred ? base : preferred;
@@ -829,7 +848,7 @@ export function normalizeItem(input: unknown, now = Date.now()): SyncItem | null
   if (!input || typeof input !== "object") return null;
   const raw = input as Record<string, unknown>;
   const kind = raw.kind;
-  if (kind !== "shelf" && kind !== "progress" && kind !== "words" && kind !== "wordbook" && kind !== "settings") return null;
+  if (!isSyncKind(kind)) return null;
   const itemId = typeof raw.itemId === "string" ? raw.itemId : "";
   if (!ITEM_ID.test(itemId)) return null;
   if (kind === "settings" && itemId !== "main") return null;
@@ -851,6 +870,8 @@ export function normalizeItem(input: unknown, now = Date.now()): SyncItem | null
       data = asWordBlob(raw.data);
     } else if (kind === "wordbook") {
       data = asWordbookBlob(raw.data);
+    } else if (kind === "quotes") {
+      data = asQuoteBlob(raw.data, itemId);
     } else {
       data = asSettings(raw.data);
     }

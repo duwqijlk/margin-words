@@ -24,6 +24,13 @@ export type PassagePick = {
   /** Where to put the button: just under the end of the selection, in page coordinates. */
   x: number;
   y: number;
+  /** The top of the selection, in page coordinates (the bar sits above it on a wide screen). */
+  top: number;
+  /** The numbered paragraph and its whole text (`start` and `end` are offsets into it). */
+  block: Element;
+  text: string;
+  /** Longer than PASSAGE_MAX: it can be kept as a quote, but not sent as a question. */
+  long: boolean;
 };
 
 const BLOCK = "p, li, blockquote, h1, h2, h3, h4, div[data-para]";
@@ -104,8 +111,9 @@ export function numberedParagraph(root: HTMLElement, block: Element): { block: E
 
 /**
  * Read the current page selection. Null when nothing useful is selected. `{ crossed: true }` when
- * it runs over more than one paragraph, is longer than PASSAGE_MAX, or sits in a block the reader
- * does not number (a title): the button then says so instead of filing it under a wrong paragraph.
+ * it runs over more than one paragraph or sits in a block the reader does not number (a title): the
+ * button then says so instead of filing it under a wrong paragraph. A selection longer than
+ * PASSAGE_MAX is marked `long` (a quote may be a whole paragraph; a question may not).
  */
 export function readPassage(root: HTMLElement): PassagePick | { crossed: true; x: number; y: number } | null {
   const selection = window.getSelection();
@@ -118,9 +126,13 @@ export function readPassage(root: HTMLElement): PassagePick | { crossed: true; x
   const rect = range.getBoundingClientRect();
   const x = rect.left + rect.width / 2 + window.scrollX;
   const y = rect.bottom + window.scrollY;
+  const top = rect.top + window.scrollY;
   const startBlock = blockOf(range.startContainer, root);
-  const endBlock = blockOf(range.endContainer, root);
-  if (!startBlock || !endBlock || [...raw].length > PASSAGE_MAX) return { crossed: true, x, y };
+  let endBlock = blockOf(range.endContainer, root);
+  if (!startBlock || !endBlock) return { crossed: true, x, y };
+  // A triple click selects a paragraph up to the very start of the next one: nothing of that one
+  // is selected, so it is still one paragraph.
+  if (endBlock !== startBlock && !flowTextBefore(endBlock, range.endContainer, range.endOffset).trim()) endBlock = startBlock;
   const first = numberedParagraph(root, startBlock);
   const last = numberedParagraph(root, endBlock);
   // Both ends in one numbered paragraph (two <p> of one quotation count as one paragraph).
@@ -141,5 +153,9 @@ export function readPassage(root: HTMLElement): PassagePick | { crossed: true; x
     span: holdsSentence(raw, whole, start) ? "sentence" : "words",
     x,
     y,
+    top,
+    block: first.block,
+    text: whole,
+    long: [...raw].length > PASSAGE_MAX,
   };
 }

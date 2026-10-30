@@ -20,6 +20,7 @@ import {
   type WordbookRecord,
 } from "./sync-merge.ts";
 import { SYNC_BODY_TARGET, SYNC_PUSH_MAX } from "./limits.ts";
+import { asQuote, quoteRows, type LocalQuoteGone, type QuoteRecord } from "./quote-model.ts";
 
 export type SyncMeta = {
   shelfDeleted: Record<string, number>;
@@ -41,6 +42,9 @@ export type LocalSnapshot = {
   words: LocalWord[];
   progress: Record<string, ProgressData>;
   settings: SettingsData;
+  /** quotes and their tombstones (quote-model.ts); each row carries its own deletes, so no meta */
+  quotes?: QuoteRecord[];
+  quotesRemoved?: LocalQuoteGone[];
 };
 
 export function emptyMeta(): SyncMeta {
@@ -247,6 +251,9 @@ export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncIte
   }
 
   items.push(...wordbookItems(snapshot, meta));
+  for (const row of quoteRows(snapshot.quotes ?? [], snapshot.quotesRemoved ?? [])) {
+    items.push({ kind: "quotes", itemId: row.book, updatedAt: row.updatedAt, deleted: false, data: row.blob });
+  }
   items.push({
     kind: "settings",
     itemId: "main",
@@ -318,6 +325,8 @@ export function captureSnapshot(input: {
   words: unknown[];
   progress: Record<string, unknown>;
   settings: unknown;
+  quotes?: unknown[];
+  quotesRemoved?: unknown[];
 }): LocalSnapshot {
   const books: ShelfData[] = [];
   for (const book of input.books) {
@@ -334,7 +343,18 @@ export function captureSnapshot(input: {
     const row = asProgress(value);
     if (row) progress[bookId] = row;
   }
-  return { books, words, progress, settings: asSettings(input.settings) };
+  const quotes: QuoteRecord[] = [];
+  for (const value of input.quotes ?? []) {
+    const quote = asQuote(value);
+    if (quote) quotes.push(quote);
+  }
+  const quotesRemoved: LocalQuoteGone[] = [];
+  for (const value of input.quotesRemoved ?? []) {
+    const row = value as Partial<LocalQuoteGone> | null;
+    if (row && typeof row.id === "string" && typeof row.book === "string" && typeof row.removed === "number")
+      quotesRemoved.push({ id: row.id, book: row.book, removed: row.removed });
+  }
+  return { books, words, progress, settings: asSettings(input.settings), quotes, quotesRemoved };
 }
 
 /**
@@ -344,7 +364,7 @@ export function captureSnapshot(input: {
  * target goes alone.
  */
 export function syncBatches(items: readonly SyncItem[]): SyncItem[][] {
-  const weight = (item: SyncItem) => (item.kind === "wordbook" || item.kind === "words" ? 1 : 0);
+  const weight = (item: SyncItem) => (item.kind === "wordbook" || item.kind === "words" || item.kind === "quotes" ? 1 : 0);
   const ordered = [...items].sort((a, b) => weight(a) - weight(b));
   const batches: SyncItem[][] = [];
   let current: SyncItem[] = [];

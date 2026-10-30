@@ -184,6 +184,19 @@ export function reviewIntent(): ReviewIntent | null {
   return null;
 }
 
+/** Which half of the notebook this visit shows: the words, or the quotes (kept in the history entry). */
+export function notebookTab(): "words" | "quotes" {
+  const state = window.history.state as { tab?: unknown } | null;
+  return state && typeof state === "object" && state.tab === "quotes" ? "quotes" : "words";
+}
+
+/** Remember the notebook half on this history entry, so Back and a refresh come back to it. */
+export function rememberNotebookTab(tab: "words" | "quotes"): void {
+  const state = window.history.state as Record<string, unknown> | null;
+  const next = { ...(state && typeof state === "object" ? state : {}), tab };
+  window.history.replaceState(next, "", window.location.pathname + window.location.search + window.location.hash);
+}
+
 /** The route of the address bar. An address that is not a page of the app reads as the shelf. */
 export function useRoute(): Route {
   const path = useSyncExternalStore(subscribe, currentPath, () => "/shelf/");

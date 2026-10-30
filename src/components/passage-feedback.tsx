@@ -1,17 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Check, MessageSquareText, X } from "lucide-react";
+import { Check, Copy, MessageSquareText, Quote, X } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { PASSAGE_NOTE_MAX, SUGGESTION_MAX } from "@/lib/limits";
 import { readPassage, type PassagePick } from "@/lib/passage-pick";
+import { sentenceSpans, sentencesOf } from "@/lib/quote-model";
+import { spanRange, type QuoteSpan } from "@/lib/quote-marks";
 import { cn } from "@/components/ui";
 
 type PassageReason = "hard" | "phrase" | "wrong" | "suggested";
 
+/** A selection of more sentences than this, or more characters, is kept as its whole paragraph. */
+const WHOLE_SENTENCES = 3;
+const WHOLE_CHARS = 500;
+/** A drag of this many words or more is a passage, not a word or a phrase: it snaps to whole sentences. */
+const SNAP_WORDS = 4;
+
+function finePointer(): boolean {
+  return typeof window.matchMedia === "function" && window.matchMedia("(pointer: fine)").matches;
+}
+
+/** What "keep" keeps for a selection: its whole sentences, or the whole paragraph when it is long. */
+export function quoteSpanOf(pick: Pick<PassagePick, "paragraph" | "start" | "end" | "text">): QuoteSpan & { whole: boolean } {
+  const span = sentencesOf(pick.text, pick.start, pick.end);
+  const inside = sentenceSpans(pick.text).filter((item) => item.end > span.start && item.start < span.end).length;
+  if (inside > WHOLE_SENTENCES || span.end - span.start > WHOLE_CHARS)
+    return { paragraph: pick.paragraph, start: 0, end: pick.text.length, whole: true };
+  return { paragraph: pick.paragraph, ...span, whole: false };
+}
+
 /**
- * "Ask about this": a small button under a selection inside one paragraph, and the card it opens.
- * The card sends the selected words with their place (chapter, paragraph, a few words around) to
- * /api/feedback/passage. Taps on single words are untouched: those open the word card.
+ * The selection bar (design system SelectionBar): a dark bar by a selection inside one paragraph.
+ * Its first button keeps the selection as a quote (its whole sentences; the whole paragraph when it
+ * is long), then Copy, then "Ask about this", which opens the card that sends the selected words
+ * with their place (chapter, paragraph, a few words around) to /api/feedback/passage. On a wide
+ * screen a drag of a few words or more snaps to whole sentences. Taps on single words are
+ * untouched: those open the word card.
  */
 /** Widest the open card gets (22rem), and the gap it keeps from each screen edge. */
 const CARD_MAX = 352;
@@ -26,6 +50,8 @@ export function PassageFeedback({
   catalogId,
   glossaryRev,
   enabled,
+  onQuote,
+  onCopied,
 }: {
   /** The page's article. A ref, because the article is mounted after the first render. */
   rootRef: { readonly current: HTMLElement | null };
@@ -39,6 +65,9 @@ export function PassageFeedback({
   glossaryRev?: string;
   /** False while a word card or a help panel is open, or for a chapter with no fixed number. */
   enabled: boolean;
+  /** Keep the span as a quote; absent where quotes cannot be kept (a book not on the shelf). */
+  onQuote?: (span: QuoteSpan) => void;
+  onCopied?: () => void;
 }) {
   const { t } = useT();
   const [pick, setPick] = useState<PassagePick | null>(null);
@@ -82,6 +111,35 @@ export function PassageFeedback({
     return () => {
       window.clearTimeout(timer);
       document.removeEventListener("selectionchange", update);
+    };
+  }, [enabled, rootRef]);
+
+  // A mouse drag over a few words or more becomes whole sentences, the unit a quote keeps.
+  useEffect(() => {
+    if (!enabled) return;
+    let timer = 0;
+    const onUp = (event: MouseEvent) => {
+      const root = rootRef.current;
+      if (!root || !finePointer() || !(event.target instanceof Node) || !root.contains(event.target)) return;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (openRef.current) return;
+        const found = readPassage(root);
+        if (!found || "crossed" in found) return;
+        if (found.selected.split(/\s+/).length < SNAP_WORDS) return;
+        const span = sentencesOf(found.text, found.start, found.end);
+        if (span.start === found.start && span.end === found.end) return;
+        const range = spanRange(found.block, span.start, span.end);
+        const selection = window.getSelection();
+        if (!range || !selection) return;
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }, 0);
+    };
+    document.addEventListener("mouseup", onUp);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("mouseup", onUp);
     };
   }, [enabled, rootRef]);
 
@@ -153,20 +211,66 @@ export function PassageFeedback({
   };
 
   if (!open) {
+    // Above the selection with a mouse (design system SelectionBar); under it on touch, so it never
+    // sits on the phone's own copy menu (that opens above it).
+    const above = finePointer() && pick !== null && pick.top - window.scrollY > 72;
+    const keep = pick && onQuote ? quoteSpanOf(pick) : null;
+    const copy = async () => {
+      if (!pick) return;
+      try {
+        await navigator.clipboard.writeText(pick.selected);
+      } catch {
+        document.execCommand("copy");
+      }
+      window.getSelection()?.removeAllRanges();
+      setPick(null);
+      onCopied?.();
+    };
+    const barButton =
+      "inline-flex min-h-10 items-center gap-1.5 px-3 text-[13px] font-bold whitespace-nowrap text-paper hover:bg-paper/15 [&+&]:shadow-[-1px_0_0_rgb(var(--paper-rgb)/0.16)]";
     return createPortal(
-      <div className="absolute z-40 -translate-x-1/2" style={style} data-para-ui data-passage-ui>
+      <div
+        className={cn("absolute z-40 -translate-x-1/2", above && "-translate-y-full")}
+        style={{ ...style, top: above && pick ? pick.top - 10 : style.top }}
+        data-para-ui
+        data-passage-ui
+      >
         {pick ? (
-          <button
-            type="button"
-            className="inline-flex min-h-10 items-center gap-1.5 rounded bg-ink px-3.5 text-xs font-semibold text-paper shadow-lift"
+          <div
+            role="toolbar"
+            aria-label={t("quote.barAria")}
+            className="flex overflow-hidden rounded-xl bg-ink p-1 shadow-lift"
             // Keep the selection: a press would clear it before the click.
             onPointerDown={(event) => event.preventDefault()}
-            onClick={() => setOpen(true)}
-            data-passage-ask
+            onMouseDown={(event) => event.preventDefault()}
+            data-selection-bar
           >
-            <MessageSquareText className="size-3.5" aria-hidden />
-            {t("passage.ask")}
-          </button>
+            {keep ? (
+              <button
+                type="button"
+                className={cn(barButton, "rounded-lg text-mark")}
+                onClick={() => {
+                  window.getSelection()?.removeAllRanges();
+                  setPick(null);
+                  onQuote?.({ paragraph: keep.paragraph, start: keep.start, end: keep.end });
+                }}
+                data-quote-keep={keep.whole ? "whole" : "sentence"}
+              >
+                <Quote className="size-4" aria-hidden />
+                {keep.whole ? t("quote.keepWhole") : t("quote.keep")}
+              </button>
+            ) : null}
+            <button type="button" className={barButton} onClick={() => void copy()} data-quote-copy>
+              <Copy className="size-4" aria-hidden />
+              {t("quote.copy")}
+            </button>
+            {!pick.long ? (
+              <button type="button" className={barButton} onClick={() => setOpen(true)} data-passage-ask>
+                <MessageSquareText className="size-4" aria-hidden />
+                {t("passage.ask")}
+              </button>
+            ) : null}
+          </div>
         ) : (
           <p className="rounded bg-ink/85 px-3 py-1.5 text-xs text-paper shadow-lift" role="status" data-passage-crossed>
             {t("passage.oneParagraph")}

@@ -16,6 +16,7 @@ import { readGlossaryFile } from "@/lib/glossary-import";
 import { canAddBooks, askToSignIn } from "@/lib/can-add";
 import { ensureClassics } from "@/lib/classics";
 import { useProgress } from "@/lib/progress-store";
+import { useQuotes } from "@/lib/quote-store";
 import { tr, trn, useT } from "@/lib/i18n";
 import { applyTheme, usePrefs } from "@/lib/reader-prefs";
 import type { VocabEntry } from "@/lib/vocab-model";
@@ -173,6 +174,7 @@ export function MarginApp() {
           useVocab.persist.rehydrate(),
           usePrefs.persist.rehydrate(),
           useProgress.persist.rehydrate(),
+          useQuotes.persist.rehydrate(),
         ]);
       } catch {
         // The shelf can still be rebuilt from the saved books.
@@ -555,6 +557,7 @@ export function MarginApp() {
               bookId={screen.bookId}
               onBack={() => setScreen({ kind: "shelf" })}
               onNotebook={() => setScreen({ kind: "words", bookId: screen.bookId })}
+              onQuotes={() => setScreen({ kind: "words", bookId: screen.bookId }, { state: { tab: "quotes" } })}
               onAddEpub={() => void askForEpub(screen.bookId)}
               onDiscover={() => setScreen({ kind: "discover" })}
             />

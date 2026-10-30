@@ -28,6 +28,7 @@ import {
   asWordbookBlob,
   bookSyncKey,
   foldLegacyWords,
+  isSyncKind,
   isLive,
   itemKey,
   lemmaKey,
@@ -41,6 +42,7 @@ import {
 } from "@/lib/sync-merge";
 import { rehomeForeignSources } from "@/lib/wordbook";
 import { useVocab } from "@/lib/vocab-store";
+import { applyQuoteItems, useQuotes } from "@/lib/quote-store";
 import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 import { claimDevice, ownedByAnother, PENDING_KEY, startDeviceWipe } from "@/lib/device-wipe";
 import { afterPull, afterPush, needsUpload, pullAfter, readView, SYNC_VIEW_KEY, type SyncView } from "@/lib/sync-view";
@@ -117,11 +119,14 @@ function capture(): LocalSnapshot {
     reviewLog: vocab.log,
     readDays: vocab.readDays,
   };
+  const quotes = useQuotes.getState();
   return captureSnapshot({
     books: vocab.books,
     words: vocab.words,
     progress: useProgress.getState().items,
     settings,
+    quotes: quotes.quotes,
+    quotesRemoved: quotes.removed,
   });
 }
 
@@ -270,7 +275,7 @@ function asItems(value: unknown): SyncItem[] {
   for (const item of value) {
     if (!item || typeof item !== "object") continue;
     const row = item as Partial<SyncItem>;
-    if (row.kind !== "shelf" && row.kind !== "progress" && row.kind !== "words" && row.kind !== "wordbook" && row.kind !== "settings") continue;
+    if (!isSyncKind(row.kind)) continue;
     if (typeof row.itemId !== "string") continue;
     out.push({
       kind: row.kind,
@@ -445,6 +450,7 @@ async function applyMerged(items: SyncItem[]) {
     });
     useProgress.setState({ items: progress });
     if (settings) applySettings(settings);
+    applyQuoteItems(items);
     alignMeta(items);
     try {
       await repairShelf();
@@ -715,6 +721,7 @@ export function startAccountSync(): () => void {
   dirty = readStorage(DIRTY_KEY) === "1";
   const stopVocab = useVocab.subscribe(onStore);
   const stopProgress = useProgress.subscribe(onStore);
+  const stopQuotes = useQuotes.subscribe(onStore);
   const stopPrefs = usePrefs.subscribe(onStore);
   const stopLocale = useLocale.subscribe(onStore);
   const onOnline = () => {
@@ -743,6 +750,7 @@ export function startAccountSync(): () => void {
     started = false;
     stopVocab();
     stopProgress();
+    stopQuotes();
     stopPrefs();
     stopLocale();
     document.removeEventListener("visibilitychange", onFocus);
