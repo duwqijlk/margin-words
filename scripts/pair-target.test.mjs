@@ -44,6 +44,7 @@ const mocks = {
   "content-category": "export const readContentCategory = () => '';",
   lexile: "export const lexileMeasure = () => '';",
   "catalog-index": "export const noteCatalogIds = () => {};",
+  "shared-fetch": "export const sharedJson = async (url) => (await fetch(url, { cache: 'no-cache' })).json();",
 };
 globalThis.__pairTarget = { state: () => state, records: () => records, stored: () => stored, writes: () => writes, gate: () => gate, extras: () => extras, recordGate: () => recordGate };
 const resolve = (name) => name === "book-mutation" ? mutationUrl : name === "cancel-work" ? cancelUrl : url(mocks[name]);

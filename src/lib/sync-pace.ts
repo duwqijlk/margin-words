@@ -15,6 +15,13 @@
  *     what it holds and returns the result, so nothing is lost; edits other devices made to other
  *     items arrive with the next pull (at most PULL_FRESH_MS later, or on returning to the tab).
  *
+ *   - While a book is open (holdSyncPushes({ reading: true }) in the reader), every scroll moves the
+ *     reading place, and each pause of 1.5 s used to upload it: 12 scrolls made 12 POSTs, each a
+ *     Function call and D1 writes, so reading for half an hour, or opening and leaving a book again
+ *     and again, spent the free daily allowance for nothing. Now an edit made while reading starts
+ *     one wait of READING_DELAY_MS that later edits do not restart: at most one upload a minute.
+ *     Leaving the book, hiding the tab and closing the page still upload at once.
+ *
  * Pure functions: the engine keeps the state.
  */
 import { pullAfter, type SyncView } from "./sync-view.ts";
@@ -25,6 +32,8 @@ export const PUSH_DELAY_MS = 1500;
 export const HOLD_DELAY_MS = 15_000;
 /** While held, upload anyway once this many edits are waiting. */
 export const HOLD_MAX_CHANGES = 10;
+/** While a book is open: the longest an edit waits, counted from the first edit (not restarted). */
+export const READING_DELAY_MS = 60_000;
 /** A pull younger than this is not repeated before a push. */
 export const PULL_FRESH_MS = 30_000;
 
