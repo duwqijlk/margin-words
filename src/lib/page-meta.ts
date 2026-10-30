@@ -37,7 +37,6 @@ export function pageMeta(route: Route, hasBookTitle = false): PageMeta {
       };
     case "book":
       return { titleKey: null, canonical: `${SITE}${pathFor(route)}`, index: true };
-    case "guide":
     case "dashboard":
       return { titleKey: `seo.title.${route.kind}`, canonical: `${SITE}${pathFor(route)}`, index: true };
     case "words":

@@ -1,12 +1,11 @@
 import { Info, X } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { useT } from "@/lib/i18n";
-import { navigate } from "@/lib/router";
 
 /**
  * The one notice of the site, above the bottom bar: one short line that the site hosts no books
- * under copyright and counts word taps, with a link to the Guide, which explains both (its
- * "copyright" and "privacy" sections; taps are `recordWordTap` in lib/word-taps-collector.ts).
+ * under copyright and counts word taps (`recordWordTap` in lib/word-taps-collector.ts). The Guide
+ * it used to link to is gone; the account dialog keeps the privacy note.
  * It used to be two full paragraphs, which covered the bottom of the shelf.
  *
  * One close button hides both, and that choice is remembered on this device. The key is new, so
@@ -42,10 +41,6 @@ export function SiteNotice() {
   const { t } = useT();
   const saved = useSyncExternalStore(subscribe, dismissed, () => true);
   if (saved) return null;
-  const toGuide = (event: React.MouseEvent) => {
-    event.preventDefault();
-    navigate({ kind: "guide" });
-  };
   return (
     <div
       className="fixed inset-x-0 bottom-[calc(3.75rem+env(safe-area-inset-bottom))] z-30 px-3 sm:bottom-4"
@@ -53,19 +48,11 @@ export function SiteNotice() {
       data-site-notice
     >
       <div className="relative mx-auto max-w-md rounded bg-sheet px-3 py-2 pr-11 shadow-lift">
-        {/* One short line. Copyright and privacy each have their own section in the Guide. */}
+        {/* One short line. */}
         <p className="flex items-start gap-2 text-[0.8rem] leading-snug">
           <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
           <span className="min-w-0 flex-1">
-            {t("notice.short")}{" "}
-            <a
-              href="/guide/"
-              className="font-semibold underline underline-offset-2"
-              data-site-notice-about
-              onClick={toGuide}
-            >
-              {t("notice.link")}
-            </a>
+            {t("notice.short")}
           </span>
         </p>
         <button

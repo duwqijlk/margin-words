@@ -19,11 +19,9 @@ import { NewTag } from "@/components/tutorial-tab";
 export function SettingsDialog({
   open,
   onOpenChange,
-  onOpenGuide,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onOpenGuide: () => void;
 }) {
   const { t } = useT();
   const tutorialNews = useTutorialNews();
@@ -90,18 +88,6 @@ export function SettingsDialog({
           <section className={panel.group} aria-label={t("settings.help")}>
             <h3 className={panel.groupTitle}>{t("settings.help")}</h3>
             <div className={panel.box}>
-              <button
-                type="button"
-                className={panel.row}
-                data-settings-guide
-                onClick={() => {
-                  onOpenChange(false);
-                  onOpenGuide();
-                }}
-              >
-                <span className={panel.rowLabel}>{t("nav.guide")}</span>
-                <ChevronRight className={panel.rowIcon} aria-hidden />
-              </button>
               <button
                 type="button"
                 className={panel.row}

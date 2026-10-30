@@ -777,13 +777,8 @@ async function run(lang, size) {
       `${label}: Discover lists ${FREE_COUNT} classics (${await vp.locator("[data-pack]").count()})`,
     );
     await vp.getByRole("button", { name: t("nav.settings"), exact: true }).click();
-    await vp.locator("[data-settings-guide]").click();
-    await vp.getByRole("heading", { name: t("guide.title"), exact: true }).waitFor();
-    ok((await vp.locator("[data-guide-section]").count()) === 12, `${label}: the guide is the one how-to and about page`);
-    ok(
-      (await vp.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",
-      `${label}: the guide credits English Read`,
-    );
+    ok((await vp.locator("[data-settings-guide]").count()) === 0, `${label}: Settings has no Guide row (the Guide page is gone)`);
+    await vp.keyboard.press("Escape");
     ok((await vp.locator("header nav button").count()) === 3, `${label}: Shelf, Discover and Overview are the tabs`);
     const tabNames = await vp.locator("header nav button").evaluateAll((list) =>
       list.map((b) => (b.textContent ?? "").replace(/\s+/g, " ").trim()),

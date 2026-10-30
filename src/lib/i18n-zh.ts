@@ -49,7 +49,6 @@ export const zh: Record<Key, string> = {
   "nav.shelf": "书架",
   "nav.discover": "发现",
   "nav.dashboard": "概况",
-  "nav.guide": "使用说明",
   "nav.notebook": "生词本",
   "nav.settings": "设置",
   "nav.account": "账号",
@@ -68,7 +67,6 @@ export const zh: Record<Key, string> = {
   "seo.title.discover": "发现英文原著 · inputread 英语阅读器",
   "seo.title.discoverNovels": "英文原著小说 · inputread 英语阅读器",
   "seo.title.discoverSpeeches": "英文演讲 · inputread 英语阅读器",
-  "seo.title.guide": "使用说明 · inputread 英语阅读器",
   "seo.title.dashboard": "网站数据 · inputread 英语阅读器",
   "seo.title.words": "生词本 · inputread",
   "seo.title.review": "复习 · inputread",
@@ -106,14 +104,6 @@ export const zh: Record<Key, string> = {
   "settings.tutorial": "使用教程（动画）",
 
   /* ---- guide */
-  "guide.title": "使用说明",
-  "guide.github": "在 GitHub 上看源代码",
-  "guide.addTitle": "把书加入书架",
-  "guide.addBody":
-    "添加图书都在“发现”页，而且要先登录（点上方的人像图标）。登录后打开“发现”，点封面上的加号。加号会变成对勾，这个按钮叫“已在书架”。想把书拿下来，就点对勾，再选“移出书架”。在书架里，可以点书旁边的三点菜单。移出后可以马上撤销。",
-  "guide.offlineTitle": "打开网站需要网络",
-  "guide.offlineBody":
-    "打开这个网站需要网络。已经保存在这台设备上的书，还在这台设备上。登录以后，另一台设备会显示同一张书架卡片，但那台设备还要再拿到书的文件：公版书可以下载，其他书要添加你自己的电子书。登录后，阅读进度和生词本可以同步。",
 
   /* ---- dashboard */
   "dashboard.title": "概况",
@@ -902,7 +892,6 @@ export const zh: Record<Key, string> = {
   "rv.nextCard": "下一个",
   "rv.think": "先想一想，这个词在句子里是什么意思",
   "shelf.findBooks": "到发现里面添加一本书",
-  "notice.link": "了解本站如何运作",
   "src.chapterN": "第 {n} 章",
   "src.open": "回到这个位置",
   "src.notOnShelf": "这本书不在你的书架上",
@@ -912,43 +901,7 @@ export const zh: Record<Key, string> = {
   "nb.inBooks.one": "来自 {n} 本书",
   "nb.inBooks.other": "来自 {n} 本书",
   "reader.trickyHint": "词下面的波浪线：这个词你可能认识，但在这里是别的意思。点一点看看。",
-  "about.intro":
-    "Margin Words 是一个英文小说阅读器。你读真正的原版书，点一个词，就能用简单的英文看到它的意思。",
-  "about.tapTitle": "点一个词",
-  "about.tapBody":
-    "点有下划线的词，会打开一张卡片：用简单的英文写的意思、词性，还有这个词为什么难。书不会被翻译，你是在用英文学英文。",
-  "about.marksTitle": "文字里的标记",
-  "about.markHard": "词下面的直线：一个难词。点一点看看。",
-  "about.markPhrase": "词下面的点线：这个词属于一个短语。点一点看看。",
   "about.markTricky": "词下面的波浪线：这个词你可能认识，但在这里是别的意思。点一点看看。",
-  "about.markBulb": "段落末尾的 ✦：点一下，看这一段或段中难句的解析。",
-  "about.listsTitle": "老师做的词表",
-  "about.listsBody":
-    "每本书都有一份老师写的词表。老师挑出难词和短语，用简单的英文写出意思，并给难懂的段落写说明。你读书时，没有电脑在现场编造内容。",
-  "about.booksTitle": "公有领域的书和你自己的书",
-  "about.booksBody":
-    "已进入公有领域的书（例如《爱丽丝梦游仙境》）放在我们的图书服务器上，在“发现”里点一下就能添加。仍有版权的书不在我们的服务器上，我们只提供词表和 ISBN。你需要自己合法获得这本书的 EPUB 文件，并在自己的设备上添加。词表改进后，在那本书上点“更新”。新词表不会自己换上。",
-  "about.matchTitle": "匹配检查",
-  "about.matchBody":
-    "你添加自己的 EPUB 时，应用会把书里的句子和词表里的句子对比，并显示匹配率，例如 96%。匹配率 80% 以上就很合适。匹配率低，说明你的文件可能是另一个版本，有些说明可能找不到或位置不对。",
-  "about.wordbookTitle": "所有书共用一个生词本",
-  "about.wordbookBody":
-    "你从任何一本书里存的词，都放进同一个生词本，复习也是同一个队列。每个词都记得它来自哪个句子、哪本书、哪一章，点一下就能回到那个位置。复习会在 1、2、4、7、15、30 天后回来。",
-  "about.accountTitle": "账号和同步（可选）",
-  "about.accountBody":
-    "你不需要账号。如果你创建账号，我们会保存这些内容的一份副本：书架列表、阅读到哪里、你存的词和它们的来源位置、复习次数，以及阅读设置。你还可以填一个昵称，可以和别人一样。在另一台设备上登录就能看到。你随时可以导出或删除自己的数据。退出登录时，这台设备上的书和数据会被清空，重新登录后从云端恢复。",
-  "about.privacyTitle": "隐私",
-  "about.privacyBody":
-    "你的 EPUB 文件只留在你的设备上，即使你有账号也不会上传。为了在另一台设备上找到你的位置，同步只保存词表里的段落编号、一小行书中的文字，以及你存的每个词所在的句子。我们还会统计哪些词被点开，好把词表里缺的词补上：上报里包含单词、书名、它在书中的位置，以及单词所在的句子。我们不会收到任何书籍文件。",
-  "about.copyrightTitle": "版权声明和免责声明",
-  "about.copyrightBody":
-    "书名、书中内容和人物属于作者和出版社。本站不存放、不出售、也不分享有版权的书。我们的词表是自己写的学习笔记，只为学习而引用很短的原文。公有领域的书任何人都可以使用，所以我们提供。我们尽力保证正确，但说明里也可能有错误。本站只用于学习。如果你认为这里有不该出现的内容，请告诉我们，我们会尽快核实。",
-  "about.sourceTitle": "这个阅读器的来源",
-  "about.sourceBody":
-    "这个阅读器的想法来自 {link}。谢谢做它的人。Margin Words 是我们自己的应用。词表由我们的老师编写，你的书籍文件留在你的设备上。",
-  "about.contactTitle": "联系我们",
-  "about.contactEmail": "请发邮件到 {contact}。",
-  "about.contactIssues": "发现错误或有版权问题，请在这里告诉我们：{contact}。",
 
   /* ---- supporters */
   "thanks.title": "感谢支持的人",

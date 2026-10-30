@@ -64,10 +64,6 @@
         "text": "英文演讲"
       },
       {
-        "href": "/guide/",
-        "text": "使用说明"
-      },
-      {
         "href": "/dashboard/",
         "text": "网站数据"
       }
@@ -78,7 +74,6 @@
     "/discover/",
     "/discover/novels/",
     "/discover/speeches/",
-    "/guide/",
     "/dashboard/"
   ],
   "ogImage": "/social/og.png",

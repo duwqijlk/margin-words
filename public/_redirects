@@ -31,10 +31,10 @@
 /dashboard/ / 200
 /admin /admin/ 302
 /admin/ / 200
-/guide /guide/ 302
-/guide/ / 200
-/about /guide/ 302
-/about/ / 200
+/guide /shelf/ 301
+/guide/ /shelf/ 301
+/about /shelf/ 301
+/about/ /shelf/ 301
 /thanks /dashboard/ 302
 /thanks/ / 200
 /words /words/ 302
