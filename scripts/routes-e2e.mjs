@@ -248,20 +248,18 @@ async function notice(lang) {
   const bar = page.locator("[data-notice-bar]");
   await bar.waitFor({ timeout: 30000 });
   ok(
-    (await bar.innerText()).replace(/\s+/g, " ").trim() === `${t("notice.text")} ${t("notice.link")}`,
-    `${lang}: the notice says the right text and links to the Guide`,
+    (await bar.innerText()).replace(/\s+/g, " ").trim() === t("notice.short"),
+    `${lang}: the notice says the right text`,
   );
-  ok((await bar.locator("[data-notice-about]").getAttribute("href")) === "/guide/", `${lang}: the notice links to the Guide`);
   const box = await bar.boundingBox();
   ok(box !== null && box.y <= 1 && box.height < 80, `${lang}: the notice is a slim bar at the top (${Math.round(box?.height ?? 0)}px)`);
-  for (const path of ["discover", "guide", "words"]) {
+  for (const path of ["discover", "words"]) {
     await page.goto(at(path));
     ok((await bar.count()) === 1, `${lang}: the notice is on /${path}`);
   }
   await page.goto(at("about"));
-  await page.waitForURL((url) => new URL(url).pathname === "/guide/", { timeout: 30000 });
-  await page.locator("[data-guide-page]").waitFor({ timeout: 30000 });
-  ok(new URL(page.url()).pathname === "/guide/", `${lang}: /about opens the Guide`);
+  await page.waitForURL((url) => new URL(url).pathname === "/shelf/", { timeout: 30000 });
+  ok(new URL(page.url()).pathname === "/shelf/", `${lang}: /about (the old Guide) goes to the shelf`);
   ok((await bar.count()) === 1, `${lang}: the notice is still there after /about`);
   await page.goto(at("shelf"));
   await page.locator("[data-notice-close]").click();

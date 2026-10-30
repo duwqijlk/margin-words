@@ -53,7 +53,7 @@ test("the introduction sits inside #root with one h1, headings and links to the 
   assert.ok(root.includes(`id="${INTRO_ID}"`), "introduction inside #root (React replaces it)");
   assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1);
   assert.equal((root.match(/<h2[\s>]/g) ?? []).length, seo.intro.sections.length);
-  for (const href of ["/discover/novels/", "/discover/speeches/", "/guide/", "/dashboard/"]) assert.ok(root.includes(`href="${href}"`), href);
+  for (const href of ["/discover/novels/", "/discover/speeches/", "/dashboard/"]) assert.ok(root.includes(`href="${href}"`), href);
   // A browser that runs scripts never paints it; the boot notice does not take it for the app.
   assert.ok(html.includes(`html[data-js] #${INTRO_ID}{display:none}`));
   assert.ok(html.includes('document.documentElement.setAttribute("data-js","")'));
@@ -67,10 +67,10 @@ test("text is escaped and a changed index.html fails the build instead of shippi
 
 test("the sitemap lists the public pages and robots.txt points to it", () => {
   const xml = sitemapXml(seo, "2026-10-29");
-  for (const path of ["/", "/discover/", "/guide/", "/dashboard/"]) {
+  for (const path of ["/", "/discover/", "/dashboard/"]) {
     assert.ok(xml.includes(`<loc>${SITE}${path}</loc><lastmod>2026-10-29</lastmod>`), path);
   }
-  assert.doesNotMatch(xml, /\/(words|review|read|admin)\//);
+  assert.doesNotMatch(xml, /\/(words|review|read|admin|guide)\//);
   const robots = read("public/robots.txt");
   assert.match(robots, new RegExp(`^Sitemap: ${SITE}/sitemap\\.xml$`, "m"));
   for (const path of ["/api/", "/admin/", "/words/", "/review/", "/read/"]) assert.match(robots, new RegExp(`^Disallow: ${path}$`, "m"));
@@ -80,7 +80,6 @@ test("the sitemap lists the public pages and robots.txt points to it", () => {
 test("each screen has its title, canonical address and index rule", () => {
   assert.deepEqual(pageMeta({ kind: "shelf" }), { titleKey: null, canonical: `${SITE}/`, index: true });
   assert.deepEqual(pageMeta({ kind: "discover" }), { titleKey: "seo.title.discover", canonical: `${SITE}/discover/`, index: true });
-  assert.deepEqual(pageMeta({ kind: "guide" }), { titleKey: "seo.title.guide", canonical: `${SITE}/guide/`, index: true });
   assert.deepEqual(pageMeta({ kind: "dashboard" }), { titleKey: "seo.title.dashboard", canonical: `${SITE}/dashboard/`, index: true });
   for (const route of [{ kind: "words", bookId: null }, { kind: "review", bookId: "x" }, { kind: "admin" }, { kind: "read", bookId: "x" }]) {
     const meta = pageMeta(route);

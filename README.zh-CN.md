@@ -128,4 +128,4 @@ npm test
 
 ## 来源
 
-这个阅读器的想法来自开源项目 [English Read](https://github.com/bitbw/english-read)（Copyright (c) 2026 English Read contributors，[MIT 许可证](https://github.com/bitbw/english-read/blob/main/LICENSE)）。Margin Words 是我们自己的应用。应用里的“使用说明”也写了同样的话。
+这个阅读器的想法来自开源项目 [English Read](https://github.com/bitbw/english-read)（Copyright (c) 2026 English Read contributors，[MIT 许可证](https://github.com/bitbw/english-read/blob/main/LICENSE)）。Margin Words 是我们自己的应用。

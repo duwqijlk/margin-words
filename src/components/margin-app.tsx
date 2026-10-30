@@ -83,7 +83,6 @@ async function migrateOldData(): Promise<void> {
 const Shelf = lazy(() => import("@/components/shelf").then((m) => ({ default: m.Shelf })));
 const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ default: m.Notebook })));
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
-const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
 const DashboardScreen = lazy(() => import("@/components/dashboard-page").then((m) => ({ default: m.DashboardScreen })));
 const AdminPage = lazy(() => import("@/components/admin-page").then((m) => ({ default: m.AdminPage })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
@@ -160,13 +159,12 @@ export function MarginApp() {
   }, []);
 
   // "/" and any address that is not a page go to the bookshelf, without adding a history entry.
-  // /about is the old About page: it is the Guide now, so the address becomes /guide.
+  // /guide and /about (the Guide, removed) are not pages any more: they go to the bookshelf too.
   // /thanks is the old thank-you page: the list is on the overview, so the address becomes /dashboard.
   // popstate covers a Back press that lands on an old entry.
   useEffect(() => {
     const fix = () => {
       if (pathNeedsRedirect()) navigate(DEFAULT_ROUTE, { replace: true });
-      else if (/^\/about\/?$/.test(window.location.pathname)) navigate({ kind: "guide" }, { replace: true });
       else if (/^\/thanks\/?$/.test(window.location.pathname)) {
         navigate({ kind: "dashboard" }, { replace: true });
         window.history.replaceState(window.history.state, "", "/dashboard/#thanks");
@@ -484,10 +482,9 @@ export function MarginApp() {
             </button>
             <button
               type="button"
-              className={cn(btn.icon, "size-11", menu === "guide" && "text-accent")}
+              className={cn(btn.icon, "size-11")}
               onClick={() => setSettingsOpen(true)}
               aria-label={t("nav.settings")}
-              aria-current={menu === "guide" ? "page" : undefined}
               data-settings-button
             >
               <span className="relative inline-flex">
@@ -589,8 +586,6 @@ export function MarginApp() {
             <DashboardScreen />
           ) : screen.kind === "admin" ? (
             <AdminPage />
-          ) : screen.kind === "guide" ? (
-            <GuideScreen />
           ) : screen.kind === "discover" || screen.kind === "book" ? (
             <DiscoverScreen
               shelf={orderedBooks}
@@ -647,7 +642,6 @@ export function MarginApp() {
           <SettingsDialog
             open={settingsOpen}
             onOpenChange={setSettingsOpen}
-            onOpenGuide={() => setScreen({ kind: "guide" })}
           />
         ) : null}
         {tutorialOpen ? <TutorialDialog /> : null}

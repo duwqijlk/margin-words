@@ -8,7 +8,6 @@
  *                     this address (scripts/seo-pages.mjs) so a shared link shows the book's preview.
  *   /dashboard/       Overview: how many books, marked words, and notes, plus the thank-you list
  *   /admin/           Sponsorship requests. Not a menu item. Only the admin account can use it.
- *   /guide/           Guide (how to use the app, and about the site). Opened from Settings.
  *   /words/           Word book (all books)
  *   /words/<bookId>   Word book of one book
  *   /review/[<id>]    Review           /read/<bookId>    the reader
@@ -16,7 +15,7 @@
  * A page with no id is written with a trailing slash; both forms are read.
  *
  * `/` and unknown paths go to /shelf. `/add` (the old add-book page) reads as Discover, the only
- * place that adds books. `/about` (the old About page) reads as the Guide. `/thanks` (the old
+ * place that adds books. `/guide` and `/about` (the Guide, removed) go to /shelf. `/thanks` (the old
  * thank-you page) reads as the overview, where that list now sits. A small hand-made
  * router: the app has no server and a handful of addresses, so a library would add more code
  * than it saves.
@@ -29,7 +28,6 @@ export type Route =
   | { kind: "book"; bookId: string }
   | { kind: "dashboard" }
   | { kind: "admin" }
-  | { kind: "guide" }
   | { kind: "words"; bookId: string | null }
   | { kind: "review"; bookId: string | null }
   | { kind: "read"; bookId: string };
@@ -72,14 +70,9 @@ export function parsePath(pathname: string): Route | null {
       return rest === undefined ? { kind: "dashboard" } : null;
     case "admin":
       return rest === undefined ? { kind: "admin" } : null;
-    case "guide":
-      return rest === undefined ? { kind: "guide" } : null;
     case "thanks":
       // The old thank-you page. The list is a section of the overview now.
       return rest === undefined ? { kind: "dashboard" } : null;
-    case "about":
-      // The old About page is the Guide now. The app replaces this address with /guide.
-      return rest === undefined ? { kind: "guide" } : null;
     case "words":
       return { kind: "words", bookId: id };
     case "review":
@@ -115,7 +108,7 @@ export function pathFor(route: Route): string {
 }
 
 /** Which top-menu page a route belongs to. */
-export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guide" | "words" | "admin" {
+export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "words" | "admin" {
   switch (route.kind) {
     case "discover":
     case "book":
@@ -124,8 +117,6 @@ export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guid
       return "dashboard";
     case "admin":
       return "admin";
-    case "guide":
-      return "guide";
     case "words":
     case "review":
       return "words";

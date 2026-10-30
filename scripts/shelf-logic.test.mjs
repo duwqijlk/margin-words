@@ -108,7 +108,7 @@ test("every top-menu page has its own address, and the address maps back", () =>
   const { parsePath, pathFor, menuOf } = router;
   // A page with no id is written with a trailing slash: the address the host serves (public/_redirects
   // sends /shelf to /shelf/), so a reload takes no extra redirect. The form without a slash still reads.
-  for (const [path, kind] of [["/shelf/", "shelf"], ["/discover/", "discover"], ["/dashboard/", "dashboard"], ["/guide/", "guide"], ["/words/", "words"], ["/review/", "review"], ["/admin/", "admin"]]) {
+  for (const [path, kind] of [["/shelf/", "shelf"], ["/discover/", "discover"], ["/dashboard/", "dashboard"], ["/words/", "words"], ["/review/", "review"], ["/admin/", "admin"]]) {
     assert.equal(parsePath(path).kind, kind);
     assert.equal(pathFor(parsePath(path)), path);
     assert.equal(pathFor(parsePath(path.slice(0, -1))), path, `${path.slice(0, -1)} is the same page`);
@@ -127,9 +127,8 @@ test("every top-menu page has its own address, and the address maps back", () =>
   assert.equal(menuOf(parsePath("/read/x")), "shelf");
   assert.equal(parsePath("/add").kind, "discover", "the old add page now lands on Discover");
   assert.equal(menuOf(parsePath("/add")), "discover");
-  assert.equal(parsePath("/about").kind, "guide", "the old About page is the Guide");
-  assert.equal(menuOf(parsePath("/about")), "guide");
-  assert.equal(pathFor({ kind: "guide" }), "/guide/");
+  assert.equal(parsePath("/about"), null, "the old About page (the Guide) is gone: it goes to the shelf");
+  assert.equal(parsePath("/guide/"), null, "the Guide is gone");
   assert.equal(pathFor({ kind: "dashboard" }), "/dashboard/");
   assert.equal(pathFor({ kind: "words", bookId: "abc" }), "/words/abc", "a page with an id has no slash");
   assert.equal(menuOf(parsePath("/dashboard")), "dashboard");

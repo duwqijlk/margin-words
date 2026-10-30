@@ -46,7 +46,6 @@ export const en = {
   "nav.shelf": "Shelf",
   "nav.discover": "Discover",
   "nav.dashboard": "Overview",
-  "nav.guide": "Guide",
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
   "nav.account": "Account",
@@ -66,7 +65,6 @@ export const en = {
   "seo.title.discover": "Discover English books · inputread English reader",
   "seo.title.discoverNovels": "English novels · inputread English reader",
   "seo.title.discoverSpeeches": "English speeches · inputread English reader",
-  "seo.title.guide": "Guide · inputread English reader",
   "seo.title.dashboard": "Overview · inputread English reader",
   "seo.title.words": "Notebook · inputread",
   "seo.title.review": "Review · inputread",
@@ -104,14 +102,6 @@ export const en = {
   "settings.tutorial": "How to use (animated)",
 
   /* ---- guide */
-  "guide.title": "Guide",
-  "guide.github": "Source code on GitHub",
-  "guide.addTitle": "Add a book to your shelf",
-  "guide.addBody":
-    "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap the plus on a book’s cover. The plus becomes a check, and the button is called “On shelf”. To take a book off, tap the check and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
-  "guide.offlineTitle": "Opening the site needs the internet",
-  "guide.offlineBody":
-    "You need the internet to open this site. A book file that is already on this device stays on this device. Sign in, and another device shows the same shelf card, but that device still needs the book file: download a public-domain classic, or add your own e-book. Your progress and your notebook can sync when you are signed in.",
 
   /* ---- dashboard */
   "dashboard.title": "Overview",
@@ -925,7 +915,6 @@ export const en = {
   "rv.nextCard": "Next",
   "rv.think": "First, think about what this word means in the sentence",
   "shelf.findBooks": "Add a book on Discover",
-  "notice.link": "How this site works",
   "src.chapterN": "Chapter {n}",
   "src.open": "Go to this place",
   "src.notOnShelf": "Not on your shelf",
@@ -936,44 +925,8 @@ export const en = {
   "nb.inBooks.other": "From {n} books",
   "reader.trickyHint":
     "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
-  "about.intro":
-    "Margin Words is a reader for English novels. You read the real book, and you tap a word to see what it means in simple English.",
-  "about.tapTitle": "Tap a word",
-  "about.tapBody":
-    "Tap a word with a line under it. A card opens with the meaning in simple English, the part of speech, and why the word is hard. The book is not translated. You learn English with English.",
-  "about.marksTitle": "What the marks mean",
-  "about.markHard": "A straight line under a word: a hard word. Tap it.",
-  "about.markPhrase": "A dotted line under a word: it belongs to a phrase. Tap it.",
   "about.markTricky":
     "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
-  "about.markBulb": "A ✦ at the end of a paragraph: tap it to read a note that explains the paragraph or a hard sentence in it.",
-  "about.listsTitle": "Word lists made by our teachers",
-  "about.listsBody":
-    "Every book has a word list written by our teachers. They choose the hard words and phrases, write short meanings in simple English, and add notes for hard paragraphs. Nothing is made up by a computer while you read.",
-  "about.booksTitle": "Public-domain books and your own books",
-  "about.booksBody":
-    "Books in the public domain, such as Alice in Wonderland, are stored on our book server. Add one on Discover with one tap. Books that are still under copyright are not on our server. For them we give only the word list and the ISBN. You need your own legal copy of the book as an EPUB file, and you add it on your own device. When we improve a word list, tap Update on that book. The new list is not put on by itself.",
-  "about.matchTitle": "The match check",
-  "about.matchBody":
-    "When you add your own EPUB, the app compares its sentences with the sentences in the word list. It shows a match rate, such as 96%. A rate of 80% or more is a good fit. A low rate means your file may be a different edition, and some notes may be missing or in the wrong place.",
-  "about.wordbookTitle": "One notebook for all your books",
-  "about.wordbookBody":
-    "Words you save from any book go into one notebook, and review is one queue. Each word remembers the sentence, the book and the chapter it came from. You can tap to go back to that place. Review comes back after 1, 2, 4, 7, 15 and 30 days.",
-  "about.accountTitle": "Accounts and sync (optional)",
-  "about.accountBody":
-    "You do not need an account. If you make one, we keep a copy of your shelf list, where you stopped reading, your saved words with the places they came from, your review counts, and your reading settings. You can also choose a nickname. It can be the same as someone else's. Sign in on another device to see them there. You can export or delete your data at any time. Signing out clears the books and data on this device; sign in again to bring the synced part back.",
-  "about.privacyTitle": "Privacy",
-  "about.privacyBody":
-    "Your EPUB files stay on your device. They are never uploaded, even when you have an account. To find your place on another device, sync stores the word list’s paragraph number and one short line of the book’s text, and it stores the sentence of each word you save. We also count which words readers tap, so the word lists can grow where they are thin: that report holds the word, the book, the word’s place in the book, and the sentence around it. No book file is sent to us.",
-  "about.copyrightTitle": "Copyright notice and disclaimer",
-  "about.copyrightBody":
-    "Books, titles and characters belong to their authors and publishers. This site does not host, sell or share books that are under copyright. Our word lists are our own study notes. They quote only short pieces of text for learning. Public-domain books are offered because anyone may use them. We try to be correct, but a note can have a mistake. This site is for study only. If you think something here should not be here, please tell us and we will check it quickly.",
-  "about.sourceTitle": "Where this reader comes from",
-  "about.sourceBody":
-    "The idea for this reader comes from {link}. Thank you to the people who made it. Margin Words is our own app. Our teachers write the word lists, and your book files stay on your device.",
-  "about.contactTitle": "Contact",
-  "about.contactEmail": "Write to us at {contact}.",
-  "about.contactIssues": "Tell us about a mistake or a copyright question here: {contact}.",
 
   /* ---- supporters */
   "thanks.title": "Thank you",

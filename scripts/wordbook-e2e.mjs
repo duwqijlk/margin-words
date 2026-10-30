@@ -340,21 +340,12 @@ async function scenario(lang, size) {
   ok((await page.getByText(t("src.notOnShelf")).count()) >= 1, `${label}: the words say their book is not on the shelf (no broken link)`);
   await shot("wordbook-after-remove");
 
-  // ---- 11. Guide (how to use the app, and about the site)
-  await page.goto(at("about"));
-  await page.waitForURL((url) => new URL(url).pathname === "/guide/", { timeout: 30000 });
-  await page.locator("[data-guide-page]").waitFor();
-  ok(new URL(page.url()).pathname === "/guide/", `${label}: /about opens the Guide`);
-  ok((await page.locator("[data-guide-section]").count()) === 12, `${label}: the Guide has the how-to and about sections`);
-  ok(
-    (await page.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",
-    `${label}: the Guide credits English Read`,
-  );
-  ok((await page.locator("[data-guide-contact]").count()) === 1, `${label}: and a contact line`);
-  ok((await page.getByText(t("about.markTricky")).count()) === 1, `${label}: and the wavy-line explanation`);
-  ok(!(await overflow()), `${label}: no horizontal overflow (Guide)`);
-  ok((await page.locator("nav [aria-current=page]").count()) >= 1, `${label}: the Guide tab is marked as the current page`);
-  await shot("guide");
+  // ---- 11. The Guide page is gone: its old addresses go to the shelf.
+  for (const path of ["about", "guide"]) {
+    await page.goto(at(path));
+    await page.waitForURL((url) => new URL(url).pathname === "/shelf/", { timeout: 30000 });
+    ok(new URL(page.url()).pathname === "/shelf/", `${label}: /${path} goes to the shelf`);
+  }
 
   ok(errors.length === 0, `${label}: no page errors${errors.length ? ` (${errors[0]})` : ""}`);
   await ctx.close();
