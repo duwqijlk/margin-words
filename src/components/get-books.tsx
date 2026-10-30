@@ -8,7 +8,8 @@ import { isSponsorAdmin } from "@/lib/sponsor";
 import { navigate } from "@/lib/router";
 import { LanguageSwitch } from "@/components/language";
 import { guideUrl } from "@/lib/guide";
-import { useTutorial } from "@/lib/tutorial";
+import { useTutorialList, useTutorialNews } from "@/lib/tutorial";
+import { NewTag } from "@/components/tutorial-tab";
 
 /*
  * Settings. Books themselves are added on Discover only: public-domain packs download from their
@@ -25,6 +26,7 @@ export function SettingsDialog({
   onOpenGuide: () => void;
 }) {
   const { t } = useT();
+  const tutorialNews = useTutorialNews();
   const theme = usePrefs((state) => state.theme);
   const pronunciationAccent = usePrefs((state) => state.pronunciationAccent);
   const setPrefs = usePrefs((state) => state.set);
@@ -106,10 +108,17 @@ export function SettingsDialog({
                 data-settings-tutorial
                 onClick={() => {
                   onOpenChange(false);
-                  useTutorial.getState().show();
+                  useTutorialList.getState().show("center");
                 }}
               >
-                <span className={panel.rowLabel}>{t("settings.tutorial")}</span>
+                <span className={panel.rowLabel}>
+                  {t("settings.tutorial")}
+                  {tutorialNews ? (
+                    <span className="ml-2 align-[1px]">
+                      <NewTag />
+                    </span>
+                  ) : null}
+                </span>
                 <ChevronRight className={panel.rowIcon} aria-hidden />
               </button>
               <a className={panel.row} href={guideUrl()} target="_blank" rel="noopener" data-guide-link>

@@ -95,11 +95,25 @@ test("the feedback tip shows until it is closed once, and counts as seen without
 
 test("the feedback tip opens over any book the first time the reader is open, not only a paired one", () => {
   const app = read("src/components/margin-app.tsx");
-  assert.match(app, /screen\.kind !== "read" \|\| feedbackTipSeen\(\)/, "keyed on the reader screen, not on how the book came");
+  assert.match(app, /screen\.kind !== "read" \|\| \(feedbackTipSeen\(\) && quoteTipSeen\(\)\)/, "keyed on the reader screen, not on how the book came");
+  assert.match(app, /if \(tipFirst\) \{\s*if \(!feedbackTipSeen\(\)\) useFeedbackTip\.getState\(\)\.show\(\);\s*\} else if \(!quoteTipSeen\(\)\) useQuoteTip\.getState\(\)\.show\(\);/, "the feedback tip first, the quote tip on a later book");
   assert.doesNotMatch(app, /queueFeedbackTip/);
   assert.doesNotMatch(read("src/lib/downloads.ts"), /FeedbackTip/);
   assert.match(app, /lazy\(\(\) => import\("@\/components\/feedback-tip-dialog"\)\)/);
   const tip = read("src/components/feedback-tip-dialog.tsx");
   assert.match(tip, /card\.feedbackTooHard/, "uses the card's own button names");
   assert.match(tip, /card\.feedbackMissing/);
+});
+
+test("the tutorial tab lists every tutorial; narrow windows reach the list from Settings", () => {
+  const tab = read("src/components/tutorial-tab.tsx");
+  assert.match(tab, /min-width: 74\.0625rem/, "the tab only where the page margin can hold it");
+  const tutorial = read("src/lib/tutorial.ts");
+  assert.match(tutorial, /TUTORIALS = \["start", "tip", "quotes"\]/);
+  assert.match(tutorial, /QUOTE_TIP_KEY = "cibian-quote-tip-v1"/);
+  const settings = read("src/components/get-books.tsx");
+  assert.match(settings, /useTutorialList\.getState\(\)\.show\("center"\)/, "Settings opens the same list");
+  const app = read("src/components/margin-app.tsx");
+  assert.match(app, /data-settings-dot/, "a dot on the gear for a tutorial not seen yet");
+  assert.match(app, /menu === "shelf" \|\| menu === "discover" \|\| menu === "dashboard"\) && screen\.kind !== "read"/, "public pages only");
 });

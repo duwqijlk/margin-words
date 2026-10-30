@@ -27,6 +27,7 @@ export function markTutorialSeen(): void {
   } catch {
     // Nothing to do: the tutorial may show again next time.
   }
+  useTutorialsSeen.getState().note("start");
 }
 
 /**
@@ -87,6 +88,80 @@ export const useFeedbackTip = create<TutorialState>((set) => ({
     } catch {
       // It may show again next time.
     }
+    useTutorialsSeen.getState().note("tip");
     set({ open: false });
   },
 }));
+
+/**
+ * The quote tip (design system QuoteFlow): how to keep a sentence, with a short looping animation
+ * for the way this device selects (a mouse drags; a finger uses pick mode). Shown once, the first
+ * time a book is open after the feedback tip has been seen (src/components/quote-flow.tsx).
+ */
+export const QUOTE_TIP_KEY = "cibian-quote-tip-v1";
+
+export function quoteTipSeen(): boolean {
+  try {
+    return localStorage.getItem(QUOTE_TIP_KEY) === "seen";
+  } catch {
+    return true;
+  }
+}
+
+export const useQuoteTip = create<TutorialState>((set) => ({
+  open: false,
+  show: () => set({ open: true }),
+  hide: () => {
+    try {
+      localStorage.setItem(QUOTE_TIP_KEY, "seen");
+    } catch {
+      // It may show again next time.
+    }
+    useTutorialsSeen.getState().note("quotes");
+    set({ open: false });
+  },
+}));
+
+/** Every tutorial the tutorial tab lists, in its order (design system TutorialTab). */
+export const TUTORIALS = ["start", "tip", "quotes"] as const;
+export type TutorialId = (typeof TUTORIALS)[number];
+
+function seenNow(id: TutorialId): boolean {
+  try {
+    const key = id === "start" ? TUTORIAL_KEY : id === "tip" ? FEEDBACK_TIP_KEY : QUOTE_TIP_KEY;
+    return localStorage.getItem(key) === "seen";
+  } catch {
+    return true;
+  }
+}
+
+/** Which tutorials this device has seen: the tab shows a dot, and "new" on a row, until each is seen. */
+export const useTutorialsSeen = create<{ seen: Record<TutorialId, boolean>; note: (id: TutorialId) => void }>((set) => ({
+  seen: { start: seenNow("start"), tip: seenNow("tip"), quotes: seenNow("quotes") },
+  note: (id) => set((state) => (state.seen[id] ? state : { seen: { ...state.seen, [id]: true } })),
+}));
+
+/** Open one tutorial (the tab's list, Settings). */
+export function openTutorial(id: TutorialId): void {
+  if (id === "start") useTutorial.getState().show();
+  else if (id === "tip") useFeedbackTip.getState().show();
+  else useQuoteTip.getState().show();
+}
+
+/**
+ * The list of tutorials: opened from the tutorial tab on wide screens (beside the tab) or from
+ * Settings › Tutorials (a bottom sheet on phones, a small window elsewhere).
+ */
+export const useTutorialList = create<{ open: "tab" | "center" | null; show: (from: "tab" | "center") => void; hide: () => void }>(
+  (set) => ({
+    open: null,
+    show: (from) => set({ open: from }),
+    hide: () => set({ open: null }),
+  }),
+);
+
+/** Any tutorial not seen yet (the dot on the tab and on the Settings button). */
+export function useTutorialNews(): boolean {
+  const seen = useTutorialsSeen((state) => state.seen);
+  return TUTORIALS.some((id) => !seen[id]);
+}
