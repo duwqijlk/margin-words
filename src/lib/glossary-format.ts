@@ -513,6 +513,11 @@ function gapIsBareInline(fragment: Node): boolean {
 
 function canJoinInline(left: Text, right: Text): boolean {
   if (!wordEdgesJoin(left.data, right.data)) return false;
+  return bareGap(left, right);
+}
+
+/** Nothing but empty inline wrappers between two text nodes of the same block. */
+function bareGap(left: Text, right: Text): boolean {
   if (stopAncestor(left) !== stopAncestor(right)) return false;
   const doc = left.ownerDocument;
   if (!doc) return false;
@@ -532,6 +537,11 @@ function canJoinInline(left: Text, right: Text): boolean {
  * Put letters that sit in neighboring inline tags, with no space between them,
  * into one text node. `<span class="big">J</span>ack` becomes `Jack`. A space,
  * a line break, a `<br>`, or a block boundary stays a boundary.
+ *
+ * A straight apostrophe alone in its own tag, between two letters (`That<span>'</span>s`),
+ * joins too: it goes onto the left word, and the letters after it follow as usual. One
+ * followed by a space (`'Go<span>'</span> now`) is a closing quote and stays where it is.
+ * A curly apostrophe is not touched here (the tap buttons join those, see TAP_WORD_PATTERN).
  */
 function joinInlineWords(root: ParentNode) {
   const doc = root.ownerDocument;
@@ -545,8 +555,18 @@ function joinInlineWords(root: ParentNode) {
   }
   const touched = new Set<Element>();
   let left: Text | null = null;
-  for (const node of texts) {
+  for (const [i, node] of texts.entries()) {
     if (!node.data) continue;
+    if (left && node.data === "'" && isLetter(left.data[left.data.length - 1] ?? "")) {
+      const next = texts.slice(i + 1).find((text) => text.data);
+      if (next && isLetter(next.data[0] ?? "") && bareGap(left, node) && bareGap(node, next)) {
+        left.data += "'";
+        node.data = "";
+        markAncestors(left, touched);
+        markAncestors(node, touched);
+        continue;
+      }
+    }
     if (left && canJoinInline(left, node)) {
       const hasRemainder = appendJoinedWord(left, node);
       markAncestors(left, touched);

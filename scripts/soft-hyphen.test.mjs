@@ -338,3 +338,28 @@ test("glossary positions and sentence context match the cleaned text", () => {
   assert.equal(match.found, 1);
   assert.equal(match.total, 1);
 });
+
+test("a straight apostrophe alone in its own tag joins the word; a closing quote does not", () => {
+  const parse = (html) => new DOMParser().parseFromString(html, "text/html");
+  const html = "<div><p>That<span>'</span>s right, sir.</p><p>He said 'Go<span>'</span> now.</p></div>";
+  const index = format.indexChapterHtml(html, parse);
+  assert.deepEqual(
+    index.tokens.map((t) => t.w),
+    ["that's", "right", "sir", "he", "said", "go", "now"],
+  );
+  // The block text and the word numbers agree, block by block.
+  const pattern = new RegExp(format.WORD_PATTERN, "gu");
+  index.blocks.forEach((text, b) => {
+    assert.deepEqual(
+      (text.match(pattern) ?? []).map((w) => w.toLowerCase()),
+      index.tokens.filter((t) => t.b === b).map((t) => t.w),
+      `block ${b}: ${text}`,
+    );
+  });
+  const shown = format.readingHtml(html, new Set(), (s) => s.toLowerCase(), 0, new Map());
+  const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
+  const words = [...doc.querySelectorAll('[role="button"][data-word]')].map((b) => b.textContent);
+  assert.ok(words.includes("That's"), words.join("|"));
+  assert.equal(words.includes("That"), false);
+  assert.ok(words.includes("Go") && words.includes("now"));
+});
