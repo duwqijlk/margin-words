@@ -1198,6 +1198,123 @@
   }
 }
 
+/* A speech's drawn cover (BookCover "talk" / "ted", design system v48). Sizes are container units, so it
+   is right from 90px to 220px wide. --g / --d / --t: the cover's ground, deep ground and tint. */
+.talk-cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 9cqw 9cqw 10cqw;
+  text-align: left;
+  color: #fbf7ee;
+  background: radial-gradient(130% 90% at 100% 0%, var(--g) 0%, var(--d) 78%);
+}
+/* Sound rings spreading from the top-right corner, fading out. */
+.talk-cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: repeating-radial-gradient(circle at 108% -6%, transparent 0 8cqw, var(--t) 8cqw 8.6cqw);
+  opacity: 0.24;
+  -webkit-mask: radial-gradient(circle at 100% 0%, #000 0 22%, transparent 70%);
+  mask: radial-gradient(circle at 100% 0%, #000 0 22%, transparent 70%);
+  pointer-events: none;
+}
+.talk-cover > * {
+  position: relative;
+}
+.talk-kind {
+  display: flex;
+  align-items: center;
+  gap: 2.4cqw;
+  font: 700 4.4cqw/1 var(--font-sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--t);
+}
+.talk-kind svg,
+.talk-mark svg {
+  width: 5.6cqw;
+  height: 5.6cqw;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+/* The TED series: a fine outlined tag with our own stage drawing; plain type, no TED mark. */
+.talk-mark {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 1.8cqw;
+  border: 1px solid currentColor;
+  border-width: max(1px, 0.9cqw);
+  border-radius: 999px;
+  padding: 1.6cqw 3.4cqw 1.6cqw 2.6cqw;
+  font: 800 4.6cqw/1 var(--font-sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--t);
+}
+.talk-mark svg {
+  width: 6cqw;
+  height: 6cqw;
+}
+.talk-mark i {
+  font-style: normal;
+  opacity: 0.7;
+  letter-spacing: 0;
+}
+.talk-title {
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  text-wrap: balance;
+}
+.talk-by {
+  margin-top: 3.5cqw;
+  font: 600 5.6cqw/1.25 var(--font-sans);
+  color: var(--t);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+/* The waveform: 16 bars from the title, bottom left; the bottom-right corner stays clear for the add button. */
+.talk-wave {
+  display: flex;
+  align-items: center;
+  width: 56%;
+  height: 12cqw;
+  margin-top: 6cqw;
+}
+.talk-wave i {
+  flex: 1;
+  min-width: 0;
+  margin-right: 1.2cqw;
+  border-radius: 1cqw;
+  background: var(--t);
+  opacity: 0.8;
+}
+.talk-wave i:last-child {
+  margin-right: 0;
+}
+
 /* Fallback for engines without container queries (below Chrome 105) on generated typographic covers */
 @supports not (container-type: inline-size) {
   .cover-frame > [data-generated-inner] {
@@ -1210,6 +1327,22 @@
   .cover-frame [data-cover-author] {
     font-size: 0.7rem !important;
     line-height: 1.3 !important;
+  }
+  .cover-frame .talk-kind,
+  .cover-frame .talk-mark {
+    font-size: 0.55rem !important;
+  }
+  .cover-frame .talk-kind svg,
+  .cover-frame .talk-mark svg {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+  .cover-frame .talk-wave {
+    height: 1rem;
+    margin-top: 0.6rem;
+  }
+  .cover-frame .talk-wave i {
+    margin-right: 2px;
   }
 }
 

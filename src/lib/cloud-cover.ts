@@ -20,6 +20,8 @@ export type CoverRow = {
   cover: CatalogCover;
   /** "speech" draws the talk cover when there is no picture. Missing is a book. */
   category?: "novel" | "speech";
+  /** The catalog series ("TED" gives a speech the TED tag on its drawn cover). */
+  series?: string;
 };
 
 export type CoverSources = {

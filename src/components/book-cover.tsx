@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { listPackRecords } from "@/lib/book-db";
 import { catalogRowOf, cloudCover, type CoverSources } from "@/lib/cloud-cover";
 import { noteSpeechBooks } from "@/lib/speech-books";
@@ -31,6 +31,7 @@ export function useCovers(books: ReadonlyArray<{ id: string; title: string; auth
         isbn?: string;
         cover: { url: string; sha256: string } | null;
         category?: "novel" | "speech";
+        series?: string;
       }) => ({
         id: pack.id,
         title: pack.title,
@@ -38,6 +39,7 @@ export function useCovers(books: ReadonlyArray<{ id: string; title: string; auth
         isbn: pack.isbn ?? "",
         cover: pack.cover?.url ? { url: resolveAgainst(catalogUrl, pack.cover.url), sha256: pack.cover.sha256 } : null,
         category: pack.category,
+        series: pack.series ?? "",
       });
       setSources({ classics: classics.map(row(BUNDLED_CATALOG_URL)), lists: lists.map(row(WORD_LIST_CATALOG_URL)) });
     });
@@ -61,13 +63,18 @@ export function useCovers(books: ReadonlyArray<{ id: string; title: string; auth
     const out: Record<string, string> = {};
     if (!sources) return out;
     const speeches: string[] = [];
+    const ted: string[] = [];
     for (const book of books) {
       const url = cloudCover(book, packIds[book.id], sources);
       if (url) out[book.id] = url;
-      if (catalogRowOf(book, packIds[book.id], sources)?.category === "speech") speeches.push(book.id);
+      const row = catalogRowOf(book, packIds[book.id], sources);
+      if (row?.category === "speech") {
+        speeches.push(book.id);
+        if (isTedSeries(row.series)) ted.push(book.id);
+      }
     }
     // Shared with the shelf cards below; done after render so no listener is set during render.
-    queueMicrotask(() => noteSpeechBooks(speeches));
+    queueMicrotask(() => noteSpeechBooks(speeches, ted));
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sources, packIds, key]);
@@ -78,8 +85,12 @@ export function useCovers(books: ReadonlyArray<{ id: string; title: string; auth
  * right at 90px and at 220px wide. Two looks:
  *  - "book": a bookbinding cloth colour, one hairline frame, the title centred in a serif face and the
  *    author under a short rule.
- *  - "talk" (speeches, which often may not use the event's own picture): a deep ground, a large opening
- *    quotation mark in a light tint, the title set left like a pull quote and the speaker under a rule.
+ *  - "talk" (speeches, which often may not use the event's own picture; design system BookCover v48):
+ *    a small microphone and SPEECH at the top left, faint sound rings spreading from the top-right
+ *    corner, the title in the lower half, the speaker under it and a 16-bar waveform drawn from the
+ *    title, so no two speeches look alike. The ground runs from a light top right to a deep bottom left.
+ *  - "ted" (a talk in the TED series): the same, with a fine outlined tag in place of SPEECH, our own
+ *    small stage drawing and "TALK · TED" in plain type; no TED red, lettering or logo.
  * Each colour is [ground, deeper ground, tint]. The bottom-right corner stays clear for the add button.
  */
 const COVER_PALETTES: ReadonlyArray<readonly [string, string, string]> = [
@@ -94,7 +105,23 @@ const COVER_PALETTES: ReadonlyArray<readonly [string, string, string]> = [
   ["#4f7457", "#2d4834", "#cde3cf"],
 ];
 
-export type CoverLook = "book" | "talk";
+export type CoverLook = "book" | "talk" | "ted";
+
+/** The series name of TED talks in the catalog. */
+export function isTedSeries(series: string | undefined): boolean {
+  return (series ?? "").trim().toUpperCase() === "TED";
+}
+
+/** How a book with no cover picture is drawn, from its catalog category and series. */
+export function coverLookOf(category: string | undefined, series?: string): CoverLook {
+  if (category !== "speech") return "book";
+  return isTedSeries(series) ? "ted" : "talk";
+}
+
+/** The speech cover's waveform: 16 bar heights (15-95%) worked out from the title, the same every time. */
+export function talkWave(title: string): number[] {
+  return Array.from({ length: 16 }, (_, i) => 15 + (hashOf(`${title}#${i}`) % 81));
+}
 
 /**
  * The ground colour of a speech's generated cover (the same pick as the cover itself): that book's
@@ -163,7 +190,8 @@ export function BookCover({
     COVER_PALETTES[hashOf(`${title}|${author}`) % COVER_PALETTES.length] ?? COVER_PALETTES[0];
   const [from, to, tint] = pair as readonly [string, string, string];
   const size = title.length <= 14 ? "11.5cqw" : title.length <= 30 ? "9.5cqw" : "8cqw";
-  const talkSize = title.length <= 24 ? "10.5cqw" : title.length <= 48 ? "9cqw" : "7.8cqw";
+  const talkSize = title.length <= 18 ? "11cqw" : title.length <= 40 ? "9.4cqw" : "8cqw";
+  const talk = look === "talk" || look === "ted";
   const failed = Boolean(cover) && broken === cover;
   const showImage = Boolean(cover) && !failed && near;
   const pending = Boolean(cover) && !failed && !showImage;
@@ -200,45 +228,44 @@ export function BookCover({
           onError={() => setBroken(cover ?? null)}
         />
       ) : null}
-      {showGenerated && look === "talk" ? (
+      {showGenerated && talk ? (
         <span
           data-generated-inner=""
-          data-cover-look="talk"
-          className="absolute inset-0 flex flex-col text-left text-[#fbf7ee]"
-          style={{
-            // A soft light from the top left, like a stage, on a deep ground.
-            backgroundImage: `radial-gradient(120% 80% at 0% 0%, ${from} 0%, ${to} 70%)`,
-            padding: "10cqw 10cqw 9cqw",
-          }}
+          data-cover-look={look}
+          className="talk-cover"
+          style={{ "--g": from, "--d": to, "--t": tint } as CSSProperties}
         >
-          <span
-            className="pointer-events-none font-display leading-none font-semibold select-none"
-            style={{ fontSize: "34cqw", height: "20cqw", marginLeft: "-1.5cqw", color: tint, opacity: 0.9 }}
-            aria-hidden
-          >
-            {"\u201c"}
-          </span>
-          <span
-            data-cover-title=""
-            className="relative font-display leading-[1.15] font-medium [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:6] overflow-hidden"
-            style={{ fontSize: talkSize, marginTop: "3cqw" }}
-            lang="en"
-          >
+          {look === "ted" ? (
+            <span className="talk-mark" data-talk-mark="" aria-hidden>
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3.2" fill="currentColor" stroke="none" />
+                <ellipse cx="12" cy="17.5" rx="8.5" ry="2.6" />
+              </svg>
+              Talk<i>{"\u00b7"}</i>TED
+            </span>
+          ) : (
+            <span className="talk-kind" data-talk-kind="" aria-hidden>
+              <svg viewBox="0 0 24 24">
+                <rect x="9" y="2" width="6" height="12" rx="3" />
+                <path d="M5 11a7 7 0 0 0 14 0" />
+                <path d="M12 18v4" />
+              </svg>
+              Speech
+            </span>
+          )}
+          <span data-cover-title="" className="talk-title" style={{ fontSize: talkSize }} lang="en">
             {title}
           </span>
           {author ? (
-            <span className="mt-auto grid gap-[2.5cqw]" style={{ paddingRight: "26cqw" }}>
-              <span className="h-px w-[12cqw]" style={{ backgroundColor: tint, opacity: 0.8 }} aria-hidden />
-              <span
-                data-cover-author=""
-                className="font-medium [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
-                style={{ fontSize: "5.8cqw", lineHeight: 1.25, color: tint }}
-                lang="en"
-              >
-                {author}
-              </span>
+            <span data-cover-author="" className="talk-by" lang="en">
+              {author}
             </span>
           ) : null}
+          <span className="talk-wave" data-talk-wave="" aria-hidden>
+            {talkWave(title).map((height, index) => (
+              <i key={index} style={{ height: `${height}%` }} />
+            ))}
+          </span>
         </span>
       ) : null}
       {showGenerated && look === "book" ? (

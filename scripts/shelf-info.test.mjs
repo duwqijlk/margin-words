@@ -135,7 +135,7 @@ const { BookCard } = loadComponent(`${shelfSource}\nexport { BookCard };`, {
   "@/lib/progress-store": inert, "@/lib/srs": inert, "@/lib/vocab-store": inert,
   "@/lib/classics": inert, "@/lib/shelf-work": inert, "@/lib/sync-merge": inert,
   "@/lib/wordbook": inert, "@/lib/shelf-remove": inert, "@/lib/phone-gestures": inert,
-  "@/lib/speech-books": { useSpeechBookIds: () => new Set() }, "@/lib/router": inert,
+  "@/lib/speech-books": { useSpeechBookIds: () => new Set(), isTedBook: () => false }, "@/lib/router": inert,
   "@/lib/lexile": inert, "@/lib/discover-rails": inert, "@/components/lexile-ui": inert,
   "@/components/list-filters": { bookCardShell: "card", cardTitleClass: "title", cardAuthorClass: "author" },
   "@/components/book-cover": { BookCover: () => React.createElement("span", { "data-cover": "" }), talkCoverTone: () => "" },

@@ -1,4 +1,4 @@
-// Design system "Keep reading" v34-v44: the phone tab bar, a word card with no scrollbars on its
+// Design system "Keep reading" v34-v48: the phone tab bar, a word card with no scrollbars on its
 // sides, Discover rows that show whole books only, and the contributor ranking's books on a phone.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -111,4 +111,23 @@ test("the cover glow reuses the cover's own request (same URL, same anonymous CO
   const glow = read("src/components/cover-glow.tsx");
   assert.match(glow, /crossOrigin=\{coverCrossOrigin\(src\)\}/);
   assert.match(read("src/components/book-cover.tsx"), /crossOrigin=\{coverCrossOrigin\(cover\)\}/);
+});
+
+// v48: the speech fallback cover (SPEECH or the TED tag, sound rings, title low, speaker, waveform).
+test("speech covers: SPEECH or a plain TALK · TED tag, rings, the title low, a waveform from the title", () => {
+  const cover = read("src/components/book-cover.tsx");
+  assert.match(cover, /export type CoverLook = "book" \| "talk" \| "ted";/);
+  assert.match(cover, /export function coverLookOf\(category: string \| undefined, series\?: string\): CoverLook/);
+  assert.match(cover, /return \(series \?\? ""\)\.trim\(\)\.toUpperCase\(\) === "TED";/);
+  assert.match(cover, /Array\.from\(\{ length: 16 \}, \(_, i\) => 15 \+ \(hashOf\(`\$\{title\}#\$\{i\}`\) % 81\)\)/);
+  assert.match(cover, /Talk<i>\{"\\u00b7"\}<\/i>TED/);
+  assert.doesNotMatch(cover, /\\u201c/, "the old opening quotation mark is gone");
+  assert.match(css, /\.talk-cover::before \{[^}]*repeating-radial-gradient\(circle at 108% -6%/);
+  assert.match(css, /\.talk-title \{\s*margin-top: auto;/);
+  // Every caller passes the series, so a TED talk gets its tag on Discover, the shelf and the overview.
+  for (const file of ["src/components/discover.tsx", "src/components/discover-browse.tsx", "src/components/dashboard-page.tsx"]) {
+    assert.doesNotMatch(read(file), /"speech" \? "talk" : "book"/, file);
+    assert.match(read(file), /coverLookOf\(/, file);
+  }
+  assert.match(read("src/components/shelf.tsx"), /return isTedBook\(bookId\) \? "ted" : "talk";/);
 });

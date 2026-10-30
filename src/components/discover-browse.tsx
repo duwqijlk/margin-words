@@ -13,7 +13,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { BookCover, talkCoverTone } from "@/components/book-cover";
+import { BookCover, coverLookOf, talkCoverTone } from "@/components/book-cover";
 import { CoverGlow } from "@/components/cover-glow";
 import { useBookTone } from "@/lib/cover-tone";
 import { bump } from "@/lib/motion";
@@ -232,7 +232,7 @@ export function BookRail({
               data-rail-book={row.id}
             >
               <span className="relative block" data-tilt>
-                <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
+                <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={coverLookOf(row.category, row.series)} />
                 <BookMaintainers bookRef={rowCatalogRef(row)} />
               </span>
               <span
@@ -356,7 +356,7 @@ export function FeaturedBook({
       >
         <CoverGlow src={row.coverUrl} />
         <span className="cover-rise tone-cover relative block w-full sm:row-span-2 sm:mx-auto sm:w-[10.5rem]">
-          <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={speech ? "talk" : "book"} />
+          <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={coverLookOf(row.category, row.series)} />
         </span>
         <span className="grid min-w-0 content-end gap-1.5 sm:gap-2.5">
           <span className="flex items-center gap-2 text-[0.8125rem] font-bold text-accent">
@@ -480,7 +480,7 @@ export function BookDetail({
               >
                 <CoverGlow src={row.coverUrl} variant="detail" />
                 <div className="tone-cover relative w-28 shrink-0 sm:w-36" data-tilt>
-                  <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={speech ? "talk" : "book"} />
+                  <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={coverLookOf(row.category, row.series)} />
                 </div>
                 <div className="grid min-w-0 flex-1 content-start gap-1.5">
                   <div className="flex items-start justify-between gap-2">
