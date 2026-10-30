@@ -26,6 +26,7 @@ import {
   type PackRecord,
 } from "@/lib/book-db";
 import { fetchCoverData } from "@/lib/covers";
+import { sharedJson } from "@/lib/shared-fetch";
 import { findOnShelf, type Identity } from "@/lib/shelf-identity";
 import { useVocab } from "@/lib/vocab-store";
 import { applySpineMerge, parseEpub, type ParsedEpub } from "@/lib/epub";
@@ -257,9 +258,8 @@ function writeCache(url: string, catalog: Catalog) {
 export async function loadCatalog(url = getCatalogUrl()): Promise<CatalogResult> {
   let failure = tr("err.catalogLoad");
   try {
-    const res = await fetch(resolveAgainst(url, ""), { cache: "no-cache" });
-    if (!res.ok) throw new Error(`status ${res.status}`);
-    const json = (await res.json()) as unknown;
+    // One download shared by every caller within a minute (shared-fetch.ts).
+    const json = await sharedJson(resolveAgainst(url, ""));
     const catalog = parseCatalog(json);
     if (!catalog) {
       failure = tr("err.notCatalog");

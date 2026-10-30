@@ -103,6 +103,7 @@ import {
   topBarHeight,
 } from "@/lib/reader-paging";
 import { preloadContributors } from "@/lib/contributors";
+import { holdSyncPushes } from "@/lib/sync-engine";
 import { PassageFeedback } from "@/components/passage-feedback";
 import { FinishBook } from "@/components/finish-book";
 import { watchPageMoves, type PageMove } from "@/lib/page-guard";
@@ -134,6 +135,9 @@ export function ReaderScreen({
   const { t } = useT();
   // The first word card with a credit should not wait for contributors.json and the picture.
   useEffect(() => preloadContributors(), []);
+  // While a book is open its reading place uploads at most once a minute, not on every scroll pause;
+  // leaving the book, hiding the tab or closing the page uploads at once (sync-pace.ts).
+  useEffect(() => holdSyncPushes({ reading: true }), []);
   const words = useVocab((state) => state.words);
   const shelfBook = useVocab((state) => state.books.find((item) => item.id === bookId));
   const saveWord = useVocab((state) => state.saveWord);

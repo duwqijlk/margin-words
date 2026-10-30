@@ -75,6 +75,14 @@ All of it is in (PR #249). Its rules, in the code:
   logo), faint sound rings from the top-right corner, the title in the lower half, the speaker, and a
   16-bar waveform worked out from the title (`talkWave`). The look comes from the catalog category and
   series (`coverLookOf`; series "TED"); the shelf learns it with the speech ids (`isTedBook`).
+- Free-plan request budget. Opening and leaving a book inside the app costs no catalog, word-list or
+  book download (all kept on the device). While a book is open its reading place uploads at most
+  once a minute (`holdSyncPushes({ reading: true })` in the reader, `READING_DELAY_MS` in
+  sync-pace.ts), not on every scroll pause: 12 scrolls used to be 12 `/api/sync` POSTs (Function
+  calls and D1 writes). Leaving the book, hiding the tab and closing the page upload at once; an
+  upload cut off by a closing page is marked dirty and runs on the next start. The catalogs go
+  through one shared download per minute (`sharedJson` in src/lib/shared-fetch.ts): a page load
+  used to ask for each catalog two or three times, each an R2 read. `scripts/request-budget.test.mjs`.
 - The share image (`share-card.ts`) is 1080 x 1512: a finished book's cover large with an outlined yellow
   seal (a double ring, the word and the month the book was finished, turned -12deg, half on the cover
   and half on the card, with a thin dark halo), or the finished covers fanned with three big numbers;

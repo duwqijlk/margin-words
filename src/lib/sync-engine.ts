@@ -44,7 +44,7 @@ import { useVocab } from "@/lib/vocab-store";
 import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 import { claimDevice, ownedByAnother, PENDING_KEY, startDeviceWipe } from "@/lib/device-wipe";
 import { afterPull, afterPush, needsUpload, pullAfter, readView, SYNC_VIEW_KEY, type SyncView } from "@/lib/sync-view";
-import { canSkipPull, type LastPull, PUSH_DELAY_MS, pushDelay } from "@/lib/sync-pace";
+import { canSkipPull, type LastPull, PUSH_DELAY_MS, pushDelay, READING_DELAY_MS } from "@/lib/sync-pace";
 
 const META_KEY = "cibian-sync-meta-v1";
 const EMAIL_KEY = "cibian-account-email-v1";
@@ -65,6 +65,8 @@ let timer: ReturnType<typeof setTimeout> | null = null;
 let lastRun = 0;
 /** Review sessions holding uploads (holdSyncPushes), edits waiting since the last sync, the last pull. */
 let holds = 0;
+/** Open books holding uploads (holdSyncPushes({ reading: true })): one upload a minute at most. */
+let readingHolds = 0;
 let waiting = 0;
 let lastPull: LastPull = null;
 let started = false;
@@ -491,9 +493,16 @@ function onStore() {
 }
 
 /** sync-pace.ts says how long an edit waits: longer while a review session holds uploads. */
-function schedulePush(delay = pushDelay(holds > 0, waiting)) {
+function schedulePush(delay?: number) {
   if (useAccount.getState().phase !== "in") return;
   markDirty();
+  // While a book is open, the first edit starts one wait and later edits (every scroll moves the
+  // reading place) do not restart it, so reading uploads at most once a minute (sync-pace.ts).
+  if (delay === undefined && readingHolds > 0 && holds === 0) {
+    if (timer) return;
+    delay = READING_DELAY_MS;
+  }
+  delay ??= pushDelay(holds > 0, waiting);
   if (timer) clearTimeout(timer);
   timer = setTimeout(() => {
     timer = null;
@@ -665,13 +674,17 @@ function onFocus() {
  * per answer. Returns the release; releasing uploads what is waiting. Hiding or closing the page
  * still uploads at once (onFocus, onPageHide).
  */
-export function holdSyncPushes(): () => void {
-  holds += 1;
+export function holdSyncPushes(options: { reading?: boolean } = {}): () => void {
+  const reading = Boolean(options.reading);
+  if (reading) readingHolds += 1;
+  else holds += 1;
   let released = false;
   return () => {
     if (released) return;
     released = true;
-    holds = Math.max(0, holds - 1);
+    if (reading) readingHolds = Math.max(0, readingHolds - 1);
+    else holds = Math.max(0, holds - 1);
+    // Leaving the book (or the review) uploads what is waiting at once.
     if (holds === 0 && timer) schedulePush(PUSH_DELAY_MS);
   };
 }
