@@ -201,7 +201,7 @@ export const en = {
   "share.longPress": "On a phone you can also press and hold the image to save it.",
   "share.making": "Making the card…",
   "share.failed": "The card could not be made. Please try again.",
-  "share.tagline": "An English reader for real books",
+  "share.tagline": "Real books with 1,000 words",
   "share.scan": "Scan to read with me",
   "share.bookHeadline": "I finished an English book",
   "share.bookWords.one": "{n} word saved from this book",

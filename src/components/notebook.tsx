@@ -187,7 +187,7 @@ function ReviewLauncher({
     pool === "due" ? t("nb.startReview", { n: count }) : pool === "learning" ? t("rv.practiceLearning", { n: count }) : t("rv.practiceAll", { n: count });
   return (
     <section
-      className="launcher grid grid-cols-1 items-center gap-3.5 rounded-2xl bg-sheet p-4 lg:grid-cols-[9rem_minmax(0,1fr)_14rem] lg:gap-x-7 lg:gap-y-5 lg:px-6 lg:py-5"
+      className="launcher grid grid-cols-1 items-center gap-3.5 rounded-2xl bg-sheet p-4 shadow-hero lg:grid-cols-[9rem_minmax(0,1fr)_14rem] lg:gap-x-7 lg:gap-y-5 lg:px-6 lg:py-5"
       aria-label={t("rv.title")}
       data-review-launcher
     >

@@ -213,7 +213,7 @@ export function WordCard({
       kind="word"
       desktopWidth={24 * 16}
       className={cn(
-        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop ",
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-float-edge bg-float px-5 text-ink shadow-pop ",
         "word-sheet-plain",
         "inset-x-0 bottom-0 rounded-t-sheet border-t pt-3.5 pb-5 md:pb-6",
         SIDE_PANEL,

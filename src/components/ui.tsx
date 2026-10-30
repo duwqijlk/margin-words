@@ -748,7 +748,7 @@ export function StatRow({
 export const panel = {
   overlay: "fixed inset-0 z-50 bg-black/[0.32]",
   content:
-    "panel-in fixed z-50 grid content-start gap-4 overflow-y-auto overscroll-contain bg-paper text-ink max-sm:inset-x-0 max-sm:bottom-0 max-sm:max-h-[92dvh] max-sm:rounded-t-sheet max-sm:border-t max-sm:border-line max-sm:px-4 max-sm:pb-[calc(20px+env(safe-area-inset-bottom))] max-sm:shadow-[0_-8px_32px_-12px_rgb(0_0_0/0.25)] sm:top-1/2 sm:left-1/2 sm:max-h-[90dvh] sm:w-[min(30rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:gap-5 sm:rounded-2xl sm:border sm:border-line sm:px-6 sm:pt-5 sm:pb-6 sm:shadow-lift",
+    "panel-in fixed z-50 grid content-start gap-4 overflow-y-auto overscroll-contain bg-float text-ink max-sm:inset-x-0 max-sm:bottom-0 max-sm:max-h-[92dvh] max-sm:rounded-t-sheet max-sm:border-t max-sm:border-float-edge max-sm:px-4 max-sm:pb-[calc(20px+env(safe-area-inset-bottom))] max-sm:shadow-[0_-8px_32px_-12px_rgb(0_0_0/0.25)] sm:top-1/2 sm:left-1/2 sm:max-h-[90dvh] sm:w-[min(30rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:gap-5 sm:rounded-2xl sm:border sm:border-float-edge sm:px-6 sm:pt-5 sm:pb-6 sm:shadow-lift",
   head: "flex items-center justify-between gap-3",
   title: "m-0 text-2xl leading-tight font-bold tracking-[-0.02em]",
   desc: "-mt-2 text-sm leading-relaxed text-muted",
@@ -937,7 +937,7 @@ export function ConfirmDialog({
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
-        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-paper p-5 text-ink shadow-lift ">
+        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-float p-5 text-ink shadow-lift ">
           <AlertDialog.Title className="text-lg font-semibold">
             {title}
           </AlertDialog.Title>

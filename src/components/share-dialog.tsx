@@ -60,6 +60,12 @@ function groundOf(image: CanvasImageSource | null): Ground | undefined {
   }
 }
 
+/** The month on the "Finished" seal, as on a date stamp: "2026.10". */
+export function sealMonth(time: number): string {
+  const d = new Date(time);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
 export type ShareWhat = { kind: "book"; bookId: string } | { kind: "overview" };
 
 /**
@@ -98,6 +104,7 @@ export default function ShareDialog({ what, open, onOpenChange }: { what: ShareW
         author: book.author,
         wordsLine: saved > 0 ? tn("share.bookWords", saved) : "",
         seal: t("share.seal"),
+        sealDate: sealMonth(book.finishedAt || Date.now()),
         footer,
       };
     }

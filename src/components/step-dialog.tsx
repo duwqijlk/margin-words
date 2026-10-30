@@ -45,7 +45,7 @@ export function StepDialog({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
-          className="anim-pop fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-1.5rem)] w-[min(26rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift outline-none"
+          className="anim-pop fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-1.5rem)] w-[min(26rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-2xl border border-float-edge bg-float p-5 text-ink shadow-lift outline-none"
           {...data()}
           {...{ [`data-${name}-step`]: step }}
           // Focus the dialog itself, not Skip: a ring around Skip read as the thing to press.

@@ -1,4 +1,4 @@
-// Design system "Keep reading" v34-v36: the phone tab bar, a word card with no scrollbars on its
+// Design system "Keep reading" v34-v44: the phone tab bar, a word card with no scrollbars on its
 // sides, Discover rows that show whole books only, and the contributor ranking's books on a phone.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -65,4 +65,44 @@ test("the book detail shows the Lexile measure as a number with a smaller L, not
   assert.doesNotMatch(discover, /LexileBadge/);
   assert.match(discover, /function LexileNumber\(/);
   assert.match(discover, /<small className="ml-px text-\[0\.55em\] font-bold">L<\/small>/);
+});
+
+test("v37: on a phone the featured book and the continue card give the cover more room and 20px padding", () => {
+  assert.match(read("src/components/discover-browse.tsx"), /grid-cols-\[6\.5rem_minmax\(0,1fr\)\] items-center gap-x-\[22px\] gap-y-3 rounded-2xl p-5/);
+  assert.match(read("src/components/shelf.tsx"), /grid-cols-\[7rem_minmax\(0,1fr\)\] items-center gap-x-6 gap-y-4 rounded-2xl p-5/);
+});
+
+// v38-v44: three depth levels, the cover glow, the share card's seal and footer.
+test("depth: raised and floating levels come from per-theme tokens; floating layers use bg-float", () => {
+  for (const theme of [":root,\n[data-theme=\"light\"] {", '[data-theme="sepia"] {', '[data-theme="dark"] {', '[data-theme="eink"] {']) {
+    const block = css.slice(css.indexOf(theme), css.indexOf("\n}", css.indexOf(theme)));
+    for (const name of ["--surface-3:", "--float-sheet:", "--elev-2:", "--elev-3:", "--edge-3:"]) assert.ok(block.includes(name), `${theme} ${name}`);
+  }
+  assert.doesNotMatch(css, /color-mix\(/, "float-sheet is mixed by hand for Chrome 69");
+  const config = read("tailwind.config.js");
+  assert.match(config, /lift: "var\(--elev-3\)"/);
+  assert.match(config, /hero: "var\(--elev-2\)"/);
+  assert.match(css, /\.bg-float \{\s*--sheet: var\(--float-sheet\);/);
+  assert.match(read("src/components/ui.tsx"), /overscroll-contain bg-float text-ink/);
+  assert.match(read("src/components/word-card.tsx"), /border-float-edge bg-float/);
+  assert.match(read("src/components/notebook.tsx"), /launcher grid[^"]*shadow-hero/);
+});
+
+test("cover glow: the cover blurred behind the continue card, the newest book and the detail top", () => {
+  assert.match(css, /\.cover-glow \{[^}]*filter: blur\(56px\) saturate\(1\.6\);[^}]*opacity: 0\.55;/);
+  assert.match(css, /\[data-theme="eink"\] \.cover-glow \{\s*display: none;/);
+  assert.match(css, /prefers-reduced-transparency: reduce/);
+  assert.match(read("src/components/shelf.tsx"), /<CoverGlow src=\{cover\} \/>/);
+  const discover = read("src/components/discover-browse.tsx");
+  assert.match(discover, /<CoverGlow src=\{row\.coverUrl\} \/>/);
+  assert.match(discover, /<CoverGlow src=\{row\.coverUrl\} variant="detail" \/>/);
+});
+
+test("share card: outlined seal with the month, and the footer with the call to scan beside the QR", () => {
+  const card = read("src/lib/share-card.ts");
+  assert.match(card, /ctx\.rotate\(\(-12 \* Math\.PI\) \/ 180\)/);
+  assert.match(card, /sealDate\?: string/);
+  assert.match(card, /export const FOOTER = \{ qr: 218, padBottom: 68, gap: 52 \}/);
+  assert.match(card, /cta: "#8fe0b4"/);
+  assert.match(read("src/components/share-dialog.tsx"), /sealDate: sealMonth\(book\.finishedAt \|\| Date\.now\(\)\)/);
 });

@@ -16,7 +16,7 @@ import { btn, cn } from "@/components/ui";
 /* ------------------------------------------------------------------ shared bits */
 
 const panel =
-  "anim-pop fixed top-1/2 left-1/2 z-50 flex max-h-[min(88dvh,46rem)] w-[min(38rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-line bg-paper text-ink shadow-lift ";
+  "anim-pop fixed top-1/2 left-1/2 z-50 flex max-h-[min(88dvh,46rem)] w-[min(38rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-float-edge bg-float text-ink shadow-lift ";
 
 function Frame({
   open,

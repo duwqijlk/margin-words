@@ -1750,7 +1750,7 @@ export function ReaderScreen({
         <p
           role="tooltip"
           data-word-hover={hover.word}
-          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-paper px-3 py-1.5 text-sm leading-snug text-ink shadow-lift "
+          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-float-edge bg-float px-3 py-1.5 text-sm leading-snug text-ink shadow-lift "
           style={{ left: Math.min(Math.max(hover.left, 180), window.innerWidth - 180), top: hover.top - 8 }}
           lang="en"
         >

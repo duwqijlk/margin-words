@@ -256,7 +256,7 @@ function HowToHelp({ delay }: { delay: number }) {
         <p className="m-0 font-display text-[17px] leading-8">
           The boats waited in the quiet <span className="help-demo-word relative">harbor</span> for the tide.
         </p>
-        <div className="help-demo-card mt-3 grid gap-2 rounded-card border border-line bg-card px-4 py-3.5 shadow-pop">
+        <div className="help-demo-card mt-3 grid gap-2 rounded-card border border-float-edge bg-float px-4 py-3.5 shadow-pop">
           <div className="flex items-baseline justify-between gap-2">
             <span className="font-display text-xl font-semibold">harbor</span>
             <MessageCircleQuestion className="help-demo-ask size-4 text-muted" />

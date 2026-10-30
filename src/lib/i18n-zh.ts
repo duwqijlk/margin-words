@@ -203,7 +203,7 @@ export const zh: Record<Key, string> = {
   "share.longPress": "在手机上也可以长按图片保存。",
   "share.making": "正在生成卡片…",
   "share.failed": "卡片没能生成，请再试一次。",
-  "share.tagline": "英语阅读器 · 读英语原著",
+  "share.tagline": "1000词汇量看英语原著",
   "share.scan": "扫码和我一起读",
   "share.bookHeadline": "我读完了一本英文原著",
   "share.bookWords.one": "在这本书里收藏了 {n} 个生词",

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BookCover, talkCoverTone } from "@/components/book-cover";
+import { CoverGlow } from "@/components/cover-glow";
 import { useBookTone } from "@/lib/cover-tone";
 import { bump } from "@/lib/motion";
 import type { ShelfState } from "@/components/shelf-actions";
@@ -348,11 +349,12 @@ export function FeaturedBook({
     <section className="group" aria-label={t("browse.featured")} data-discover-featured={row.id}>
       <button
         type="button"
-        className="tone-ground grid w-full grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-3 rounded-2xl p-4 text-left sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-x-10 sm:gap-y-2.5 sm:px-10 sm:py-8"
+        className="glow tone-ground grid w-full grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-x-[22px] gap-y-3 rounded-2xl p-5 text-left shadow-hero sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-x-10 sm:gap-y-2.5 sm:px-10 sm:py-8"
         style={tone}
         onClick={() => onOpen(row)}
         aria-label={t("browse.openAria", { title: row.title })}
       >
+        <CoverGlow src={row.coverUrl} />
         <span className="cover-rise tone-cover relative block w-full sm:row-span-2 sm:mx-auto sm:w-[10.5rem]">
           <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={speech ? "talk" : "book"} />
         </span>
@@ -460,7 +462,7 @@ export function BookDetail({
         <Dialog.Content
           className={cn(
             // A phone gets a bottom sheet (rounded top, a drag bar, at most 88% high); wider screens a centred panel.
-            "fixed z-50 grid max-h-[88dvh] gap-5 overflow-y-auto border border-line bg-paper p-5 pt-0 text-ink shadow-lift",
+            "fixed z-50 grid max-h-[88dvh] gap-5 overflow-y-auto border border-float-edge bg-float p-5 pt-0 text-ink shadow-lift",
             "inset-x-0 bottom-0 rounded-t-sheet pb-[max(1.25rem,env(safe-area-inset-bottom))] anim-sheet",
             "sm:inset-auto sm:top-1/2 sm:left-1/2 sm:max-h-[calc(100dvh-2rem)] sm:w-[min(36rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:p-6 sm:anim-pop",
           )}
@@ -473,9 +475,10 @@ export function BookDetail({
               </div>
               {/* The top on the book's own colour (CoverTone). */}
               <div
-                className="tone-ground -mx-5 flex items-start gap-4 px-5 py-5 sm:-mx-6 sm:-mt-6 sm:gap-6 sm:rounded-t-2xl sm:px-6 sm:py-6"
+                className="glow tone-ground -mx-5 flex items-start gap-4 px-5 py-5 sm:-mx-6 sm:-mt-6 sm:gap-6 sm:rounded-t-2xl sm:px-6 sm:py-6"
                 style={tone}
               >
+                <CoverGlow src={row.coverUrl} variant="detail" />
                 <div className="tone-cover relative w-28 shrink-0 sm:w-36" data-tilt>
                   <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={speech ? "talk" : "book"} />
                 </div>
