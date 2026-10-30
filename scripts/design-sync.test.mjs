@@ -1,4 +1,4 @@
-// Design system "Keep reading" v34-v36: the phone tab bar, a word card with no scrollbars on its
+// Design system "Keep reading" v34-v37: the phone tab bar, a word card with no scrollbars on its
 // sides, Discover rows that show whole books only, and the contributor ranking's books on a phone.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -65,4 +65,9 @@ test("the book detail shows the Lexile measure as a number with a smaller L, not
   assert.doesNotMatch(discover, /LexileBadge/);
   assert.match(discover, /function LexileNumber\(/);
   assert.match(discover, /<small className="ml-px text-\[0\.55em\] font-bold">L<\/small>/);
+});
+
+test("v37: on a phone the featured book and the continue card give the cover more room and 20px padding", () => {
+  assert.match(read("src/components/discover-browse.tsx"), /grid-cols-\[6\.5rem_minmax\(0,1fr\)\] items-center gap-x-\[22px\] gap-y-3 rounded-2xl p-5/);
+  assert.match(read("src/components/shelf.tsx"), /grid-cols-\[7rem_minmax\(0,1fr\)\] items-center gap-x-6 gap-y-4 rounded-2xl p-5/);
 });

@@ -264,7 +264,7 @@ function ContinueCard({
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="tone-ground relative grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-4 gap-y-4 rounded-2xl p-4 shadow-hero sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-11 sm:gap-y-3 sm:px-11 sm:py-9"
+      className="tone-ground relative grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-6 gap-y-4 rounded-2xl p-5 shadow-hero sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-11 sm:gap-y-3 sm:px-11 sm:py-9"
       style={tone}
       data-continue-card
     >
