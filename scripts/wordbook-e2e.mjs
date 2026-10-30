@@ -74,6 +74,7 @@ async function scenario(lang, size) {
   await ctx.addInitScript(() => {
     localStorage.setItem("cibian-tutorial-v1", "seen");
     localStorage.setItem("cibian-feedback-tip-v1", "seen");
+    localStorage.setItem("cibian-quote-tip-v1", "seen");
   });
   const page = await ctx.newPage();
   const errors = [];

@@ -46,6 +46,7 @@ page.on("pageerror", (error) => errors.push(error.message));
 await page.addInitScript(() => {
   localStorage.setItem("cibian-tutorial-v1", "seen");
   localStorage.setItem("cibian-feedback-tip-v1", "seen");
+  localStorage.setItem("cibian-quote-tip-v1", "seen");
 });
 
 /** Everything the app may meet on Chrome 69..91, taken away before it runs. */

@@ -33,7 +33,17 @@ import { canonicalPath, DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useR
 import { repairShelf } from "@/lib/shelf-repair";
 import { useAccount } from "@/lib/account-store";
 import { installCoverTilt, openFromCover } from "@/lib/motion";
-import { feedbackTipSeen, shouldOfferTutorial, tutorialSeen, useFeedbackTip, useTutorial } from "@/lib/tutorial";
+import {
+  feedbackTipSeen,
+  quoteTipSeen,
+  shouldOfferTutorial,
+  tutorialSeen,
+  useFeedbackTip,
+  useQuoteTip,
+  useTutorial,
+  useTutorialNews,
+} from "@/lib/tutorial";
+import { TutorialList, TutorialTab } from "@/components/tutorial-tab";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { takeLoginAfterWipe } from "@/lib/device-wipe";
 import { AccountDialog } from "@/components/account-dialog";
@@ -83,6 +93,7 @@ const ReviewScreen = lazy(() => import("@/components/review").then((m) => ({ def
 const WordListDialog = lazy(() => import("@/components/word-list").then((m) => ({ default: m.WordListDialog })));
 const TutorialDialog = lazy(() => import("@/components/tutorial-dialog"));
 const FeedbackTipDialog = lazy(() => import("@/components/feedback-tip-dialog"));
+const QuoteFlowDialog = lazy(() => import("@/components/quote-flow"));
 
 const setScreen = (route: Route, options?: { replace?: boolean; state?: unknown }) => navigate(route, options);
 
@@ -97,6 +108,9 @@ export function MarginApp() {
   const [ready, setReady] = useState(false);
   const tutorialOpen = useTutorial((state) => state.open);
   const feedbackTipOpen = useFeedbackTip((state) => state.open);
+  const quoteTipOpen = useQuoteTip((state) => state.open);
+  // A tutorial not seen yet: a dot on the Settings button (its "Tutorials" row says New).
+  const tutorialNews = useTutorialNews();
   const signedIn = useAccount((state) => Boolean(state.email));
   const screen: Screen = useRoute();
   const [epubFor, setEpubFor] = useState<string | null>(null);
@@ -359,10 +373,15 @@ export function MarginApp() {
   }, [ready, screen.kind, books.length, signedIn]);
   // The feedback tip: the first time the reader is on screen on this device, after the book has
   // drawn, whatever the book (paired EPUB or public domain).
+  // Then, on a later book, the quote tip (design system QuoteFlow), once.
   useEffect(() => {
-    if (screen.kind !== "read" || feedbackTipSeen()) return;
+    if (screen.kind !== "read" || (feedbackTipSeen() && quoteTipSeen())) return;
+    const tipFirst = !feedbackTipSeen();
     const timer = window.setTimeout(() => {
-      if (!feedbackTipSeen() && !useTutorial.getState().open) useFeedbackTip.getState().show();
+      if (useTutorial.getState().open || useFeedbackTip.getState().open) return;
+      if (tipFirst) {
+        if (!feedbackTipSeen()) useFeedbackTip.getState().show();
+      } else if (!quoteTipSeen()) useQuoteTip.getState().show();
     }, 1500);
     return () => window.clearTimeout(timer);
   }, [screen.kind]);
@@ -471,7 +490,12 @@ export function MarginApp() {
               aria-current={menu === "guide" ? "page" : undefined}
               data-settings-button
             >
-              <Settings className="size-5" strokeWidth={1.5} aria-hidden />
+              <span className="relative inline-flex">
+                <Settings className="size-5" strokeWidth={1.5} aria-hidden />
+                {tutorialNews ? (
+                  <i className="absolute -top-1 -right-1 size-[7px] rounded-full bg-warn shadow-[0_0_0_2px_var(--paper)]" data-settings-dot />
+                ) : null}
+              </span>
             </button>
           </div>
         </header>
@@ -628,7 +652,11 @@ export function MarginApp() {
         ) : null}
         {tutorialOpen ? <TutorialDialog /> : null}
         {feedbackTipOpen ? <FeedbackTipDialog /> : null}
+        {quoteTipOpen ? <QuoteFlowDialog /> : null}
       </Suspense>
+      {/* Tutorials, on the public pages only (design system TutorialTab). */}
+      {ready && (menu === "shelf" || menu === "discover" || menu === "dashboard") && screen.kind !== "read" ? <TutorialTab /> : null}
+      <TutorialList />
       <AccountDialog />
       <ShelfToastHost onViewShelf={() => setScreen({ kind: "shelf" })} aboveTabs={!reading} />
       <Suspense fallback={null}>
