@@ -473,7 +473,7 @@ function BookCard({
         {finished ? (
           // The reader's own mark. The progress bar below is the reading place and does not change.
           <span
-            className="pointer-events-none absolute top-1.5 left-1.5 z-[1] inline-flex items-center gap-0.5 rounded-sm bg-mark px-1.5 py-0.5 text-[0.62rem] leading-4 font-bold text-ink"
+            className="pointer-events-none absolute bottom-1.5 right-1.5 z-[1] inline-flex items-center gap-0.5 rounded-sm bg-mark px-1.5 py-0.5 text-[0.62rem] leading-4 font-bold text-ink"
             data-shelf-finished=""
           >
             <Check className="size-3 stroke-[3]" aria-hidden />
@@ -482,7 +482,7 @@ function BookCard({
         ) : null}
         {book.source === "epub" ? (
           <div className="cover-progress pointer-events-none absolute inset-x-0 bottom-0 z-[1]">
-            <p className="cover-progress-detail items-end justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent px-2 pt-4 pb-0.5 text-[0.68rem] leading-4 font-medium text-white">
+            <p className={cn("cover-progress-detail items-end justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent px-2 pt-4 text-[0.68rem] leading-4 font-medium text-white", finished ? "pb-7" : "pb-0.5")}>
               <span>{pct > 0 ? `${pct}%` : t("shelf.new")}</span>
               {row.progress && row.progress.chapters > 0 ? (
                 <span className="truncate text-right">
