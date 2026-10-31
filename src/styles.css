@@ -125,14 +125,14 @@
   --ink-rgb: 17 21 19;
   --muted: #4a524e;
   --muted-rgb: 74 82 78;
-  --faint: #6b726e;
-  --faint-rgb: 107 114 110;
+  --faint: #666c69;
+  --faint-rgb: 102 108 105;
   --line: #e5e8e6;
   --line-rgb: 229 232 230;
   --edge: #c9cfcc;
   --edge-rgb: 201 207 204;
-  --accent: #17804f;
-  --accent-rgb: 23 128 79;
+  --accent: #167a4b;
+  --accent-rgb: 22 122 75;
   --accent-ink: #ffffff;
   --accent-ink-rgb: 255 255 255;
   --accent-soft: #e2f3e9;
@@ -219,8 +219,8 @@
   --accent-ink-rgb: 6 20 13;
   --accent-soft: #15301f;
   --accent-soft-rgb: 21 48 31;
-  --mark: #6e5c1a;
-  --mark-rgb: 110 92 26;
+  --mark: #7d691e;
+  --mark-rgb: 125 105 30;
   --warn: #f28b7c;
   --warn-rgb: 242 139 124;
   --warn-soft: #3b1e1a;
@@ -614,14 +614,15 @@
     text-underline-offset: 0.22em;
   }
 
-  /* Saved: a solid highlighter. Yellow means "saved / understood" everywhere in the app. */
+  /* Saved: a highlighter stroke under the lower part of the word (design system WordMarks), not a
+     solid block, so a page with many saved words stays readable. Yellow means "saved" everywhere. */
   .book-body [role="button"][data-word].book-saved .book-tap {
-    background: var(--mark);
-    box-shadow: 0 0 0 1px var(--mark);
+    background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 94%, transparent 94%);
+    box-shadow: none;
     text-decoration: none;
   }
   .book-body [role="button"][data-word].book-saved:hover .book-tap {
-    background: var(--mark);
+    background: linear-gradient(transparent 30%, var(--mark) 30%, var(--mark) 94%, transparent 94%);
   }
 
   /* The open word: a brand-tint highlighter swept in from the left, and a 3px brand underline. */
@@ -662,7 +663,7 @@
   }
 
   .book-body [role="button"][data-word].book-saved.book-on .book-tap {
-    background: rgb(var(--mark-rgb) / 0.85);
+    background: rgb(var(--mark-rgb) / 0.55);
     outline: 2px solid var(--accent);
     outline-offset: 1px;
     border-radius: 0.2em;
@@ -1347,12 +1348,12 @@
 }
 
 /*
- * Overview. One signature: the highlighter stroke a reader uses in a book, under the current tab
- * and behind the big numbers, in each theme's own --mark colour. The rest is quiet: content rises
+ * Overview. One signature: a light green stroke under the current tab and behind the big numbers
+ * (green, not the saved-word yellow: design system ColorRoles). The rest is quiet: content rises
  * in once when a tab opens. Every motion here is off under prefers-reduced-motion.
  */
 .overview-mark {
-  background-image: linear-gradient(transparent 66%, rgb(var(--mark-rgb) / 0.75) 66%, rgb(var(--mark-rgb) / 0.75) 90%, transparent 90%);
+  background-image: linear-gradient(transparent 66%, var(--accent-soft) 66%, var(--accent-soft) 90%, transparent 90%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   padding: 0 0.08em;
@@ -1701,9 +1702,33 @@
     animation: none;
   }
 }
-/* A book's own colour (src/lib/cover-tone.ts): the ground of the parts that belong to one book. */
+/* A book's own colour (src/lib/cover-tone.ts): the ground of the parts that belong to one book. One
+   flat wash of the book's colour (design system ContinueReading, visual tidy-up): no blurred cover
+   behind it any more, which mixed green, yellow and grey into a muddy ground. */
 .tone-ground {
-  background: radial-gradient(120% 140% at 0% 0%, var(--book-tint, var(--sheet)), var(--book-wash, var(--sheet)) 62%);
+  background: var(--book-wash, var(--sheet));
+}
+/* "Where you left off" on the continue card: a thin line of the book's own deep colour at 30%. */
+.continue-last {
+  position: relative;
+  padding-left: 20px;
+}
+.continue-last::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--book-deep, var(--line));
+  opacity: 0.3;
+}
+.continue-last p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
 }
 .tone-cover .cover-frame {
   box-shadow:
@@ -1779,11 +1804,11 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-/* A highlighter under a number or a headword: yellow = understood. */
-.num-mark,
+/* First place on the contributor list: a light green stroke under the number (design system
+   ColorRoles: green is progress and thanks; yellow is only what the reader saved). */
 .head-mark {
   padding: 0 2px;
-  background: linear-gradient(transparent 60%, var(--mark) 60%, var(--mark) 92%, transparent 92%);
+  background: linear-gradient(transparent 58%, var(--accent-soft) 58%, var(--accent-soft) 90%, transparent 90%);
 }
 /* The italic sentence of a notebook row keeps its marked word upright. */
 .source-sentence mark {
@@ -1993,45 +2018,6 @@
   --sheet-rgb: var(--float-sheet-rgb);
 }
 
-/* The cover glow (CoverGlow, design system v44): the cover blurred behind the card's content. The box
-   keeps it inside (overflow hidden) and under everything else (isolation, z-index -1). */
-.glow {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-.cover-glow {
-  position: absolute;
-  z-index: -1;
-  left: -12%;
-  top: -40%;
-  width: 64%;
-  height: 180%;
-  object-fit: cover;
-  filter: blur(56px) saturate(1.6);
-  opacity: 0.55;
-  transform: scale(1.1);
-  pointer-events: none;
-  user-select: none;
-}
-.cover-glow-detail {
-  left: -10%;
-  width: 90%;
-  opacity: 0.45;
-}
-[data-theme="dark"] .cover-glow {
-  opacity: 0.38;
-  filter: blur(56px) saturate(1.3) brightness(0.8);
-}
-[data-theme="eink"] .cover-glow {
-  display: none;
-}
-@media (prefers-reduced-transparency: reduce) {
-  .cover-glow {
-    display: none;
-  }
-}
-
 /* ---- Quotes (design system SelectionBar, QuoteBook). Boxes laid over the page text (quote-marks.ts):
    the picked sentences in pick mode, and a kept quote lighting up for a moment. They let every tap
    through and sit under the reader bar. */
@@ -2169,4 +2155,150 @@
     opacity: 0;
     transform: scale(1.4);
   }
+}
+
+/* ---- Numbers (design system TypeScale): every standalone number is set in Literata with lining,
+   tabular figures, the same face as the big numbers. Digits inside a running sentence keep its face. */
+.num {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ---- A status line under a cover (design system BookItem): one form, a 6px dot and 13px semibold
+   text in the line's colour (brand for something to do, warn for something that needs the reader). */
+.book-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.book-status::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+}
+
+/* ---- Feel (design system ScrollChrome, SpringSheet). A soft spring for things that land in place,
+   sampled from a damped spring as linear(); engines without linear() get an ease-out. */
+:root {
+  --ease-spring-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-spring: 600ms;
+  --hair: 1px;
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --ease-spring-soft: linear(0, 0.038, 0.131, 0.25, 0.378, 0.503, 0.616, 0.715, 0.797, 0.862, 0.913, 0.952, 0.979, 0.998, 1.009, 1.016, 1.019, 1.02, 1.019, 1.017, 1.014, 1.012, 1.009, 1.007, 1.005, 1.004, 1.002, 1.002, 1.001, 1, 1);
+  }
+}
+@media (min-resolution: 2dppx) {
+  :root {
+    --hair: 0.5px;
+  }
+}
+
+/* Bars of material: the top bar, the phone tab bar, the reading bar and the save menu are paper at
+   76% with the content blurred under them. Opaque paper where blur is missing, where the reader asked
+   for less transparency, and on e-ink. */
+.chrome-bar {
+  background: rgb(var(--paper-rgb) / 0.76);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .chrome-bar {
+    background: var(--paper);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .chrome-bar {
+    background: var(--paper);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+[data-theme="eink"] .chrome-bar {
+  background: var(--paper);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* The top bar's hairline shows only once content is under it. */
+.chrome-top {
+  box-shadow: 0 var(--hair) 0 transparent;
+  transition: box-shadow 180ms ease;
+}
+.chrome-top[data-under] {
+  box-shadow: 0 var(--hair) 0 var(--line);
+}
+.chrome-tabs {
+  border-top: var(--hair) solid var(--line);
+}
+/* Phones: the large page title hands over to a small title in the bar. */
+.chrome-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  transform: translate(-50%, -20%);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform var(--dur-spring) var(--ease-spring-soft);
+}
+[data-titled] .chrome-title {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+[data-brand] {
+  transition: opacity 180ms ease;
+}
+[data-titled] [data-brand] {
+  opacity: 0;
+}
+/* The reading bar steps aside on the spring and comes back the same way. */
+.reader-bar-move {
+  transition: transform var(--dur-spring) var(--ease-spring-soft), box-shadow 180ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader-bar-move,
+  .chrome-title {
+    transition: none;
+  }
+}
+
+/* Press feedback on covers (design system PressFeedback): a cover being pressed shrinks to 98% at
+   once and comes back on release; buttons stay at 96%. `scale` is its own property, so it adds to
+   the tilt's inline transform instead of replacing it (engines without it simply skip the press). */
+.cover-frame {
+  transition-property: transform, box-shadow, scale;
+  transition-duration: 280ms, 280ms, 100ms;
+}
+.book-card:active .cover-frame,
+button:active > .cover-frame,
+button:active > * > .cover-frame,
+a:active .cover-frame {
+  scale: 0.98;
+}
+@media (prefers-reduced-motion: reduce) {
+  .book-card:active .cover-frame,
+  button:active > .cover-frame,
+  button:active > * > .cover-frame,
+  a:active .cover-frame {
+    scale: none;
+  }
+}
+
+/* Icons (design system PressFeedback): one line weight, 1.75, everywhere an icon keeps lucide's
+   default 2. An icon drawn heavier or lighter on purpose keeps its own; the word card keeps its design. */
+svg.lucide[stroke-width="2"] {
+  stroke-width: 1.75;
+}
+[data-word-card] svg.lucide[stroke-width="2"] {
+  stroke-width: 2;
 }

@@ -1,6 +1,6 @@
 /**
- * The reader's top bar on a phone: it slides away while the reader scrolls down into the book and
- * comes back on a scroll up. Pure, so the rules are tested alone.
+ * The reader's top bar: it slides away while the reader scrolls down into the book and comes back
+ * on a scroll up or a tap on the page. Pure, so the rules are tested alone.
  *
  * Small moves are ignored, so the bar does not flicker on a finger's jitter or a picture loading.
  * Near the top of the page the bar always shows. The reader's own page turns do not go through
@@ -12,8 +12,11 @@
 export const AUTO_HIDE_TRAVEL = 24;
 /** Within this many px of the top the bar always shows. */
 export const AUTO_HIDE_TOP = 80;
-/** Up to this width the bar hides on scroll: the phone layout (Tailwind `md` starts at 768px). */
-export const AUTO_HIDE_QUERY = "(max-width: 767px)";
+/**
+ * Where the bar hides on scroll: every screen now (design system ScrollChrome, "wide screens the
+ * same"). Kept as a media query so the reader still listens for a change.
+ */
+export const AUTO_HIDE_QUERY = "all";
 
 export type BarState = {
   hidden: boolean;

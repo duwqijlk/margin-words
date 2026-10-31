@@ -21,9 +21,9 @@ test("the notebook starts every round from its launcher, which carries the pool 
   const notebook = read("src/components/notebook.tsx");
   const header = notebook.indexOf("<header");
   const launcher = notebook.indexOf("<ReviewLauncher", header);
-  const stats = notebook.indexOf("<StatRow", header);
   const list = notebook.indexOf("data-word-list", header);
-  assert.ok(header < launcher && launcher < stats && stats < list, "header, launcher, numbers, then the list");
+  assert.ok(header < launcher && launcher < list, "header, launcher, then the list");
+  assert.doesNotMatch(notebook, /<StatRow/, "no row of four numbers (design system Notebook visual tidy-up)");
   assert.match(notebook, /<ModeCards\s+compact/);
   assert.match(notebook, /<WeekChart upcoming=\{stats\.upcoming\} mini \/>/);
   assert.match(notebook, /const PAGE = 30;/);
@@ -43,19 +43,21 @@ test("a saved word is a ruled dictionary row with its own UK / US speakers and a
   assert.doesNotMatch(row, /rounded-2xl bg-card/, "no card");
   assert.match(row, /<WordIpa /);
   assert.match(row, /<MemoryLadder stage=\{word\.stage\} \/>/);
-  assert.match(row, /head-mark/, "a mastered headword gets a highlighter");
+  assert.doesNotMatch(row, /head-mark/, "green means learned: no yellow highlighter on a headword (ColorRoles)");
+  assert.match(notebook, /mastered \? "rounded-sm bg-accent-soft px-1 font-semibold text-accent"/);
   assert.match(read("src/styles.css"), /@media \(hover: hover\) and \(pointer: fine\) \{\s*\.nb-actions \{\s*opacity: 0;/);
   const parts = read("src/components/review-parts.tsx");
   assert.match(parts, /role="radio"/);
-  assert.match(parts, /done \? "bg-mark" : index < stage \? "bg-accent" : "bg-line"/);
+  assert.match(parts, /done \|\| index < stage \? "bg-accent" : "bg-line"/);
 });
 
-test("numbers sit on sheet tiles in Literata, mastered on a highlighter and due in warn", () => {
+test("numbers sit on sheet tiles in Literata; learned counts in brand green, never on a highlighter", () => {
   const ui = read("src/components/ui.tsx");
   const stat = ui.slice(ui.indexOf("export function StatRow("), ui.indexOf("export function Segmented<"));
   assert.match(stat, /rounded-2xl bg-sheet/);
   assert.match(stat, /font-display/);
-  assert.match(stat, /item\.tone === "mark" \? <span className="num-mark">/);
+  assert.match(stat, /item\.tone === "mark" && "text-accent"/);
+  assert.doesNotMatch(read("src/styles.css"), /\.num-mark/);
   assert.match(read("src/styles.css"), /\[data-theme="eink"\] \.stat-tile \{\s*background: none;/);
 });
 

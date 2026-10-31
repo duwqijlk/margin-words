@@ -27,13 +27,15 @@ test("four reading themes, each with every colour and a matching -rgb twin", () 
     }
   }
   assert.doesNotMatch(css, /data-theme="clear"/, "the Clear theme is gone");
-  assert.doesNotMatch(css, /backdrop-filter/, "no frosted glass anywhere");
+  // The only material is the bars' (design system ScrollChrome), with an opaque ground where it cannot blur.
+  for (const rule of css.match(/[^{}]*\{[^{}]*backdrop-filter[^{}]*\}/g) ?? []) assert.match(rule, /\.chrome-bar/, "frosted glass only on the bars");
+  assert.match(css, /@supports not \(\(backdrop-filter: blur\(1px\)\) or \(-webkit-backdrop-filter: blur\(1px\)\)\)/);
 });
 
-test("paper is pure white with a fresh brand green, and the theme picker offers e-ink", () => {
+test("paper is pure white with a brand green that passes AA, and the theme picker offers e-ink", () => {
   const token = (selector, name) => block(selector).match(new RegExp(`--${name}: (#[0-9a-f]{6});`))[1];
   assert.equal(token('[data-theme="light"]', "paper"), "#ffffff");
-  assert.equal(token('[data-theme="light"]', "accent"), "#17804f");
+  assert.equal(token('[data-theme="light"]', "accent"), "#167a4b");
   assert.equal(token('[data-theme="eink"]', "accent"), "#000000");
   assert.match(read("src/components/ui.tsx"), /\{ value: "eink", bg: "#ffffff", fg: "#000000", brand: "#000000" \}/);
   assert.match(read("src/components/reader-settings.tsx"), /<ThemeTiles/);

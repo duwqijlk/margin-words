@@ -37,8 +37,8 @@ import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
 import { BookCover, talkCoverTone, type CoverLook, type useCovers } from "@/components/book-cover";
-import { CoverGlow } from "@/components/cover-glow";
 import { useBookTone } from "@/lib/cover-tone";
+import { lastReadLine } from "@/lib/last-read";
 import { ShelfBookInfo } from "@/components/shelf-book-info";
 import { isTedBook, useSpeechBookIds } from "@/lib/speech-books";
 import { navigate } from "@/lib/router";
@@ -263,14 +263,17 @@ function ContinueCard({
   const started = Boolean(progress && progress.updatedAt > 0 && fraction > 0);
   const chapters = progress?.chapters ?? 0;
   const left = progress ? Math.max(0, chapters - (progress.chapter + 1)) : 0;
+  const last = started ? lastReadLine(progress?.anchor) : "";
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="glow tone-ground grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-6 gap-y-4 rounded-2xl p-5 shadow-hero sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-11 sm:gap-y-3 sm:px-11 sm:py-9"
+      className={cn(
+        "tone-ground grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-6 gap-y-4 rounded-2xl p-5 shadow-hero sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-11 sm:gap-y-3 sm:px-11 sm:py-9",
+        last && "min-[960px]:grid-cols-[11rem_minmax(0,1fr)_minmax(0,19rem)]",
+      )}
       style={tone}
       data-continue-card
     >
-      <CoverGlow src={cover} />
       <div className="tone-cover relative sm:row-span-2" data-tilt>
         <button
           type="button"
@@ -339,9 +342,18 @@ function ContinueCard({
           ) : null}
         </div>
       </div>
+      {last ? (
+        <blockquote className="continue-last col-start-3 row-span-2 row-start-1 m-0 hidden self-center min-[960px]:block" data-continue-last>
+          <span className="text-[0.8125rem] font-bold text-[var(--book-deep)]">{t("shelf.lastRead")}</span>
+          <p className="m-0 mt-1.5 font-display text-lg leading-[1.6] text-ink italic" lang="en">
+            {last}
+          </p>
+        </blockquote>
+      ) : null}
     </section>
   );
 }
+
 
 function ShelfSkeleton() {
   return (
@@ -687,21 +699,21 @@ function BookCard({
           </BookTags>
         ) : null}
         {book.needsEpub ? (
-          <p className="text-xs leading-snug font-medium text-warn" data-needs-epub="">
+          <p className="book-status text-warn" data-needs-epub="">
             {t("shelf.needsEpub")}
           </p>
         ) : book.source === "epub" && fileHere === false ? (
-          <p className="text-xs leading-snug font-medium text-warn" data-file-missing="">
+          <p className="book-status text-warn" data-file-missing="">
             {t("shelf.fileMissing")}
           </p>
         ) : null}
         {offer && offerLine(offer, t).warn ? (
-          <p className="text-xs leading-snug text-warn" data-list-hold-reason>
+          <p className="book-status text-warn" data-list-hold-reason>
             {offerLine(offer, t).text}
           </p>
         ) : null}
         {typeof book.matchRate === "number" && Number.isFinite(book.matchRate) && book.matchRate >= 0 && book.matchRate < 80 ? (
-          <p className="text-xs leading-snug font-medium text-warn" data-shelf-low-match="">
+          <p className="book-status text-warn" data-shelf-low-match="">
             {t("shelf.lowMatch", { n: Math.round(book.matchRate) })}
           </p>
         ) : null}

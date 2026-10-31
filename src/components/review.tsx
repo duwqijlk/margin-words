@@ -7,6 +7,7 @@ import { bookSyncKey } from "@/lib/sync-merge";
 import { isDue, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
 import { holdSyncPushes } from "@/lib/sync-engine";
+import { holdFocusMode } from "@/lib/focus-mode";
 import { hasSourceFrom } from "@/lib/wordbook";
 import {
   CLOZE_MIN_WORDS,
@@ -130,7 +131,7 @@ function Overview({
           {t("nav.notebook")}
         </button>
         <header className="grid gap-1">
-          <h1 className="m-0 text-2xl leading-tight font-bold tracking-[-0.02em] sm:text-[28px]">{t("rv.title")}</h1>
+          <h1 className="m-0 text-2xl leading-tight font-bold tracking-[-0.02em] sm:text-[28px]" data-page-title>{t("rv.title")}</h1>
           <p className="m-0 text-sm text-muted" lang="en">
             {title}
           </p>
@@ -180,8 +181,6 @@ function Overview({
               value: streak,
               hint: streak > 0 ? tn("rv.streakDay", streak) : t("rv.streakStart"),
             },
-            { label: t("stat.learning"), value: stats.learning },
-            { label: t("stat.mastered"), value: stats.mastered, tone: "mark" },
           ]}
         />
         <section className="grid gap-3 pb-[22px]">
@@ -284,7 +283,7 @@ function Summary({
         </div>
       </dl>
       <div className="inline-flex items-center justify-center gap-2.5 text-[15px] text-muted" data-summary-streak>
-        <Flame className="size-4 text-warn" aria-hidden />
+        <Flame className="size-4 text-accent" aria-hidden />
         <span>{t("rv.streak")}</span>
         <b className="font-display text-xl font-bold text-ink [font-variant-numeric:lining-nums_tabular-nums]">{streakShown}</b>
         <div ref={todayRef} className="inline-flex">
@@ -385,6 +384,20 @@ function Session({
 
   // One upload per few answers instead of one per answer (sync-pace.ts); leaving uploads the rest.
   useEffect(() => holdSyncPushes(), []);
+  // Focus mode: no site chrome while the round runs; Esc ends it, like the End button.
+  useEffect(() => holdFocusMode(), []);
+  const exitRef = useRef(onExit);
+  exitRef.current = onExit;
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      // A dialog or menu open over the round closes first.
+      if (document.querySelector('[role="dialog"], [role="menu"]')) return;
+      exitRef.current();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const byId = useMemo(() => new Map(allWords.map((word) => [word.id, word])), [allWords]);
   const currentId = queue[index];
@@ -522,7 +535,7 @@ function Session({
 
   const top = (
     <div className="flex min-h-6 items-center justify-between gap-2 text-left">
-      <span className={cn("text-xs", due ? "font-bold text-warn" : "text-faint")}>{due ? t("rv.dueChip") : t("rv.extra")}</span>
+      <span className={cn("text-xs", due ? "font-bold text-accent" : "text-faint")}>{due ? t("rv.dueChip") : t("rv.extra")}</span>
       {combo >= 2 ? (
         <span className="inline-flex h-6 items-center gap-1.5 text-sm leading-none font-bold text-accent" data-review-combo>
           <Flame className="size-4 shrink-0" aria-hidden />
@@ -545,7 +558,7 @@ function Session({
   return (
     <div
       className={cn(
-        "mx-auto grid w-full max-w-[40rem] grid-cols-[minmax(0,1fr)] gap-3.5 px-4 pt-2 pb-4 sm:gap-5 sm:px-6 sm:pt-8 sm:pb-8",
+        "mx-auto grid w-full max-w-[40rem] grid-cols-[minmax(0,1fr)] gap-3.5 px-4 pt-[calc(8px+env(safe-area-inset-top))] pb-4 sm:gap-5 sm:px-6 sm:pt-8 sm:pb-8",
         actions && "max-sm:pb-40",
       )}
       data-review-session
@@ -743,7 +756,7 @@ function Session({
       {actions ? (
         <div
           data-review-actions
-          className="max-sm:fixed max-sm:inset-x-0 max-sm:bottom-[calc(3.75rem+env(safe-area-inset-bottom))] max-sm:z-30 max-sm:border-t max-sm:border-line max-sm:bg-paper max-sm:px-4 max-sm:py-3"
+          className="max-sm:fixed max-sm:inset-x-0 max-sm:bottom-0 max-sm:z-30 max-sm:border-t max-sm:border-line max-sm:bg-paper max-sm:px-4 max-sm:pt-3 max-sm:pb-[calc(12px+env(safe-area-inset-bottom))]"
         >
           <div className="mx-auto grid max-w-[40rem] gap-2">
             {mode === "cards" && !revealed ? (

@@ -699,8 +699,8 @@ export function ProgressBar({
 /** A quiet row of numbers (notebook, review). One card, thin dividers; two columns on a phone. */
 /**
  * A row of numbers (design system Stats): each on a soft `sheet` tile, the label small above, the
- * number in Literata bold with lining figures. The "understood" number (mastered) gets a highlighter
- * under it, a number that needs the reader is `warn`, everything else ink. `pair` lays them two by
+ * number in Literata bold with lining figures. The "learned" number (mastered) is brand green
+ * (design system ColorRoles), a number that needs the reader is `warn`, everything else ink. `pair` lays them two by
  * two (the review data column); otherwise four in a row on every screen, smaller on a phone.
  */
 export function StatRow({
@@ -728,10 +728,11 @@ export function StatRow({
               "m-0 mt-1.5 font-display leading-none font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] sm:mt-2",
               pair ? "text-[28px]" : "text-[22px] sm:text-4xl",
               item.tone === "warn" && "text-warn",
+              item.tone === "mark" && "text-accent",
             )}
             data-stat-tone={item.tone ?? "plain"}
           >
-            {item.tone === "mark" ? <span className="num-mark">{item.value}</span> : item.value}
+            {item.value}
           </dd>
           {item.hint ? <dd className="m-0 mt-1.5 text-xs text-faint">{item.hint}</dd> : null}
         </div>

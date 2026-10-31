@@ -21,7 +21,11 @@ export function BookTags({ children, className }: { children: React.ReactNode; c
   );
 }
 
-/** One fact in `BookTags`. `warn` is for what needs the reader (a missing e-book, words due). */
+/**
+ * One fact in `BookTags`. `warn` is for what needs the reader (a missing e-book); `action` is
+ * something to do (Update). Both are status lines: a 6px dot and 13px semibold text (design system
+ * BookItem, ColorRoles).
+ */
 export function BookTag({
   tone = "plain",
   children,
@@ -41,8 +45,8 @@ export function BookTag({
 } & Record<`data-${string}`, unknown>) {
   const className = cn(
     "inline-flex max-w-full items-center gap-1 truncate",
-    tone === "warn" && "font-medium text-warn",
-    tone === "action" && "font-medium text-accent underline-offset-2 hover:underline disabled:opacity-60",
+    tone === "warn" && "book-status text-warn",
+    tone === "action" && "book-status text-accent underline-offset-2 hover:underline disabled:opacity-60",
   );
   if (onClick) {
     return (

@@ -1,5 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ExternalLink, X } from "lucide-react";
+import { useRef } from "react";
+import { useSheetDrag } from "@/components/floating-card";
 import { useT } from "@/lib/i18n";
 import { btn, cn, panel, PanelHandle, Segmented, ThemeTiles } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
@@ -31,12 +33,15 @@ export function SettingsDialog({
   const role = useAccount((state) => state.role);
   const email = useAccount((state) => state.email);
   const isAdmin = role === "admin" || isSponsorAdmin(email);
+  // A phone sheet follows the finger and closes on a pull down (design system SpringSheet).
+  const sheet = useRef<HTMLDivElement | null>(null);
+  useSheetDrag(sheet, () => onOpenChange(false), "(max-width: 639px)", open);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className={panel.overlay} />
-        <Dialog.Content className={panel.content} data-settings-panel>
+        <Dialog.Content ref={sheet} className={panel.content} data-settings-panel>
           <PanelHandle />
           <div className={panel.head}>
             <Dialog.Title className={panel.title}>{t("settings.title")}</Dialog.Title>

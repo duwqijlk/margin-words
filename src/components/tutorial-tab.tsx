@@ -10,6 +10,7 @@ import {
   type TutorialId,
 } from "@/lib/tutorial";
 import { cn } from "@/components/ui";
+import { useSheetDrag } from "@/components/floating-card";
 
 /** Where the reader left the tab on this device: its top, as a share of the window height. */
 const SPOT_KEY = "cibian-tuttab-y-v1";
@@ -167,7 +168,7 @@ export function TutorialTab() {
     >
       <GraduationCap className="size-[18px]" aria-hidden />
       <span className="tut-tab-label text-xs font-bold text-muted">{t("tuttab.label")}</span>
-      {fresh ? <i className="absolute top-1.5 left-1.5 size-[7px] rounded-full bg-warn shadow-[0_0_0_2px_var(--float-sheet)]" data-tutorial-dot /> : null}
+      {fresh ? <i className="absolute top-1.5 left-1.5 size-[7px] rounded-full bg-accent shadow-[0_0_0_2px_var(--float-sheet)]" data-tutorial-dot /> : null}
     </button>
   );
 }
@@ -184,6 +185,8 @@ export function TutorialList() {
   const seen = useTutorialsSeen((state) => state.seen);
   const phone = useMedia(PHONE);
   const box = useRef<HTMLDivElement | null>(null);
+  // On a phone the list is a bottom sheet that follows the finger (design system SpringSheet).
+  useSheetDrag(box, hide, PHONE, from === "center" && phone);
 
   useEffect(() => {
     if (!from) return;
@@ -279,7 +282,7 @@ export function TutorialList() {
 export function NewTag() {
   const { t } = useT();
   return (
-    <i className="rounded-full bg-warn px-1.5 text-[11px] leading-[1.4] font-bold text-white not-italic" data-tutorial-new>
+    <i className="rounded-full bg-accent px-1.5 text-xs leading-[1.4] font-bold text-accent-ink not-italic" data-tutorial-new>
       {t("tuttab.new")}
     </i>
   );

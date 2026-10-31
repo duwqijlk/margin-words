@@ -154,7 +154,7 @@ export function ContributorsPanel({
                     </small>
                   </span>
                   <span className="credit-track relative block h-1 overflow-hidden bg-line" aria-hidden>
-                    <span className={cn("credit-bar absolute inset-y-0 left-0 w-full", first ? "bg-mark" : "bg-accent")} />
+                    <span className={cn("credit-bar absolute inset-y-0 left-0 w-full", first ? "bg-accent" : "bg-accent/60")} />
                   </span>
                 </span>
                 {refs.length > 0 ? (

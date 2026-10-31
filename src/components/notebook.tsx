@@ -23,7 +23,6 @@ import {
   field,
   Highlighted,
   selectCls,
-  StatRow,
   subTabs,
   TabInk,
 } from "@/components/ui";
@@ -40,7 +39,7 @@ const FILTERS: Array<{ value: Filter; label: Key }> = [
 
 const PAGE = 30;
 
-/** "Review today" in warn, "In 4 days" quiet, "Mastered" on a highlighter (design system WordRow). */
+/** "Review today" in brand (the day's work, not an alarm), "In 4 days" quiet, "Mastered" on a brand tint (design system ColorRoles). */
 function DueText({ word }: { word: VocabEntry }) {
   const mastered = isMastered(word);
   const due = !mastered && isDue(word);
@@ -48,7 +47,7 @@ function DueText({ word }: { word: VocabEntry }) {
     <span
       className={cn(
         "text-[13px] leading-snug whitespace-nowrap",
-        mastered ? "rounded-sm bg-mark px-1 text-ink" : due ? "font-bold text-warn" : "text-faint",
+        mastered ? "rounded-sm bg-accent-soft px-1 font-semibold text-accent" : due ? "font-bold text-accent" : "text-faint",
       )}
       data-due={mastered ? "done" : due ? "warn" : "plain"}
     >
@@ -91,7 +90,7 @@ function WordRow({
       <div className="grid min-w-0 gap-1.5">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <h3 className="m-0 font-display text-2xl leading-tight font-semibold tracking-[-0.01em] wrap-any" lang="en">
-            <span className={mastered ? "head-mark" : undefined}>{word.lemma}</span>
+            {word.lemma}
           </h3>
           {word.surface.toLowerCase() !== word.lemma.toLowerCase() ? (
             <span className="text-[13px] text-faint">
@@ -185,9 +184,8 @@ function ReviewLauncher({
   const [picked, setPicked] = useState<ReviewMode>(() => savedReviewMode());
   const mode = usableMode(picked, words);
   const pool: ReviewPool = stats.due > 0 ? "due" : stats.learning > 0 ? "learning" : "all";
-  const count = pool === "due" ? stats.due : pool === "learning" ? stats.learning : stats.total;
-  const label =
-    pool === "due" ? t("nb.startReview", { n: count }) : pool === "learning" ? t("rv.practiceLearning", { n: count }) : t("rv.practiceAll", { n: count });
+  // No count on the button: the big number on the left is the count (design system ReviewLauncher).
+  const label = pool === "due" ? t("nb.startReviewPlain") : pool === "learning" ? t("nb.practiceLearningPlain") : t("nb.practiceAllPlain");
   return (
     <section
       className="launcher grid grid-cols-1 items-center gap-3.5 rounded-2xl bg-sheet p-4 shadow-hero lg:grid-cols-[9rem_minmax(0,1fr)_14rem] lg:gap-x-7 lg:gap-y-5 lg:px-6 lg:py-5"
@@ -208,7 +206,7 @@ function ReviewLauncher({
           </b>
         )}
         <small className="inline-flex basis-full items-center gap-1.5 text-[13px] text-muted lg:mt-1.5">
-          <Flame className="size-4 text-warn" aria-hidden />
+          <Flame className="size-4 text-accent" aria-hidden />
           {streak > 0 ? tn("nb.streak", streak) : t("rv.streakStart")}
         </small>
       </div>
@@ -339,7 +337,7 @@ export function Notebook({
     <div className="mx-auto grid w-full max-w-[52rem] grid-cols-[minmax(0,1fr)] gap-5 px-4 pt-4 pb-8 sm:gap-6 sm:px-6 sm:pt-8 sm:pb-16" data-notebook>
       <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div className="grid min-w-0 gap-1">
-          <h1 className="m-0 text-2xl leading-tight font-bold tracking-[-0.02em] sm:text-[28px]">{t("nb.title")}</h1>
+          <h1 className="m-0 text-2xl leading-tight font-bold tracking-[-0.02em] sm:text-[28px]" data-page-title>{t("nb.title")}</h1>
           <p className="m-0 text-[13px] text-muted sm:text-sm" data-notebook-intro>
             {tab === "quotes" ? (
               t("qb.intro")
@@ -377,9 +375,8 @@ export function Notebook({
               )}
             >
               {kind === "words" ? t("nb.kindWords") : t("nb.kindQuotes")}
-              <small className="text-xs font-normal text-faint [font-variant-numeric:tabular-nums]">
-                {(kind === "words" ? words.length : quoteCount).toLocaleString()}
-              </small>
+              {/* Only quotes carry a count: the words' total is on the All tab below (design system NotebookScreen). */}
+              {kind === "quotes" ? <small className="num text-xs font-normal text-faint">{quoteCount.toLocaleString()}</small> : null}
             </button>
           ))}
         </div>
@@ -405,15 +402,6 @@ export function Notebook({
             streak={streak}
             onStart={(pool, mode) => onReview(bookId, pool, mode)}
             onData={() => onReviewData(bookId)}
-          />
-
-          <StatRow
-            items={[
-              { label: t("stat.all"), value: stats.total },
-              { label: t("stat.due"), value: stats.due, tone: stats.due > 0 ? "warn" : "plain" },
-              { label: t("stat.learning"), value: stats.learning },
-              { label: t("stat.mastered"), value: stats.mastered, tone: "mark" },
-            ]}
           />
 
           <div className="grid gap-3">
@@ -491,7 +479,7 @@ export function Notebook({
                     }}
                   >
                     {t(item.label)}
-                    <small className="ml-1 text-xs font-normal text-faint [font-variant-numeric:tabular-nums]">{counts[item.value]}</small>
+                    <small className="num ml-1 text-xs font-normal text-faint">{counts[item.value]}</small>
                   </button>
                 );
               })}

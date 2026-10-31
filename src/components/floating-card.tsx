@@ -242,12 +242,44 @@ function panBoxes(node: Element | null, root: HTMLElement): PanBox[] {
   return boxes;
 }
 
-function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: () => void) {
+/** Back to place on the soft spring (with reduced motion or on e-ink it just goes). */
+const SPRING = "transform var(--dur-spring, 600ms) var(--ease-spring-soft, ease-out)";
+function springBack(): string {
+  const still =
+    (typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ||
+    document.documentElement.getAttribute("data-theme") === "eink";
+  return still ? "none" : SPRING;
+}
+
+/**
+ * Where the sheet sits for a pull of `dy` px (design system SpringSheet): with the finger going
+ * down; going up, a rubber band, (1 - 1 / (d * 0.55 / h + 1)) * h, tighter the further it goes.
+ */
+export function sheetOffset(dy: number, height: number): number {
+  if (dy >= 0) return dy;
+  const h = Math.max(1, height);
+  return -(1 - 1 / ((-dy * 0.55) / h + 1)) * h;
+}
+
+/** Let go: close past a third of the sheet's height, or on a downward flick faster than 0.6 px/ms. */
+export function sheetCloses(dy: number, speed: number, height: number): boolean {
+  return dy > Math.max(1, height) / 3 || (dy > 12 && speed > 0.6);
+}
+
+/**
+ * Drag a bottom sheet with the finger (design system SpringSheet): down to close it, back on the
+ * spring when let go short of that. `media` is when the panel is a bottom sheet at all.
+ */
+export function useSheetDrag(panelRef: RefObject<HTMLElement | null>, onClose: () => void, media = PHONE_SHEET, open = true) {
+  usePhoneSheetDismiss(panelRef, onClose, media, open);
+}
+
+function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: () => void, media = PHONE_SHEET, open = true) {
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
 
   useEffect(() => {
-    const query = window.matchMedia(PHONE_SHEET);
+    const query = window.matchMedia(media);
     let detach = () => {};
     const bind = () => {
       detach();
@@ -257,6 +289,9 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
       let startY = 0;
       let startX = 0;
       let lastY = 0;
+      // The finger's speed at release (px/ms), from the last moves (design system SpringSheet).
+      let lastT = 0;
+      let speed = 0;
       let mode: "idle" | "undecided" | "dismiss" | "scroll" = "idle";
       let timer = 0;
       let ignoreMouseUntil = 0;
@@ -304,12 +339,17 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         startX = x;
         startY = y;
         lastY = y;
+        lastT = Date.now();
+        speed = 0;
         mode = "undecided";
       };
       const move = (x: number, y: number, event: Event) => {
         if (mode === "idle" || mode === "scroll") return;
         const dy = y - startY;
         const dx = x - startX;
+        const now = Date.now();
+        if (now > lastT) speed = speed * 0.4 + ((y - lastY) / (now - lastT)) * 0.6;
+        lastT = now;
         lastY = y;
         if (mode === "undecided") {
           const pull = dy > 0 && Math.abs(dy) > Math.abs(dx);
@@ -322,7 +362,7 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
             return;
           }
           if (Math.abs(dy) < 8 && Math.abs(dx) < 8) return;
-          if (pull && el.scrollTop <= 0) {
+          if (pull && el.scrollTop <= 0 && dy > 0) {
             mode = "dismiss";
             el.style.animation = "none";
             el.style.transition = "none";
@@ -338,7 +378,8 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
           return;
         }
         event.preventDefault();
-        el.style.transform = `translateY(${Math.max(0, dy)}px)`;
+        // The sheet goes with the finger; above its place it pulls back harder the further it goes.
+        el.style.transform = `translateY(${sheetOffset(dy, el.offsetHeight)}px)`;
       };
       const end = () => {
         if (mode !== "dismiss") {
@@ -348,18 +389,20 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         const dy = lastY - startY;
         mode = "idle";
         suppressClick = true;
-        el.style.transition = "transform 0.18s ease-out";
-        if (dy > 72) {
+        if (sheetCloses(dy, speed, el.offsetHeight)) {
+          // Carry on from where the finger let go, at about its speed.
+          el.style.transition = `transform ${Math.round(Math.max(120, Math.min(260, (el.offsetHeight - dy) / Math.max(speed, 1))))}ms ease-out`;
           el.style.transform = "translateY(110%)";
           timer = window.setTimeout(() => closeRef.current(), 160);
         } else {
+          el.style.transition = springBack();
           el.style.transform = "";
         }
       };
       const cancel = () => {
         clearTimer();
         mode = "idle";
-        el.style.transition = "transform 0.18s ease-out";
+        el.style.transition = springBack();
         el.style.transform = "";
       };
       // The pan guard: every move over the sheet that nothing inside it can scroll is cancelled,
@@ -440,7 +483,7 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
       query.removeEventListener("change", bind);
       detach();
     };
-  }, [panelRef]);
+  }, [panelRef, media, open]);
 }
 
 /**

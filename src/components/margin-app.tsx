@@ -1,5 +1,5 @@
 import { AlertCircle, CheckCircle2, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import {
   bookFileExists,
@@ -17,6 +17,7 @@ import { canAddBooks, askToSignIn } from "@/lib/can-add";
 import { ensureClassics } from "@/lib/classics";
 import { useProgress } from "@/lib/progress-store";
 import { useQuotes } from "@/lib/quote-store";
+import { useFocusMode } from "@/lib/focus-mode";
 import { tr, trn, useT } from "@/lib/i18n";
 import { applyTheme, usePrefs } from "@/lib/reader-prefs";
 import type { VocabEntry } from "@/lib/vocab-model";
@@ -127,6 +128,9 @@ export function MarginApp() {
   const opening = useRef(false);
   // The previous screen, so closing the reader can retry a word-list update that waited.
   const wasReading = useRef(false);
+  // The top bar answers the scroll (design system ScrollChrome): its hairline shows once content is
+  // under it, and on a phone the page's large title (data-page-title) hands over to a small one in it.
+  const topBar = useRef<HTMLElement | null>(null);
 
   // Covers lean towards the pointer on devices that can hover (design system BookOpen).
   useEffect(() => installCoverTilt(), []);
@@ -383,7 +387,40 @@ export function MarginApp() {
     }, 1500);
     return () => window.clearTimeout(timer);
   }, [screen.kind]);
+  useEffect(() => {
+    if (screen.kind === "read") return;
+    let frame = 0;
+    const phone = () => typeof window.matchMedia === "function" && window.matchMedia("(max-width: 639px)").matches;
+    const measure = () => {
+      frame = 0;
+      const bar = topBar.current;
+      if (!bar) return;
+      if (window.scrollY > 2) bar.setAttribute("data-under", "");
+      else bar.removeAttribute("data-under");
+      const title = document.querySelector<HTMLElement>("main [data-page-title], [data-page-title]");
+      const small = bar.querySelector<HTMLElement>("[data-top-title]");
+      if (small && title && small.textContent !== title.textContent) small.textContent = title.textContent;
+      const under = Boolean(title) && phone() && (title?.getBoundingClientRect().bottom ?? 0) < bar.getBoundingClientRect().bottom + 4;
+      if (under) bar.setAttribute("data-titled", "");
+      else bar.removeAttribute("data-titled");
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [screen.kind]);
   const reading = screen.kind === "read";
+  const offline = useOffline();
+  // A review round runs in focus mode (focus-mode.ts): none of the site chrome, as in the reader.
+  const focus = useFocusMode((state) => state.on) && screen.kind === "review";
+  const bare = reading || focus;
   const menu = menuOf(screen);
   const tabs = [
     {
@@ -412,7 +449,8 @@ export function MarginApp() {
     <div
       className={cn(
         "min-h-dvh bg-paper text-ink",
-        !reading && "flex flex-col max-sm:pb-[calc(3.75rem+env(safe-area-inset-bottom))]",
+        !reading && "flex flex-col",
+        !bare && "max-sm:pb-[calc(3.75rem+env(safe-area-inset-bottom))]",
       )}
     >
       {/* The only file input of the app: a word list (.json) for a book that is already on the shelf.
@@ -441,10 +479,11 @@ export function MarginApp() {
       ) : null}
       {/* One notice for the whole site: the copyright line and what a word tap reports. Not in the
           reader, where it would sit over the words. */}
-      {reading ? null : <SiteNotice />}
-      {reading ? null : (
-        <header className="sticky top-0 z-40 bg-paper">
-          <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
+      {bare ? null : <SiteNotice />}
+      {bare ? null : (
+        <header ref={topBar} className="chrome-bar chrome-top sticky top-0 z-40" data-top-bar>
+          <div className="relative mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
+            <span className="chrome-title text-ink sm:hidden" aria-hidden data-top-title />
             <button
               type="button"
               className="shrink-0 inline-flex min-h-11 items-center rounded-lg px-2 font-display text-lg font-semibold tracking-tight text-ink sm:text-xl -translate-y-0.5"
@@ -469,7 +508,7 @@ export function MarginApp() {
               aria-current={menu === "words" ? "page" : undefined}
               data-notebook-button
             >
-              <NotebookPen className="size-5" strokeWidth={1.5} aria-hidden />
+              <NotebookPen className="size-5" strokeWidth={1.75} aria-hidden />
             </button>
             <button
               type="button"
@@ -478,7 +517,7 @@ export function MarginApp() {
               aria-label={t("nav.account")}
               data-account-button
             >
-              <UserRound className="size-5" strokeWidth={1.5} aria-hidden />
+              <UserRound className="size-5" strokeWidth={1.75} aria-hidden />
             </button>
             <button
               type="button"
@@ -488,9 +527,9 @@ export function MarginApp() {
               data-settings-button
             >
               <span className="relative inline-flex">
-                <Settings className="size-5" strokeWidth={1.5} aria-hidden />
+                <Settings className="size-5" strokeWidth={1.75} aria-hidden />
                 {tutorialNews ? (
-                  <i className="absolute -top-1 -right-1 size-[7px] rounded-full bg-warn shadow-[0_0_0_2px_var(--paper)]" data-settings-dot />
+                  <i className="absolute -top-1 -right-1 size-[7px] rounded-full bg-accent shadow-[0_0_0_2px_var(--paper)]" data-settings-dot />
                 ) : null}
               </span>
             </button>
@@ -498,9 +537,9 @@ export function MarginApp() {
         </header>
       )}
 
-      {reading ? null : (
+      {bare ? null : (
         <nav
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper pb-[env(safe-area-inset-bottom)] sm:hidden"
+          className="chrome-bar chrome-tabs fixed inset-x-0 bottom-0 z-40 pb-[env(safe-area-inset-bottom)] sm:hidden"
           aria-label={t("nav.main")}
           data-tab-bar
         >
@@ -528,7 +567,7 @@ export function MarginApp() {
         </nav>
       )}
 
-      {reading ? null : (
+      {bare ? null : (
         <div className="mx-auto grid max-w-6xl gap-2 px-4 pt-4 empty:hidden sm:px-6">
           {importError ? (
             <Banner tone="warn" onClose={() => setImportError(null)}>
@@ -559,6 +598,11 @@ export function MarginApp() {
             </Banner>
           ) : null}
           {storageWarning ? <Banner tone="warn">{storageWarning}</Banner> : null}
+          {offline ? (
+            <Banner tone="warn" data-offline-notice>
+              {t("msg.offline")}
+            </Banner>
+          ) : null}
         </div>
       )}
 
@@ -733,7 +777,7 @@ function OverviewIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
@@ -773,5 +817,26 @@ function NavButton({
     >
       {children}
     </button>
+  );
+}
+
+const onLineEvents = (change: () => void) => {
+  window.addEventListener("online", change);
+  window.addEventListener("offline", change);
+  return () => {
+    window.removeEventListener("online", change);
+    window.removeEventListener("offline", change);
+  };
+};
+
+/**
+ * No network (design system LoadingStates): a notice at the top of the page that says what still
+ * works. It goes away by itself when the network is back.
+ */
+function useOffline(): boolean {
+  return useSyncExternalStore(
+    onLineEvents,
+    () => typeof navigator !== "undefined" && navigator.onLine === false,
+    () => false,
   );
 }

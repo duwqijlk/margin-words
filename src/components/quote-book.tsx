@@ -192,7 +192,7 @@ export function QuoteBook({
                       <span className="-mr-2 flex items-center gap-0.5">
                         <button
                           type="button"
-                          className="inline-flex min-h-9 items-center gap-1.5 rounded px-2.5 text-[13px] font-bold whitespace-nowrap text-accent transition-colors hover:bg-paper disabled:cursor-not-allowed disabled:opacity-40"
+                          className="inline-flex min-h-11 items-center gap-1.5 rounded px-2.5 text-[13px] sm:min-h-9 font-bold whitespace-nowrap text-accent transition-colors hover:bg-paper disabled:cursor-not-allowed disabled:opacity-40"
                           disabled={!home}
                           title={home ? undefined : t("src.notOnShelf")}
                           onClick={() => home && jumpToQuote(quote, home.id)}
@@ -203,7 +203,7 @@ export function QuoteBook({
                         </button>
                         <button
                           type="button"
-                          className="inline-flex size-9 items-center justify-center rounded text-faint transition-colors hover:bg-paper hover:text-warn"
+                          className="inline-flex size-11 items-center justify-center rounded sm:size-9 text-faint transition-colors hover:bg-paper hover:text-warn"
                           aria-label={t("qb.delete")}
                           onClick={() => {
                             useQuotes.getState().remove([quote.id]);

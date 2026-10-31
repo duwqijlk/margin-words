@@ -105,7 +105,12 @@ export function ModeCards({
             className={cn(
               "mode-card grid min-w-0 content-start gap-1 rounded border bg-paper text-left text-ink transition-[background-color,border-color,transform] duration-100 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-55",
               compact ? "p-1.5 pb-2 sm:p-2 sm:pb-2.5" : "grid-cols-[5rem_minmax(0,1fr)] gap-x-3 p-2.5 pb-3 sm:grid-cols-1",
-              on ? "border-accent bg-accent-soft shadow-[inset_0_0_0_1px_rgb(var(--accent-rgb))]" : "border-edge hover:bg-sheet",
+              on
+                ? "border-accent bg-accent-soft shadow-[inset_0_0_0_1px_rgb(var(--accent-rgb))]"
+                : compact
+                  ? // In the review launcher: plain tiles on its ground, no card in a card (design system ReviewLauncher).
+                    "border-transparent hover:border-edge"
+                  : "border-edge hover:bg-sheet",
             )}
           >
             <span
@@ -158,9 +163,10 @@ export function WeekChart({ upcoming, mini = false }: { upcoming: readonly numbe
     >
       {upcoming.map((count, index) => (
         <div key={index} className="grid justify-items-center gap-1" aria-hidden>
-          <span className="min-h-4 text-xs text-faint [font-variant-numeric:tabular-nums]">{count > 0 ? count : ""}</span>
+          {/* Today's count is the big number above the chart; its solid bar says enough (design system ReviewLauncher). */}
+          <span className={cn("num min-h-4 text-[13px] text-muted", index === 0 && "invisible")}>{count > 0 ? count : ""}</span>
           <i
-            className={cn("week-bar block w-full rounded-t-sm", mini ? "max-w-[18px]" : "max-w-7", index === 0 ? "bg-warn" : "bg-accent", count === 0 && "opacity-25")}
+            className={cn("week-bar block w-full rounded-t-sm", mini ? "max-w-[18px]" : "max-w-7", index === 0 ? "bg-accent" : "bg-accent/40", count === 0 && "opacity-25")}
             style={{ height: count === 0 ? 2 : Math.max(6, Math.round((count / max) * tall)) }}
           />
           <b className={cn("h-[18px] text-xs font-normal whitespace-nowrap text-faint", !mini && "-mb-[22px]")}>{labels[index]}</b>
@@ -170,7 +176,7 @@ export function WeekChart({ upcoming, mini = false }: { upcoming: readonly numbe
   );
 }
 
-/** Words at each memory step: one 4px bar per step, brand on a rule track, mastered in highlighter. */
+/** Words at each memory step: one 4px bar per step, brand on a rule track (mastered too: green is "learned"). */
 export function StageBars({ stats }: { stats: SrsStats }) {
   const { t, tn } = useT();
   const rows: Array<{ label: string; count: number; done?: boolean }> = [
@@ -185,7 +191,7 @@ export function StageBars({ stats }: { stats: SrsStats }) {
         <li key={row.label} className="grid grid-cols-[3.5rem_minmax(0,1fr)_2.5rem] items-center gap-3 text-[13px]">
           <span className="truncate text-faint">{row.label}</span>
           <i className="block h-1 bg-line" aria-hidden>
-            <b className={cn("block h-full", row.done ? "bg-mark" : "bg-accent")} style={{ width: `${(row.count / max) * 100}%` }} />
+            <b className="block h-full bg-accent" style={{ width: `${(row.count / max) * 100}%` }} />
           </i>
           <em className="text-right not-italic [font-variant-numeric:tabular-nums]">{row.count}</em>
         </li>
@@ -196,7 +202,7 @@ export function StageBars({ stats }: { stats: SrsStats }) {
 
 /**
  * The memory ladder (design system MemoryLadder): six short bars for the 1 · 2 · 4 · 7 · 15 · 30-day
- * steps, passed ones brand; all six turn highlighter yellow once the word is mastered. Always next to
+ * steps, passed ones brand; all six are brand once the word is mastered (design system ColorRoles). Always next to
  * a due text, never on its own.
  */
 export function MemoryLadder({ stage }: { stage: number }) {
@@ -211,13 +217,13 @@ export function MemoryLadder({ stage }: { stage: number }) {
       data-memory-ladder={done ? "done" : stage}
     >
       {INTERVALS_DAYS.map((days, index) => (
-        <i key={days} className={cn("block h-[3px] w-2.5", done ? "bg-mark" : index < stage ? "bg-accent" : "bg-line")} aria-hidden />
+        <i key={days} className={cn("block h-[3px] w-2.5", done || index < stage ? "bg-accent" : "bg-line")} aria-hidden />
       ))}
     </span>
   );
 }
 
-/** The last seven days as small squares, today's lit in highlighter (design system ReviewSummary). */
+/** The last seven days as small squares, read days in brand (design system ReviewSummary, ColorRoles). */
 export function StreakDays({ days, pop = false }: { days: readonly boolean[]; pop?: boolean }) {
   return (
     <span className="inline-flex gap-1" aria-hidden data-streak-days>
@@ -230,7 +236,7 @@ export function StreakDays({ days, pop = false }: { days: readonly boolean[]; po
               "block size-2.5 rounded-sm",
               !on && "bg-line",
               on && !today && "bg-accent",
-              on && today && "bg-mark shadow-[0_0_0_1px_rgb(var(--faint-rgb))]",
+              on && today && "bg-accent",
               on && today && pop && "streak-pop",
             )}
           />

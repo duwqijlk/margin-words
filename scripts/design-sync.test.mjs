@@ -88,14 +88,11 @@ test("depth: raised and floating levels come from per-theme tokens; floating lay
   assert.match(read("src/components/notebook.tsx"), /launcher grid[^"]*shadow-hero/);
 });
 
-test("cover glow: the cover blurred behind the continue card, the newest book and the detail top", () => {
-  assert.match(css, /\.cover-glow \{[^}]*filter: blur\(56px\) saturate\(1\.6\);[^}]*opacity: 0\.55;/);
-  assert.match(css, /\[data-theme="eink"\] \.cover-glow \{\s*display: none;/);
-  assert.match(css, /prefers-reduced-transparency: reduce/);
-  assert.match(read("src/components/shelf.tsx"), /<CoverGlow src=\{cover\} \/>/);
-  const discover = read("src/components/discover-browse.tsx");
-  assert.match(discover, /<CoverGlow src=\{row\.coverUrl\} \/>/);
-  assert.match(discover, /<CoverGlow src=\{row\.coverUrl\} variant="detail" \/>/);
+test("book grounds: one flat wash of the book's colour, no blurred cover behind (design system ContinueReading)", () => {
+  assert.match(css, /\.tone-ground \{\s*background: var\(--book-wash, var\(--sheet\)\);/);
+  assert.doesNotMatch(css, /\.cover-glow/);
+  assert.doesNotMatch(read("src/components/shelf.tsx"), /CoverGlow/);
+  assert.doesNotMatch(read("src/components/discover-browse.tsx"), /CoverGlow/);
 });
 
 test("share card: outlined seal with the month, and the footer with the call to scan beside the QR", () => {
@@ -105,12 +102,6 @@ test("share card: outlined seal with the month, and the footer with the call to 
   assert.match(card, /export const FOOTER = \{ qr: 218, padBottom: 68, gap: 52 \}/);
   assert.match(card, /cta: "#8fe0b4"/);
   assert.match(read("src/components/share-dialog.tsx"), /sealDate: sealMonth\(book\.finishedAt \|\| Date\.now\(\)\)/);
-});
-
-test("the cover glow reuses the cover's own request (same URL, same anonymous CORS), never a second download", () => {
-  const glow = read("src/components/cover-glow.tsx");
-  assert.match(glow, /crossOrigin=\{coverCrossOrigin\(src\)\}/);
-  assert.match(read("src/components/book-cover.tsx"), /crossOrigin=\{coverCrossOrigin\(cover\)\}/);
 });
 
 // v48: the speech fallback cover (SPEECH or the TED tag, sound rings, title low, speaker, waveform).
