@@ -1,5 +1,5 @@
-import { Quote, Search, Square, Trash2, Undo2, Volume2 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Quote, Search, Trash2, Undo2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { jumpToQuote } from "@/lib/jump-store";
 import type { QuoteRecord } from "@/lib/quote-model";
@@ -8,7 +8,7 @@ import { isTedBook, useSpeechBookIds } from "@/lib/speech-books";
 import { bookSyncKey } from "@/lib/sync-merge";
 import type { Book } from "@/lib/vocab-model";
 import { BookCover, useCovers } from "@/components/book-cover";
-import { btn, cn, field, selectCls, speakEnglish, stopEnglish } from "@/components/ui";
+import { btn, cn, field, selectCls } from "@/components/ui";
 
 type Order = "recent" | "book";
 
@@ -17,8 +17,7 @@ type Order = "recent" | "book";
  * review. Grouped by book (small cover, title, count); each quote on a light card in the book's
  * serif, its source line (book · chapter · date) and two actions, Back to the book (the sentence
  * lights up there) and Delete (with Undo). A long quote is cut to six lines, a paragraph to four;
- * the book has the rest. Search, a book filter and the order sit on top. Each quote can also be read
- * aloud, whole: the voice service takes a passage of any length.
+ * the book has the rest. Search, a book filter and the order sit on top.
  */
 export function QuoteBook({
   books,
@@ -191,7 +190,6 @@ export function QuoteBook({
                         {quote.whole ? ` · ${t("qb.whole")}` : ""} · {day(quote.savedAt)}
                       </span>
                       <span className="-mr-2 flex items-center gap-0.5">
-                        <QuoteSpeak text={quote.text} />
                         <button
                           type="button"
                           className="inline-flex min-h-11 items-center gap-1.5 rounded px-2.5 text-[13px] sm:min-h-9 font-bold whitespace-nowrap text-accent transition-colors hover:bg-paper disabled:cursor-not-allowed disabled:opacity-40"
@@ -247,68 +245,5 @@ export function QuoteBook({
         </div>
       ) : null}
     </div>
-  );
-}
-
-/**
- * Read one quote aloud, all of it (a sentence or a whole paragraph): the same voice as the word
- * buttons. While it plays the button becomes Stop; leaving the list stops it too.
- */
-function QuoteSpeak({ text }: { text: string }) {
-  const { t } = useT();
-  const [state, setState] = useState<"idle" | "loading" | "playing" | "failed">("idle");
-  const mine = useRef(0);
-  const busy = state === "loading" || state === "playing";
-  useEffect(
-    () => () => {
-      // Only this button's own passage is stopped: another button may already own a newer sound.
-      if (mine.current > 0) stopEnglish();
-      mine.current = -1;
-    },
-    [],
-  );
-  const play = () => {
-    const id = Date.now();
-    mine.current = id;
-    setState("loading");
-    const ok = speakEnglish(text, {
-      onOutcome: (outcome) => {
-        if (mine.current !== id) return;
-        setState(outcome === "started" ? "playing" : outcome === "failed" ? "failed" : "idle");
-      },
-      onDone: () => {
-        if (mine.current !== id) return;
-        mine.current = 0;
-        setState((now) => (now === "failed" ? now : "idle"));
-      },
-    });
-    if (!ok) {
-      mine.current = 0;
-      setState("failed");
-    }
-  };
-  const name = busy ? t("qb.stop") : t("qb.listen");
-  return (
-    <button
-      type="button"
-      className={cn(
-        "inline-flex size-11 items-center justify-center rounded sm:size-9 transition-colors hover:bg-paper",
-        state === "failed" ? "text-warn" : busy ? "text-accent" : "text-faint hover:text-accent",
-      )}
-      aria-label={name}
-      aria-pressed={busy}
-      title={state === "failed" ? t("common.noSound") : name}
-      onClick={() => {
-        if (busy) stopEnglish();
-        else play();
-      }}
-      data-quote-speak={state}
-    >
-      {busy ? (
-        <Square className={cn("size-3.5 fill-current", state === "loading" && "animate-pulse")} aria-hidden />
-      ) : (
-        <Volume2 className="size-4" aria-hidden />
-      )}
-    </button>
   );
 }

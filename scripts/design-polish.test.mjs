@@ -1,5 +1,5 @@
 // Design system visual tidy-up and feel (ColorRoles, ScrollChrome, SpringSheet, ContinueReading,
-// BookDetail, LoadingStates, ReviewSession, PressFeedback) and quotes read aloud in full.
+// BookDetail, LoadingStates, ReviewSession, PressFeedback).
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
@@ -25,14 +25,9 @@ test("the continue card shows where the reader stopped, with an ellipsis where t
   assert.match(css, /\.continue-last p \{[^}]*-webkit-line-clamp: 4;/);
 });
 
-test("a quote is read aloud whole, with Stop while it plays", () => {
+test("quotes are not read aloud yet: no speaker on a quote card (design system QuoteBook)", () => {
   const book = read("src/components/quote-book.tsx");
-  assert.match(book, /<QuoteSpeak text=\{quote\.text\} \/>/);
-  assert.match(book, /if \(busy\) stopEnglish\(\);\s*else play\(\);/);
-  assert.doesNotMatch(book, /quote\.text\.slice\(/, "never cut to a length limit");
-  const ui = read("src/components/ui.tsx");
-  assert.match(ui, /export function stopEnglish\(\): void/);
-  assert.match(ui, /options\.onDone\?\.\(\);/);
+  assert.doesNotMatch(book, /speakEnglish|QuoteSpeak|Volume2/);
 });
 
 test("a review round runs in focus mode: no site chrome, Esc ends it, the answer bar sits at the bottom", () => {

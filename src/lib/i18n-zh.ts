@@ -1252,8 +1252,6 @@ export const zh: Record<Key, string> = {
   "qb.count.other": "{n} 条摘抄",
   "qb.whole": "整段",
   "qb.open": "回到原文",
-  "qb.listen": "朗读这条摘抄",
-  "qb.stop": "停止朗读",
   "qb.delete": "删除这条摘抄",
   "qb.removed": "已删除这条摘抄",
   "qb.emptyTitle": "还没有摘抄",

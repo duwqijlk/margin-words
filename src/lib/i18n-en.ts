@@ -1294,8 +1294,6 @@ export const en = {
   "qb.count.other": "{n} quotes",
   "qb.whole": "Paragraph",
   "qb.open": "Back to the book",
-  "qb.listen": "Read aloud",
-  "qb.stop": "Stop reading",
   "qb.delete": "Delete this quote",
   "qb.removed": "Quote deleted",
   "qb.emptyTitle": "No quotes yet",

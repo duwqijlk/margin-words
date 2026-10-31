@@ -92,11 +92,6 @@ export type PronunciationOutcome = "started" | "failed" | "aborted";
 export type PronunciationOptions = {
   accent?: PronunciationAccent;
   onOutcome?: (outcome: PronunciationOutcome) => void;
-  /**
-   * Called once when this request is over for any reason: the recording ended, it failed, or a
-   * newer one (or `stopEnglish`) took over. A long passage needs it: its button shows "stop" until then.
-   */
-  onDone?: () => void;
 };
 
 type PronunciationRequest = {
@@ -400,11 +395,6 @@ function speakWithSynthesis(spoken: string, request: PronunciationRequest): bool
   }
 }
 
-/** Stop whatever is being read aloud (a quote's stop button). */
-export function stopEnglish(): void {
-  stopSpeaking();
-}
-
 /**
  * Explicit UK/US buttons use one matching uapis recording, never a different accent or fallback voice.
  * Generic callers keep the uapis recordings first, with the device voice as the last resort.
@@ -439,11 +429,6 @@ export function speakEnglish(text: string, options: PronunciationOptions = {}): 
     request.cancelAttempt = null;
     if (outcome) notify(outcome);
     finished = true;
-    try {
-      options.onDone?.();
-    } catch {
-      // An observer must not break cleanup.
-    }
   };
   const request: PronunciationRequest = {
     token,
