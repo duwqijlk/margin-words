@@ -614,15 +614,16 @@
     text-underline-offset: 0.22em;
   }
 
-  /* Saved: a highlighter stroke under the lower part of the word (design system WordMarks), not a
-     solid block, so a page with many saved words stays readable. Yellow means "saved" everywhere. */
+  /* Saved: a full-height highlighter behind the word, without changing its inline geometry.
+     Yellow means "saved" everywhere; e-ink keeps its double underline. */
   .book-body [role="button"][data-word].book-saved .book-tap {
-    background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 94%, transparent 94%);
+    background: var(--mark);
     box-shadow: none;
     text-decoration: none;
   }
-  .book-body [role="button"][data-word].book-saved:hover .book-tap {
-    background: linear-gradient(transparent 30%, var(--mark) 30%, var(--mark) 94%, transparent 94%);
+  .book-body [role="button"][data-word].book-saved:hover .book-tap,
+  .book-body [role="button"][data-word].book-saved:focus-visible .book-tap {
+    background: var(--mark);
   }
 
   /* The open word: a brand-tint highlighter swept in from the left, and a 3px brand underline. */
