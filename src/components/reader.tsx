@@ -1061,6 +1061,7 @@ export function ReaderScreen({
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      if (document.querySelector("[data-reader-contents]")) return;
       if (event.key === "Escape") {
         closeWordRef.current(true);
         setHelp(null);
@@ -1150,6 +1151,10 @@ export function ReaderScreen({
     };
     const cancelWordSpace = () => { pendingWordSpace.current = null; };
     const onKeyUp = (event: KeyboardEvent) => {
+      if (document.querySelector("[data-reader-contents]")) {
+        cancelWordSpace();
+        return;
+      }
       if (event.key !== " ") return;
       const word = pendingWordSpace.current;
       cancelWordSpace();
