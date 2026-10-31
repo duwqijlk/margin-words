@@ -79,6 +79,7 @@ const REASON_LABEL: Record<"too_hard" | "wrong_meaning", Key> = {
  */
 export function WordMeaning({
   meaning,
+  pos,
   credit,
   missing,
   noList = false,
@@ -87,6 +88,7 @@ export function WordMeaning({
   children,
 }: {
   meaning: string;
+  pos?: string;
   credit?: string;
   /** The book has no meaning for this word. */
   missing: boolean;
@@ -293,6 +295,7 @@ export function WordMeaning({
 
   return (
     <div className="grid gap-2" data-word-primary>
+      {pos ? <p className="break-words text-sm italic leading-snug text-muted" lang="en" data-word-pos>{pos}</p> : null}
       <p className="font-display text-[1.25rem] leading-normal text-ink" lang="en" data-part={part}>
         <span>{meaning}</span>
         {/* The ? sits after the last word: 24px drawn, 40px to tap, and it does not make the line taller. */}

@@ -359,8 +359,8 @@ async function collapsedDetails(card, isPhrase) {
 async function targetContent(card, mode) {
   const isPhrase = mode === 'phrase';
   assert.equal(await card.locator('h2').innerText(), isPhrase ? phrase : 'odds', 'target changes card title');
-  // The design system card has no part of speech line (WordCard: headword, IPA, meaning, credit).
-  assert.equal(await card.locator('[data-word-pos]').count(), 0, 'no part of speech on the card');
+  assert.equal(await card.locator('[data-word-pos]').innerText(), isPhrase ? 'idiom' : 'plural noun',
+    'part of speech follows the current target');
   await pronunciationControls(card);
   assert.equal(await card.locator(`[data-part="${isPhrase ? 'phrase' : 'word'}-meaning"]`).innerText(),
     isPhrase ? fixture.phraseMeaning : fixture.wordMeaning, 'target changes primary meaning');

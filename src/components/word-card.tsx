@@ -178,6 +178,7 @@ export function WordCard({
   const activePhrase = targetMode === "phrase" ? phrase : null;
   const target = activePhrase?.key ?? state.key;
   const targetMeaning = activePhrase ? activePhrase.entry.meaning : state.meaning;
+  const targetPos = (activePhrase ? activePhrase.entry.pos : state.status === "ready" ? state.pos : "")?.trim();
   // A sentence note belongs to a chapter, or to a recovered extra by its id. The tapped place's
   // own chapter is the reader's edition index; for an extra, that id is the only usable key.
   const sentenceChapter =
@@ -316,12 +317,12 @@ export function WordCard({
             // height: the IPA used to appear a beat later and push the meaning down under the finger.
             <WordIpa key={`${selectionId}:${state.key}`} word={state.key} surface={state.surface} pending={phrasePending} />
           ) : null}
-          {/* The meaning, its credit and the feedback around it (word-feedback.tsx). Only the
-              headword, the IPA, the meaning and its credit are shown: no part of speech, no
-              "in this sentence" or second example (design system WordCard). */}
+          {/* The current target's part of speech, meaning, credit and feedback. Sentence notes
+              stay in the paragraph panel; examples and other meanings are not shown here. */}
           <WordMeaning
             key={`${bookId}:${selectionId}:${targetMode}:${target}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
             meaning={targetMeaning}
+            pos={targetPos}
             credit={activePhrase ? activePhrase.entry.credit : state.status === "ready" ? state.credit : undefined}
             missing={missing}
             noList={noList}
