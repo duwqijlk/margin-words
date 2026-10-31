@@ -128,7 +128,7 @@ function DashboardLinks({ onSponsor }: { onSponsor: () => void }) {
         onClick={onSponsor}
         data-sponsor-link
       >
-        <Heart className="size-4 text-warn" strokeWidth={1.5} aria-hidden />
+        <Heart className="size-4 text-accent" strokeWidth={1.5} aria-hidden />
         {t("dashboard.sponsorProject")}
       </button>
     </nav>
@@ -308,7 +308,7 @@ export function DashboardScreen() {
                 <div className="overview-rise grid gap-2.5" style={{ "--i": 7 } as CSSProperties} data-dashboard-mix>
                   <div className="flex h-2.5 gap-0.5" role="img" aria-label={t("dashboard.mix", { classics: groupDigits(totals.classics), lists: groupDigits(totals.lists) })}>
                     <i className="mix-part block h-full rounded-l-sm bg-accent" style={{ flexGrow: totals.classics }} />
-                    <i className="mix-part block h-full rounded-r-sm bg-mark" style={{ flexGrow: totals.lists }} />
+                    <i className="mix-part block h-full rounded-r-sm bg-accent/40" style={{ flexGrow: totals.lists }} />
                   </div>
                   <p className="m-0 flex flex-wrap gap-x-6 gap-y-1.5 text-[13px] text-muted" aria-hidden>
                     <span className="inline-flex items-center gap-1.5">
@@ -316,7 +316,7 @@ export function DashboardScreen() {
                       <MixLegend text={t("dashboard.mixClassics", { n: "\u0001" })} n={totals.classics} />
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <i className="inline-block size-2.5 rounded-sm bg-mark" />
+                      <i className="inline-block size-2.5 rounded-sm bg-accent/40" />
                       <MixLegend text={t("dashboard.mixLists", { n: "\u0001" })} n={totals.lists} />
                     </span>
                   </p>

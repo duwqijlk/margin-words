@@ -1243,7 +1243,7 @@ export function ReaderScreen({
     };
   }, [book, phrasesReady, linkedHtml, prefs.quietMarks, viewChapter, resolveKey]);
 
-  // Phone only: the top bar follows the scroll direction (lib/reader-bar.ts). Wider screens keep it.
+  // The top bar follows the scroll direction (lib/reader-bar.ts), on every screen (design system ScrollChrome).
   useEffect(() => {
     let query: MediaQueryList | null = null;
     try {
@@ -1702,6 +1702,9 @@ export function ReaderScreen({
       if (cardOpen) {
         closeWordCard(false);
         closeHelp();
+      } else if (!button && !target.closest("a")) {
+        // A tap on the page itself (not a word) brings the bar back, or sends it away (ScrollChrome).
+        setBarHidden((hidden) => !hidden);
       }
       return;
     }
@@ -1714,9 +1717,11 @@ export function ReaderScreen({
         ref={headerRef}
         data-reader-bar={barHidden ? "hidden" : "shown"}
         className={cn(
-          // No frosted glass: paper, and the full-width reading progress line is the bar's lower edge.
-          "sticky top-0 z-30 bg-paper transition-transform duration-300",
-          (focus || barHidden) && "-translate-y-full",
+          // Material (design system ScrollChrome): paper at 76% over the blurred page; the full-width
+          // reading progress line is the bar's lower edge. Stepping aside, the bar leaves that line in
+          // view (it moves up by its height less the line) and moves on the soft spring.
+          "chrome-bar reader-bar-move sticky top-0 z-30",
+          focus ? "-translate-y-full" : barHidden && "-translate-y-[calc(100%-2px)]",
         )}
       >
         {/* Full width on purpose: tying this bar to --reader-width slides the text-width control while it is dragged. */}

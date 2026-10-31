@@ -13,8 +13,8 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useSheetDrag } from "@/components/floating-card";
 import { BookCover, coverLookOf, talkCoverTone } from "@/components/book-cover";
-import { CoverGlow } from "@/components/cover-glow";
 import { useBookTone } from "@/lib/cover-tone";
 import { bump } from "@/lib/motion";
 import type { ShelfState } from "@/components/shelf-actions";
@@ -349,12 +349,11 @@ export function FeaturedBook({
     <section className="group" aria-label={t("browse.featured")} data-discover-featured={row.id}>
       <button
         type="button"
-        className="glow tone-ground grid w-full grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-x-[22px] gap-y-3 rounded-2xl p-5 text-left shadow-hero sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-x-10 sm:gap-y-2.5 sm:px-10 sm:py-8"
+        className="tone-ground grid w-full grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-x-[22px] gap-y-3 rounded-2xl p-5 text-left shadow-hero sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-x-10 sm:gap-y-2.5 sm:px-10 sm:py-8"
         style={tone}
         onClick={() => onOpen(row)}
         aria-label={t("browse.openAria", { title: row.title })}
       >
-        <CoverGlow src={row.coverUrl} />
         <span className="cover-rise tone-cover relative block w-full sm:row-span-2 sm:mx-auto sm:w-[10.5rem]">
           <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={coverLookOf(row.category, row.series)} />
         </span>
@@ -441,6 +440,9 @@ export function BookDetail({
   // Adding (busy -> on): the main button turns into "Open this book" with a small spring.
   const actionRef = useRef<HTMLButtonElement | null>(null);
   const wasBusy = useRef(false);
+  // The phone sheet follows the finger and closes on a pull down (design system SpringSheet).
+  const sheet = useRef<HTMLDivElement | null>(null);
+  useSheetDrag(sheet, onClose, "(max-width: 639px)", open);
   useEffect(() => {
     if (wasBusy.current && model?.state === "on") bump(actionRef.current, 1.06);
     wasBusy.current = model?.state === "busy";
@@ -460,6 +462,7 @@ export function BookDetail({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
+          ref={sheet}
           className={cn(
             // A phone gets a bottom sheet (rounded top, a drag bar, at most 88% high); wider screens a centred panel.
             "fixed z-50 grid max-h-[88dvh] gap-5 overflow-y-auto border border-float-edge bg-float p-5 pt-0 text-ink shadow-lift",
@@ -475,10 +478,9 @@ export function BookDetail({
               </div>
               {/* The top on the book's own colour (CoverTone). */}
               <div
-                className="glow tone-ground -mx-5 flex items-start gap-4 px-5 py-5 sm:-mx-6 sm:-mt-6 sm:gap-6 sm:rounded-t-2xl sm:px-6 sm:py-6"
+                className="tone-ground -mx-5 flex items-start gap-4 px-5 py-5 sm:-mx-6 sm:-mt-6 sm:gap-6 sm:rounded-t-2xl sm:px-6 sm:py-6"
                 style={tone}
               >
-                <CoverGlow src={row.coverUrl} variant="detail" />
                 <div className="tone-cover relative w-28 shrink-0 sm:w-36" data-tilt>
                   <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={coverLookOf(row.category, row.series)} />
                 </div>
@@ -527,18 +529,19 @@ export function BookDetail({
               ) : null}
 
               {/* Numbers in soft tiles. The Lexile measure shows here and nowhere else, as a number like the
-                  other three (790 with a smaller L, design system BookDetail v36); none, no tile. */}
-              <dl className={cn("grid gap-1.5", lexile ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3")} data-detail-facts>
+                  other three (790 with a smaller L, design system BookDetail v36); none, no tile. 24px numbers
+                  and 13px labels, four in a row on a phone too at 20px (BookDetail visual tidy-up). */}
+              <dl className={cn("grid gap-1.5", lexile ? "grid-cols-4" : "grid-cols-3")} data-detail-facts>
                 {[
                   ...(lexile ? [{ label: t("browse.fact.level"), value: <LexileNumber measure={lexile} />, lexile: true }] : []),
                   { label: t("dashboard.words"), value: groupDigits(facts.words), lexile: false },
                   { label: t("dashboard.phrases"), value: groupDigits(facts.phrases), lexile: false },
                   { label: t("browse.fact.notes"), value: groupDigits(facts.notes), lexile: false },
                 ].map((fact) => (
-                  <div key={fact.label} className="grid min-w-0 content-start gap-2 rounded-2xl bg-sheet px-4 pt-3 pb-3.5">
-                    <dt className="text-[0.8125rem] whitespace-nowrap text-faint">{fact.label}</dt>
+                  <div key={fact.label} className="grid min-w-0 content-start gap-1.5 rounded-2xl bg-sheet px-2.5 pt-2.5 pb-3 sm:gap-2 sm:px-4 sm:pt-3 sm:pb-3.5">
+                    <dt className="truncate text-[0.8125rem] text-faint">{fact.label}</dt>
                     <dd
-                      className="text-[1.75rem] leading-none font-display font-bold tracking-[-0.02em] whitespace-nowrap [font-variant-numeric:lining-nums_tabular-nums] tabular-nums text-ink"
+                      className="text-[20px] leading-none sm:text-2xl font-display font-bold tracking-[-0.02em] whitespace-nowrap [font-variant-numeric:lining-nums_tabular-nums] tabular-nums text-ink"
                       data-detail-lexile={fact.lexile ? lexile : undefined}
                     >
                       {fact.value}

@@ -218,6 +218,7 @@ export const en = {
   "shelf.title": "Shelf",
   "shelf.search": "Search by title or author",
   "shelf.noMatch": "No books found for “{query}”.",
+  "shelf.lastRead": "Where you left off",
   "shelf.continueReading": "Continue reading",
   "shelf.startReading": "Start reading",
   "shelf.continue": "Keep reading",
@@ -422,6 +423,7 @@ export const en = {
   "pack.progressFor": "Download progress for “{title}”",
   "msg.listsReady.one": "A new word list is ready for {n} book on your shelf.",
   "msg.listsReady.other": "New word lists are ready for {n} books on your shelf.",
+  "msg.offline": "You are offline. Books you have opened still read as usual, and what you save is kept on this device.",
   "msg.listsGo": "Go to shelf",
   "lists.strip.one": "New word list for {n} book",
   "lists.strip.other": "New word lists for {n} books",
@@ -1292,6 +1294,8 @@ export const en = {
   "qb.count.other": "{n} quotes",
   "qb.whole": "Paragraph",
   "qb.open": "Back to the book",
+  "qb.listen": "Read aloud",
+  "qb.stop": "Stop reading",
   "qb.delete": "Delete this quote",
   "qb.removed": "Quote deleted",
   "qb.emptyTitle": "No quotes yet",
@@ -1324,6 +1328,9 @@ export const en = {
   "qf.phone3": "Tap sentences to pick them, one or more",
   "qf.phone4": "Tap Keep; picking ends by itself",
   "qf.phone5": "Find it later under Bookmark → Quotes",
+  "nb.startReviewPlain": "Start review",
+  "nb.practiceLearningPlain": "Practice words you are still learning",
+  "nb.practiceAllPlain": "Practice all words",
 } as const;
 
 export type Key = keyof typeof en;

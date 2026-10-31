@@ -92,6 +92,11 @@ export type PronunciationOutcome = "started" | "failed" | "aborted";
 export type PronunciationOptions = {
   accent?: PronunciationAccent;
   onOutcome?: (outcome: PronunciationOutcome) => void;
+  /**
+   * Called once when this request is over for any reason: the recording ended, it failed, or a
+   * newer one (or `stopEnglish`) took over. A long passage needs it: its button shows "stop" until then.
+   */
+  onDone?: () => void;
 };
 
 type PronunciationRequest = {
@@ -395,6 +400,11 @@ function speakWithSynthesis(spoken: string, request: PronunciationRequest): bool
   }
 }
 
+/** Stop whatever is being read aloud (a quote's stop button). */
+export function stopEnglish(): void {
+  stopSpeaking();
+}
+
 /**
  * Explicit UK/US buttons use one matching uapis recording, never a different accent or fallback voice.
  * Generic callers keep the uapis recordings first, with the device voice as the last resort.
@@ -429,6 +439,11 @@ export function speakEnglish(text: string, options: PronunciationOptions = {}): 
     request.cancelAttempt = null;
     if (outcome) notify(outcome);
     finished = true;
+    try {
+      options.onDone?.();
+    } catch {
+      // An observer must not break cleanup.
+    }
   };
   const request: PronunciationRequest = {
     token,
@@ -699,8 +714,8 @@ export function ProgressBar({
 /** A quiet row of numbers (notebook, review). One card, thin dividers; two columns on a phone. */
 /**
  * A row of numbers (design system Stats): each on a soft `sheet` tile, the label small above, the
- * number in Literata bold with lining figures. The "understood" number (mastered) gets a highlighter
- * under it, a number that needs the reader is `warn`, everything else ink. `pair` lays them two by
+ * number in Literata bold with lining figures. The "learned" number (mastered) is brand green
+ * (design system ColorRoles), a number that needs the reader is `warn`, everything else ink. `pair` lays them two by
  * two (the review data column); otherwise four in a row on every screen, smaller on a phone.
  */
 export function StatRow({
@@ -728,10 +743,11 @@ export function StatRow({
               "m-0 mt-1.5 font-display leading-none font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] sm:mt-2",
               pair ? "text-[28px]" : "text-[22px] sm:text-4xl",
               item.tone === "warn" && "text-warn",
+              item.tone === "mark" && "text-accent",
             )}
             data-stat-tone={item.tone ?? "plain"}
           >
-            {item.tone === "mark" ? <span className="num-mark">{item.value}</span> : item.value}
+            {item.value}
           </dd>
           {item.hint ? <dd className="m-0 mt-1.5 text-xs text-faint">{item.hint}</dd> : null}
         </div>
