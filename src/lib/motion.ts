@@ -27,7 +27,7 @@ export function motionOff(): boolean {
   }
 }
 
-/** A yellow highlighter stroke across a saved word in the page (`.book-sweep-save` in styles.css). */
+/** An amber highlighter stroke across a saved word in the page (`.book-sweep-save` in styles.css). */
 export function sweepSave(word: Element | null | undefined): void {
   const ink = word?.querySelector<HTMLElement>(".book-tap") ?? (word instanceof HTMLElement ? word : null);
   if (!ink || motionOff()) return;

@@ -484,7 +484,7 @@ function SentenceNote({
         className={cn(
           "min-h-11 break-words rounded-r-md py-1 pr-1 pl-3 text-left font-display text-[0.95rem] leading-relaxed italic transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
           chosen
-            ? "border-l-[3px] border-accent bg-mark/35 text-ink"
+            ? "border-l-[3px] border-accent bg-mark text-ink"
             : "border-l-[3px] border-line text-muted hover:text-ink",
         )}
         lang="en"
@@ -632,7 +632,7 @@ function SentenceMarks({
           data-chosen={chosen === box.note ? "" : undefined}
           className={cn(
             "pointer-events-none fixed z-[1] rounded-[3px]",
-            chosen === box.note ? "bg-mark/80" : "bg-mark/35",
+            chosen === box.note ? "bg-mark-active" : "bg-mark",
           )}
           style={{ top: box.top, left: box.left - 1, width: box.width + 2, height: box.height }}
         />

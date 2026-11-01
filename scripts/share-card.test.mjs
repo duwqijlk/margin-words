@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { CARD_H, CARD_W, mix, PALETTES, qrModules, SHARE_THEMES, SHARE_URL, textHash, wrapLines } from "../src/lib/share-card.ts";
+import { CARD_H, CARD_W, mix, PALETTES, qrModules, SEAL, SHARE_THEMES, SHARE_URL, textHash, wrapLines } from "../src/lib/share-card.ts";
 
 // Every character is 10 units wide.
 const measure = (text) => [...text].length * 10;
@@ -50,6 +50,28 @@ test("three styles, a 3:4.2 card, and the QR code always points at the site", ()
   // The dialog is loaded on the first tap, so the canvas code and the QR encoder stay out of the start.
   const button = readFileSync(new URL("../src/components/share-button.tsx", import.meta.url), "utf8");
   assert.match(button, /lazy\(\(\) => import\("@\/components\/share-dialog"\)\)/);
+});
+
+test("the completion seal uses stronger amber and keeps its dark halo over covers", () => {
+  assert.equal(SEAL, "#e8d09b");
+  const source = readFileSync(new URL("../src/lib/share-card.ts", import.meta.url), "utf8");
+  assert.match(source, /ctx\.strokeStyle = SEAL;/);
+  assert.match(source, /ctx\.fillStyle = SEAL;/);
+  assert.match(source, /ctx\.shadowColor = "rgba\(0,0,0,0\.75\)";/);
+  assert.match(source, /ctx\.shadowColor = "rgba\(0,0,0,0\.35\)";/);
+  assert.match(source, /halo\(\(\) => \{/);
+  assert.match(source, /halo\(\(\) => ctx\.fillText\(data\.seal,/);
+});
+
+test("brand highlights and the OG example share the light amber background", () => {
+  for (const path of ["public/favicon.svg", "public/brand/inputread-mark.svg", "public/brand/inputread-app-icon.svg"]) {
+    const source = readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+    assert.match(source, /fill="#f5e9cf"/);
+    assert.doesNotMatch(source, /#f6d54e/i);
+  }
+  const og = readFileSync(new URL("./make-og-image.mjs", import.meta.url), "utf8");
+  assert.match(og, /\.hit \{ background: #f5e9cf;/);
+  assert.doesNotMatch(og, /#ffe14d/i);
 });
 
 test("colour maths and the title hash are stable", () => {

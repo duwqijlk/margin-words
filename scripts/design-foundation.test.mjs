@@ -9,7 +9,7 @@ import { asSettings } from "../src/lib/sync-merge.ts";
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const css = read("src/styles.css");
 
-const TOKENS = ["paper", "sheet", "card", "ink", "muted", "faint", "line", "edge", "accent", "accent-ink", "accent-soft", "mark", "warn", "warn-soft"];
+const TOKENS = ["paper", "sheet", "card", "ink", "muted", "faint", "line", "edge", "accent", "accent-ink", "accent-soft", "mark", "mark-hover", "mark-active", "mark-inverse", "warn", "warn-soft"];
 const block = (selector) => {
   const at = css.indexOf(`${selector} {`);
   assert.ok(at >= 0, `${selector} has a block`);
@@ -30,6 +30,38 @@ test("four reading themes, each with every colour and a matching -rgb twin", () 
   // The only material is the bars' (design system ScrollChrome), with an opaque ground where it cannot blur.
   for (const rule of css.match(/[^{}]*\{[^{}]*backdrop-filter[^{}]*\}/g) ?? []) assert.match(rule, /\.chrome-bar/, "frosted glass only on the bars");
   assert.match(css, /@supports not \(\(backdrop-filter: blur\(1px\)\) or \(-webkit-backdrop-filter: blur\(1px\)\)\)/);
+});
+
+test("amber backgrounds and inverse actions stay readable in every theme", () => {
+  const luminance = (hex) => {
+    const rgb = [1, 3, 5].map(at => parseInt(hex.slice(at, at + 2), 16) / 255)
+      .map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+    return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+  };
+  const contrast = (a, b) => (Math.max(luminance(a), luminance(b)) + 0.05) / (Math.min(luminance(a), luminance(b)) + 0.05);
+  for (const theme of ["light", "sepia", "dark", "eink"]) {
+    const body = block(`[data-theme="${theme}"]`);
+    const color = name => body.match(new RegExp(`--${name}: (#[0-9a-f]{6});`))[1];
+    for (const name of ["mark", "mark-hover", "mark-active"]) assert.ok(contrast(color("ink"), color(name)) >= 4.5, `${theme} ink on ${name}`);
+    assert.ok(contrast(color("word-hint"), color("paper")) >= 4.5, `${theme} hint on paper`);
+    assert.ok(contrast(color("mark-inverse"), color("ink")) >= 4.5, `${theme} inverse action`);
+    const blend = (a, b) => '#' + [1, 3, 5].map(at => Math.round(parseInt(a.slice(at, at + 2), 16) * 0.15 + parseInt(b.slice(at, at + 2), 16) * 0.85).toString(16).padStart(2, '0')).join('');
+    assert.ok(contrast(color("mark-inverse"), blend(color("paper"), color("ink"))) >= 4.5, `${theme} hovered inverse action`);
+  }
+  for (const name of ["passage-feedback", "quote-tools", "quote-book", "quote-flow", "shelf-actions"]) {
+    const source = read(`src/components/${name}.tsx`);
+    assert.doesNotMatch(source, /\btext-mark(?=[\s"`])/);
+    assert.match(source, /text-mark-inverse/);
+  }
+  assert.doesNotMatch(read("src/components/help-panels.tsx"), /bg-mark\/\d/);
+});
+
+test("hint settings retain stored quiet preferences with a positive switch", () => {
+  const settings = read("src/components/reader-settings.tsx");
+  assert.match(settings, /checked=\{!prefs\.quietMarks\}/);
+  assert.match(settings, /set\(\{ quietMarks: !showHints \}\)/);
+  assert.doesNotMatch(settings, /<Underline/);
+  assert.match(read("src/lib/i18n-en.ts"), /"rs.quietMarks": "Show word hints"/);
 });
 
 test("paper is pure white with a brand green that passes AA, and the theme picker offers e-ink", () => {

@@ -442,7 +442,7 @@ function Stage({
         >
           <span
             data-qf-keep
-            className={cn("inline-flex min-h-[34px] items-center gap-1.5 rounded-lg px-2.5 text-xs font-bold text-mark", scene.hover === "keep" && "bg-paper/15")}
+            className={cn("inline-flex min-h-[34px] items-center gap-1.5 rounded-lg px-2.5 text-xs font-bold text-mark-inverse", scene.hover === "keep" && "bg-paper/15")}
           >
             <Quote className="size-3.5" />
             {t("quote.keep")}
@@ -468,7 +468,7 @@ function Stage({
       {scene.toast ? (
         <div className="toast-in absolute bottom-2.5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded bg-ink py-1.5 pr-1.5 pl-3 text-[13px] whitespace-nowrap text-paper shadow-lift">
           {t("quote.kept")}
-          <span className="px-2 font-bold text-mark">{t("discover.undo")}</span>
+          <span className="px-2 font-bold text-mark-inverse">{t("discover.undo")}</span>
         </div>
       ) : null}
 

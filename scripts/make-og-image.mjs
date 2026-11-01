@@ -46,7 +46,7 @@ body { width: 1200px; height: 630px; background: #ffffff; color: #111513; font-f
 .right { position: absolute; right: 64px; top: 0; bottom: 0; width: 500px; display: grid; align-content: center; }
 .sheet { background: #f3f5f4; border-radius: 28px; padding: 40px 36px 36px; }
 .text { font-family: Literata, Georgia, serif; font-size: 31px; line-height: 1.6; }
-.hit { background: #ffe14d; border-radius: 3px; padding: 0 3px; font-weight: 600; }
+.hit { background: #f5e9cf; border-radius: 3px; padding: 0 3px; font-weight: 600; }
 .card { margin-top: 24px; background: #ffffff; border-radius: 20px; padding: 22px 26px 24px; box-shadow: 0 2px 6px rgba(0,0,0,.06), 0 24px 48px -16px rgba(0,0,0,.25); }
 .word { font-family: Literata, Georgia, serif; font-size: 42px; font-weight: 700; }
 .ipa { margin-top: 4px; font-family: Inter, sans-serif; font-size: 23px; color: #4a524e; }

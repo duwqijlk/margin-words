@@ -248,7 +248,7 @@ export function PassageFeedback({
             {keep ? (
               <button
                 type="button"
-                className={cn(barButton, "rounded-lg text-mark")}
+                className={cn(barButton, "rounded-lg text-mark-inverse")}
                 onClick={() => {
                   window.getSelection()?.removeAllRanges();
                   setPick(null);

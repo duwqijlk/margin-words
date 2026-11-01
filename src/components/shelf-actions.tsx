@@ -287,7 +287,7 @@ export function ShelfToastHost({
     aboveTabs ? "bottom-[calc(4.75rem+env(safe-area-inset-bottom))] sm:bottom-4" : "bottom-[calc(1rem+env(safe-area-inset-bottom))]",
   );
   const action =
-    "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded px-3 font-bold text-mark hover:bg-paper/15";
+    "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded px-3 font-bold text-mark-inverse hover:bg-paper/15";
   return (
     <>
       {pending ? (

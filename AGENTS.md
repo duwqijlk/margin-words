@@ -16,7 +16,10 @@ All of it is in (PR #249). Its rules, in the code:
 - Token names in the app vs the design: `muted` = ink-2 (secondary text), `faint` = ink-3 (meta only),
   `line` = rule (hairlines), `edge` (control borders, 3:1), `sheet` (the layer laid on the page), `card`
   (the word card), `accent` = brand, `accent-soft` = brand-tint, `mark` = saved / understood (never a
-  selection colour), `warn` only for what needs the reader.
+  selection colour), `warn` only for what needs the reader. Saved highlights use soft amber, with
+  `mark-hover` and `mark-active` for interaction, and `mark-inverse` for readable amber actions on `bg-ink`.
+  Reader hints use muted-green ink (gray grounds on e-ink), never underlines; saved words retain full-height
+  backgrounds and ordinary ink. `quietMarks` remains stored, with Show word hints mapping to its inverse.
 - Radii: `rounded-sm` 2px (marks on text), `rounded`/`md`/`lg`/`xl` 10px (buttons, fields, chips, notices),
   `rounded-2xl`/`3xl` 16px (cards, dialogs, popovers), `rounded-cover` 6px (book covers), `rounded-card` /
   `rounded-t-sheet` for the word card only. No pills: `rounded-full` is for dots, switches, avatars and the spinner.
@@ -58,7 +61,7 @@ All of it is in (PR #249). Its rules, in the code:
   Settings and in the reader's Aa panel alike; switches are `Switch`.
 - The reader's Aa panel (`reader-settings.tsx`): theme pages, three font cards ("Aa" in the font; the sans
   choice is Atkinson, key `sans`, no longer Inter), A buttons at the ends of the size slider, line spacing
-  with a drawing of each gap, page width, Focus and Hide underlines as switches. A popover with a point on
+  with a drawing of each gap, page width, Focus and Show word hints as switches. A popover with a point on
   a wide screen, a bottom sheet on a phone; every change shows at once in the page behind.
 - The account dialog: a 64px round picture with a camera button, the nickname with a pencil that edits it
   in place, My reading (tiles and the words mastered, with Share), the word-list places as bars, and
@@ -83,7 +86,7 @@ All of it is in (PR #249). Its rules, in the code:
   upload cut off by a closing page is marked dirty and runs on the next start. The catalogs go
   through one shared download per minute (`sharedJson` in src/lib/shared-fetch.ts): a page load
   used to ask for each catalog two or three times, each an R2 read. `scripts/request-budget.test.mjs`.
-- The share image (`share-card.ts`) is 1080 x 1512: a finished book's cover large with an outlined yellow
+- The share image (`share-card.ts`) is 1080 x 1512: a finished book's cover large with an outlined amber
   seal (a double ring, the word and the month the book was finished, turned -12deg, half on the cover
   and half on the card, with a thin dark halo), or the finished covers fanned with three big numbers;
   paper (the book's own colour), forest and night. The footer is part of the card under one hairline:

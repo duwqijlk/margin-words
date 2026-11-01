@@ -2,7 +2,7 @@
  * Share images, drawn on the reader's own device (no server, no upload), as in the design system
  * ShareCard: 1080 x 1512 (3:4.2), which WeChat, QQ, Telegram and X all show whole.
  *
- *   - "I finished a book": the real cover, large and lifted, with an outlined highlighter-yellow
+ *   - "I finished a book": the real cover, large and lifted, with an outlined amber
  *     "Finished" seal (a double ring and the month) half on its corner, half on the card; the title in Literata, the author, the words saved from it.
  *   - "My reading": the finished books' covers fanned out, three big numbers (books finished,
  *     days of reading, words saved) and the words mastered.
@@ -47,8 +47,8 @@ export const PALETTES: Record<ShareTheme, Palette> = {
 
 const SERIF = '"Literata", Georgia, "Times New Roman", serif';
 const SANS = '"Atkinson Hyperlegible", -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif';
-/** The seal is the one highlighter yellow on the card. */
-const SEAL = "#ffe14d";
+/** Stronger amber for the seal's thin strokes, with a dark halo over arbitrary covers. */
+export const SEAL = "#e8d09b";
 
 export type Footer = { brand: string; tagline: string; site: string; scan: string };
 /** The book's own colour for the paper style: tint at the top-left corner, wash further out. */
@@ -370,7 +370,7 @@ function drawBook(ctx: CanvasRenderingContext2D, data: BookCardData, p: Palette)
   const cx = (CARD_W - cw) / 2;
   const cy = 236;
   drawCover(ctx, data.cover, data.title, cx, cy, cw, ch, 70);
-  // The seal: an outlined highlighter-yellow stamp (a ring, a finer ring inside, the word and the
+  // The seal: an outlined amber stamp (a ring, a finer ring inside, the word and the
   // month), half on the cover's top-right corner and half on the card, turned a little. A thin dark
   // halo keeps it readable on a light cover and on a light card alike.
   const r = 97.5;

@@ -137,8 +137,15 @@
   --accent-ink-rgb: 255 255 255;
   --accent-soft: #e2f3e9;
   --accent-soft-rgb: 226 243 233;
-  --mark: #ffe14d;
-  --mark-rgb: 255 225 77;
+  --mark: #f5e9cf;
+  --mark-rgb: 245 233 207;
+  --mark-hover: #efddb7;
+  --mark-hover-rgb: 239 221 183;
+  --mark-active: #e8d09b;
+  --mark-active-rgb: 232 208 155;
+  --mark-inverse: #e8d09b;
+  --mark-inverse-rgb: 232 208 155;
+  --word-hint: #395b4b;
   --warn: #b42318;
   --warn-rgb: 180 35 24;
   --warn-soft: #fbe8e5;
@@ -180,8 +187,15 @@
   --accent-ink-rgb: 255 255 255;
   --accent-soft: #dde3d0;
   --accent-soft-rgb: 221 227 208;
-  --mark: #efcd62;
-  --mark-rgb: 239 205 98;
+  --mark: #eadbbf;
+  --mark-rgb: 234 219 191;
+  --mark-hover: #e2cca5;
+  --mark-hover-rgb: 226 204 165;
+  --mark-active: #d8bc8a;
+  --mark-active-rgb: 216 188 138;
+  --mark-inverse: #e8d09b;
+  --mark-inverse-rgb: 232 208 155;
+  --word-hint: #435b45;
   --warn: #a3261c;
   --warn-rgb: 163 38 28;
   --warn-soft: #f3dccf;
@@ -219,8 +233,15 @@
   --accent-ink-rgb: 6 20 13;
   --accent-soft: #15301f;
   --accent-soft-rgb: 21 48 31;
-  --mark: #7d691e;
-  --mark-rgb: 125 105 30;
+  --mark: #383022;
+  --mark-rgb: 56 48 34;
+  --mark-hover: #483b27;
+  --mark-hover-rgb: 72 59 39;
+  --mark-active: #5a482d;
+  --mark-active-rgb: 90 72 45;
+  --mark-inverse: #72501c;
+  --mark-inverse-rgb: 114 80 28;
+  --word-hint: #bdd1c4;
   --warn: #f28b7c;
   --warn-rgb: 242 139 124;
   --warn-soft: #3b1e1a;
@@ -261,8 +282,15 @@
   --accent-ink-rgb: 255 255 255;
   --accent-soft: #e6e6e6;
   --accent-soft-rgb: 230 230 230;
-  --mark: #d0d0d0;
-  --mark-rgb: 208 208 208;
+  --mark: #d9d9d9;
+  --mark-rgb: 217 217 217;
+  --mark-hover: #cccccc;
+  --mark-hover-rgb: 204 204 204;
+  --mark-active: #bbbbbb;
+  --mark-active-rgb: 187 187 187;
+  --mark-inverse: #ffffff;
+  --mark-inverse-rgb: 255 255 255;
+  --word-hint: #000000;
   --warn: #000000;
   --warn-rgb: 0 0 0;
   --warn-soft: #e6e6e6;
@@ -376,8 +404,8 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
     text-wrap: pretty;
   }
 
-  /* No ::selection rule: selected text keeps the browser's own colour. The highlighter yellow
-     (--mark) is for marked words, and a yellow selection looked like a highlight. */
+  /* No ::selection rule: selected text keeps the browser's own colour.
+     The amber highlighter (--mark) is for saved words, not a text selection. */
 
   /* ---- Reading surface ---------------------------------------------------- */
   .book-body {
@@ -535,7 +563,7 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
   }
 
   /* A focusable inline control still lets a word break in the middle of a line.
-     The inner span is the ink: underline, highlight, and the soft hyphen. */
+     The inner span is the ink: quiet hints, highlights, and the soft hyphen. */
   .book-body [role="button"][data-word] {
     display: inline;
     font: inherit;
@@ -546,8 +574,8 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
     margin: 0;
   }
 
-  /* Word marks (design system WordMarks): only colour and lines change, never size, weight or spacing,
-     so the text never moves. Four line styles tell the marks apart without colour (e-ink). */
+  /* Word marks: only colour and backgrounds change, never size, weight or spacing.
+     Gray grounds preserve the same hierarchy on e-ink. */
   .book-body .book-tap {
     border-radius: 2px;
     -webkit-tap-highlight-color: transparent;
@@ -556,47 +584,19 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
     -webkit-hyphens: auto;
   }
 
-  /* Hard word whose meaning is ready: a crisp, clear underline. */
-  .book-body [role="button"][data-word].book-hard .book-tap {
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
-    text-decoration-thickness: 1.5px;
-    text-decoration-skip-ink: none;
-    text-underline-offset: 0.22em;
+  /* Ready meanings share a quiet ink tint; their type is explained in the card, not by lines. */
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+    color: var(--word-hint);
+    text-decoration: none;
   }
-
-  .book-body [role="button"][data-word].book-hard:hover .book-tap,
-  .book-body [role="button"][data-word].book-hard:focus-visible .book-tap {
-    background: var(--accent-soft);
-  }
-
-  /* A word of a phrase (tune in, give up): a dashed line, distinct from the solid hard-word line
-     and tricky wavy line, and clearly legible on both LCD and e-ink. */
-  .book-body [role="button"][data-word].book-phrase .book-tap {
-    text-decoration: underline dashed;
-    text-decoration-color: var(--accent);
-    text-decoration-thickness: 1.5px;
-    text-decoration-skip-ink: none;
-    text-underline-offset: 0.22em;
-  }
-
-  .book-body [role="button"][data-word].book-phrase:hover .book-tap,
-  .book-body [role="button"][data-word].book-phrase:focus-visible .book-tap {
-    background: var(--accent-soft);
-  }
-
-  /* A familiar word used here in a meaning learners will not expect ("well" = a water well): a calm wavy
-     accent line, different from the straight underline of a hard word and from the phrase underline. */
-  .book-body [role="button"][data-word].book-tricky .book-tap {
-    text-decoration: underline wavy;
-    text-decoration-color: var(--accent);
-    text-decoration-thickness: 1.5px;
-    text-decoration-skip-ink: none;
-    text-underline-offset: 0.26em;
-  }
-
-  .book-body [role="button"][data-word].book-tricky:hover .book-tap,
-  .book-body [role="button"][data-word].book-tricky:focus-visible .book-tap {
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on):hover .book-tap,
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on):focus-visible .book-tap,
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on):hover .book-tap,
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on):focus-visible .book-tap,
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on):hover .book-tap,
+  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on):focus-visible .book-tap {
     background: var(--accent-soft);
   }
 
@@ -624,46 +624,39 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
     }
   }
 
-  /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
+  /* Do not advertise a meaning that is still being prepared. */
   .book-body [role="button"][data-word].book-wait .book-tap {
-    text-decoration: underline dotted;
-    text-decoration-color: var(--faint);
-    text-decoration-thickness: 1.5px;
-    text-decoration-skip-ink: none;
-    text-underline-offset: 0.22em;
+    color: inherit;
+    text-decoration: none;
   }
 
-  /* Saved: a full-height highlighter behind the word, without changing its inline geometry.
-     Yellow means "saved" everywhere; e-ink keeps its double underline. */
+  /* Saved: full-height amber behind the word, without changing its inline geometry. */
   .book-body [role="button"][data-word].book-saved .book-tap {
+    color: var(--ink);
     background: var(--mark);
     box-shadow: none;
     text-decoration: none;
   }
   .book-body [role="button"][data-word].book-saved:hover .book-tap,
   .book-body [role="button"][data-word].book-saved:focus-visible .book-tap {
-    background: var(--mark);
+    background: var(--mark-hover);
   }
 
-  /* The open word: a brand-tint highlighter swept in from the left, and a 3px brand underline. */
+  /* The open word: a soft background, never a line or a change in text geometry. */
   .book-body [role="button"][data-word].book-on .book-tap {
-    background: linear-gradient(var(--accent-soft), var(--accent-soft)) no-repeat;
-    background-size: 100% 100%;
-    box-shadow: 0 0 0 2px var(--accent-soft);
-    text-decoration: underline solid var(--accent);
-    text-decoration-thickness: 3px;
-    text-decoration-skip-ink: none;
-    text-underline-offset: 0.22em;
-    animation: book-sweep 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--ink);
+    background: var(--accent-soft);
+    box-shadow: none;
+    text-decoration: none;
   }
   .book-body [role="button"][data-word].book-saved.book-on .book-tap {
-    background: var(--mark);
-    box-shadow: 0 0 0 2px var(--mark);
+    background: var(--mark-active);
+    box-shadow: none;
     animation: none;
   }
-  /* Saving: a yellow highlighter stroke across the word (added for a moment by src/lib/motion.ts). */
-  .book-body .book-tap.book-sweep-save {
-    background: linear-gradient(var(--mark), var(--mark)) no-repeat !important;
+  /* Saving sweeps amber over an idle word; a current word keeps its selected state. */
+  .book-body [role="button"][data-word]:not(.book-on) .book-tap.book-sweep-save {
+    background: linear-gradient(var(--mark), var(--mark)) no-repeat;
     background-size: 100% 100%;
     animation: book-sweep 420ms cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -682,51 +675,44 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
     }
   }
 
-  .book-body [role="button"][data-word].book-saved.book-on .book-tap {
-    background: rgb(var(--mark-rgb) / 0.55);
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-    border-radius: 0.2em;
-    text-decoration-color: var(--accent);
-  }
-
-  /* E-ink screens and slow-refresh monochrome displays: crisp high contrast ink rules. */
+  /* Gray backgrounds carry the same hierarchy on monochrome and slow-refresh screens. */
   @media (monochrome), (update: slow) {
-    .book-body [role="button"][data-word].book-hard .book-tap {
-      text-decoration-color: currentColor !important;
-      text-decoration-thickness: 1.5px !important;
+    .book-body {
+      --word-hint: var(--ink);
+      --mark: #d9d9d9;
+      --mark-rgb: 217 217 217;
+      --mark-hover: #cccccc;
+      --mark-hover-rgb: 204 204 204;
+      --mark-active: #bbbbbb;
+      --mark-active-rgb: 187 187 187;
+      --word-hint-ground: #eeeeee;
     }
-    .book-body [role="button"][data-word].book-phrase .book-tap {
-      text-decoration-style: dashed !important;
-      text-decoration-color: currentColor !important;
-      text-decoration-thickness: 1.5px !important;
+    [data-theme="dark"] .book-body {
+      --mark: #333333;
+      --mark-rgb: 51 51 51;
+      --mark-hover: #444444;
+      --mark-hover-rgb: 68 68 68;
+      --mark-active: #555555;
+      --mark-active-rgb: 85 85 85;
+      --word-hint-ground: #222222;
     }
-    .book-body [role="button"][data-word].book-tricky .book-tap {
-      text-decoration-thickness: 1.5px !important;
-      text-decoration-color: currentColor !important;
+    .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+    .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+    .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+      background: var(--word-hint-ground);
     }
-    .book-body [role="button"][data-word].book-saved .book-tap {
-      background: rgb(0 0 0 / 0.12) !important;
-      text-decoration: underline !important;
-      text-decoration-color: currentColor !important;
-      text-decoration-thickness: 2px !important;
-      text-underline-offset: 0.24em !important;
-    }
-    .book-body [role="button"][data-word].book-on .book-tap,
-    .book-body [role="button"][data-word].book-saved.book-on .book-tap {
-      outline: 2px solid currentColor !important;
-      outline-offset: 1px !important;
-    }
+    .book-body [role="button"][data-word].book-saved .book-tap { background: var(--mark); }
+    .book-body [role="button"][data-word].book-saved:hover .book-tap,
+    .book-body [role="button"][data-word].book-saved:focus-visible .book-tap { background: var(--mark-hover); }
+    .book-body [role="button"][data-word].book-on .book-tap { background: var(--accent-soft); }
+    .book-body [role="button"][data-word].book-saved.book-on .book-tap { background: var(--mark-active); }
   }
 
-  /* "Hide underlines" (reader setting): no hard-word, phrase, tricky or waiting line. A tap still opens
-     the card. A notebook word keeps its highlight; the tapped word keeps its ring; bulbs stay. It sits
-     after the e-ink block and uses !important so it also wins over those !important lines. */
-  .book-body[data-quiet-marks] [role="button"][data-word].book-hard:not(.book-saved) .book-tap,
-  .book-body[data-quiet-marks] [role="button"][data-word].book-phrase:not(.book-saved) .book-tap,
-  .book-body[data-quiet-marks] [role="button"][data-word].book-tricky:not(.book-saved) .book-tap,
-  .book-body[data-quiet-marks] [role="button"][data-word].book-wait:not(.book-saved) .book-tap {
-    text-decoration: none !important;
+  /* Hide static hints only: saved marks, the current word and paragraph help remain available. */
+  .book-body[data-quiet-marks] [role="button"][data-word]:not(.book-saved):not(.book-on) .book-tap {
+    color: inherit;
+    background: none;
+    text-decoration: none;
   }
 
   .scroll-thin {
@@ -1369,7 +1355,7 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
 
 /*
  * Overview. One signature: a light green stroke under the current tab and behind the big numbers
- * (green, not the saved-word yellow: design system ColorRoles). The rest is quiet: content rises
+ * (green, not the saved-word amber: design system ColorRoles). The rest is quiet: content rises
  * in once when a tab opens. Every motion here is off under prefers-reduced-motion.
  */
 .overview-mark {
@@ -1452,8 +1438,7 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
 
 /* The demo: a tapped word, its card, a meaning typed in, then reviewed. */
 .help-demo-word {
-  border-bottom: 2px solid rgb(var(--accent-rgb) / 0.55);
-  background: rgb(var(--mark-rgb) / 0.7);
+  background: var(--mark);
   border-radius: 2px;
 }
 .help-demo-word::after {
@@ -1491,7 +1476,7 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
 }
 @keyframes help-word {
   0%, 5% { background-color: transparent; }
-  9%, 92% { background-color: rgb(var(--mark-rgb) / 0.7); }
+  9%, 92% { background-color: var(--mark); }
   100% { background-color: transparent; }
 }
 @keyframes help-card {
@@ -1633,22 +1618,11 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
   filter: brightness(0.82);
 }
 
-/* E-ink: every word mark in the text colour (the line style tells them apart); a saved word is a
-   double underline instead of a highlighter, which an e-ink screen shows as a grey block. */
-[data-theme="eink"] .book-body [role="button"][data-word].book-hard .book-tap,
-[data-theme="eink"] .book-body [role="button"][data-word].book-phrase .book-tap,
-[data-theme="eink"] .book-body [role="button"][data-word].book-tricky .book-tap,
-[data-theme="eink"] .book-body [role="button"][data-word].book-on .book-tap {
-  text-decoration-color: currentColor;
-}
-[data-theme="eink"] .book-body [role="button"][data-word].book-saved .book-tap,
-[data-theme="eink"] .book-body [role="button"][data-word].book-saved:hover .book-tap,
-[data-theme="eink"] .book-body [role="button"][data-word].book-saved.book-on .book-tap {
-  background: none;
-  box-shadow: none;
-  text-decoration: underline double currentColor;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 0.22em;
+/* E-ink hints need a gray ground rather than a colour difference. State rules stay shared. */
+[data-theme="eink"] .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+[data-theme="eink"] .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+[data-theme="eink"] .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+  background: #eeeeee;
 }
 
 /* ---- Covers (design system BookCover / BookOpen) */
@@ -1724,7 +1698,7 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
 }
 /* A book's own colour (src/lib/cover-tone.ts): the ground of the parts that belong to one book. One
    flat wash of the book's colour (design system ContinueReading, visual tidy-up): no blurred cover
-   behind it any more, which mixed green, yellow and grey into a muddy ground. */
+   behind it any more, which mixed green, amber and grey into a muddy ground. */
 .tone-ground {
   background: var(--book-wash, var(--sheet));
 }
@@ -1825,7 +1799,7 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
   display: none;
 }
 /* First place on the contributor list: a light green stroke under the number (design system
-   ColorRoles: green is progress and thanks; yellow is only what the reader saved). */
+   ColorRoles: green is progress and thanks; amber is only what the reader saved). */
 .head-mark {
   padding: 0 2px;
   background: linear-gradient(transparent 58%, var(--accent-soft) 58%, var(--accent-soft) 90%, transparent 90%);
