@@ -1,4 +1,4 @@
-import { Github, Heart, Send, Users } from "lucide-react";
+import { Coffee, Github, Send, Users } from "lucide-react";
 import { useEffect, useState, type CSSProperties } from "react";
 import { Avatar } from "@/components/avatar";
 import { QqDialog } from "@/components/qq-dialog";
@@ -128,7 +128,7 @@ function DashboardLinks({ onSponsor }: { onSponsor: () => void }) {
         onClick={onSponsor}
         data-sponsor-link
       >
-        <Heart className="size-4 text-accent" strokeWidth={1.5} aria-hidden />
+        <Coffee className="size-4 text-accent" strokeWidth={1.5} aria-hidden />
         {t("dashboard.sponsorProject")}
       </button>
     </nav>

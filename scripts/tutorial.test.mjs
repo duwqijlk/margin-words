@@ -105,9 +105,13 @@ test("the feedback tip opens over any book the first time the reader is open, no
   assert.match(tip, /card\.feedbackMissing/);
 });
 
-test("the tutorial tab lists every tutorial; narrow windows reach the list from Settings", () => {
+test("tutorials stay in Settings while the desktop margin opens sponsorship", () => {
   const tab = read("src/components/tutorial-tab.tsx");
-  assert.match(tab, /min-width: 74\.0625rem/, "the tab only where the page margin can hold it");
+  assert.doesNotMatch(tab, /export function TutorialTab/, "the docked tutorial entry is removed");
+  const sponsor = read("src/components/sponsor-tab.tsx");
+  assert.match(sponsor, /min-\[1185px\]:inline-flex/, "the coffee tab only where the page margin can hold it");
+  assert.match(sponsor, /<Coffee/);
+  assert.match(sponsor, /<SponsorDialog/);
   const tutorial = read("src/lib/tutorial.ts");
   assert.match(tutorial, /TUTORIALS = \["start", "tip", "quotes"\]/);
   assert.match(tutorial, /QUOTE_TIP_KEY = "cibian-quote-tip-v1"/);

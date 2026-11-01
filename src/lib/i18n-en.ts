@@ -151,7 +151,7 @@ export const en = {
   "dashboard.supportersEmpty": "No supporters yet.",
   "dashboard.namesMore": "{n} more",
   "dashboard.supportUs": "Support us",
-  "dashboard.sponsorProject": "Sponsor the project",
+  "dashboard.sponsorProject": "BUY ME A COFFEE",
   "dashboard.github": "GitHub",
   "dashboard.telegram": "Telegram",
   "dashboard.qq": "QQ",

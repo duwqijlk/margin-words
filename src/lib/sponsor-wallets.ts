@@ -16,9 +16,9 @@ import qrTron from "../assets/sponsor/qr-tron.svg?url&no-inline";
 
 /** One EVM address works on Ethereum and every EVM chain (L2s and BNB Chain alike). Tron (TRC-20) has its own. */
 export const SPONSOR_WALLETS = [
-  { id: "evm", address: "0x4cede244ea8a43052264c658d9a3b004f0a22103", qr: qrEvm },
-  { id: "solana", address: "EDZTbZydDSLXJMryWDBgFxmHZ8aX6Su5SqgHHVasupg9", qr: qrSolana },
-  { id: "tron", address: "TDDt1ZmdBkyTcXcPN2APfseaPcRNucHbDH", qr: qrTron },
+  { id: "evm", address: "0xedc2cf33eff4a303ddac8c2f28835a3de1206054", qr: qrEvm },
+  { id: "solana", address: "GFbfgAkccBzqfAZX9Edtpm7xuoQrniTUKnnxANegDSD2", qr: qrSolana },
+  { id: "tron", address: "TN6mPkPgWH1pvJYiWXX7pwBVbUPSRvnXFy", qr: qrTron },
 ] as const;
 export type SponsorWallet = (typeof SPONSOR_WALLETS)[number];
 
