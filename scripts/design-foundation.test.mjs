@@ -60,7 +60,10 @@ test("hint settings retain stored quiet preferences with a positive switch", () 
   const settings = read("src/components/reader-settings.tsx");
   assert.match(settings, /checked=\{!prefs\.quietMarks\}/);
   assert.match(settings, /set\(\{ quietMarks: !showHints \}\)/);
-  assert.doesNotMatch(settings, /<Underline/);
+  assert.doesNotMatch(settings, /<Underline|<BookOpen|<Focus/);
+  const hintRow = settings.slice(settings.indexOf('{t("rs.quietMarks")}'), settings.indexOf('data-reader-quiet-marks'));
+  assert.doesNotMatch(hintRow, /<svg|<BookOpen/);
+  assert.match(hintRow, /rs\.quietMarksHint/);
   assert.match(read("src/lib/i18n-en.ts"), /"rs.quietMarks": "Show word hints"/);
 });
 
