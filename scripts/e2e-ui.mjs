@@ -364,7 +364,6 @@ async function run(lang, size) {
   const other = lang === "zh" ? "en" : "zh";
   ok((await page.locator("[data-lang-button]").count()) === 0, `${label}: the header has no language button`);
   await page.locator("[data-account-button]").click();
-  await page.locator("[data-account-settings]").click();
   await page.locator("[data-settings-language]").waitFor();
   await page.locator("[data-settings-language] button[aria-pressed=false]").click();
   await page.getByRole("button", { name: T[other]("shelf.findBooks"), exact: true }).waitFor();
@@ -676,18 +675,14 @@ async function run(lang, size) {
   ok(!(await overflow()), `${label}: no horizontal overflow (notebook)`);
   await shot("notebook");
   await page.locator("[data-account-button]").click();
-  await page.locator("[data-account-settings]").click();
   await page.getByRole("dialog").waitFor();
   ok(
     (await page.locator("[data-settings-language]").count()) === 1 &&
-      (await page.locator("[data-settings-theme]").count()) === 1,
-    `${label}: settings has language and theme`,
+      (await page.locator("[data-settings-pronunciation]").count()) === 1,
+    `${label}: account has language and pronunciation`,
   );
   await shot("settings");
-  await page.getByRole("button", { name: t("rs.theme.dark"), exact: true }).click();
-  ok((await page.getAttribute("html", "data-theme")) === "dark", `${label}: dark theme applies`);
-  await shot("dark");
-  await page.getByRole("button", { name: t("rs.theme.light"), exact: true }).click();
+  ok((await page.locator("[data-theme-tiles]").count()) === 0, `${label}: theme controls stay in the reader Aa panel`);
   await page.keyboard.press("Escape");
 
   // ---- a normal reload, with the service worker controlling the page, still shows the shelf
@@ -779,7 +774,6 @@ async function run(lang, size) {
       `${label}: Discover lists ${FREE_COUNT} classics (${await vp.locator("[data-pack]").count()})`,
     );
     await vp.locator("[data-account-button]").click();
-    await vp.locator("[data-account-settings]").click();
     ok((await vp.locator("[data-settings-guide]").count()) === 0, `${label}: Settings has no Guide row (the Guide page is gone)`);
     await vp.keyboard.press("Escape");
     ok((await vp.locator("header nav button").count()) === 3, `${label}: Shelf, Discover and Overview are the tabs`);

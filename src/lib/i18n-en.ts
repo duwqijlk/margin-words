@@ -449,7 +449,6 @@ export const en = {
   /* ---- account */
   "account.manage": "Account",
   "account.title": "Account",
-  "account.backToAccount": "Back to account",
   "account.desc":
     "Sign in to add and read books, and to sync your shelf, reading place, and saved words.",
   "account.signedDesc":

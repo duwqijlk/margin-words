@@ -128,9 +128,8 @@ try {
       await checkFace(page, "[data-continue-card] b, [data-progress-ring] b, [data-continue-card] p, li.book-card button", expected, "shelf");
       assert.match(await page.locator("[data-progress-ring] b").evaluate(el => getComputedStyle(el).fontVariantNumeric), /lining-nums.*tabular-nums/);
       await noOverflow(page);
-      for (const panel of ["[data-account-dialog]", "[data-settings-panel]"]) {
+      for (const panel of ["[data-account-dialog]"]) {
         await page.locator("[data-account-button]").click();
-        if (panel === "[data-settings-panel]") await page.locator("[data-account-settings]").click();
         await page.locator(panel).waitFor();
         await checkFace(page, `${panel} button, ${panel} input, ${panel} h2`, expected, panel);
         await noOverflow(page);

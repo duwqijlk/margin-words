@@ -74,7 +74,7 @@ test("paper is pure white with a brand green that passes AA, and the theme picke
   assert.equal(token('[data-theme="eink"]', "accent"), "#000000");
   assert.match(read("src/components/ui.tsx"), /\{ value: "eink", bg: "#ffffff", fg: "#000000", brand: "#000000" \}/);
   assert.match(read("src/components/reader-settings.tsx"), /<ThemeTiles/);
-  assert.match(read("src/components/get-books.tsx"), /<ThemeTiles/);
+  assert.doesNotMatch(read("src/components/get-books.tsx"), /<ThemeTiles/);
 });
 
 test("a reader who had the Clear theme reads on paper, also from an older device's sync", () => {
@@ -145,18 +145,18 @@ test("account owns settings, with one avatar entry and no outdated guest-reading
   assert.doesNotMatch(app, /data-settings-button|SettingsDialog|settingsOpen/);
   assert.match(app, /signedIn \? \([\s\S]*?<Avatar key=[^\n]*size=\{24\}[\s\S]*?: \(\s*<UserRound className="size-5"/, "only signed-in accounts show an avatar; guests keep the original account icon");
   assert.match(app, /className="\[&>svg\]:!size-5"/, "fallback person stays as visible as the notebook icon");
-  assert.match(account, /data-account-settings/);
-  assert.match(account, /data-account-more>[\s\S]*?\{settingsRow\}[\s\S]*?data-account-export/, "settings belongs to account actions before export");
-  assert.match(account, /hidden=\{view !== "account"\}/);
-  assert.match(account, /<SettingsBody onDismiss=\{dismissForNavigation\}/);
+  assert.doesNotMatch(account, /data-account-settings|data-account-back|data-settings-panel|setView\(/);
+  assert.match(account, /<AccountPreferences onDismiss=\{dismissForNavigation\}/);
+  assert.match(account, /role === "admin" \|\| isSponsorAdmin\(emailSaved\)/);
+  assert.match(account, /data-account-admin/);
   assert.doesNotMatch(account, /account\.forgotBody/);
   for (const locale of ["en", "zh"]) assert.doesNotMatch(read(`src/lib/i18n-${locale}.ts`), /"account\.forgotBody"/);
 });
 
 test("title hierarchy stays bold and book titles retain their display face", () => {
   // Dialog and page titles: the interface face, bold, -0.02em.
-  // Settings and the account share the panel's title style.
-  assert.match(read("src/components/account-dialog.tsx"), /<Dialog\.Title[^>]*className=\{panel\.title\}>[\s\S]*?view === "settings" \? t\("settings\.title"\)/);
+  // The account directly contains preferences; its title retains the shared panel style.
+  assert.match(read("src/components/account-dialog.tsx"), /<Dialog\.Title className=\{panel\.title\}>/);
   assert.match(read("src/components/ui.tsx"), /title: "m-0 text-2xl leading-tight font-bold tracking-\[-0\.02em\]"/);
   for (const [file, text] of [["step-dialog", 'data("heading") : {})}>'], ["shelf-book-info", '{t("shelf.info")}']]) {
     const body = read(`src/components/${file}.tsx`);
