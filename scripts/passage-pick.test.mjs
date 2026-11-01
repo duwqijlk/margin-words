@@ -41,6 +41,15 @@ test("a selection across a sentence end is a sentence", () => {
   assert.equal(is("what mattered. Those seconds of pause"), true);
 });
 
+test("desktop short feedback selections do not snap to sentences", () => {
+  const component = readFileSync(new URL("../src/components/passage-feedback.tsx", import.meta.url), "utf8");
+  const threshold = Number(component.match(/const SNAP_WORDS = (\d+);/)?.[1]);
+  assert.equal(threshold, 12);
+  for (const n of [3, 4, 5, 11]) assert.ok(n < threshold, `${n} selected words remain exact`);
+  assert.match(component, /found\.selected\.split\(/);
+  assert.match(component, /length < SNAP_WORDS\) return;/);
+});
+
 test("a closing quote may follow the sentence's end", () => {
   const quoted = '"How can I be there for you?" she asked me again.';
   assert.equal(holdsSentence('"How can I be there for you', quoted, 0), true);

@@ -13,8 +13,8 @@ type PassageReason = "hard" | "phrase" | "wrong" | "suggested";
 /** A selection of more sentences than this, or more characters, is kept as its whole paragraph. */
 const WHOLE_SENTENCES = 3;
 const WHOLE_CHARS = 500;
-/** A drag of this many words or more is a passage, not a word or a phrase: it snaps to whole sentences. */
-const SNAP_WORDS = 4;
+/** Leave short word groups precise for feedback; only longer passages snap to whole sentences. */
+const SNAP_WORDS = 12;
 
 function finePointer(): boolean {
   return typeof window.matchMedia === "function" && window.matchMedia("(pointer: fine)").matches;
@@ -34,8 +34,8 @@ function quoteSpanOf(pick: Pick<PassagePick, "paragraph" | "start" | "end" | "te
  * Its first button keeps the selection as a quote (its whole sentences; the whole paragraph when it
  * is long), then Copy, then "Ask about this", which opens the card that sends the selected words
  * with their place (chapter, paragraph, a few words around) to /api/feedback/passage. On a wide
- * screen a drag of a few words or more snaps to whole sentences. Taps on single words are
- * untouched: those open the word card.
+ * screen only a longer passage snaps to whole sentences; short feedback selections stay exact.
+ * Taps on single words are untouched: those open the word card.
  */
 /** Widest the open card gets (22rem), and the gap it keeps from each screen edge. */
 const CARD_MAX = 352;
@@ -114,7 +114,7 @@ export function PassageFeedback({
     };
   }, [enabled, rootRef]);
 
-  // A mouse drag over a few words or more becomes whole sentences, the unit a quote keeps.
+  // Long mouse selections become whole sentences; short phrases remain precise for feedback.
   useEffect(() => {
     if (!enabled) return;
     let timer = 0;

@@ -27,7 +27,7 @@ test("reader controls stay semantic and unnested across imported controls and tw
     for (const word of words) {
       assert.equal(word.localName, "span");
       assert.equal(word.getAttribute("role"), "button");
-      assert.equal(word.getAttribute("tabindex"), "-1");
+      assert.equal(word.getAttribute("tabindex"), null, "native text drags must not start in a focusable span");
       const tap = word.querySelector(":scope > .book-tap");
       assert.ok(tap);
       assert.equal(tap.getAttribute("role"), null);
