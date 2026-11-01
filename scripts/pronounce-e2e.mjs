@@ -274,7 +274,8 @@ async function defaultAccentSuite() {
   try {
     for (const accent of ["UK", "US"]) {
       await page.goto(new URL("shelf", BASE).href);
-      await page.locator('[data-settings-button]').click();
+      await page.locator('[data-account-button]').click();
+      await page.locator('[data-account-settings]').click();
       const control = page.locator('[data-settings-pronunciation]');
       await control.getByRole('button', { name: accent, exact: true }).click();
       assert.equal(await control.getByRole('button', { name: accent, exact: true }).getAttribute('aria-pressed'), 'true');

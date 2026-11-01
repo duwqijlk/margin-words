@@ -118,6 +118,6 @@ test("tutorials stay in Settings while the desktop margin opens sponsorship", ()
   const settings = read("src/components/get-books.tsx");
   assert.match(settings, /useTutorialList\.getState\(\)\.show\("center"\)/, "Settings opens the same list");
   const app = read("src/components/margin-app.tsx");
-  assert.match(app, /data-settings-dot/, "a dot on the gear for a tutorial not seen yet");
+  assert.match(app, /data-account-dot/, "a dot on the avatar for a tutorial not seen yet");
   assert.match(app, /menu === "shelf" \|\| menu === "discover" \|\| menu === "dashboard"\) && screen\.kind !== "read"/, "public pages only");
 });

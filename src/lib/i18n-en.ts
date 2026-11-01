@@ -449,8 +449,9 @@ export const en = {
   /* ---- account */
   "account.manage": "Account",
   "account.title": "Account",
+  "account.backToAccount": "Back to account",
   "account.desc":
-    "Sign in to add books, and to sync your shelf, reading place, and saved words. Books already on this device can be read without an account.",
+    "Sign in to add and read books, and to sync your shelf, reading place, and saved words.",
   "account.signedDesc":
     "You are signed in. Your shelf, reading place, saved words, and settings sync to your other devices. Book files stay on each device.",
   "account.privacyTitle": "Privacy",
@@ -522,8 +523,6 @@ export const en = {
     "This deletes the account and everything stored for sync, and clears the books and word lists on this device too.",
   "account.deleteConfirm": "Delete the account",
   "account.forgot": "Forgot password?",
-  "account.forgotBody":
-    "Password reset by email is not turned on yet, so this app cannot send a reset message. You can keep reading without an account.",
   "account.forgotEmail": "Your email",
   "account.forgotSend": "Send reset link",
   "account.forgotSent":
@@ -548,7 +547,7 @@ export const en = {
     "The human check did not finish. Check your connection, then try again.",
   "account.turnstileRetry": "Reload the check",
   "account.err.network":
-    "The account service could not be reached. You can still read without signing in.",
+    "The account service could not be reached. Check your connection and try again.",
   "account.err.generic": "That did not work. Please try again.",
   "account.err.nickname": "Use 1 to 16 characters.",
   "account.err.code": "That code is not right. Check it and try again.",

@@ -889,6 +889,13 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
   @media (min-width: 768px) {
     [data-word-card] [data-word-body] {
       max-height: min(50vh, 22rem);
+      /* Keep wrapping stable when placement changes the body's available height. */
+      scrollbar-gutter: stable;
+    }
+    @supports not (scrollbar-gutter: stable) {
+      [data-word-card] [data-word-body] {
+        overflow-y: scroll;
+      }
     }
   }
   [data-word-card] [data-look-target-group] {
