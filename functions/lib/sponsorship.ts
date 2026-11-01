@@ -81,7 +81,7 @@ export async function handleCreateSponsorship(request: Request, env: Env, option
     const user = await requireUser(env.DB, request, now);
     await assertRateLimit(env.DB, "sponsor", clientIp(request), user.email, now);
     const body = (await readJson(request, 8_000)) as Record<string, unknown>;
-    // Crypto is the only way to give now. WeChat and Alipay stay valid on old rows, not on new ones.
+    // Only currently offered methods may create requests; historical Alipay rows remain readable.
     if (!isSponsorMethod(body.method) || !(SPONSOR_METHODS as readonly string[]).includes(body.method)) {
       throw new HttpError(400, "method");
     }

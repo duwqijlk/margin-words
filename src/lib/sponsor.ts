@@ -9,11 +9,8 @@ import { cleanNickname } from "./nickname.ts";
 /** The only address that sends sponsorship instructions. Shown in the dialog. */
 export const SPONSOR_EMAIL = "xcrunnnn@outlook.com";
 
-/**
- * The only way to give is a crypto transfer. "wechat" and "alipay" stay valid on old rows only:
- * the server and the admin list still read them, the dialog no longer offers them.
- */
-export const SPONSOR_METHODS = ["crypto"] as const;
+/** New gifts accept WeChat and crypto; Alipay stays readable on historical rows only. */
+export const SPONSOR_METHODS = ["wechat", "crypto"] as const;
 export type SponsorMethod = "wechat" | "alipay" | "crypto";
 
 // The receiving addresses and their QR codes are in sponsor-wallets.ts (browser only: it imports images).
