@@ -4,12 +4,13 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useAccount } from "@/lib/account-store";
 import { askToSignIn } from "@/lib/can-add";
 import { useT, type Key } from "@/lib/i18n";
-import { SPONSOR_EMAIL, isSponsorMethod, sponsorName } from "@/lib/sponsor";
+import { SPONSOR_EMAIL, isSponsorMethod, sponsorName, type SponsorMethod } from "@/lib/sponsor";
+import wechatQr from "@/assets/sponsor/wechat.png?url&no-inline";
 import { EVM_CHAINS, SPONSOR_WALLETS, type SponsorWallet } from "@/lib/sponsor-wallets";
 import { accountRequest } from "@/lib/sync-engine";
 import { btn, cn, Segmented } from "@/components/ui";
 
-const STEPS = ["thanks.step.send", "thanks.step.email", "thanks.step.register"] as const satisfies readonly Key[];
+type PaymentOption = SponsorWallet["id"] | "wechat";
 
 const ERROR_KEYS: Record<string, Key> = {
   name: "thanks.needNickname",
@@ -20,7 +21,21 @@ const ERROR_KEYS: Record<string, Key> = {
   unauthorized: "thanks.needSignIn",
 };
 
-type OpenRequest = { method: string; displayName: string; emailSent: boolean } | null;
+type OpenRequest = { method: SponsorMethod; displayName: string; emailSent: boolean } | null;
+
+function WeChatCard() {
+  const { t } = useT();
+  return (
+    <section className="grid justify-items-center gap-3 rounded-xl border border-line bg-paper p-3" data-sponsor-wechat>
+      <h3 className="text-base font-semibold">{t("thanks.method.wechat")}</h3>
+      <img src={wechatQr} alt={t("thanks.wechat.qr")} className="h-auto w-full max-w-72 rounded-lg bg-white" data-sponsor-qr="wechat" />
+      <p className="text-sm leading-6 text-muted">{t("thanks.wechat.note")}</p>
+      <a href={wechatQr} download="inputread-wechat.png" className={cn(btn.quiet, "min-h-10 w-full min-w-0 whitespace-normal text-center text-sm")} data-sponsor-wechat-save>
+        {t("thanks.wechat.save")}
+      </a>
+    </section>
+  );
+}
 
 /** One receiving address: what it is for, its QR code and a copy button. */
 const WALLET_TEXT = {
@@ -109,17 +124,23 @@ export function SponsorDialog({
   const shownName = sponsorName(nickname);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<Key | null>(null);
-  const [sent, setSent] = useState(false);
+  const [submittedMethod, setSubmittedMethod] = useState<SponsorMethod | null>(null);
   const [existing, setExisting] = useState<OpenRequest>(null);
-  // One address on screen at a time. Two QR codes side by side invite a scan of the wrong one.
-  const [walletId, setWalletId] = useState<SponsorWallet["id"]>("evm");
+  // One code on screen at a time, so a scan cannot pick the wrong recipient.
+  const [walletId, setWalletId] = useState<PaymentOption>("evm");
+  const wechat = walletId === "wechat";
   const wallet = SPONSOR_WALLETS.find((item) => item.id === walletId) ?? SPONSOR_WALLETS[0];
+  const steps: readonly Key[] = [
+    wechat ? "thanks.wechat.send" : "thanks.step.send",
+    wechat ? "thanks.payment.email" : "thanks.step.email",
+    "thanks.step.register",
+  ];
 
   useEffect(() => {
     if (!open) return;
     setWalletId("evm");
     setError(null);
-    setSent(false);
+    setSubmittedMethod(null);
     setExisting(null);
     if (!signedIn) return;
     let alive = true;
@@ -152,8 +173,9 @@ export function SponsorDialog({
     setBusy(true);
     setError(null);
     try {
-      await accountRequest("/api/sponsorships", { method: "crypto" });
-      setSent(true);
+      const method = wechat ? "wechat" : "crypto";
+      await accountRequest("/api/sponsorships", { method });
+      setSubmittedMethod(method);
       onSubmitted();
     } catch (caught) {
       const code = caught instanceof Error ? caught.message : "";
@@ -179,29 +201,35 @@ export function SponsorDialog({
           </div>
           <Dialog.Description className="-mt-2 text-sm leading-6 text-muted">{t("thanks.gift")}</Dialog.Description>
           <div className="grid gap-1.5" data-sponsor-network-pick>
-            <p className="text-sm font-semibold">{t("thanks.wallet.pick")}</p>
-            <Segmented
-              label={t("thanks.wallet.pick")}
+            <p className="text-sm font-semibold">{t("thanks.payment.pick")}</p>
+            <Segmented<PaymentOption>
+              label={t("thanks.payment.pick")}
+              layout="wrap"
               value={walletId}
               onChange={setWalletId}
-              options={SPONSOR_WALLETS.map((item) => ({
-                value: item.id,
-                label: (
-                  <span className="inline-flex items-center justify-center gap-1.5">
-                    <img src={WALLET_TEXT[item.id].icon} alt="" className="size-4" aria-hidden />
-                    {t(WALLET_TEXT[item.id].short)}
-                  </span>
-                ),
-              }))}
+              options={[
+                { value: "wechat", label: t("thanks.method.wechat") },
+                ...SPONSOR_WALLETS.map((item) => ({
+                  value: item.id,
+                  label: (
+                    <span className="inline-flex items-center justify-center gap-1.5">
+                      <img src={WALLET_TEXT[item.id].icon} alt="" className="size-4" aria-hidden />
+                      {t(WALLET_TEXT[item.id].short)}
+                    </span>
+                  ),
+                })),
+              ]}
             />
           </div>
           {/* key: switching remounts the card, so a "Copied" label never carries over to the other address. */}
-          <WalletCard key={wallet.id} wallet={wallet} />
-          <p className="rounded-lg border border-warn/40 bg-warn/5 px-3 py-2 text-xs leading-5" data-sponsor-warning>
-            {t("thanks.wallet.warning")}
-          </p>
+          {wechat ? <WeChatCard /> : <WalletCard key={wallet.id} wallet={wallet} />}
+          {wechat ? null : (
+            <p className="rounded-lg border border-warn/40 bg-warn/5 px-3 py-2 text-xs leading-5" data-sponsor-warning>
+              {t("thanks.wallet.warning")}
+            </p>
+          )}
           <ol className="grid gap-2" aria-label={t("thanks.steps")}>
-            {STEPS.map((key, index) => (
+            {steps.map((key, index) => (
               <li key={key} className="flex items-start gap-3 text-[0.95rem] leading-6">
                 <span
                   className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent-soft text-[0.7rem] font-semibold text-accent tabular-nums"
@@ -220,13 +248,13 @@ export function SponsorDialog({
               <p className="text-xs leading-5 text-muted">{t("thanks.officialOnly")}</p>
             </div>
           </div>
-          {sent ? (
+          {submittedMethod ? (
             <p className="text-[0.95rem] leading-7" data-sponsor-sent>
-              {t("thanks.sentBody", { email: SPONSOR_EMAIL })}
+              {t(submittedMethod === "crypto" ? "thanks.sentBody" : "thanks.payment.sent", { email: SPONSOR_EMAIL })}
             </p>
           ) : existing ? (
             <p className="text-[0.95rem] leading-7" data-sponsor-pending>
-              {existing.emailSent ? t("thanks.emailed") : t("thanks.pending")}
+              {existing.emailSent ? t("thanks.emailed") : t(existing.method === "crypto" ? "thanks.pending" : "thanks.payment.pending")}
             </p>
           ) : signedIn && !shownName ? (
             <div className="grid gap-3">

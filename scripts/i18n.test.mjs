@@ -69,8 +69,16 @@ test("English texts have no Chinese; Chinese texts are Chinese (apart from names
     if (!CJK.test(zh[key]) && /[A-Za-z]/.test(bare)) same.push(key);
   }
   // Only a few texts may stay the same in zh (the brand name, "A-Z", the two link names and similar).
-  const allowed = new Set(["common.brand", "nb.order.az", "shelf.summary", "dashboard.github", "dashboard.telegram", "dashboard.sponsorProject", "thanks.wallet.evmShort"]);
+  const allowed = new Set(["common.brand", "nb.order.az", "shelf.summary", "dashboard.github", "dashboard.telegram", "dashboard.sponsorProject", "thanks.dialogTitle", "thanks.wallet.evmShort"]);
   assert.deepEqual(same.filter((k) => !allowed.has(k)), [], "zh texts without any Chinese");
+});
+
+test("coffee sponsorship entry and dialog title match in both languages", async () => {
+  const { en, zh } = await load();
+  for (const dictionary of [en, zh]) {
+    assert.equal(dictionary["dashboard.sponsorProject"], "BUY ME A COFFEE");
+    assert.equal(dictionary["thanks.dialogTitle"], "BUY ME A COFFEE");
+  }
 });
 
 test("the UI does not call the books free", async () => {
