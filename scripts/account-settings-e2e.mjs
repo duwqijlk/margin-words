@@ -43,7 +43,17 @@ for (const locale of ['en', 'zh']) for (const width of [320, 1280]) for (const s
     const geometry = () => page.locator('header').evaluate(el => { const r = el.getBoundingClientRect(); return [r.x, r.y + scrollY, r.width, r.height, scrollY]; });
     const before = await geometry();
     await trigger.click();
-    await page.locator('[data-account-settings]').click();
+    const entry = page.locator('[data-account-settings]');
+    assert.equal(await entry.count(), 1, 'exactly one settings entry');
+    if (signedIn) {
+      assert.equal(await page.locator('[data-account-more] [data-account-settings]').count(), 1);
+      assert.deepEqual(await entry.locator('..').locator(':scope > button').evaluateAll(els => els.map(el => ['settings', 'export', 'logout', 'delete'].find(key => el.hasAttribute('data-account-' + key)))), ['settings', 'export', 'logout', 'delete']);
+    } else {
+      assert.ok(await entry.evaluate(el => Boolean(document.querySelector('[data-account-submit]').compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING)), 'guest settings follow the login form');
+    }
+    await entry.scrollIntoViewIfNeeded();
+    await page.screenshot({ path: new URL(`account-actions-${locale}-${width}-${signedIn ? 'in' : 'guest'}.png`, out).pathname.replace(/^\/(\w:)/, '$1') });
+    await entry.click();
     const settings = page.locator('[data-settings-panel]'); await settings.waitFor();
     assert.equal(await page.locator('[role=dialog]:visible').count(), 1);
     assert.equal(await page.locator('[data-account-home]').isVisible(), false);

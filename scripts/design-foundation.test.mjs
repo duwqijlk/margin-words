@@ -146,6 +146,7 @@ test("account owns settings, with one avatar entry and no outdated guest-reading
   assert.match(app, /signedIn \? \([\s\S]*?<Avatar key=[^\n]*size=\{24\}[\s\S]*?: \(\s*<UserRound className="size-5"/, "only signed-in accounts show an avatar; guests keep the original account icon");
   assert.match(app, /className="\[&>svg\]:!size-5"/, "fallback person stays as visible as the notebook icon");
   assert.match(account, /data-account-settings/);
+  assert.match(account, /data-account-more>[\s\S]*?\{settingsRow\}[\s\S]*?data-account-export/, "settings belongs to account actions before export");
   assert.match(account, /hidden=\{view !== "account"\}/);
   assert.match(account, /<SettingsBody onDismiss=\{dismissForNavigation\}/);
   assert.doesNotMatch(account, /account\.forgotBody/);
