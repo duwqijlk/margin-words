@@ -44,7 +44,8 @@ import {
   useTutorial,
   useTutorialNews,
 } from "@/lib/tutorial";
-import { TutorialList, TutorialTab } from "@/components/tutorial-tab";
+import { TutorialList } from "@/components/tutorial-tab";
+import { SponsorTab } from "@/components/sponsor-tab";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { takeLoginAfterWipe } from "@/lib/device-wipe";
 import { AccountDialog } from "@/components/account-dialog";
@@ -692,8 +693,8 @@ export function MarginApp() {
         {feedbackTipOpen ? <FeedbackTipDialog /> : null}
         {quoteTipOpen ? <QuoteFlowDialog /> : null}
       </Suspense>
-      {/* Tutorials, on the public pages only (design system TutorialTab). */}
-      {ready && (menu === "shelf" || menu === "discover" || menu === "dashboard") && screen.kind !== "read" ? <TutorialTab /> : null}
+      {/* Coffee shortcut on public pages only; tutorials stay available in Settings. */}
+      {ready && (menu === "shelf" || menu === "discover" || menu === "dashboard") && screen.kind !== "read" ? <SponsorTab /> : null}
       <TutorialList />
       <AccountDialog />
       <ShelfToastHost onViewShelf={() => setScreen({ kind: "shelf" })} aboveTabs={!reading} />

@@ -153,7 +153,7 @@ export const zh: Record<Key, string> = {
   "dashboard.supportersEmpty": "还没有赞助记录。",
   "dashboard.namesMore": "等 {n} 位",
   "dashboard.supportUs": "支持我们",
-  "dashboard.sponsorProject": "赞助项目",
+  "dashboard.sponsorProject": "BUY ME A COFFEE",
   "dashboard.github": "GitHub",
   "dashboard.telegram": "Telegram",
   "dashboard.qq": "QQ群",

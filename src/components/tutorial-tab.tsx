@@ -1,26 +1,16 @@
-import { BookOpen, ChevronRight, GraduationCap, Lightbulb, Quote, X } from "lucide-react";
+import { BookOpen, ChevronRight, Lightbulb, Quote, X } from "lucide-react";
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import { useT, type Key } from "@/lib/i18n";
 import {
   openTutorial,
   TUTORIALS,
   useTutorialList,
-  useTutorialNews,
   useTutorialsSeen,
   type TutorialId,
 } from "@/lib/tutorial";
 import { cn } from "@/components/ui";
 import { useSheetDrag } from "@/components/floating-card";
 
-/** Where the reader left the tab on this device: its top, as a share of the window height. */
-const SPOT_KEY = "cibian-tuttab-y-v1";
-/** A press that moves less than this is a click, not a drag. */
-const DRAG_PX = 5;
-/** Kept clear of the top bar and the bottom of the window. */
-const TOP_GAP = 72;
-const BOTTOM_GAP = 88;
-/** The tab sits in the page margin, so only a window this wide has room for it (68rem page + margins). */
-const WIDE = "(min-width: 74.0625rem)";
 const PHONE = "(max-width: 40rem)";
 
 const ROWS: Record<TutorialId, { icon: ComponentType<{ className?: string }>; title: Key; body: Key }> = {
@@ -28,15 +18,6 @@ const ROWS: Record<TutorialId, { icon: ComponentType<{ className?: string }>; ti
   tip: { icon: Lightbulb, title: "tuttab.tip", body: "tuttab.tipBody" },
   quotes: { icon: Quote, title: "tuttab.quotes", body: "tuttab.quotesBody" },
 };
-
-function savedSpot(): number | null {
-  try {
-    const value = Number(localStorage.getItem(SPOT_KEY));
-    return Number.isFinite(value) && value > 0 && value < 1 ? value : null;
-  } catch {
-    return null;
-  }
-}
 
 function useMedia(query: string): boolean {
   const read = () => typeof window.matchMedia === "function" && window.matchMedia(query).matches;
@@ -48,129 +29,6 @@ function useMedia(query: string): boolean {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
   return on;
-}
-
-/**
- * The tutorial tab (design system TutorialTab): a small tab on the right edge of the shelf,
- * Discover and the overview, only on a window wide enough to hold it in the page margin; never while
- * reading, reviewing or in the notebook. It can be dragged up and down the edge and stays where it
- * was left (on this device); it tucks mostly away while the page scrolls; a dot marks a tutorial not
- * seen yet. Phones and narrow windows open the same list from Settings instead.
- */
-export function TutorialTab() {
-  const { t } = useT();
-  const wide = useMedia(WIDE);
-  const fresh = useTutorialNews();
-  const list = useTutorialList((state) => state.open);
-  const open = list === "tab";
-  const [peek, setPeek] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const [spot, setSpot] = useState<number | null>(savedSpot);
-  const tab = useRef<HTMLButtonElement | null>(null);
-  const press = useRef<{ y: number; top: number; moved: boolean; id: number } | null>(null);
-  // A drag ends with a click on the tab; that click must not open the list.
-  const dragged = useRef(false);
-
-  // While the page scrolls the tab slides mostly out of the way; it comes back 0.6s after.
-  useEffect(() => {
-    let timer = 0;
-    const onScroll = () => {
-      if (useTutorialList.getState().open) return;
-      setPeek(true);
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => setPeek(false), 600);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  // Leaving the page (or the window getting narrow) closes a list that hangs off the tab.
-  useEffect(
-    () => () => {
-      if (useTutorialList.getState().open === "tab") useTutorialList.getState().hide();
-    },
-    [],
-  );
-  useEffect(() => {
-    if (!wide && useTutorialList.getState().open === "tab") useTutorialList.getState().hide();
-  }, [wide]);
-
-  if (!wide) return null;
-
-  const clampTop = (top: number) => {
-    const height = tab.current?.offsetHeight ?? 96;
-    return Math.min(Math.max(top, TOP_GAP), window.innerHeight - height - BOTTOM_GAP);
-  };
-  const top = spot === null ? null : clampTop(spot * window.innerHeight);
-
-  return (
-    <button
-      ref={tab}
-      type="button"
-      aria-label={fresh ? t("tuttab.ariaNew") : t("tuttab.label")}
-      aria-haspopup="dialog"
-      aria-expanded={open}
-      className={cn(
-        "tut-tab fixed right-0 z-40 grid touch-none justify-items-center gap-1.5 rounded-l-xl border border-r-0 border-float-edge bg-float py-3 pl-px text-accent shadow-hero",
-        dragging && "is-dragging",
-        peek && !open && "is-peek",
-      )}
-      style={top === null ? undefined : { top, transform: "translateX(var(--peek))" }}
-      onPointerDown={(event) => {
-        if (event.button !== 0) return;
-        dragged.current = false;
-        press.current = { y: event.clientY, top: tab.current?.getBoundingClientRect().top ?? 0, moved: false, id: event.pointerId };
-        try {
-          event.currentTarget.setPointerCapture(event.pointerId);
-        } catch {
-          // Older engines: the drag still works while the pointer stays on the tab.
-        }
-      }}
-      onPointerMove={(event) => {
-        const start = press.current;
-        if (!start || start.id !== event.pointerId) return;
-        const dy = event.clientY - start.y;
-        if (!start.moved && Math.abs(dy) < DRAG_PX) return;
-        start.moved = true;
-        setDragging(true);
-        setSpot(clampTop(start.top + dy) / window.innerHeight);
-      }}
-      onPointerUp={() => {
-        const start = press.current;
-        press.current = null;
-        setDragging(false);
-        if (!start?.moved) return;
-        dragged.current = true;
-        const box = tab.current?.getBoundingClientRect();
-        if (!box) return;
-        try {
-          localStorage.setItem(SPOT_KEY, String(box.top / window.innerHeight));
-        } catch {
-          // Kept for this visit only.
-        }
-      }}
-      onPointerCancel={() => {
-        press.current = null;
-        setDragging(false);
-      }}
-      onClick={() => {
-        if (dragged.current) {
-          dragged.current = false;
-          return;
-        }
-        if (open) useTutorialList.getState().hide();
-        else useTutorialList.getState().show("tab");
-      }}
-      data-tutorial-tab
-    >
-      <GraduationCap className="size-[18px]" aria-hidden />
-      <span className="tut-tab-label text-xs font-bold text-muted">{t("tuttab.label")}</span>
-      {fresh ? <i className="absolute top-1.5 left-1.5 size-[7px] rounded-full bg-accent shadow-[0_0_0_2px_var(--float-sheet)]" data-tutorial-dot /> : null}
-    </button>
-  );
 }
 
 /**

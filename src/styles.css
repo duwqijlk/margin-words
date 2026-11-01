@@ -2064,31 +2064,7 @@
   }
 }
 
-/* ---- Tutorial tab (design system TutorialTab): docked to the right edge, dragged up and down. */
-.tut-tab {
-  --peek: 0px;
-  top: 58%;
-  width: 34px;
-  cursor: pointer;
-  transform: translate(var(--peek), -50%);
-  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), width 180ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.tut-tab:hover,
-.tut-tab[aria-expanded="true"] {
-  width: 40px;
-}
-.tut-tab-label {
-  writing-mode: vertical-rl;
-  letter-spacing: 0.25em;
-  line-height: 1;
-}
-.tut-tab.is-peek {
-  --peek: 24px;
-}
-.tut-tab.is-dragging {
-  transition: none;
-  cursor: grabbing;
-}
+/* ---- Tutorial list: opened from Settings. */
 .tut-panel {
   transform: translateY(-50%);
   transform-origin: right center;
@@ -2108,22 +2084,12 @@
     transform: translateY(100%);
   }
 }
-/* Below 74rem the margin beside the 68rem page is too narrow: the tab would cover content (Settings is the way in). */
-@media (max-width: 74rem) {
-  .tut-tab {
-    display: none;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .tut-tab {
-    transition: none;
-  }
   .tut-panel,
   .tut-sheet {
     animation: none;
   }
 }
-[data-theme="eink"] .tut-tab,
 [data-theme="eink"] .tut-panel,
 [data-theme="eink"] .tut-sheet {
   box-shadow: none;
