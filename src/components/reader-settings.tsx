@@ -184,12 +184,18 @@ function SettingsBody() {
           </span>
           <Switch checked={prefs.focus} onChange={(focus) => set({ focus })} label={t("rs.focus")} data-reader-focus />
         </div>
-        <div className="flex min-h-[52px] items-center justify-between gap-4">
-          <span className="min-w-0 text-[15px] font-bold">
-            {t("rs.quietMarks")}
-            <small className="block text-[13px] font-normal text-faint">{t("rs.quietMarksHint")}</small>
-          </span>
-          <Switch checked={!prefs.quietMarks} onChange={(showHints) => set({ quietMarks: !showHints })} label={t("rs.quietMarks")} data-reader-quiet-marks />
+        <div className="grid gap-2.5 py-3" data-reader-word-hints>
+          <span className="text-[15px] font-bold">{t("rs.wordHints")}</span>
+          <Segmented
+            label={t("rs.wordHints")}
+            value={prefs.wordHints}
+            onChange={(wordHints) => set({ wordHints })}
+            options={[
+              { value: "subtle" as const, label: t("rs.wordHints.subtle") },
+              { value: "underline" as const, label: t("rs.wordHints.underline") },
+              { value: "off" as const, label: t("rs.wordHints.off") },
+            ]}
+          />
         </div>
       </div>
     </div>

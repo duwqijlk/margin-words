@@ -584,10 +584,10 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
     -webkit-hyphens: auto;
   }
 
-  /* Ready meanings share a quiet ink tint; their type is explained in the card, not by lines. */
-  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
-  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
-  .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+  /* Subtle meanings share a quiet ink tint; underline mode opts into the original line styles. */
+  .book-body[data-word-hints="subtle"] [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+  .book-body[data-word-hints="subtle"] [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+  .book-body[data-word-hints="subtle"] [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
     color: var(--word-hint);
     text-decoration: none;
   }
@@ -598,6 +598,29 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
   .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on):hover .book-tap,
   .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on):focus-visible .book-tap {
     background: var(--accent-soft);
+  }
+
+  /* Readers can opt into the original line styles without changing text geometry. */
+  .book-body[data-word-hints="underline"] [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+    color: inherit;
+    text-decoration: underline solid var(--accent);
+    text-decoration-thickness: 1.5px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
+  }
+  .book-body[data-word-hints="underline"] [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+    color: inherit;
+    text-decoration: underline dashed var(--accent);
+    text-decoration-thickness: 1.5px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
+  }
+  .book-body[data-word-hints="underline"] [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+    color: inherit;
+    text-decoration: underline wavy var(--accent);
+    text-decoration-thickness: 1.5px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.22em;
   }
 
   /* The paragraph we just jumped to (from a saved word or a synced position). Fades out; no layout change. */
@@ -696,10 +719,13 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
       --mark-active-rgb: 85 85 85;
       --word-hint-ground: #222222;
     }
-    .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
-    .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
-    .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+    .book-body[data-word-hints="subtle"] [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+    .book-body[data-word-hints="subtle"] [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+    .book-body[data-word-hints="subtle"] [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
       background: var(--word-hint-ground);
+    }
+    .book-body[data-word-hints="underline"] [role="button"][data-word]:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+      text-decoration-color: currentColor !important;
     }
     .book-body [role="button"][data-word].book-saved .book-tap { background: var(--mark); }
     .book-body [role="button"][data-word].book-saved:hover .book-tap,
@@ -1626,9 +1652,9 @@ html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
 }
 
 /* E-ink hints need a gray ground rather than a colour difference. State rules stay shared. */
-[data-theme="eink"] .book-body:not([data-quiet-marks]) [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
-[data-theme="eink"] .book-body:not([data-quiet-marks]) [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
-[data-theme="eink"] .book-body:not([data-quiet-marks]) [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
+[data-theme="eink"] .book-body[data-word-hints="subtle"] [role="button"][data-word].book-hard:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+[data-theme="eink"] .book-body[data-word-hints="subtle"] [role="button"][data-word].book-phrase:not(.book-wait):not(.book-saved):not(.book-on) .book-tap,
+[data-theme="eink"] .book-body[data-word-hints="subtle"] [role="button"][data-word].book-tricky:not(.book-wait):not(.book-saved):not(.book-on) .book-tap {
   background: #eeeeee;
 }
 

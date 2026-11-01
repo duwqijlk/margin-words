@@ -131,6 +131,79 @@ test("default pronunciation survives settings normalization and newer-device mer
   }
 });
 
+test("settings normalize hint enums and their legacy mirror across JSON and sync items", () => {
+  const cases = [
+    [{}, "subtle"],
+    [{ quietMarks: true }, "off"],
+    [{ quietMarks: false }, "subtle"],
+    [{ quietMarks: "true" }, "subtle"],
+    [{ wordHints: "invalid", quietMarks: true }, "off"],
+    [{ wordHints: null, quietMarks: false }, "subtle"],
+    ...["subtle", "underline", "off"].map((wordHints) => [{ wordHints, quietMarks: wordHints !== "off" }, wordHints]),
+  ];
+  for (const [raw, wordHints] of cases) {
+    const normalized = asSettings(settings(raw));
+    assert.equal(normalized.wordHints, wordHints);
+    assert.equal(normalized.quietMarks, wordHints === "off");
+    assert.deepEqual(asSettings(JSON.parse(JSON.stringify(normalized))), normalized);
+    const item = normalizeItem({ kind: "settings", itemId: "main", updatedAt: 5, deleted: false, data: settings(raw) });
+    assert.equal(item.data.wordHints, wordHints);
+    assert.equal(item.data.quietMarks, wordHints === "off");
+  }
+});
+
+test("newer hint settings win in either merge direction without losing review history", () => {
+  const item = (updatedAt, wordHints, quietMarks, reviewLog) => ({
+    kind: "settings", itemId: "main", updatedAt, deleted: false,
+    data: settings({ wordHints, quietMarks, reviewLog }),
+  });
+  for (const wordHints of ["subtle", "underline", "off"]) {
+    const older = item(10, wordHints === "off" ? "underline" : "off", false,
+      { "2026-10-01": { reviewed: 4, correct: 1 } });
+    const newer = item(20, wordHints, wordHints !== "off",
+      { "2026-10-01": { reviewed: 2, correct: 3 } });
+    for (const [a, b] of [[older, newer], [newer, older]]) {
+      const merged = mergeItem(a, b);
+      assert.equal(merged.updatedAt, 20);
+      assert.equal(merged.data.wordHints, wordHints);
+      assert.equal(merged.data.quietMarks, wordHints === "off");
+      assert.deepEqual(merged.data.reviewLog["2026-10-01"], { reviewed: 4, correct: 3 });
+    }
+  }
+});
+
+test("a winning legacy hint item replaces underline instead of inheriting its enum", () => {
+  const item = (updatedAt, hints) => ({
+    kind: "settings", itemId: "main", updatedAt, deleted: false, data: settings(hints),
+  });
+  for (const quietMarks of [false, true]) {
+    const modern = item(10, { wordHints: "underline", quietMarks: false });
+    const legacy = item(20, { quietMarks });
+    for (const [a, b] of [[modern, legacy], [legacy, modern]]) {
+      const merged = mergeItem(a, b);
+      assert.equal(merged.updatedAt, 20);
+      assert.equal(merged.data.wordHints, quietMarks ? "off" : "subtle");
+      assert.equal(merged.data.quietMarks, quietMarks);
+    }
+    assert.equal(mergeItem(item(30, modern.data), legacy).data.wordHints, "underline", "an older legacy write cannot overwrite the newer enum");
+    assert.equal(mergeItem(item(20, modern.data), legacy).data.wordHints, quietMarks ? "off" : "subtle", "the preferred item still wins an equal-clock tie");
+    assert.equal(mergeItem(legacy, item(20, modern.data)).data.wordHints, "underline");
+  }
+});
+
+test("hint-only changes are tracked and included in outgoing settings snapshots", () => {
+  const base = captureSnapshot({ books: [], words: [], progress: {}, settings: settings({ wordHints: "subtle" }) });
+  for (const wordHints of ["underline", "off"]) {
+    const changed = captureSnapshot({ books: [], words: [], progress: {}, settings: settings({ wordHints }) });
+    const meta = noteChanges(emptyMeta(), base, changed, 777);
+    assert.equal(meta.settingsUpdatedAt, 777);
+    const sent = buildSyncItems(changed, meta).find((item) => item.kind === "settings");
+    assert.equal(sent.updatedAt, 777);
+    assert.equal(sent.data.wordHints, wordHints);
+    assert.equal(sent.data.quietMarks, wordHints === "off");
+  }
+});
+
 test("a bad sync payload is rejected", () => {
   assert.equal(normalizeItem({ kind: "shelf", itemId: "nope", updatedAt: 1, data: {} }), null);
   assert.equal(normalizeItem({ kind: "other", itemId: "book:a|b", updatedAt: 1, data: {} }), null);

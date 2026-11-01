@@ -11,6 +11,7 @@
  * Kind `words` is the old per-book word list. New clients no longer write it; they read it once per pull
  * and fold it into the wordbook (`foldLegacyWords`), so an older client that still writes it is not lost.
  */
+import { wordHintPrefs, type WordHints } from "./word-hints.ts";
 import { asGlossPoint, type GlossPoint } from "./gloss-point.ts";
 import { asAnchor, normalizeQuote, type TextAnchor } from "./position.ts";
 import { asQuoteBlob, mergeQuoteBlobs, quoteBlobTime } from "./quote-model.ts";
@@ -160,7 +161,8 @@ export type SettingsData = {
   focus: boolean;
   paging?: boolean;
   pronunciationAccent?: "UK" | "US";
-  /** Optional like paging: an older device omits it, and that reads as false. */
+  wordHints?: WordHints;
+  /** Mirror for old clients; a legacy winning item cannot express underline mode. */
   quietMarks?: boolean;
   locale: "en" | "zh";
   reviewLog: Record<string, ReviewDay>;
@@ -629,7 +631,7 @@ export function asSettings(data: unknown): SettingsData {
     focus: raw.focus === true,
     paging: raw.paging === true,
     pronunciationAccent: raw.pronunciationAccent === "UK" ? "UK" : "US",
-    quietMarks: raw.quietMarks === true,
+    ...wordHintPrefs(raw),
     locale,
     reviewLog: asReviewLog(raw.reviewLog),
     readDays: asReadDays(raw.readDays),

@@ -107,6 +107,7 @@ function prefsOf(): Prefs {
     focus: state.focus,
     paging: state.paging,
     pronunciationAccent: state.pronunciationAccent,
+    wordHints: state.wordHints,
     quietMarks: state.quietMarks,
   };
 }
@@ -475,6 +476,7 @@ function applySettings(settings: SettingsData) {
     focus: settings.focus,
     paging: settings.paging === true,
     pronunciationAccent: settings.pronunciationAccent === "UK" ? "UK" as const : "US" as const,
+    wordHints: settings.wordHints,
     quietMarks: settings.quietMarks === true,
   };
   if (JSON.stringify(current) !== JSON.stringify(next)) usePrefs.getState().set(next);
