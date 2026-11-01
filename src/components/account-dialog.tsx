@@ -809,6 +809,12 @@ export function AccountDialog() {
   // A new account types its emailed code first; the nickname question comes after.
   const checking = Boolean(signedIn && !emailVerified);
   const prompting = signedIn && nicknamePrompt && !checking;
+  const settingsRow = (
+    <button ref={settingsEntry} type="button" className={panel.row} onClick={() => setView("settings")} data-account-settings>
+      <span className={panel.rowLabel}>{t("settings.title")}{tutorialNews ? <span className="ml-2"><NewTag /></span> : null}</span>
+      <ChevronRight className={panel.rowIcon} aria-hidden />
+    </button>
+  );
 
   return (
     <Dialog.Root open={open} onOpenChange={(next) => (next ? openDialog(mode, resetToken) : closeDialog())}>
@@ -857,12 +863,6 @@ export function AccountDialog() {
           </Dialog.Description>
 
           <div hidden={view !== "account"} data-account-home>
-            <div className={cn(panel.box, "mb-5")}>
-              <button ref={settingsEntry} type="button" className={panel.row} onClick={() => setView("settings")} data-account-settings>
-                <span className={panel.rowLabel}>{t("settings.title")}{tutorialNews ? <span className="ml-2"><NewTag /></span> : null}</span>
-                <ChevronRight className={panel.rowIcon} aria-hidden />
-              </button>
-            </div>
           {signingUp ? (
             <div>
               <EmailCodeBox
@@ -924,6 +924,7 @@ export function AccountDialog() {
               <GlossaryAllowance />
               <section className={panel.group} aria-label={t("account.title")} data-account-more>
                 <div className={panel.box}>
+                  {settingsRow}
                   <button type="button" className={panel.row} onClick={() => void onExport()} disabled={busy} data-account-export>
                     <span className={panel.rowLabel}>{t("account.export")}</span>
                     <Download className={panel.rowIcon} aria-hidden />
@@ -1113,6 +1114,9 @@ export function AccountDialog() {
               ) : null}
             </form>
           )}
+            {!signedIn || checking || prompting ? (
+              <div className={cn(panel.box, "mt-5")}>{settingsRow}</div>
+            ) : null}
           </div>
           {view === "settings" ? <div className="grid gap-4 sm:gap-5" data-settings-panel><SettingsBody onDismiss={dismissForNavigation} /></div> : null}
         </Dialog.Content>
