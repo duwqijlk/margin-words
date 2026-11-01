@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle2, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, CheckCircle2, Compass, Library, NotebookPen, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import {
@@ -48,6 +48,7 @@ import { TutorialList } from "@/components/tutorial-tab";
 import { SponsorTab } from "@/components/sponsor-tab";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { takeLoginAfterWipe } from "@/lib/device-wipe";
+import { Avatar } from "@/components/avatar";
 import { AccountDialog } from "@/components/account-dialog";
 import { autoUpdateWordLists, useListUpdates } from "@/lib/word-list-update";
 import { rememberListPack, resolveFileOffer } from "@/lib/file-gap";
@@ -87,7 +88,6 @@ const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ defau
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
 const DashboardScreen = lazy(() => import("@/components/dashboard-page").then((m) => ({ default: m.DashboardScreen })));
 const AdminPage = lazy(() => import("@/components/admin-page").then((m) => ({ default: m.AdminPage })));
-const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
 const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
 const ReaderScreen = lazy(() => import("@/components/reader").then((m) => ({ default: m.ReaderScreen })));
 const ReviewScreen = lazy(() => import("@/components/review").then((m) => ({ default: m.ReviewScreen })));
@@ -110,14 +110,16 @@ export function MarginApp() {
   const tutorialOpen = useTutorial((state) => state.open);
   const feedbackTipOpen = useFeedbackTip((state) => state.open);
   const quoteTipOpen = useQuoteTip((state) => state.open);
-  // A tutorial not seen yet: a dot on the Settings button (its "Tutorials" row says New).
+  // A tutorial not seen yet: a dot on the account avatar (its "Tutorials" row says New).
   const tutorialNews = useTutorialNews();
   const signedIn = useAccount((state) => Boolean(state.email));
+  const publicId = useAccount((state) => state.publicId);
+  const nickname = useAccount((state) => state.nickname);
+  const avatar = useAccount((state) => state.avatar);
   const screen: Screen = useRoute();
   const [epubFor, setEpubFor] = useState<string | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
   const [storageWarning, setStorageWarning] = useState<string | null>(null);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const listRef = useRef<HTMLInputElement>(null);
   const listTarget = useRef<string | null>(null);
   const [listFlow, setListFlow] = useState<ListFlow | null>(null);
@@ -525,20 +527,13 @@ export function MarginApp() {
               aria-label={t("nav.account")}
               data-account-button
             >
-              <UserRound className="size-5" strokeWidth={1.75} aria-hidden />
-            </button>
-            <button
-              type="button"
-              className={cn(btn.icon, "size-11")}
-              onClick={() => setSettingsOpen(true)}
-              aria-label={t("nav.settings")}
-              data-settings-button
-            >
               <span className="relative inline-flex">
-                <Settings className="size-5" strokeWidth={1.75} aria-hidden />
-                {tutorialNews ? (
-                  <i className="absolute -top-1 -right-1 size-[7px] rounded-full bg-accent shadow-[0_0_0_2px_var(--paper)]" data-settings-dot />
-                ) : null}
+                {signedIn ? (
+                  <Avatar key={(publicId ?? "") + ":" + avatar} id={publicId ?? ""} name={nickname ?? ""} version={avatar} size={24} className="[&>svg]:!size-5" eager />
+                ) : (
+                  <UserRound className="size-5" strokeWidth={1.75} aria-hidden />
+                )}
+                {tutorialNews ? <i className="absolute -top-0.5 -right-0.5 size-[7px] rounded-full bg-accent shadow-[0_0_0_2px_var(--paper)]" data-account-dot /> : null}
               </span>
             </button>
           </div>
@@ -688,12 +683,6 @@ export function MarginApp() {
               if (warnings.length > 0) setSpineWarnings(warnings);
               openBook(bookId);
             }}
-          />
-        ) : null}
-        {settingsOpen ? (
-          <SettingsDialog
-            open={settingsOpen}
-            onOpenChange={setSettingsOpen}
           />
         ) : null}
         {tutorialOpen ? <TutorialDialog /> : null}

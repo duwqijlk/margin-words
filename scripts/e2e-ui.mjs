@@ -363,7 +363,8 @@ async function run(lang, size) {
   // ---- language lives in Settings, not in the header
   const other = lang === "zh" ? "en" : "zh";
   ok((await page.locator("[data-lang-button]").count()) === 0, `${label}: the header has no language button`);
-  await page.locator("[data-settings-button]").click();
+  await page.locator("[data-account-button]").click();
+  await page.locator("[data-account-settings]").click();
   await page.locator("[data-settings-language]").waitFor();
   await page.locator("[data-settings-language] button[aria-pressed=false]").click();
   await page.getByRole("button", { name: T[other]("shelf.findBooks"), exact: true }).waitFor();
@@ -674,7 +675,8 @@ async function run(lang, size) {
   await page.getByRole("heading", { name: t("nb.title"), exact: true }).waitFor();
   ok(!(await overflow()), `${label}: no horizontal overflow (notebook)`);
   await shot("notebook");
-  await page.getByRole("button", { name: t("nav.settings"), exact: true }).click();
+  await page.locator("[data-account-button]").click();
+  await page.locator("[data-account-settings]").click();
   await page.getByRole("dialog").waitFor();
   ok(
     (await page.locator("[data-settings-language]").count()) === 1 &&
@@ -776,7 +778,8 @@ async function run(lang, size) {
       (await vp.locator("[data-pack]").count()) === FREE_COUNT,
       `${label}: Discover lists ${FREE_COUNT} classics (${await vp.locator("[data-pack]").count()})`,
     );
-    await vp.getByRole("button", { name: t("nav.settings"), exact: true }).click();
+    await vp.locator("[data-account-button]").click();
+    await vp.locator("[data-account-settings]").click();
     ok((await vp.locator("[data-settings-guide]").count()) === 0, `${label}: Settings has no Guide row (the Guide page is gone)`);
     await vp.keyboard.press("Escape");
     ok((await vp.locator("header nav button").count()) === 3, `${label}: Shelf, Discover and Overview are the tabs`);

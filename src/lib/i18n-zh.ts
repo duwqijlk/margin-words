@@ -447,8 +447,9 @@ export const zh: Record<Key, string> = {
   /* ---- account */
   "account.manage": "账号",
   "account.title": "账号",
+  "account.backToAccount": "返回账号",
   "account.desc":
-    "登录后可以添加图书，书架、读到哪里和生词也会同步到其他设备。设备上已有的书，不登录也能读。",
+    "登录后可以添加和阅读图书，书架、读到哪里和生词也会同步到其他设备。",
   "account.signedDesc":
     "你已经登录。书架、读到哪里、生词和设置会同步到其他设备。书的文件留在每台设备上。",
   "account.privacyTitle": "隐私说明",
@@ -515,7 +516,6 @@ export const zh: Record<Key, string> = {
   "account.deleteWarn": "删除后，云端的账号和同步数据都会清掉，这台设备上的书和词表也会一起清空。",
   "account.deleteConfirm": "确认删除账号",
   "account.forgot": "忘记密码？",
-  "account.forgotBody": "现在还不能发邮件，所以还不能用邮箱重置密码。不登录也可以继续读书。",
   "account.forgotEmail": "你的邮箱",
   "account.forgotSend": "发送重置链接",
   "account.forgotSent": "如果这个邮箱注册过，重置链接已经发出，一小时内有效。",
@@ -536,7 +536,7 @@ export const zh: Record<Key, string> = {
   "account.err.turnstile": "请先完成验证。",
   "account.turnstileFailed": "人机验证没有完成。请检查网络，然后再试一次。",
   "account.turnstileRetry": "重新加载验证",
-  "account.err.network": "连不上账号服务。不登录也可以读书。",
+  "account.err.network": "连不上账号服务，请检查网络后重试。",
   "account.err.generic": "没有完成。请再试一次。",
   "account.err.nickname": "请填写 1 到 16 个字。",
   "account.err.code": "验证码不对，请检查后再输入。",

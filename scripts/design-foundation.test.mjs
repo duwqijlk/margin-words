@@ -139,10 +139,23 @@ test("one icon stroke, and nothing moves on e-ink", () => {
   assert.match(css, /\[data-theme="eink"\] \*,[\s\S]{0,80}animation: none !important;\s*transition: none !important;/);
 });
 
+test("account owns settings, with one avatar entry and no outdated guest-reading copy", () => {
+  const app = read("src/components/margin-app.tsx");
+  const account = read("src/components/account-dialog.tsx");
+  assert.doesNotMatch(app, /data-settings-button|SettingsDialog|settingsOpen/);
+  assert.match(app, /signedIn \? \([\s\S]*?<Avatar key=[^\n]*size=\{24\}[\s\S]*?: \(\s*<UserRound className="size-5"/, "only signed-in accounts show an avatar; guests keep the original account icon");
+  assert.match(app, /className="\[&>svg\]:!size-5"/, "fallback person stays as visible as the notebook icon");
+  assert.match(account, /data-account-settings/);
+  assert.match(account, /hidden=\{view !== "account"\}/);
+  assert.match(account, /<SettingsBody onDismiss=\{dismissForNavigation\}/);
+  assert.doesNotMatch(account, /account\.forgotBody/);
+  for (const locale of ["en", "zh"]) assert.doesNotMatch(read(`src/lib/i18n-${locale}.ts`), /"account\.forgotBody"/);
+});
+
 test("title hierarchy stays bold and book titles retain their display face", () => {
   // Dialog and page titles: the interface face, bold, -0.02em.
   // Settings and the account share the panel's title style.
-  assert.match(read("src/components/get-books.tsx"), /<Dialog\.Title className=\{panel\.title\}>\{t\("settings\.title"\)\}/);
+  assert.match(read("src/components/account-dialog.tsx"), /<Dialog\.Title[^>]*className=\{panel\.title\}>[\s\S]*?view === "settings" \? t\("settings\.title"\)/);
   assert.match(read("src/components/ui.tsx"), /title: "m-0 text-2xl leading-tight font-bold tracking-\[-0\.02em\]"/);
   for (const [file, text] of [["step-dialog", 'data("heading") : {})}>'], ["shelf-book-info", '{t("shelf.info")}']]) {
     const body = read(`src/components/${file}.tsx`);

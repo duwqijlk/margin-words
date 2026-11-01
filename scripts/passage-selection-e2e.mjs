@@ -30,7 +30,7 @@ try {
     const errors = [];
     page.on("pageerror", error => errors.push(error.message));
     await page.goto(new URL("shelf", base).href);
-    await page.locator("[data-settings-button]").waitFor();
+    await page.locator("[data-account-button]").waitFor();
     await page.evaluate(async sentence => {
       const db = await new Promise((resolve, reject) => {
         const req = indexedDB.open("cibian-books", 3);
