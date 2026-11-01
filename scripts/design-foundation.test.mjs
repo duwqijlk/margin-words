@@ -86,12 +86,25 @@ test("the interface font and the self-hosted Chinese serif are wired in", () => 
   }
 });
 
+test("non-reader pages and portals share the display face without changing reader defaults", () => {
+  const scope = 'html[data-ui-font="display"]';
+  assert.match(block(scope), /--font-sans: var\(--font-display\);/);
+  assert.match(block(`${scope} body`), /font-variant-numeric: lining-nums;/);
+  assert.match(block(`${scope} kbd`), /font-family: var\(--font-display\);/);
+  assert.match(block(`${scope} [class~="[font-variant-numeric:tabular-nums]"]`), /font-variant-numeric: lining-nums tabular-nums;/);
+  const app = read("src/components/margin-app.tsx");
+  assert.match(app, /const reading = screen\.kind === "read";/);
+  assert.match(app, /useLayoutEffect\(\(\) => \{[\s\S]*?if \(reading\) root\.removeAttribute\("data-ui-font"\);\s*else root\.setAttribute\("data-ui-font", "display"\);\s*return \(\) => root\.removeAttribute\("data-ui-font"\);\s*\}, \[reading\]\);/);
+  assert.match(block(".book-body"), /font-family: var\(--reader-font, var\(--font-display\)\);/);
+  assert.match(block(".word-ipa"), /font-family: "Inter"/);
+});
+
 test("one icon stroke, and nothing moves on e-ink", () => {
   assert.match(css, /\.lucide \{\s*stroke-width: 1\.5;/);
   assert.match(css, /\[data-theme="eink"\] \*,[\s\S]{0,80}animation: none !important;\s*transition: none !important;/);
 });
 
-test("interface titles and numbers use the bold interface font; the book's own words stay in Literata", () => {
+test("title hierarchy stays bold and book titles retain their display face", () => {
   // Dialog and page titles: the interface face, bold, -0.02em.
   // Settings and the account share the panel's title style.
   assert.match(read("src/components/get-books.tsx"), /<Dialog\.Title className=\{panel\.title\}>\{t\("settings\.title"\)\}/);

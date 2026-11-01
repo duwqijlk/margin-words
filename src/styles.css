@@ -293,6 +293,25 @@
     "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
+/* One face across non-reading pages, including body-level portals. The reader keeps its
+   original interface stack and independent book font preferences when this scope is removed. */
+html[data-ui-font="display"] {
+  --font-sans: var(--font-display);
+}
+html[data-ui-font="display"] body {
+  font-variant-numeric: lining-nums;
+}
+html[data-ui-font="display"] .font-mono,
+html[data-ui-font="display"] code,
+html[data-ui-font="display"] pre,
+html[data-ui-font="display"] kbd {
+  font-family: var(--font-display);
+}
+html[data-ui-font="display"] .tabular-nums,
+html[data-ui-font="display"] [class~="[font-variant-numeric:tabular-nums]"] {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
 @layer base {
   html {
     /* Phones leave the scrollbar slot alone, so reading text is the same distance from both

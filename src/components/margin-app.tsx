@@ -1,5 +1,5 @@
 import { AlertCircle, CheckCircle2, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
-import { lazy, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import {
   bookFileExists,
@@ -418,6 +418,13 @@ export function MarginApp() {
     };
   }, [screen.kind]);
   const reading = screen.kind === "read";
+  // Root scope also reaches dialogs and menus portalled outside the app container.
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    if (reading) root.removeAttribute("data-ui-font");
+    else root.setAttribute("data-ui-font", "display");
+    return () => root.removeAttribute("data-ui-font");
+  }, [reading]);
   const offline = useOffline();
   // A review round runs in focus mode (focus-mode.ts): none of the site chrome, as in the reader.
   const focus = useFocusMode((state) => state.on) && screen.kind === "review";
