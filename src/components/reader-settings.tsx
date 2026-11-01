@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Popover from "@radix-ui/react-popover";
-import { Focus, BookOpen, Type, X } from "lucide-react";
+import { Type, X } from "lucide-react";
 import { useSyncExternalStore, type ReactNode } from "react";
 import { useT, type Key } from "@/lib/i18n";
 import {
@@ -178,22 +178,16 @@ function SettingsBody() {
 
       <div className="grid rounded bg-sheet px-3.5 [&>*+*]:border-t [&>*+*]:border-line">
         <div className="flex min-h-[52px] items-center justify-between gap-4">
-          <span className="flex min-w-0 items-center gap-2.5 text-[15px] font-bold">
-            <Focus className="size-[18px] shrink-0 text-muted" aria-hidden />
-            <span>
-              {t("rs.focus")}
-              <small className="block text-[13px] font-normal text-faint">{t("rs.focusHint")}</small>
-            </span>
+          <span className="min-w-0 text-[15px] font-bold">
+            {t("rs.focus")}
+            <small className="block text-[13px] font-normal text-faint">{t("rs.focusHint")}</small>
           </span>
           <Switch checked={prefs.focus} onChange={(focus) => set({ focus })} label={t("rs.focus")} data-reader-focus />
         </div>
         <div className="flex min-h-[52px] items-center justify-between gap-4">
-          <span className="flex min-w-0 items-center gap-2.5 text-[15px] font-bold">
-            <BookOpen className="size-[18px] shrink-0 text-muted" aria-hidden />
-            <span>
-              {t("rs.quietMarks")}
-              <small className="block text-[13px] font-normal text-faint">{t("rs.quietMarksHint")}</small>
-            </span>
+          <span className="min-w-0 text-[15px] font-bold">
+            {t("rs.quietMarks")}
+            <small className="block text-[13px] font-normal text-faint">{t("rs.quietMarksHint")}</small>
           </span>
           <Switch checked={!prefs.quietMarks} onChange={(showHints) => set({ quietMarks: !showHints })} label={t("rs.quietMarks")} data-reader-quiet-marks />
         </div>
