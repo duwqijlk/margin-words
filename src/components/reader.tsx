@@ -1826,6 +1826,7 @@ export function ReaderScreen({
             className="book-body"
             lang="en"
             data-segmentation={book.segmentation === 2 ? "2" : undefined}
+            data-word-hints={prefs.wordHints}
             data-quiet-marks={prefs.quietMarks ? "" : undefined}
             dangerouslySetInnerHTML={{ __html: linkedHtml }}
           />

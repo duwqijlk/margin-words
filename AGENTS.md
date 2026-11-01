@@ -18,8 +18,10 @@ All of it is in (PR #249). Its rules, in the code:
   (the word card), `accent` = brand, `accent-soft` = brand-tint, `mark` = saved / understood (never a
   selection colour), `warn` only for what needs the reader. Saved highlights use soft amber, with
   `mark-hover` and `mark-active` for interaction, and `mark-inverse` for readable amber actions on `bg-ink`.
-  Reader hints use muted-green ink (gray grounds on e-ink), never underlines; saved words retain full-height
-  backgrounds and ordinary ink. `quietMarks` remains stored, with Show word hints mapping to its inverse.
+  Word hints offer Subtle (muted-green ink, gray grounds on e-ink), Underline (solid/dashed/wavy), and Off.
+  Saved words retain full-height backgrounds and ordinary ink in every mode. `wordHints` is canonical;
+  `quietMarks` mirrors Off for old clients. Legacy true maps to Off, false/missing to Subtle. Settings sync
+  stays item-LWW: a winning old-client record cannot express Underline and maps back to Subtle.
 - Radii: `rounded-sm` 2px (marks on text), `rounded`/`md`/`lg`/`xl` 10px (buttons, fields, chips, notices),
   `rounded-2xl`/`3xl` 16px (cards, dialogs, popovers), `rounded-cover` 6px (book covers), `rounded-card` /
   `rounded-t-sheet` for the word card only. No pills: `rounded-full` is for dots, switches, avatars and the spinner.
@@ -61,7 +63,7 @@ All of it is in (PR #249). Its rules, in the code:
   Settings and in the reader's Aa panel alike; switches are `Switch`.
 - The reader's Aa panel (`reader-settings.tsx`): theme pages, three font cards ("Aa" in the font; the sans
   choice is Atkinson, key `sans`, no longer Inter), A buttons at the ends of the size slider, line spacing
-  with a drawing of each gap, page width, Focus and Show word hints as switches. A popover with a point on
+  with a drawing of each gap, page width, a Focus switch and a full-width three-choice Word hints control. A popover with a point on
   a wide screen, a bottom sheet on a phone; every change shows at once in the page behind.
 - The account dialog: a 64px round picture with a camera button, the nickname with a pencil that edits it
   in place, My reading (tiles and the words mastered, with Share), the word-list places as bars, and

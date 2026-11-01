@@ -56,15 +56,15 @@ test("amber backgrounds and inverse actions stay readable in every theme", () =>
   assert.doesNotMatch(read("src/components/help-panels.tsx"), /bg-mark\/\d/);
 });
 
-test("hint settings retain stored quiet preferences with a positive switch", () => {
+test("word hints offer subtle, underline and off without changing the focus switch", () => {
   const settings = read("src/components/reader-settings.tsx");
-  assert.match(settings, /checked=\{!prefs\.quietMarks\}/);
-  assert.match(settings, /set\(\{ quietMarks: !showHints \}\)/);
-  assert.doesNotMatch(settings, /<Underline|<BookOpen|<Focus/);
-  const hintRow = settings.slice(settings.indexOf('{t("rs.quietMarks")}'), settings.indexOf('data-reader-quiet-marks'));
-  assert.doesNotMatch(hintRow, /<svg|<BookOpen/);
-  assert.match(hintRow, /rs\.quietMarksHint/);
-  assert.match(read("src/lib/i18n-en.ts"), /"rs.quietMarks": "Show word hints"/);
+  assert.match(settings, /value=\{prefs\.wordHints\}/);
+  assert.match(settings, /set\(\{ wordHints \}\)/);
+  assert.match(settings, /data-reader-word-hints/);
+  assert.doesNotMatch(settings, /data-reader-quiet-marks|<Underline|<BookOpen|<Focus/);
+  for (const mode of ["subtle", "underline", "off"]) assert.match(settings, new RegExp(`value: "${mode}"`));
+  assert.match(settings, /checked=\{prefs\.focus\}/);
+  assert.match(read("src/lib/i18n-en.ts"), /"rs.wordHints": "Word hints"/);
 });
 
 test("paper is pure white with a brand green that passes AA, and the theme picker offers e-ink", () => {

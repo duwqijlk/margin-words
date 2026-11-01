@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
+import { wordHintPrefs, type WordHints } from "./word-hints.ts";
 
 /** Paper ("light"), sepia, dark, e-ink. "clear" was retired: it reads as paper. */
 export type Theme = "light" | "sepia" | "dark" | "eink";
@@ -53,7 +54,8 @@ export type Prefs = {
   focus: boolean;
   paging: boolean;
   pronunciationAccent: "UK" | "US";
-  /** Hide static word hints, retaining saved and current marks. Tapping still opens the card. */
+  wordHints: WordHints;
+  /** Compatibility mirror for older clients. Saved/current marks remain visible when off. */
   quietMarks: boolean;
 };
 
@@ -103,14 +105,15 @@ export const usePrefs = create<PrefsState>()(
       focus: false,
       paging: false,
       pronunciationAccent: "US",
+      wordHints: "subtle",
       quietMarks: false,
-      set: (patch) => set(patch),
+      set: (patch) => set("wordHints" in patch || "quietMarks" in patch ? { ...patch, ...wordHintPrefs(patch) } : patch),
     }),
     {
       name: PREFS_KEY,
       skipHydration: true,
       storage: createJSONStorage(safeStorage),
-      partialize: ({ theme, font, size, leading, width, column, focus, paging, pronunciationAccent, quietMarks }) => ({
+      partialize: ({ theme, font, size, leading, width, column, focus, paging, pronunciationAccent, wordHints, quietMarks }) => ({
         theme,
         font,
         size,
@@ -120,7 +123,7 @@ export const usePrefs = create<PrefsState>()(
         focus,
         paging: Boolean(paging),
         pronunciationAccent,
-        quietMarks: Boolean(quietMarks),
+        ...wordHintPrefs({ wordHints, quietMarks }),
       }),
       merge: (persisted, current) => {
         const saved = (persisted ?? {}) as Partial<Prefs>;
@@ -132,7 +135,7 @@ export const usePrefs = create<PrefsState>()(
           column: columnRem({ column: saved.column, width: saved.width ?? current.width }),
           paging: Boolean(saved.paging),
           pronunciationAccent: saved.pronunciationAccent === "UK" ? "UK" : "US",
-          quietMarks: saved.quietMarks === true,
+          ...wordHintPrefs(saved),
         };
       },
     },

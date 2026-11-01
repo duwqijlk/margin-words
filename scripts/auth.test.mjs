@@ -601,6 +601,48 @@ test("sync merges word blobs and keeps the newer shelf card", async () => {
   assert.equal(anon.status, 401);
 });
 
+test("sync settings round-trip every hint mode through push, database, and pull", async (t) => {
+  const db = openDb();
+  t.after(() => db.raw.close());
+  const env = envOf(db);
+  // In-memory account only; signUpFully captures the email code instead of sending mail.
+  const created = await signUpFully(handleRegister, env, {
+    body: { email: "hint-reader@example.com", password: "correct horse" },
+  });
+  assert.equal(created.status, 201);
+  const cookie = cookieHeader(created);
+  const hintsOf = ({ wordHints, quietMarks }) => ({ wordHints, quietMarks });
+  const push = async (updatedAt, hints, expectedMode, expectedAt = updatedAt) => {
+    const response = await call(handleSyncPush, env, {
+      path: "/api/sync", cookie,
+      body: { items: [{ kind: "settings", itemId: "main", updatedAt, deleted: false, data: hints }] },
+    });
+    assert.equal(response.status, 200);
+    const saved = (await response.json()).items.find((item) => item.kind === "settings");
+    assert.ok(saved);
+    assert.equal(saved.updatedAt, expectedAt);
+    const expected = { wordHints: expectedMode, quietMarks: expectedMode === "off" };
+    assert.deepEqual(hintsOf(saved.data), expected, "push returns the normalized winning hint mode");
+    const row = db.raw.prepare("SELECT data, updated_at FROM sync_items WHERE kind = 'settings' AND item_id = 'main'").get();
+    assert.equal(row.updated_at, expectedAt);
+    assert.deepEqual(hintsOf(JSON.parse(row.data)), expected, "the enum and compatibility flag are actually stored");
+    const pulled = await call(handleSyncPull, env, { method: "GET", path: "/api/sync", cookie });
+    assert.equal(pulled.status, 200);
+    const remote = (await pulled.json()).items.find((item) => item.kind === "settings");
+    assert.equal(remote.updatedAt, expectedAt);
+    assert.deepEqual(hintsOf(remote.data), expected, "another device receives both fields");
+  };
+
+  for (const [index, wordHints] of ["subtle", "underline", "off"].entries()) {
+    await push(10 + index, { wordHints, quietMarks: wordHints !== "off" }, wordHints);
+  }
+  await push(20, { wordHints: "underline" }, "underline");
+  await push(19, { quietMarks: true }, "underline", 20);
+  await push(30, { quietMarks: false }, "subtle");
+  await push(40, { quietMarks: true }, "off");
+  await push(50, { wordHints: "invalid", quietMarks: false }, "subtle");
+});
+
 test("an `after` pull returns only rows the server wrote since the cursor, whatever the item clock says", async () => {
   const db = openDb();
   const env = envOf(db);

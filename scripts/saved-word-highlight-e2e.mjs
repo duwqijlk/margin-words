@@ -1,7 +1,7 @@
 // Real save/remove plus computed-style probes; never changes source CSS or fixture data.
 // node scripts/saved-word-highlight-e2e.mjs [baseUrl]
 import assert from 'node:assert/strict';
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { BOOK, seed, installRecorders, anchor, position, tap, settle } from './lib/word-ipa-fixture.mjs';
@@ -16,15 +16,25 @@ const palettes = {
 };
 const rgb = hex => `rgb(${hex.slice(1).match(/../g).map(value => parseInt(value, 16)).join(', ')})`;
 const transparent = 'rgba(0, 0, 0, 0)';
-const settingsNames = Object.fromEntries(await Promise.all(['en', 'zh'].map(async locale => {
+const modes = ['subtle', 'underline', 'off'];
+const settingsLabels = Object.fromEntries(await Promise.all(['en', 'zh'].map(async locale => {
   const source = await readFile(new URL(`../src/lib/i18n-${locale}.ts`, import.meta.url), 'utf8');
-  const match = source.match(/"rs\.aria":\s*("(?:[^"\\]|\\.)*")/);
-  assert.ok(match, `Missing ${locale} reading settings label`);
-  return [locale, JSON.parse(match[1])];
+  const labels = Object.fromEntries([...source.matchAll(/"(rs\.[^"]+)":\s*("(?:[^"\\]|\\.)*")/g)]
+    .map(([, key, value]) => [key, JSON.parse(value)]));
+  for (const key of ['rs.aria', 'rs.wordHints', ...modes.map(mode => `rs.wordHints.${mode}`)]) {
+    assert.ok(labels[key], `Missing ${locale} ${key} label`);
+  }
+  return [locale, labels];
 })));
 const browser = await chromium.launch({ executablePath: process.env.CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
-let failures = 0, passed = 0;
+let failures = 0, passed = 0, attempted = 0;
 const mediaCoverage = new Set();
+const evidence = [`Started ${new Date().toISOString()} at ${base}; synthetic isolated notebook, mocked audio/TTS, external requests aborted.`];
+const evidencePath = `${exportsDir}/word-hints-e2e-${new Date().toISOString().replace(/[:.]/g, '-')}.log`;
+function log(message, error = false) {
+  evidence.push(message);
+  (error ? console.error : console.log)(message);
+}
 await mkdir(exportsDir, { recursive: true });
 
 async function geometry(page) {
@@ -48,21 +58,30 @@ async function styleOf(word) {
       return value;
     };
     return { background: s.backgroundColor, image: s.backgroundImage, color: s.color,
-      decoration: s.textDecorationLine, outerDecoration: outer.textDecorationLine,
+      decoration: s.textDecorationLine, decorationStyle: s.textDecorationStyle,
+      decorationColor: s.textDecorationColor, decorationThickness: s.textDecorationThickness,
+      outerDecoration: outer.textDecorationLine, outerDecorationStyle: outer.textDecorationStyle,
+      outerDecorationColor: outer.textDecorationColor, outerDecorationThickness: outer.textDecorationThickness,
       shadow: s.boxShadow, outerShadow: outer.boxShadow,
       outline: s.outlineStyle, outerOutline: outer.outlineStyle,
       display: s.display, padding: [s.paddingTop, s.paddingRight, s.paddingBottom, s.paddingLeft],
-      tokens: Object.fromEntries(['--mark', '--mark-hover', '--mark-active', '--word-hint', '--ink', '--accent-soft']
+      tokens: Object.fromEntries(['--mark', '--mark-hover', '--mark-active', '--word-hint', '--ink', '--accent', '--accent-soft']
         .map(name => [name, resolve(name)])) };
   });
 }
 
-function check(style, { background, color, current = false }, label) {
+function check(style, { background, color, current = false, lineStyle = null, lineColor = style.tokens['--accent'] }, label) {
   assert.equal(style.background, background, `${label}: exact full-height background`);
   assert.equal(style.image, 'none', `${label}: no partial-height gradient`);
   assert.equal(style.color, color, `${label}: exact ink token`);
-  assert.equal(style.decoration, 'none', `${label}: no underline`);
+  assert.equal(style.decoration, lineStyle ? 'underline' : 'none', `${label}: decoration line`);
+  assert.equal(style.decorationStyle, lineStyle ?? 'solid', `${label}: decoration style`);
+  assert.equal(style.decorationColor, lineStyle ? lineColor : color, `${label}: decoration color`);
+  assert.equal(style.decorationThickness, lineStyle ? '1.5px' : 'auto', `${label}: decoration thickness`);
   assert.equal(style.outerDecoration, 'none', `${label}: no ancestor underline`);
+  assert.equal(style.outerDecorationStyle, 'solid', `${label}: no styled ancestor decoration`);
+  assert.equal(style.outerDecorationColor, style.tokens['--ink'], `${label}: ancestor decoration ink`);
+  assert.equal(style.outerDecorationThickness, 'auto', `${label}: no ancestor decoration thickness`);
   assert.equal(style.shadow, 'none', `${label}: no text shadow box`);
   assert.equal(style.display, 'inline', `${label}: full inline background, not a layout-changing block`);
   assert.deepEqual(style.padding, ['0px', '0px', '0px', '0px'], `${label}: no added inline padding`);
@@ -82,34 +101,69 @@ async function closeCard(page) {
   await settle(page);
 }
 
-async function toggleHints(page, locale, quiet) {
-  // Real React settings switch: checked is the inverse of persisted quietMarks.
-  await page.evaluate(() => window.dispatchEvent(new WheelEvent('wheel')));
-  const trigger = page.getByRole('button', { name: settingsNames[locale], exact: true });
-  await trigger.click();
-  const toggle = page.locator('[data-reader-quiet-marks]');
-  await toggle.waitFor();
-  assert.equal(await toggle.getAttribute('aria-checked'), String(quiet), 'pre-toggle checked=!quietMarks');
-  await toggle.click();
+async function assertMode(page, mode) {
   await page.waitForFunction(value => {
-    const prefs = JSON.parse(localStorage.getItem('cibian-prefs-v1'));
-    return prefs.state.quietMarks === value
-      && document.querySelector('article').hasAttribute('data-quiet-marks') === value;
-  }, quiet);
-  assert.equal(await toggle.getAttribute('aria-checked'), String(!quiet), 'post-toggle checked=!quietMarks');
+    const prefs = JSON.parse(localStorage.getItem('cibian-prefs-v1'))?.state;
+    const article = document.querySelector('article');
+    return prefs?.wordHints === value && prefs.quietMarks === (value === 'off')
+      && article?.getAttribute('data-word-hints') === value
+      && article.hasAttribute('data-quiet-marks') === (value === 'off');
+  }, mode).catch(async error => {
+    const actual = await page.evaluate(() => ({
+      prefs: JSON.parse(localStorage.getItem('cibian-prefs-v1'))?.state,
+      articleMode: document.querySelector('article')?.getAttribute('data-word-hints'),
+      quiet: document.querySelector('article')?.hasAttribute('data-quiet-marks'),
+    }));
+    throw new Error(`${mode}: setting persistence/render mismatch ${JSON.stringify(actual)}`, { cause: error });
+  });
+}
+
+async function openHintSettings(page, locale, mode) {
+  await page.evaluate(() => window.dispatchEvent(new WheelEvent('wheel')));
+  await page.getByRole('button', { name: settingsLabels[locale]['rs.aria'], exact: true }).click();
+  const group = page.locator('[data-reader-word-hints]').getByRole('group', {
+    name: settingsLabels[locale]['rs.wordHints'], exact: true,
+  });
+  await group.waitFor();
+  assert.equal(await group.getByRole('button').count(), 3, 'exactly three real segmented options');
+  for (const value of modes) {
+    assert.equal(await group.getByRole('button', { name: settingsLabels[locale][`rs.wordHints.${value}`], exact: true })
+      .getAttribute('aria-pressed'), String(value === mode), `${value}: exclusive aria-pressed selection`);
+  }
+  return group;
+}
+
+async function closeHintSettings(page) {
   await page.keyboard.press('Escape');
   await page.locator('[data-reader-settings]').waitFor({ state: 'detached' });
   await page.mouse.move(0, 0);
+  await page.waitForTimeout(150);
   await settle(page);
 }
 
-async function matrix(page, word, theme, quiet, baseline, monochrome = false) {
+async function selectHints(page, locale, from, mode, screenshot) {
+  const group = await openHintSettings(page, locale, from);
+  await group.getByRole('button', { name: settingsLabels[locale][`rs.wordHints.${mode}`], exact: true }).click();
+  await assertMode(page, mode);
+  for (const value of modes) {
+    assert.equal(await group.getByRole('button', { name: settingsLabels[locale][`rs.wordHints.${value}`], exact: true })
+      .getAttribute('aria-pressed'), String(value === mode), `${value}: selected state after real setting action`);
+  }
+  if (screenshot) {
+    await group.scrollIntoViewIfNeeded();
+    await settle(page);
+    await page.screenshot({ path: screenshot });
+  }
+  await closeHintSettings(page);
+}
+
+async function matrix(page, word, theme, mode, baseline, monochrome = false, screenshot) {
   const original = await word.evaluate(el => el.parentElement.className);
   const hint = monochrome ? (await styleOf(word)).tokens['--ink'] : rgb(palettes[theme].hint);
   const grayHint = theme === 'eink' || monochrome;
   const marks = (monochrome ? palettes.eink : palettes[theme]).marks.map(rgb);
   try {
-    // Probe states independently of lexicon availability; real saving and quiet settings are tested separately.
+    // Probe states independently of lexicon availability; real saving and segmented settings are tested separately.
     for (const classes of ['book-hard', 'book-phrase', 'book-tricky', 'book-wait',
       'book-hard book-wait', 'book-hard book-saved', 'book-phrase book-saved',
       'book-tricky book-saved', 'book-wait book-saved', 'book-hard book-on',
@@ -120,19 +174,27 @@ async function matrix(page, word, theme, quiet, baseline, monochrome = false) {
       const s = await styleOf(word);
       const saved = classes.includes('book-saved'), current = classes.includes('book-on');
       const waiting = classes.includes('book-wait');
-      const hidden = quiet && !saved && !current;
-      check(s, { color: saved || current || waiting || hidden ? s.tokens['--ink'] : hint,
+      const ready = !saved && !current && !waiting && mode !== 'off';
+      const subtle = ready && mode === 'subtle';
+      const lineStyle = ready && mode === 'underline'
+        ? classes.includes('book-phrase') ? 'dashed' : classes.includes('book-tricky') ? 'wavy' : 'solid'
+        : null;
+      const lineColor = monochrome ? s.tokens['--ink'] : s.tokens['--accent'];
+      check(s, { color: subtle ? hint : s.tokens['--ink'], lineStyle, lineColor,
         background: saved ? marks[current ? 2 : 0] : current ? s.tokens['--accent-soft']
-          : hidden || waiting || !grayHint ? transparent : rgb('#eeeeee'), current },
-      `${quiet ? 'quiet' : 'hints'} ${classes}`);
-      assert.deepEqual(await geometry(page), baseline, `${classes}: state precedence never shifts reader geometry`);
+          : subtle && grayHint ? rgb('#eeeeee') : transparent, current }, `${mode} ${classes}`);
+      assert.deepEqual(await geometry(page), baseline, `${mode} ${classes}: state precedence never shifts reader geometry`);
+      if (screenshot && classes === 'book-hard') {
+        await page.screenshot({ path: screenshot });
+        log(`SCREENSHOT ${screenshot}: ${mode} unsaved hard word normal; ${JSON.stringify(s)}`);
+      }
       await word.hover();
       await page.waitForTimeout(140);
       const hover = await styleOf(word);
-      check(hover, { color: s.color, background: saved ? marks[current ? 2 : 1]
-        : current ? s.tokens['--accent-soft'] : hidden || waiting ? transparent
-          : grayHint ? rgb('#eeeeee') : s.tokens['--accent-soft'], current }, `${classes} hover`);
-      assert.deepEqual(await geometry(page), baseline, `${classes}: hover geometry stable`);
+      check(hover, { color: s.color, lineStyle, lineColor, background: saved ? marks[current ? 2 : 1]
+        : current ? s.tokens['--accent-soft'] : !ready ? transparent
+          : subtle && grayHint ? rgb('#eeeeee') : s.tokens['--accent-soft'], current }, `${mode} ${classes} hover`);
+      assert.deepEqual(await geometry(page), baseline, `${mode} ${classes}: hover geometry stable`);
     }
   } finally {
     await word.evaluate((el, value) => { el.parentElement.className = value; }, original);
@@ -143,6 +205,9 @@ async function matrix(page, word, theme, quiet, baseline, monochrome = false) {
 
 try {
   for (const locale of ['en', 'zh']) for (const width of [320, 1280]) for (const theme of Object.keys(palettes)) {
+    // Optional single-case reruns preserve the full matrix as the default.
+    if (process.env.WORD_HINTS_CASE && process.env.WORD_HINTS_CASE !== `${locale}-${width}-${theme}`) continue;
+    attempted++;
     const context = await browser.newContext({ viewport: { width, height: 844 },
       isMobile: width < 768, hasTouch: width < 768, serviceWorkers: 'block' });
     await context.route('**/*', route => {
@@ -173,11 +238,12 @@ try {
       await page.locator('article p').first().waitFor();
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(2800);
-      const word = anchor(page, 'bath');
+      let word = anchor(page, 'bath');
       await page.evaluate(() => window.dispatchEvent(new WheelEvent('wheel')));
       await position(page, word);
       await page.waitForTimeout(850);
-      const before = await geometry(page), marks = palettes[theme].marks.map(rgb);
+      let before = await geometry(page);
+      const marks = palettes[theme].marks.map(rgb);
       const initial = await styleOf(word);
       for (const [i, token] of ['--mark', '--mark-hover', '--mark-active'].entries()) {
         assert.equal(initial.tokens[token], marks[i], `${label}: ${token} exact palette`);
@@ -219,11 +285,33 @@ try {
       await word.evaluate(el => el.parentElement.removeAttribute('data-amber-focus-probe'));
       await page.waitForTimeout(150);
       assert.deepEqual(await geometry(page), before, 'normal/hover/synthetic focus geometry stable');
-      await matrix(page, word, theme, false, before);
-      await toggleHints(page, locale, true);
-      await matrix(page, word, theme, true, before);
-      await toggleHints(page, locale, false);
-      assert.deepEqual(await geometry(page), before, 'real quiet switch preserves document geometry');
+      let activeMode = 'subtle';
+      for (const mode of modes) {
+        await selectHints(page, locale, activeMode, mode,
+          `${exportsDir}/word-hints-settings-${locale}-${width}-${theme}-${mode}.png`);
+        assert.deepEqual(await geometry(page), before, `${mode}: real segmented action preserves document geometry`);
+        // Reload before class probes and baseline: synthetic classes do not survive a real navigation.
+        await page.reload();
+        await page.locator('article p').first().waitFor();
+        await page.evaluate(() => document.fonts.ready);
+        await page.waitForTimeout(850);
+        await assertMode(page, mode);
+        await openHintSettings(page, locale, mode);
+        await closeHintSettings(page);
+        word = anchor(page, 'bath');
+        await position(page, word);
+        await page.waitForTimeout(850);
+        before = await geometry(page);
+        assert.equal(await word.evaluate(el => el.parentElement.classList.contains('book-saved')), true,
+          `${mode}: real saved word survives reload`);
+        const screenshot = mode === 'subtle' || (mode === 'underline' && theme === 'eink')
+          ? `${exportsDir}/word-hints-reader-${locale}-${width}-${theme}-${mode}.png` : undefined;
+        await matrix(page, word, theme, mode, before, false, screenshot);
+        log(`MODE PASS ${label} ${mode}: real three-option action, canonical+quiet mirror, article attributes, reload persistence, 13 normal/hover class pairs and exact geometry`);
+        activeMode = mode;
+      }
+      await selectHints(page, locale, activeMode, 'subtle');
+      assert.deepEqual(await geometry(page), before, 'restoring subtle preserves document geometry');
 
       // Chrome can accept unsupported feature names silently. A successful CDP call alone proves nothing.
       if (locale === 'en' && width === 1280 && theme === 'light') {
@@ -239,11 +327,14 @@ try {
             for (const [i, token] of ['--mark', '--mark-hover', '--mark-active'].entries()) {
               assert.equal(mediaStyle.tokens[token], palettes.eink.marks.map(rgb)[i], `${query}: grayscale token`);
             }
-            await matrix(page, word, theme, false, before, true);
-            await toggleHints(page, locale, true);
-            await matrix(page, word, theme, true, before, true);
-            await toggleHints(page, locale, false);
-            mediaCoverage.add(`${query}: VERIFIED by matchMedia and complete hint/saved/current matrix`);
+            let from = 'subtle';
+            for (const mode of modes) {
+              await selectHints(page, locale, from, mode);
+              await matrix(page, word, theme, mode, before, true);
+              from = mode;
+            }
+            await selectHints(page, locale, from, 'subtle');
+            mediaCoverage.add(`${query}: VERIFIED by matchMedia and all three complete hint/saved/current matrices`);
           } catch (error) {
             if (!/Emulation\.setEmulatedMedia|wasn't found|Unknown method|Invalid parameters/.test(error.message)) throw error;
             mediaCoverage.add(`${query}: SKIPPED, unsupported CDP emulation: ${error.message}`);
@@ -268,13 +359,17 @@ try {
       assert.deepEqual(await geometry(page), before, 'real removal preserves word fragments, wrapping and article geometry');
       assert.deepEqual(errors, [], 'no page errors');
       passed++;
-      console.log(`PASS ${label}: exact normal/hover/current amber, non-underlined hints, quiet switch inverse, class precedence, real save/remove, zero geometry changes; screenshot saved`);
+      log(`PASS ${label}: all three modes, exact decoration style/color/thickness, normal/hover/current amber, canonical setting+quiet mirror, reload persistence, class precedence, real save/remove, zero geometry changes; screenshots saved`);
     } catch (error) {
       failures++;
-      console.error(`FAIL ${label}: ${error.stack}`);
+      log(`FAIL ${label}: ${error.stack}`, true);
+      await page.screenshot({ path: `${exportsDir}/word-hints-FAIL-${locale}-${width}-${theme}.png` }).catch(() => {});
     } finally { await context.close(); }
   }
-} finally { await browser.close(); }
-for (const result of mediaCoverage) console.log(`MEDIA ${result}`);
-console.log(`SUMMARY ${passed}/16 passed, ${failures} failed. Native keyboard span focus intentionally NOT tested; CDP focus-visible styling probe only. 375px optional coverage skipped. Screenshots: ${exportsDir}`);
+} finally {
+  await browser.close();
+  for (const result of mediaCoverage) log(`MEDIA ${result}`);
+  log(`SUMMARY ${passed}/${attempted} passed, ${failures} failed. Native keyboard span focus intentionally NOT tested; CDP focus-visible styling probe only. 375px optional coverage skipped. Screenshots: ${exportsDir}. Evidence: ${evidencePath}`);
+  await writeFile(evidencePath, evidence.join('\n') + '\n');
+}
 process.exitCode = failures ? 1 : 0;
