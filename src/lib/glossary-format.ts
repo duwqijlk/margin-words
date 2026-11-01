@@ -2110,10 +2110,9 @@ export function fillReadingRoot(
       }
       const button = doc.createElement("span");
       button.setAttribute("role", "button");
-      // Not in the tab order. A chapter can hold hundreds of these, and every one of them in the
-      // tab order made Tab walk the whole page word by word. They stay in the accessibility tree
-      // and still work with a screen reader's own cursor; a tap or a click opens the card.
-      button.tabIndex = -1;
+      // Keep words out of the tab order without tabindex: even -1 makes inline spans focusable
+      // and prevents Chrome from starting a native text drag inside them. The button role remains
+      // available to a screen reader's own cursor; a tap or a click still opens the card.
       button.dataset.word = seg.text;
       button.dataset.i = String(order);
       order += 1;
