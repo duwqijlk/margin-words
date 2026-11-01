@@ -1383,6 +1383,87 @@ test("sign-up makes no account until the emailed code comes back", async () => {
   assert.equal(again.status, 409);
 });
 
+test("sign-up expires at exactly 15 minutes and a direct same-email restart rotates the ticket", async () => {
+  const db = openDb();
+  const env = envOf(db, { TURNSTILE_SECRET_KEY: "secret" });
+  const sent = [];
+  const sendCode = async (message) => {
+    sent.push(message);
+    return { sent: true };
+  };
+  let humanChecks = 0;
+  const human = async () => {
+    humanChecks += 1;
+    return new Response(JSON.stringify({ success: true, action: "signup", hostname: "inputread.site" }), { status: 200 });
+  };
+  const post = (path, body) => new Request(`http://localhost${path}`, { method: "POST", body: JSON.stringify(body) });
+  const email = "restart@example.com";
+  const register = (now, turnstileToken) => handleRegister(
+    post("/api/auth/register", { email, password: "correct horse", turnstileToken }),
+    env,
+    { now, sendCode, fetch: human },
+  );
+  const started = await register(NOW, "initial-human-token");
+  assert.equal(started.status, 202);
+  const { ticket: oldTicket } = await started.json();
+  assert.equal(sent.length, 1);
+  assert.equal(humanChecks, 1);
+
+  const expiresAt = NOW + 15 * 60 * 1000;
+  assert.equal(db.raw.prepare("SELECT expires_at FROM pending_signups WHERE email = ?").get(email).expires_at, expiresAt);
+  const expiredConfirm = await handleRegisterConfirm(
+    post("/api/auth/register/confirm", { email, code: sent[0].code, ticket: oldTicket }), env, { now: expiresAt },
+  );
+  assert.equal(expiredConfirm.status, 400);
+  assert.equal((await expiredConfirm.json()).error, "code-expired");
+  const expiredResend = await handleRegisterResend(
+    post("/api/auth/register/resend", { email, ticket: oldTicket }), env, { now: expiresAt, sendCode },
+  );
+  assert.equal(expiredResend.status, 400);
+  assert.equal((await expiredResend.json()).error, "code-expired");
+  assert.equal(sent.length, 1, "neither expired request sends another message");
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users").get().n, 0);
+
+  // No other registration clears the expired row before this same-email retry.
+  const restarted = await register(expiresAt, "fresh-human-token");
+  assert.equal(restarted.status, 202);
+  const { ticket: freshTicket } = await restarted.json();
+  assert.match(freshTicket, /^[A-Za-z0-9_-]{40,}$/);
+  assert.notEqual(freshTicket, oldTicket);
+  assert.equal(humanChecks, 2, "restarting performs a fresh human check");
+  assert.equal(sent.length, 2);
+  assert.equal(sent[1].email, email);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM pending_signups").get().n, 1);
+
+  // Wait past the resend cooldown so a stale ticket, not the cooldown, rejects it.
+  const confirmAt = expiresAt + 61_000;
+  const staleResend = await handleRegisterResend(
+    post("/api/auth/register/resend", { email, ticket: oldTicket }), env, { now: confirmAt, sendCode },
+  );
+  assert.equal(staleResend.status, 400);
+  assert.equal((await staleResend.json()).error, "code-expired");
+  const staleConfirm = await handleRegisterConfirm(
+    post("/api/auth/register/confirm", { email, code: sent[1].code, ticket: oldTicket }), env, { now: confirmAt },
+  );
+  assert.equal(staleConfirm.status, 400);
+  assert.equal((await staleConfirm.json()).error, "code-expired", "even the fresh code cannot revive the old ticket");
+  assert.equal(sent.length, 2, "the stale ticket cannot send mail or replace the fresh code");
+  assert.equal(humanChecks, 2, "resend and confirm do not perform human checks");
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users").get().n, 0);
+
+  const done = await handleRegisterConfirm(
+    post("/api/auth/register/confirm", { email, code: sent[1].code, ticket: freshTicket }), env, { now: confirmAt },
+  );
+  assert.equal(done.status, 201);
+  const { user } = await done.json();
+  assert.equal(user.email, email);
+  assert.equal(user.emailVerified, true);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users").get().n, 1);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users WHERE email = ? AND email_verified_at IS NOT NULL").get(email).n, 1);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM pending_signups").get().n, 0);
+  assert.equal(sent.length, 2);
+});
+
 test("a mistyped address leaves no account, and the address is free once the code runs out", async () => {
   const tickets = {};
   const db = openDb();

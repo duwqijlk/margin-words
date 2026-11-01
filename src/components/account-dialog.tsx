@@ -449,8 +449,8 @@ function Profile({
 }
 
 /**
- * The 6-digit code sent to a new account's email. Until it is typed, the account works (shelf,
- * sync) but cannot open word lists. `onDone` runs after the right code.
+ * Email verification for a pending signup or an existing account. A signup creates the account
+ * only after confirmation; an expired pending signup must start again with a fresh human check.
  */
 function EmailCodeBox({
   email,
@@ -459,8 +459,8 @@ function EmailCodeBox({
 }: {
   email: string;
   onDone?: () => void;
-  /** A sign-up in progress: the code makes the account, and Send again starts the sign-up over. */
-  signup?: { ticket: string; resend: () => Promise<void>; back: () => void };
+  /** A live ticket can resend; a terminal resend failure requires a new signup. */
+  signup?: { ticket: string; expired: boolean; onExpired: () => void; resend: () => Promise<void>; back: () => void };
 }) {
   const { t } = useT();
   const [code, setCode] = useState("");
@@ -483,7 +483,8 @@ function EmailCodeBox({
       else await confirmEmailCode(digits);
       onDone?.();
     } catch (error) {
-      setProblem(t(errorKey(error)));
+      setProblem(t(signup && error instanceof Error && error.message === "code-expired"
+        ? "account.signupCodeExpired" : errorKey(error)));
     } finally {
       setBusy(false);
     }
@@ -497,12 +498,25 @@ function EmailCodeBox({
     try {
       if (signup) await signup.resend();
       else await sendEmailCode();
+      setCode("");
       setNote(t("account.codeResent"));
     } catch (error) {
-      setProblem(t(errorKey(error)));
+      if (signup && error instanceof Error && error.message === "code-expired") signup.onExpired();
+      else setProblem(t(errorKey(error)));
     } finally {
       setBusy(false);
     }
+  }
+
+  if (signup?.expired) {
+    return (
+      <div className="grid gap-3" data-email-code data-signup-expired>
+        <p className="m-0 rounded bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">{t("account.signupExpired")}</p>
+        <button type="button" className={btn.primary} onClick={signup.back} data-signup-restart>
+          {t("account.signupRestart")}
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -624,6 +638,7 @@ export function AccountDialog() {
   const [pendingSignup, setPendingSignup] = useState("");
   /** The ticket the server gave this sign-up; resending and finishing need it. */
   const [signupTicket, setSignupTicket] = useState("");
+  const [signupExpired, setSignupExpired] = useState(false);
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
   const [show, setShow] = useState(false);
@@ -708,6 +723,7 @@ export function AccountDialog() {
         const started = await signUp(address, password, turnstileToken);
         setSignupTicket(started.ticket);
         setPendingSignup(started.email);
+        setSignupExpired(false);
       } else {
         await signIn(address, password);
         closeDialog();
@@ -866,19 +882,29 @@ export function AccountDialog() {
           {signingUp ? (
             <div>
               <EmailCodeBox
+                key={pendingSignup + ":" + signupTicket}
                 email={pendingSignup}
                 signup={{
                   ticket: signupTicket,
+                  expired: signupExpired,
+                  onExpired: () => setSignupExpired(true),
                   // A fresh code without a new human check (the server allows one a minute).
                   resend: () => resendSignUpCode(pendingSignup, signupTicket),
                   back: () => {
+                    setEmail(pendingSignup);
                     setPendingSignup("");
+                    setSignupTicket("");
+                    setSignupExpired(false);
+                    setProblem("");
+                    setNote("");
                     resetTurnstile.current();
                     setTurnstileToken("");
                   },
                 }}
                 onDone={() => {
                   setPendingSignup("");
+                  setSignupTicket("");
+                  setSignupExpired(false);
                   setPassword("");
                   setAgain("");
                   useAccount.getState().patch({ nicknamePrompt: true, dialogOpen: true });
