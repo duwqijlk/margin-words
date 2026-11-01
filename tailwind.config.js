@@ -40,6 +40,8 @@ export default {
         warn: withAlpha("warn"),
         "warn-soft": withAlpha("warn-soft"),
         mark: withAlpha("mark"),
+        "mark-active": withAlpha("mark-active"),
+        "mark-inverse": withAlpha("mark-inverse"),
       },
       // The stacks themselves live in src/styles.css, because the reader's own rules fall back
       // to `var(--font-display)` and a Tailwind theme key does not emit a CSS variable in v3.

@@ -202,7 +202,7 @@ export const QuoteTools = forwardRef<
           {toast.undo ? (
             <button
               type="button"
-              className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded px-3 font-bold text-mark hover:bg-paper/15"
+              className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded px-3 font-bold text-mark-inverse hover:bg-paper/15"
               onClick={() => {
                 useQuotes.getState().remove(toast.undo ?? []);
                 setToast(null);

@@ -53,7 +53,7 @@ export type Prefs = {
   focus: boolean;
   paging: boolean;
   pronunciationAccent: "UK" | "US";
-  /** Hide the underlines of hard words, phrases and tricky meanings. Every word still opens its card on a tap. */
+  /** Hide static word hints, retaining saved and current marks. Tapping still opens the card. */
   quietMarks: boolean;
 };
 
