@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { ArrowLeft, Camera, ChevronRight, Download, Eye, EyeOff, Pencil, X } from "lucide-react";
-import { useEffect, useLayoutEffect, useRef, useState, type FormEvent } from "react";
+import { Camera, ChevronRight, Download, Eye, EyeOff, Pencil, X } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-store";
 import { Avatar } from "@/components/avatar";
 import { cleanNickname } from "@/lib/nickname";
@@ -24,9 +24,9 @@ import {
   resendSignUpCode,
 } from "@/lib/sync-engine";
 import { suggestEmail } from "@/lib/email-typo";
-import { SettingsBody } from "@/components/get-books";
-import { NewTag } from "@/components/tutorial-tab";
-import { useTutorialNews } from "@/lib/tutorial";
+import { AccountPreferences } from "@/components/get-books";
+import { isSponsorAdmin } from "@/lib/sponsor";
+import { navigate } from "@/lib/router";
 import { useT, type Key } from "@/lib/i18n";
 import { dayLabel, useGlossaryQuota, type QuotaCount } from "@/lib/glossary-quota";
 import { btn, cn, ConfirmDialog, field, panel, PanelHandle, ProgressBar, Segmented } from "@/components/ui";
@@ -605,26 +605,13 @@ export function AccountDialog() {
   const mode = useAccount((state) => state.mode);
   const resetToken = useAccount((state) => state.resetToken);
   const phase = useAccount((state) => state.phase);
+  const role = useAccount((state) => state.role);
   const emailSaved = useAccount((state) => state.email);
   const nicknamePrompt = useAccount((state) => state.nicknamePrompt);
   const emailVerified = useAccount((state) => state.emailVerified);
   const sync = useAccount((state) => state.sync);
   const [askSignOut, setAskSignOut] = useState(false);
-  const [view, setView] = useState<"account" | "settings">("account");
-  const tutorialNews = useTutorialNews();
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const settingsEntry = useRef<HTMLButtonElement>(null);
   const restoreFocus = useRef(true);
-  useLayoutEffect(() => {
-    setView("account");
-  }, [open, mode, resetToken]);
-  useLayoutEffect(() => {
-    if (open && view === "settings") titleRef.current?.focus();
-  }, [open, view]);
-  function backToAccount() {
-    setView("account");
-    requestAnimationFrame(() => settingsEntry.current?.focus());
-  }
   function dismissForNavigation() {
     restoreFocus.current = false;
     closeDialog();
@@ -825,12 +812,6 @@ export function AccountDialog() {
   // A new account types its emailed code first; the nickname question comes after.
   const checking = Boolean(signedIn && !emailVerified);
   const prompting = signedIn && nicknamePrompt && !checking;
-  const settingsRow = (
-    <button ref={settingsEntry} type="button" className={panel.row} onClick={() => setView("settings")} data-account-settings>
-      <span className={panel.rowLabel}>{t("settings.title")}{tutorialNews ? <span className="ml-2"><NewTag /></span> : null}</span>
-      <ChevronRight className={panel.rowIcon} aria-hidden />
-    </button>
-  );
 
   return (
     <Dialog.Root open={open} onOpenChange={(next) => (next ? openDialog(mode, resetToken) : closeDialog())}>
@@ -844,14 +825,8 @@ export function AccountDialog() {
             }}>
           <PanelHandle />
           <div className={panel.head}>
-            <div className="flex min-w-0 items-center gap-2">
-              {view === "settings" ? (
-                <button type="button" className={btn.icon} onClick={backToAccount} aria-label={t("account.backToAccount")} data-account-back>
-                  <ArrowLeft className="size-5" aria-hidden />
-                </button>
-              ) : null}
-            <Dialog.Title ref={titleRef} tabIndex={-1} className={panel.title}>
-              {view === "settings" ? t("settings.title") : mode === "reset"
+            <Dialog.Title className={panel.title}>
+              {mode === "reset"
                 ? t("account.resetTitle")
                 : mode === "forgot"
                   ? t("account.forgotTitle")
@@ -861,13 +836,12 @@ export function AccountDialog() {
                       ? t("account.nicknamePromptTitle")
                       : t("account.title")}
             </Dialog.Title>
-            </div>
             <Dialog.Close className={cn(btn.icon, "-mr-2.5")} aria-label={t("common.close")}>
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
-          <Dialog.Description className={view === "settings" || signedIn || signingUp ? "sr-only" : panel.desc}>
-            {view === "settings" ? t("settings.desc") : checking || signingUp
+          <Dialog.Description className={signedIn || signingUp ? "sr-only" : panel.desc}>
+            {checking || signingUp
               ? t("account.codeTitle")
               : prompting
               ? t("account.nicknamePrompt")
@@ -878,7 +852,7 @@ export function AccountDialog() {
                   : t("account.desc")}
           </Dialog.Description>
 
-          <div hidden={view !== "account"} data-account-home>
+          <div data-account-home>
           {signingUp ? (
             <div>
               <EmailCodeBox
@@ -948,9 +922,18 @@ export function AccountDialog() {
               <Profile email={emailSaved} nickname={nickname} onNickname={setNickname} onSave={onSaveNickname} busy={busy} />
               <ReadingOverviewPanel />
               <GlossaryAllowance />
+              <AccountPreferences onDismiss={dismissForNavigation} />
               <section className={panel.group} aria-label={t("account.title")} data-account-more>
                 <div className={panel.box}>
-                  {settingsRow}
+                  {role === "admin" || isSponsorAdmin(emailSaved) ? (
+                    <button type="button" className={panel.row} data-account-admin onClick={() => {
+                      dismissForNavigation();
+                      navigate({ kind: "admin" });
+                    }}>
+                      <span className={panel.rowLabel}>{t("admin.title")}</span>
+                      <ChevronRight className={panel.rowIcon} aria-hidden />
+                    </button>
+                  ) : null}
                   <button type="button" className={panel.row} onClick={() => void onExport()} disabled={busy} data-account-export>
                     <span className={panel.rowLabel}>{t("account.export")}</span>
                     <Download className={panel.rowIcon} aria-hidden />
@@ -1141,10 +1124,9 @@ export function AccountDialog() {
             </form>
           )}
             {!signedIn || checking || prompting ? (
-              <div className={cn(panel.box, "mt-5")}>{settingsRow}</div>
+              <div className="mt-5"><AccountPreferences onDismiss={dismissForNavigation} /></div>
             ) : null}
           </div>
-          {view === "settings" ? <div className="grid gap-4 sm:gap-5" data-settings-panel><SettingsBody onDismiss={dismissForNavigation} /></div> : null}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

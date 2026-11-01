@@ -1,10 +1,7 @@
 import { ChevronRight, ExternalLink } from "lucide-react";
 import { useT } from "@/lib/i18n";
-import { cn, panel, Segmented, ThemeTiles } from "@/components/ui";
+import { panel, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
-import { useAccount } from "@/lib/account-store";
-import { isSponsorAdmin } from "@/lib/sponsor";
-import { navigate } from "@/lib/router";
 import { LanguageSwitch } from "@/components/language";
 import { guideUrl } from "@/lib/guide";
 import { useTutorialList, useTutorialNews } from "@/lib/tutorial";
@@ -15,33 +12,13 @@ import { NewTag } from "@/components/tutorial-tab";
  * card, and a word-list book asks for the reader's own EPUB there (the own-EPUB dialog).
  */
 
-export function SettingsBody({ onDismiss }: { onDismiss: () => void }) {
+export function AccountPreferences({ onDismiss }: { onDismiss: () => void }) {
   const { t } = useT();
   const tutorialNews = useTutorialNews();
-  const theme = usePrefs((state) => state.theme);
   const pronunciationAccent = usePrefs((state) => state.pronunciationAccent);
   const setPrefs = usePrefs((state) => state.set);
-  const role = useAccount((state) => state.role);
-  const email = useAccount((state) => state.email);
-  const isAdmin = role === "admin" || isSponsorAdmin(email);
-
   return (
-    <>
-      <section className={panel.group} aria-label={t("rs.theme")} data-settings-theme>
-        <h3 className={panel.groupTitle}>{t("rs.theme")}</h3>
-        <ThemeTiles
-          label={t("rs.theme")}
-          value={theme}
-          onChange={(next) => setPrefs({ theme: next })}
-          labels={{
-            light: t("rs.theme.light"),
-            sepia: t("rs.theme.sepia"),
-            dark: t("rs.theme.dark"),
-            eink: t("rs.theme.eink"),
-          }}
-        />
-      </section>
-
+    <div className="grid gap-5" data-account-preferences>
       <section className={panel.group} aria-label={t("settings.general")}>
         <h3 className={panel.groupTitle}>{t("settings.general")}</h3>
         <div className={panel.box}>
@@ -92,24 +69,8 @@ export function SettingsBody({ onDismiss }: { onDismiss: () => void }) {
             <span className={panel.rowLabel}>{t("settings.guide")}</span>
             <ExternalLink className={panel.rowIcon} aria-hidden />
           </a>
-          {isAdmin ? (
-            <button
-              type="button"
-              className={panel.row}
-              data-settings-admin
-              onClick={() => {
-                onDismiss();
-                navigate({ kind: "admin" });
-              }}
-            >
-              <span className={cn(panel.rowLabel, "font-bold text-accent")}>
-                {t("admin.title")}
-              </span>
-              <ChevronRight className={panel.rowIcon} aria-hidden />
-            </button>
-          ) : null}
         </div>
       </section>
-    </>
+    </div>
   );
 }

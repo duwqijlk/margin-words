@@ -447,7 +447,6 @@ export const zh: Record<Key, string> = {
   /* ---- account */
   "account.manage": "账号",
   "account.title": "账号",
-  "account.backToAccount": "返回账号",
   "account.desc":
     "登录后可以添加和阅读图书，书架、读到哪里和生词也会同步到其他设备。",
   "account.signedDesc":
