@@ -3,7 +3,8 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { sameSyncItem } from "../src/lib/sync-merge.ts";
+import { normalizeItem } from "../src/lib/sync-merge.ts";
+import { clientSyncItem, historySettings, sameClientSyncItem } from "../src/lib/sync-settings.ts";
 import {
   afterPull,
   afterPush,
@@ -48,18 +49,18 @@ test("a partial pull adds to the record; a full pull replaces it", () => {
   assert.equal(full.fullAt, NOW + 9);
 });
 
-test("upload exactly what sameSyncItem would upload against the server's copy", () => {
+test("upload exactly what sameClientSyncItem would upload against the server's copy", () => {
   const server = [shelf("book:a", "A"), shelf("book:b", "B")];
   const view = afterPull(null, "a@example.com", server, 100, true, NOW);
   const local = [
-    shelf("book:a", "A", 99), // same content, newer time: sameSyncItem ignores the time
+    shelf("book:a", "A", 99), // same content, newer time: sameClientSyncItem ignores the time
     shelf("book:b", "B changed"),
     shelf("book:c", "C"), // the server has never seen it
     { ...shelf("book:a", "A"), itemId: "book:d", deleted: true, data: {} },
   ];
   const old = local.filter((item) => {
     const prior = server.find((other) => other.kind === item.kind && other.itemId === item.itemId);
-    return !prior || !sameSyncItem(prior, item);
+    return !prior || !sameClientSyncItem(prior, item);
   });
   assert.deepEqual(
     local.filter((item) => needsUpload(view, item)).map((item) => item.itemId),
@@ -78,13 +79,102 @@ test("the signature follows deleted and data, with key order not mattering", () 
   assert.notEqual(signatureOf(a), signatureOf(shelf("book:a", "A!")));
 });
 
-test("a stored record is read only for its own account and only when well formed", () => {
-  const view = afterPull(null, "a@example.com", [shelf("book:a", "A")], 100, true, NOW);
+test("a version 2 stored record is read only for its own account and when well formed", () => {
+  const view = {
+    version: 2,
+    email: "a@example.com",
+    cursor: 100,
+    fullAt: NOW,
+    sigs: { "shelf:book:a": signatureOf(shelf("book:a", "A")) },
+  };
+  assert.deepEqual(afterPull(null, view.email, [shelf("book:a", "A")], 100, true, NOW), view);
   const raw = JSON.stringify(view);
   assert.deepEqual(readView(raw, "a@example.com"), view);
   assert.equal(readView(raw, "b@example.com"), null);
   assert.equal(readView("{not json", "a@example.com"), null);
   assert.equal(readView(JSON.stringify({ ...view, cursor: "x" }), "a@example.com"), null);
+  const pushed = afterPush(view, [shelf("book:a", "A2")]);
+  assert.equal(pushed.version, 2);
+  assert.deepEqual(readView(JSON.stringify(pushed), view.email), pushed);
+});
+
+test("old full-settings signature records are discarded to force one full pull", () => {
+  const legacy = { email: "a@example.com", cursor: 100, fullAt: NOW, sigs: { "settings:main": "old-full-settings-signature" } };
+  for (const value of [legacy, { ...legacy, version: 1 }, { ...legacy, version: "2" }]) {
+    const view = readView(JSON.stringify(value), legacy.email);
+    assert.equal(view, null);
+    assert.equal(pullAfter(view, legacy.email, NOW), null);
+  }
+});
+
+const history = {
+  reviewLog: { "2026-10-01": { reviewed: 3, correct: 2 } },
+  readDays: ["2026-10-01"],
+};
+const historyItem = (data = history, updatedAt = 10) => ({
+  kind: "settings", itemId: "main", updatedAt, deleted: false, data,
+});
+
+test("client settings projection drops preferences but preserves normalized history", () => {
+  const full = historyItem({ ...history, theme: "dark", locale: "zh", wordHints: "off", pronunciationAccent: "UK" });
+  assert.deepEqual(historySettings(full.data), history);
+  assert.deepEqual(historySettings(null), { reviewLog: {}, readDays: [] });
+  assert.deepEqual(clientSyncItem(full), historyItem());
+  assert.deepEqual(full.data.theme, "dark", "projection does not mutate the input");
+  const book = shelf("book:a", "A");
+  assert.deepEqual(clientSyncItem(book), book, "other item kinds retain their data");
+  assert.equal(sameClientSyncItem(book, shelf("book:a", "A2")), false);
+});
+
+test("preference-only signatures stay equal while either history field changes the signature", () => {
+  const local = historyItem();
+  const view = afterPull(null, "a@example.com", [local], 100, true, NOW);
+  for (const preference of [
+    { theme: "dark" }, { font: "sans" }, { size: 28 }, { leading: 2.2 },
+    { width: "wide" }, { column: 65 }, { focus: true }, { paging: true },
+    { pronunciationAccent: "UK" }, { wordHints: "underline" }, { quietMarks: true },
+    { locale: "zh" },
+  ]) {
+    const changed = historyItem({ ...history, ...preference }, 999);
+    assert.equal(signatureOf(local), signatureOf(changed), JSON.stringify(preference));
+    assert.equal(sameClientSyncItem(local, changed), true);
+    assert.equal(needsUpload(view, changed), false);
+  }
+  for (const change of [
+    { reviewLog: { "2026-10-01": { reviewed: 4, correct: 2 } } },
+    { reviewLog: { "2026-10-01": { reviewed: 3, correct: 3 } } },
+    { readDays: ["2026-10-01", "2026-10-02"] },
+  ]) {
+    const changed = historyItem({ ...history, ...change });
+    assert.notEqual(signatureOf(local), signatureOf(changed));
+    assert.equal(sameClientSyncItem(local, changed), false);
+    assert.equal(needsUpload(view, changed), true);
+  }
+  const deleted = { ...local, deleted: true, data: {} };
+  assert.notEqual(signatureOf(local), signatureOf(deleted));
+  assert.equal(sameClientSyncItem(local, deleted), false);
+});
+
+test("full server normalization of history-only settings converges after pulls and pushes", () => {
+  const local = historyItem();
+  const normalized = normalizeItem(local);
+  assert.ok(normalized);
+  assert.equal(normalized.data.theme, "light", "the shared server schema still adds preferences");
+  const legacyFull = normalizeItem(historyItem({
+    ...history, theme: "dark", font: "sans", locale: "zh", wordHints: "off", pronunciationAccent: "UK",
+  }, 999));
+  assert.ok(legacyFull);
+  for (const server of [normalized, legacyFull]) {
+    assert.deepEqual(clientSyncItem(server).data, history);
+    assert.equal(sameClientSyncItem(local, server), true);
+    assert.equal(signatureOf(local), signatureOf(server));
+    const pulled = afterPull(null, "a@example.com", [server], 100, true, NOW);
+    assert.equal(needsUpload(pulled, local), false);
+    const unknown = afterPull(null, "a@example.com", [], 100, true, NOW);
+    assert.equal(needsUpload(unknown, local), true);
+    const pushed = afterPush(unknown, [server]);
+    assert.equal(needsUpload(pushed, local), false, "server-added preferences cannot create a re-upload loop");
+  }
 });
 
 test("the engine pulls with the cursor, decides uploads from the record, and forgets it on sign-out", () => {

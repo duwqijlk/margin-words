@@ -452,15 +452,15 @@ export const en = {
   "account.desc":
     "Sign in to add and read books, and to sync your shelf, reading place, and saved words.",
   "account.signedDesc":
-    "You are signed in. Your shelf, reading place, saved words, and settings sync to your other devices. Book files stay on each device.",
+    "You are signed in. Your shelf, reading place, saved words, and learning history sync to your other devices. Settings and book files stay on this device.",
   "account.privacyTitle": "Privacy",
   "account.privacy":
-    "An account stores your email, a scrambled password, and a nickname if you add one. A nickname can be the same as someone else's. To sync, it also stores your shelf, reading place, saved words, and settings. We do not ask for your real name, age, school, or phone number. Book files stay on each device. You can export or delete the account at any time.",
+    "An account stores your email, a scrambled password, and a nickname if you add one. A nickname can be the same as someone else's. To sync, it also stores your shelf, reading place, saved words, and learning history. Settings stay on this device. We do not ask for your real name, age, school, or phone number. Book files stay on each device. You can export or delete the account at any time.",
   "account.save": "Save",
   "account.editNickname": "Change nickname",
   "account.nicknameHintLong": "Up to 16 characters, and it can be the same as someone else's. It shows next to your accepted meanings and on the contributors list.",
   "account.avatarRemoveLong": "Remove photo",
-  "account.syncNote": "Your shelf, reading places, saved words and settings sync to your other devices. Book files stay on each device.",
+  "account.syncNote": "Your shelf, reading places, saved words and learning history sync to your other devices. Settings and book files stay on this device.",
   "account.mastered": "{n} words mastered",
   "account.nickname": "Nickname",
   "account.nicknameHint": "Up to 16 characters. Someone else can use the same nickname.",
@@ -478,7 +478,7 @@ export const en = {
   "account.register": "Create account",
   "account.logoutTitle": "Sign out and clear this device?",
   "account.logoutBody":
-    "Signing out clears the shelf, book files and word lists, reading progress, wordbook and settings on this device, so the next person who signs in here does not see or merge your things. What was synced stays in the cloud and comes back when you sign in. E-book files you added yourself are not in the cloud, so add them again.",
+    "Signing out clears the shelf, book files and word lists, reading progress, wordbook and settings on this device, so the next person who signs in here does not see or merge your things. Synced reading data stays in the cloud and comes back when you sign in. Local settings are cleared and are not restored from the cloud. E-book files you added yourself are not in the cloud, so add them again.",
   "account.logoutConfirm": "Sign out and clear",
   "account.logout": "Sign out",
   "account.signedIn": "Signed in as {email}",
