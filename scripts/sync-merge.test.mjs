@@ -191,16 +191,66 @@ test("a winning legacy hint item replaces underline instead of inheriting its en
   }
 });
 
-test("hint-only changes are tracked and included in outgoing settings snapshots", () => {
+test("hint-only changes do not change snapshots or outgoing history", () => {
   const base = captureSnapshot({ books: [], words: [], progress: {}, settings: settings({ wordHints: "subtle" }) });
   for (const wordHints of ["underline", "off"]) {
     const changed = captureSnapshot({ books: [], words: [], progress: {}, settings: settings({ wordHints }) });
+    assert.deepEqual(changed, base);
     const meta = noteChanges(emptyMeta(), base, changed, 777);
+    assert.equal(meta.settingsUpdatedAt, 0);
+    const sent = buildSyncItems(changed, meta).find((item) => item.kind === "settings");
+    assert.equal(sent.updatedAt, 0);
+    assert.deepEqual(sent.data, { reviewLog: {}, readDays: [] });
+  }
+});
+
+test("each preference and locale change leaves history snapshots and meta unchanged", () => {
+  const history = {
+    reviewLog: { "2026-10-01": { reviewed: 3, correct: 2 } },
+    readDays: ["2026-10-01"],
+  };
+  const input = { books: [], words: [], progress: {}, settings: settings(history) };
+  const base = captureSnapshot(input);
+  assert.deepEqual(base.settings, history);
+  const initialMeta = { ...emptyMeta(), settingsUpdatedAt: 123 };
+  const originalItems = buildSyncItems(base, initialMeta);
+  for (const preference of [
+    { theme: "dark" }, { font: "sans" }, { size: 28 }, { leading: 2.2 },
+    { width: "wide" }, { column: 65 }, { focus: true }, { paging: true },
+    { pronunciationAccent: "UK" }, { wordHints: "underline" }, { quietMarks: true },
+    { locale: "zh" },
+  ]) {
+    const rawChanged = { ...input, settings: settings({ ...history, ...preference }) };
+    const changed = captureSnapshot(rawChanged);
+    assert.deepEqual(changed, base, JSON.stringify(preference));
+    assert.deepEqual(noteChanges(initialMeta, base, changed, 777), initialMeta);
+    assert.deepEqual(buildSyncItems(changed, initialMeta), originalItems);
+    // Even callers holding legacy full settings cannot bump history clocks or leak preferences.
+    assert.deepEqual(noteChanges(initialMeta, input, rawChanged, 777), initialMeta);
+    assert.deepEqual(buildSyncItems(rawChanged, initialMeta), originalItems);
+  }
+});
+
+test("review and reading history changes still advance meta and are sent without preferences", () => {
+  const history = {
+    reviewLog: { "2026-10-01": { reviewed: 3, correct: 2 } },
+    readDays: ["2026-10-01"],
+  };
+  const input = { books: [], words: [], progress: {}, settings: settings(history) };
+  const base = captureSnapshot(input);
+  for (const change of [
+    { reviewLog: { "2026-10-01": { reviewed: 4, correct: 2 } } },
+    { reviewLog: { "2026-10-01": { reviewed: 3, correct: 3 } } },
+    { readDays: ["2026-10-01", "2026-10-02"] },
+  ]) {
+    const expected = { ...history, ...change };
+    const changed = captureSnapshot({ ...input, settings: settings({ ...expected, theme: "dark", locale: "zh" }) });
+    assert.notDeepEqual(changed, base);
+    const meta = noteChanges({ ...emptyMeta(), settingsUpdatedAt: 123 }, base, changed, 777);
     assert.equal(meta.settingsUpdatedAt, 777);
     const sent = buildSyncItems(changed, meta).find((item) => item.kind === "settings");
     assert.equal(sent.updatedAt, 777);
-    assert.equal(sent.data.wordHints, wordHints);
-    assert.equal(sent.data.quietMarks, wordHints === "off");
+    assert.deepEqual(sent.data, expected);
   }
 });
 

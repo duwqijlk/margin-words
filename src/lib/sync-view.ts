@@ -10,6 +10,7 @@
  *
  * Pure functions: the engine (sync-engine.ts) stores the record in localStorage.
  */
+import { clientSyncItem } from "./sync-settings.ts";
 import { itemKey, stableJson, type SyncItem } from "./sync-merge.ts";
 
 export const SYNC_VIEW_KEY = "cibian-sync-server-v1";
@@ -17,6 +18,7 @@ export const SYNC_VIEW_KEY = "cibian-sync-server-v1";
 export const FULL_PULL_MS = 24 * 60 * 60_000;
 
 export type SyncView = {
+  version: 2;
   /** The account this record describes. Another account starts over. */
   email: string;
   /** The server's cursor from the last pull (its clock, ms). */
@@ -42,11 +44,11 @@ function hash53(text: string): string {
 }
 
 /**
- * The parts of an item that decide whether it must be uploaded: the same parts sameSyncItem
- * compares (deleted and data, not the time), plus the length, so a collision also needs equal size.
+ * The parts of an item that decide whether it must be uploaded: client-visible data (learning
+ * histories only for settings), not time, plus the length so a collision also needs equal size.
  */
 export function signatureOf(item: SyncItem): string {
-  const data = item.deleted ? "" : stableJson(item.data);
+  const data = item.deleted ? "" : stableJson(clientSyncItem(item).data);
   return `${item.deleted ? "d" : "l"}${data.length.toString(36)}.${hash53(data)}`;
 }
 
@@ -56,6 +58,7 @@ export function readView(raw: string | null, email: string | null): SyncView | n
     const value = JSON.parse(raw) as Partial<SyncView>;
     if (
       !value ||
+      value.version !== 2 ||
       value.email !== email ||
       typeof value.cursor !== "number" ||
       !Number.isFinite(value.cursor) ||
@@ -66,7 +69,7 @@ export function readView(raw: string | null, email: string | null): SyncView | n
       return null;
     const sigs: Record<string, string> = {};
     for (const [key, sig] of Object.entries(value.sigs)) if (typeof sig === "string") sigs[key] = sig;
-    return { email, cursor: value.cursor, fullAt: value.fullAt, sigs };
+    return { version: 2, email, cursor: value.cursor, fullAt: value.fullAt, sigs };
   } catch {
     return null;
   }
@@ -95,6 +98,7 @@ export function afterPull(
   const sigs: Record<string, string> = full || !view || view.email !== email ? {} : { ...view.sigs };
   for (const item of items) sigs[itemKey(item)] = signatureOf(item);
   return {
+    version: 2,
     email,
     cursor,
     fullAt: full || !view || view.email !== email ? now : view.fullAt,

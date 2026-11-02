@@ -6,8 +6,6 @@
  */
 import { useAccount, type AccountRole } from "@/lib/account-store";
 import { isSponsorAdmin } from "@/lib/sponsor";
-import { useLocale, type Locale } from "@/lib/i18n";
-import { usePrefs, type Prefs } from "@/lib/reader-prefs";
 import { useProgress } from "@/lib/progress-store";
 import { forgetBook } from "@/lib/shelf-remove";
 import { repairShelf } from "@/lib/shelf-repair";
@@ -33,13 +31,12 @@ import {
   itemKey,
   lemmaKey,
   mergeSnapshots,
-  sameSyncItem,
   wordbookItemId,
   wordbookShard,
-  type SettingsData,
   type SyncItem,
   type WordbookRecord,
 } from "@/lib/sync-merge";
+import { sameClientSyncItem } from "@/lib/sync-settings";
 import { rehomeForeignSources } from "@/lib/wordbook";
 import { useVocab } from "@/lib/vocab-store";
 import { applyQuoteItems, useQuotes } from "@/lib/quote-store";
@@ -95,28 +92,9 @@ function writeStorage(key: string, value: string | null) {
   }
 }
 
-function prefsOf(): Prefs {
-  const state = usePrefs.getState();
-  return {
-    theme: state.theme,
-    font: state.font,
-    size: state.size,
-    leading: state.leading,
-    width: state.width,
-    column: state.column,
-    focus: state.focus,
-    paging: state.paging,
-    pronunciationAccent: state.pronunciationAccent,
-    wordHints: state.wordHints,
-    quietMarks: state.quietMarks,
-  };
-}
-
 function capture(): LocalSnapshot {
   const vocab = useVocab.getState();
   const settings = {
-    ...prefsOf(),
-    locale: useLocale.getState().locale,
     reviewLog: vocab.log,
     readDays: vocab.readDays,
   };
@@ -450,7 +428,6 @@ async function applyMerged(items: SyncItem[]) {
       ...(settings ? { log: settings.reviewLog, readDays: settings.readDays ?? [] } : {}),
     });
     useProgress.setState({ items: progress });
-    if (settings) applySettings(settings);
     applyQuoteItems(items);
     alignMeta(items);
     try {
@@ -462,25 +439,6 @@ async function applyMerged(items: SyncItem[]) {
   } finally {
     quiet = false;
   }
-}
-
-function applySettings(settings: SettingsData) {
-  const current = prefsOf();
-  const next = {
-    theme: settings.theme,
-    font: settings.font,
-    size: settings.size,
-    leading: settings.leading,
-    width: settings.width,
-    column: settings.column,
-    focus: settings.focus,
-    paging: settings.paging === true,
-    pronunciationAccent: settings.pronunciationAccent === "UK" ? "UK" as const : "US" as const,
-    wordHints: settings.wordHints,
-    quietMarks: settings.quietMarks === true,
-  };
-  if (JSON.stringify(current) !== JSON.stringify(next)) usePrefs.getState().set(next);
-  if (useLocale.getState().locale !== settings.locale) useLocale.getState().setLocale(settings.locale as Locale);
 }
 
 function onStore() {
@@ -551,7 +509,7 @@ async function flush() {
     const differs = (list: readonly SyncItem[]) =>
       merged.some((item) => {
         const prior = list.find((other) => itemKey(other) === itemKey(item));
-        return !prior || !sameSyncItem(prior, item);
+        return !prior || !sameClientSyncItem(prior, item);
       });
     if (differs(local)) await applyMerged(merged);
     const after = buildSyncItems(capture(), meta);
@@ -560,7 +518,7 @@ async function flush() {
     const upload = after.filter((item) => {
       if (view && !pulled.full) return needsUpload(view, item);
       const prior = remote.find((other) => itemKey(other) === itemKey(item));
-      return !prior || !sameSyncItem(prior, item);
+      return !prior || !sameClientSyncItem(prior, item);
     });
     if (upload.length > 0) {
       const saved = await pushItems(upload);
@@ -569,7 +527,7 @@ async function flush() {
       const reconciled = mergeSnapshots(foldLegacyWords(saved), againLocal);
       const needApply = reconciled.some((item) => {
         const prior = againLocal.find((other) => itemKey(other) === itemKey(item));
-        return !prior || !sameSyncItem(prior, item);
+        return !prior || !sameClientSyncItem(prior, item);
       });
       if (needApply) await applyMerged(reconciled);
     }
@@ -724,8 +682,6 @@ export function startAccountSync(): () => void {
   const stopVocab = useVocab.subscribe(onStore);
   const stopProgress = useProgress.subscribe(onStore);
   const stopQuotes = useQuotes.subscribe(onStore);
-  const stopPrefs = usePrefs.subscribe(onStore);
-  const stopLocale = useLocale.subscribe(onStore);
   const onOnline = () => {
     if (useAccount.getState().phase === "in") void flush();
   };
@@ -753,8 +709,6 @@ export function startAccountSync(): () => void {
     stopVocab();
     stopProgress();
     stopQuotes();
-    stopPrefs();
-    stopLocale();
     document.removeEventListener("visibilitychange", onFocus);
     window.removeEventListener("online", onOnline);
     window.removeEventListener("pagehide", onPageHide);

@@ -20,8 +20,10 @@ All of it is in (PR #249). Its rules, in the code:
   `mark-hover` and `mark-active` for interaction, and `mark-inverse` for readable amber actions on `bg-ink`.
   Word hints offer Subtle (muted-green ink, gray grounds on e-ink), Underline (solid/dashed/wavy), and Off.
   Saved words retain full-height backgrounds and ordinary ink in every mode. `wordHints` is canonical;
-  `quietMarks` mirrors Off for old clients. Legacy true maps to Off, false/missing to Subtle. Settings sync
-  stays item-LWW: a winning old-client record cannot express Underline and maps back to Subtle.
+  `quietMarks` mirrors Off for older local preferences. Legacy true maps to Off, false/missing to Subtle.
+  UI/reading preferences and language stay on this device: sync captures only review counts and reading
+  days from the legacy settings item and never applies remote preferences. Signature format v2 ignores
+  preference fields; an older cursor record triggers one full pull without dropping pending data.
 - Radii: `rounded-sm` 2px (marks on text), `rounded`/`md`/`lg`/`xl` 10px (buttons, fields, chips, notices),
   `rounded-2xl`/`3xl` 16px (cards, dialogs, popovers), `rounded-cover` 6px (book covers), `rounded-card` /
   `rounded-t-sheet` for the word card only. No pills: `rounded-full` is for dots, switches, avatars and the spinner.
@@ -99,7 +101,7 @@ All of it is in (PR #249). Its rules, in the code:
   (`public/brand/`, `public/favicon.svg`; the one-colour mark is the tab icon on e-ink). The app header
   keeps the plain text wordmark. App icons are drawn by `scripts/make-app-icons.mjs`, the link picture by
   `scripts/make-og-image.mjs`.
-Optional accounts (email, password, and sync of shelf, progress, saved words, and settings) are
+Optional accounts (email, password, and sync of shelf, progress, saved words, and learning history) are
 Cloudflare Pages Functions in `functions/` plus a D1 database. See [docs/ACCOUNTS.md](docs/ACCOUNTS.md).
 Do not store ordinary user data in R2. Publicly projected contributor names and avatars are the documented
 R2 exception; follow [docs/MAINTENANCE.md](docs/MAINTENANCE.md) for that surface. Books and word lists use

@@ -4,7 +4,6 @@
  */
 import {
   asProgress,
-  asSettings,
   asShelf,
   asWordbookRecord,
   bookSyncKey,
@@ -13,12 +12,12 @@ import {
   wordbookItemId,
   wordbookShard,
   type ProgressData,
-  type SettingsData,
   type ShelfData,
   type SourceRecord,
   type SyncItem,
   type WordbookRecord,
 } from "./sync-merge.ts";
+import { historySettings, type HistorySettings } from "./sync-settings.ts";
 import { SYNC_BODY_TARGET, SYNC_PUSH_MAX } from "./limits.ts";
 import { asQuote, quoteRows, type LocalQuoteGone, type QuoteRecord } from "./quote-model.ts";
 
@@ -41,7 +40,7 @@ export type LocalSnapshot = {
   books: ShelfData[];
   words: LocalWord[];
   progress: Record<string, ProgressData>;
-  settings: SettingsData;
+  settings: HistorySettings;
   /** quotes and their tombstones (quote-model.ts); each row carries its own deletes, so no meta */
   quotes?: QuoteRecord[];
   quotesRemoved?: LocalQuoteGone[];
@@ -181,7 +180,7 @@ export function noteChanges(meta: SyncMeta, prev: LocalSnapshot, next: LocalSnap
     delete out.sourceRemoved[lemma];
   }
 
-  if (JSON.stringify(prev.settings) !== JSON.stringify(next.settings)) out.settingsUpdatedAt = now;
+  if (JSON.stringify(historySettings(prev.settings)) !== JSON.stringify(historySettings(next.settings))) out.settingsUpdatedAt = now;
   return out;
 }
 
@@ -259,7 +258,7 @@ export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncIte
     itemId: "main",
     updatedAt: meta.settingsUpdatedAt,
     deleted: false,
-    data: snapshot.settings,
+    data: historySettings(snapshot.settings),
   });
   return items;
 }
@@ -354,7 +353,7 @@ export function captureSnapshot(input: {
     if (row && typeof row.id === "string" && typeof row.book === "string" && typeof row.removed === "number")
       quotesRemoved.push({ id: row.id, book: row.book, removed: row.removed });
   }
-  return { books, words, progress, settings: asSettings(input.settings), quotes, quotesRemoved };
+  return { books, words, progress, settings: historySettings(input.settings), quotes, quotesRemoved };
 }
 
 /**
